@@ -20,7 +20,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer useridx;
+    private Integer userindex;
 
     @Column(columnDefinition = "varchar(20) unique not null")
     private String username;
@@ -39,7 +39,7 @@ public class User {
     @Column(columnDefinition = "varchar(100) not null")
     private String address2;
 
-    @Column(columnDefinition = "timestamp not null default current_timestamp()")
+    @Column(columnDefinition = "timestamp not null default current_timestamp()", updatable = false)
     private LocalDate joindate;
     @Column(columnDefinition = "tinyint default 0")
     private Boolean deleted;
