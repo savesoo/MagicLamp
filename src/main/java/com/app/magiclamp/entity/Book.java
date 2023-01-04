@@ -16,9 +16,8 @@ import java.util.Date;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private char isbn;
+    private Stirng isbn;
 
     @Column
     private String title;
@@ -36,28 +35,28 @@ public class Book {
     private String status;
 
     @Column
-    private int price;
+    private Integer price;
 
     @Column
-    private int saleprice;
+    private Integer saleprice;
 
     @Column
-    private int mileagerate;
+    private Integer mileagerate;
 
     @Column
-    private int stock;
+    private Integer stock;
 
     @Column
     private String binding;
 
     @Column
-    private int pages;
+    private Integer pages;
 
     @Column
     private String size;
 
     @Column
-    private int weight;
+    private Integer weight;
 
     @Column
     private String category;
@@ -71,10 +70,10 @@ public class Book {
     @Column
     private String bookimg;
 
-    @Column
-    private String regdate;
+    @Column(columnDefinition = "timestamp not null default current_timestamp()")
+    private LocalDate regdate;
 
     @Column
-    private String updatedate;
+    private LocalDate updatedate;
 
 }
