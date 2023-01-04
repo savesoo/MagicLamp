@@ -3,6 +3,7 @@ package com.app.magiclamp.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,7 +18,7 @@ public class Book {
 
     @Id
     @Column
-    private Stirng isbn;
+    private String isbn;
 
     @Column
     private String title;
