@@ -21,8 +21,9 @@ public class Review {
     @Column
     private Integer reviewindex;
 
-    @Column(columnDefinition = "char(13) not null")
-    private String isbn;
+    @ManyToOne
+    @JoinColumn(name = "isbn")
+    private Book isbn;
 
     @ManyToOne
     @JoinColumn(name = "reviewer")
