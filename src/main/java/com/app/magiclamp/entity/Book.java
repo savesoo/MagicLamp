@@ -30,7 +30,7 @@ public class Book {
     private String publisher; // 출판사
 
     @Column
-    private Date pubdate; // 출간일자
+    private String pubdate; // 출간일자
 
     @Column
     private String status; // 도서 상태 (정상, 절판, 품절)
@@ -74,7 +74,7 @@ public class Book {
     @Column(columnDefinition = "timestamp not null default current_timestamp()")
     private LocalDate regdate; // 등록일자
 
-    @Column
+    @Column(columnDefinition = "timestamp not null default current_timestamp()")
     private LocalDate updatedate; // 수정일자
 
 }
