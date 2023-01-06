@@ -32,7 +32,7 @@ public class Review {
     @Column(columnDefinition = "int not null")
     private Integer star;
 
-    @Column(columnDefinition = "longtext not null")
+    @Column(columnDefinition = "varchar(2000) not null")
     private String reviewcontent;
 
     @Column(columnDefinition = "timestamp not null default current_timestamp()", updatable = false)
