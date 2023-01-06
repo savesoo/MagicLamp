@@ -51,4 +51,7 @@ public class Order {
     @Column(columnDefinition = "tinyint default 0")
     private Boolean purchasestate; // 0:구매 1:반품
 
+    @Column
+    private Integer approvalnum; // 결제 완료시 승인 번호
+
 }
