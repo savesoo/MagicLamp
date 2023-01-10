@@ -16,7 +16,8 @@ public class AdministratorListController {
 
     @GetMapping("/view/administrator/list")
     public void administratorList(@RequestParam(value = "p", defaultValue = "1") int pagenum, SearchOption searchOption, Model model) {
-        
+
+        model.addAttribute("administratorList", administratorListService.getBookList(pagenum));
         model.addAttribute("administratorPage", administratorListService.getPage(pagenum));
 //        model.addAttribute("administratorSearch", administratorListService.search(searchOption));
 
