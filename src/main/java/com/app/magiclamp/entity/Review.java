@@ -22,11 +22,11 @@ public class Review {
     private Integer reviewindex;
 
     @ManyToOne
-    @JoinColumn(name = "isbn", columnDefinition = "not null")
+    @JoinColumn(name = "isbn", columnDefinition = "char(13) not null")
     private Book isbn;
 
     @ManyToOne
-    @JoinColumn(name = "reviewer", columnDefinition = "not null")
+    @JoinColumn(name = "reviewer", columnDefinition = "int not null")
     private User reviewer;
 
     @Column(columnDefinition = "int not null")
