@@ -2,7 +2,9 @@ package com.app.magiclamp.repository;
 
 import com.app.magiclamp.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -14,12 +16,10 @@ public interface BookAdministratorRepository extends JpaRepository<Book, String>
     List<Book> findAll(int index, int count);
 
     // 검색
-    List<Book> findByIsbn(String keyword);
-    List<Book> findByTitle(String title);
-    List<Book> findByAuthor(String author);
-    List<Book> findByPublisher(String publisher);
-
-
+    List<Book> findByIsbnContaining(String keyword);
+    List<Book> findByTitleContaining(String keyword);
+    List<Book> findByAuthorContaining(String keyword);
+    List<Book> findByPublisherContaining(String keyword);
 
 
 }

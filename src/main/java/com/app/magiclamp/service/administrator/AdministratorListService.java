@@ -2,7 +2,6 @@ package com.app.magiclamp.service.administrator;
 
 
 import com.app.magiclamp.domain.BookListPage;
-import com.app.magiclamp.domain.SearchOption;
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.repository.BookAdministratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,23 +40,23 @@ public class AdministratorListService {
     }
 
 //    @Transactional
-//    public List<Book> search(SearchOption searchType) {
+//    public List<Book> search(SearchType searchType) {
 //
 //        List<Book> bookList = null;
 //
 //        switch(searchType.getSearchoption()) {
 //
 //            case "isbn" :
-//                bookList = bookAdministratorRepository.findByIsbn(searchType.getKeyword());
+//                bookList = bookAdministratorRepository.findByIsbnContaining(searchType.getKeyword());
 //                break;
 //            case "title" :
-//                bookList = bookAdministratorRepository.findByTitle(searchType.getKeyword());
+//                bookList = bookAdministratorRepository.findByTitleContaining(searchType.getKeyword());
 //                break;
 //            case  "author" :
-//                bookList = bookAdministratorRepository.findByAuthor(searchType.getKeyword());
+//                bookList = bookAdministratorRepository.findByAuthorContaining(searchType.getKeyword());
 //                break;
 //            case "publisher" :
-//                bookList = bookAdministratorRepository.findByPublisher(searchType.getKeyword());
+//                bookList = bookAdministratorRepository.findByPublisherContaining(searchType.getKeyword());
 //                break;
 //        }
 //
