@@ -28,6 +28,11 @@ public class Order {
     @Column(columnDefinition = "char(13) not null")
     private String isbn; // isbn
 
+
+    @Column(nullable = false)
+    private Integer bookcount; // 주문할 책 수량
+
+
     @Column(nullable = false)
     private Integer realprice; // 실구매가(판매가-마일리지)
     @Column(nullable = false)
