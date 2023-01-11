@@ -1,6 +1,8 @@
 package com.app.magiclamp.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,6 +16,8 @@ import java.util.Date;
 @Setter
 @ToString
 @Builder
+@DynamicInsert
+@DynamicUpdate
 public class Book {
 
     @Id
@@ -72,7 +76,7 @@ public class Book {
     @Column
     private String bookimg; // 도서 이미지
 
-    @Column(columnDefinition = "timestamp not null default current_timestamp()")
+    @Column(columnDefinition = "timestamp not null default current_timestamp()", updatable = false)
     private LocalDate regdate; // 등록일자
 
     @Column(columnDefinition = "timestamp not null default current_timestamp()")
