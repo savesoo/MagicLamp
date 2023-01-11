@@ -17,37 +17,37 @@ import java.util.Date;
 public class Book {
 
     @Id
-    @Column
+    @Column(columnDefinition = "char(13) not null")
     private String isbn; // 도서ISBN
 
-    @Column
+    @Column(columnDefinition = "varchar(200) not null")
     private String title; // 도서명
 
-    @Column
+    @Column(columnDefinition = "varchar(100) not null")
     private String author; // 저자
 
-    @Column
+    @Column(columnDefinition = "varchar(100) not null")
     private String publisher; // 출판사
 
     @Column
     private String pubdate; // 출간일자
 
-    @Column
+    @Column(columnDefinition = "varchar(10) not null")
     private String status; // 도서 상태 (정상, 절판, 품절)
 
-    @Column
+    @Column(columnDefinition = "int not null")
     private Integer price; // 정가
 
-    @Column
+    @Column(columnDefinition = "int not null")
     private Integer saleprice; // 판매가(보통 10%할인)
 
-    @Column
+    @Column(columnDefinition = "int not null")
     private Integer mileagerate; // 마일리지적립률(보통 5% 적립)
 
-    @Column
+    @Column(columnDefinition = "int not null")
     private Integer stock; // 재고 수량(시작 값은 10권)
 
-    @Column
+    @Column(columnDefinition = "varchar(10) not null")
     private String binding; // 도서 형태(PB or HB)
 
     @Column
