@@ -45,7 +45,7 @@
                 <ul>
                     <th:block th:if="${BookMainListPage.prev}">
                         <li>
-                            <a th:href="@{/board/list(p=${BookMainListPage.startnum-1})}">PREV</a>
+                            <a th:href="@{/view/book/bookMainList(p=${BookMainListPage.startnum-1})}">PREV</a>
                         </li>
                     </th:block>
                     <th:block th:each="num : ${#numbers.sequence(BookMainListPage.startnum, BookMainListPage.endnum)}" th:with="active=${BookMainListPage.pagenum == num ? 'active' : ''}">
