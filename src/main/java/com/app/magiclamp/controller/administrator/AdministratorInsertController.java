@@ -1,6 +1,6 @@
 package com.app.magiclamp.controller.administrator;
 
-import com.app.magiclamp.domain.administrator.BookInsertRequest;
+import com.app.magiclamp.model.administrator.BookInsertRequest;
 import com.app.magiclamp.service.administrator.AdministratorInsertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

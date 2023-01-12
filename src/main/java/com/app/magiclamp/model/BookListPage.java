@@ -1,4 +1,4 @@
-package com.app.magiclamp.domain;
+package com.app.magiclamp.model;
 
 import com.app.magiclamp.entity.Book;
 import lombok.*;

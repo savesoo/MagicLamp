@@ -1,4 +1,4 @@
-package com.app.magiclamp.domain.order;
+package com.app.magiclamp.model.order;
 
 import lombok.*;
 
