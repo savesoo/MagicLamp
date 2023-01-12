@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Board View</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"
+            integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
 </head>
 <body>
-도서상세페이지
+<!--내비게이션 시작-->
+<!--내비게이션 끝-->
+
+<!-- 도서 상세 보기 시작-->
+
+<input th:value="${bookView.title}">
+
+<!-- 도서 상세 보기 끝-->
+
+
 </body>
 </html>
