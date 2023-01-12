@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,6 +42,8 @@ public class User {
 
     @Column(columnDefinition = "timestamp not null default current_timestamp()", updatable = false)
     private LocalDate joindate;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<UserRole> role;
     @Column(columnDefinition = "tinyint default 0")
     private Boolean deleted;
 
