@@ -1,6 +1,7 @@
 package com.app.magiclamp.controller.cart;
 
 import com.app.magiclamp.entity.Cart;
+import com.app.magiclamp.model.InsertSelCart;
 import com.app.magiclamp.repository.CartRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,11 @@ public class CartRestController {
     private CartRepository cartRepository;
 
     @PostMapping
-    public ResponseEntity<Cart> insertCart(
-            @RequestParam("list") List list
+    public ResponseEntity<Cart> insertSelCart(
+            @RequestBody InsertSelCartRequest insertSelCartRequest
     ) {
 
-        log.info("select list >>>> " + list);
+
 
 
         return null;
