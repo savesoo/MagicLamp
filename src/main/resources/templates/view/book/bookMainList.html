@@ -37,34 +37,48 @@
 </table>
 
 <table>
-    <tr th:each="book : ${BookMainListPage.list}">
-        <td>
-            <hr/>
-        </td>
-        <td>
-            <input type="checkbox" name="checkBook">
-        </td>
-        <td>
-            <img th:src="@{/upload/bphoto/{name}(name=${book.bookimg})}" height="200">
-        </td>
-        <td>
-            <div th:text="${book.title}"></div>
-            <div th:text="${book.author + ' | ' + book.publisher + ' | ' + book.pubdate}"></div>
-            <div th:text="${'정가: ' + book.price}" style="display: inline"></div>
-            ->
-            <div th:text="${'판매가: ' + book.saleprice} + '(10% 할인)'" style="display: inline"></div>
-            <div th:text="${'마일리지: ' + (book.saleprice*book.mileagerate/100) + '원 (' + book.mileagerate + '% 적립)'}"></div>
-            <!--<div th:text="${book.title}"></div> 별점 -->
-        </td>
-        <td>
-            <div>
-                <button>장바구니 담기</button>
-            </div>
-            <div>
-                <button>바로구매</button>
-            </div>
-        </td>
-    </tr>
+    <th:block th:each="book, bookStat : ${BookMainListPage.list}">
+        <tr>
+            <td colspan="4">
+                <hr/>
+            </td>
+        </tr>
+        <tr>
+            <td width="5%" style="text-align: center">
+                <div th:text="${bookStat.count} + '.'"></div>
+                <input type="checkbox" name="checkBook">
+            </td>
+            <td width="10%">
+                <a th:href="@{/view/book/bookView(isbn=${book.isbn},p=${BookMainListPage.pagenum})}">
+                    <img th:src="@{/upload/bphoto/{name}(name=${book.bookimg})}" height="200">
+                </a>
+            </td>
+            <td width="65%">
+                <div>
+                    <a th:text="${book.title}"
+                       th:href="@{/view/book/bookView(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
+                </div>
+                <div th:text="${book.author + ' | ' + book.publisher + ' | ' + book.pubdate}"></div>
+                <div th:text="${#numbers.formatInteger(book.price, 0, 'COMMA')}" style="display: inline"></div>
+                ->
+                <div th:text="${#numbers.formatInteger(book.saleprice, 0, 'COMMA')} + ' (10% 할인)'"
+                     style="display: inline"></div>
+                <div th:text="${', 마일리지: ' + #numbers.formatInteger((book.saleprice*book.mileagerate/100), 0, 'COMMA') + '원 (' + book.mileagerate + '% 적립)'}"
+                     style="display: inline"></div>
+                <!--<div th:text="${book.title}"></div> 별점 -->
+            </td>
+            <td width="20%" style="text-align: center">
+                <div>
+                    <button>장바구니 담기</button>
+                </div>
+                <div>
+                    <button>바로구매</button>
+                </div>
+            </td>
+        </tr>
+
+    </th:block>
+
 </table>
 
 
