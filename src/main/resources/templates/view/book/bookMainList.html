@@ -252,7 +252,7 @@
     <tr>
         <td>
             <div style="display: inline">
-                <input type="checkbox" name="checkBook" value="selectall" onclick="selectAll(this)"/><b>Select All</b>
+                <input type="checkbox" name="checkBook" onclick="selectAll(this)"/><b>Select All</b>
             </div>
         </td>
         <td>
@@ -304,7 +304,7 @@
     <tr>
         <td>
             <div style="display: inline">
-                <input type="checkbox" name="checkBook" value="selectall" onclick="selectAll(this)"/><b>Select All</b>
+                <input type="checkbox" name="checkBook" onclick="selectAll(this)"/><b>Select All</b>
             </div>
         </td>
         <td>
@@ -349,10 +349,21 @@
     function selectAll(selectAll) {
         const checkBooks = document.getElementsByName('checkBook');
 
+        const list = []
+
         checkBooks.forEach((checkbox) => {
             checkbox.checked = selectAll.checked;
+
+            if (checkbox.value != 'on') {
+                list.push(checkbox.value)
+            }
+
         })
+
+        console.log(list);
+
     }
+
 
 </script>
 
