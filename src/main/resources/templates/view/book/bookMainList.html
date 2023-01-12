@@ -247,19 +247,20 @@
 </table>
 <!--페이징(상부) 끝-->
 
-<!--전체선택, 장바구니 담기 시작-->
-<table style="margin-left:auto;" width="800px">
-    <tr>
-        <td>
-            <button>전체 선택</button>
-            <button>장바구니 담기</button>
-        </td>
-    </tr>
-</table>
-<!--전체선택, 장바구니 담기 끝-->
-
 <!-- 도서 리스트 시작-->
 <table style="margin-left:auto; margin-right:auto;">
+    <tr>
+        <td>
+            <div style="display: inline">
+                <input type="checkbox" name="checkBook" value="selectall" onclick="selectAll(this)"/><b>Select All</b>
+            </div>
+        </td>
+        <td>
+            <div style="display: inline">
+                <button style="display: inline">장바구니 담기</button>
+            </div>
+        </td>
+    </tr>
     <th:block th:each="book, bookStat : ${BookMainListPage.list}">
         <tr>
             <td colspan="4">
@@ -269,7 +270,7 @@
         <tr>
             <td width="5%" style="text-align: center">
                 <div th:text="${bookStat.count} + '.'"></div>
-                <input type="checkbox" name="checkBook">
+                <input type="checkbox" name="checkBook" th:value="${book.isbn}">
             </td>
             <td width="10%">
                 <a th:href="@{/view/book/bookView(isbn=${book.isbn},p=${BookMainListPage.pagenum})}">
@@ -299,22 +300,21 @@
                 </div>
             </td>
         </tr>
-
     </th:block>
-
-</table>
-<!-- 도서 리스트 끝-->
-
-<!--전체선택, 장바구니 담기 시작-->
-<table style="margin-left:auto;" width="800px">
     <tr>
         <td>
-            <button>전체 선택</button>
-            <button>장바구니 담기</button>
+            <div style="display: inline">
+                <input type="checkbox" name="checkBook" value="selectall" onclick="selectAll(this)"/><b>Select All</b>
+            </div>
+        </td>
+        <td>
+            <div style="display: inline">
+                <button style="display: inline">장바구니 담기</button>
+            </div>
         </td>
     </tr>
 </table>
-<!--전체선택, 장바구니 담기 끝-->
+<!-- 도서 리스트 끝-->
 
 <!--페이징(하부) 시작-->
 <table style="margin-left:auto; margin-right:auto;">
@@ -344,7 +344,17 @@
     </Tr>
 </table>
 <!--페이징(하부) 끝-->
+<script>
 
+    function selectAll(selectAll) {
+        const checkBooks = document.getElementsByName('checkBook');
+
+        checkBooks.forEach((checkbox) => {
+            checkbox.checked = selectAll.checked;
+        })
+    }
+
+</script>
 
 </body>
 </html>
