@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/book/view")
+@RequestMapping("/view/book/bookView")
 @Log4j2
 public class BookViewController {
 
@@ -21,17 +21,21 @@ public class BookViewController {
 
     @GetMapping
     public void getBookView(
-            @RequestParam("isbn") String isbn,
-            @RequestParam("p") int pageNum,
+           //@RequestParam("isbn") String isbn,
+            //@RequestParam("p") int pageNum,
             Model model,
             HttpServletRequest request
     ) {
 
 //        HttpSession session = request.getSession();
 
+        String isbn = "9788925578415";
+        int pageNum = 1;
+
         model.addAttribute("pageNum", pageNum);
         model.addAttribute("bookView", bookViewService.selectBook(isbn));
 
-    }
+        log.info("bookViewService.selectBook(isbn) >>>>>>>>>>>>>>>>> " + bookViewService.selectBook(isbn));
 
+    }
 }
