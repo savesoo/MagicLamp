@@ -23,7 +23,7 @@ public class BookMainListController {
             Model model
     ) {
 
-        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPagelist(pageNum));
+        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageList(pageNum));
 
     }
 }
