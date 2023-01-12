@@ -26,13 +26,45 @@
     <tr th:each="book : ${BookMainListPage.list}">
         <td th:text="${book.isbn}"></td>
         <td>
-            <a th:text="${book.title}" th:href="@{/view/book/bookView(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
+            <a th:text="${book.title}"
+               th:href="@{/view/book/bookView(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
         </td>
         <td th:text="${book.author}"></td>
         <td th:text="${book.pubdate}"></td>
         <td th:text="${book.stock}"></td>
     </tr>
     </tbody>
+</table>
+
+<table>
+    <tr th:each="book : ${BookMainListPage.list}">
+        <td>
+            <hr/>
+        </td>
+        <td>
+            <input type="checkbox" name="checkBook">
+        </td>
+        <td>
+            <img th:src="@{/upload/bphoto/{name}(name=${book.bookimg})}" height="200">
+        </td>
+        <td>
+            <div th:text="${book.title}"></div>
+            <div th:text="${book.author + ' | ' + book.publisher + ' | ' + book.pubdate}"></div>
+            <div th:text="${'정가: ' + book.price}" style="display: inline"></div>
+            ->
+            <div th:text="${'판매가: ' + book.saleprice} + '(10% 할인)'" style="display: inline"></div>
+            <div th:text="${'마일리지: ' + (book.saleprice*book.mileagerate/100) + '원 (' + book.mileagerate + '% 적립)'}"></div>
+            <!--<div th:text="${book.title}"></div> 별점 -->
+        </td>
+        <td>
+            <div>
+                <button>장바구니 담기</button>
+            </div>
+            <div>
+                <button>바로구매</button>
+            </div>
+        </td>
+    </tr>
 </table>
 
 
