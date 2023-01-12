@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/view/book/bookList")
+@RequestMapping("/view/book/bookMainList")
 @Log4j2
 public class BookMainListController {
 
@@ -19,11 +19,11 @@ public class BookMainListController {
 
     @GetMapping
     public void getBookMainList(
-            @RequestParam(value = "p", defaultValue = "1") int pageNum,
+            @RequestParam(value = "p", defaultValue = "1") int pagenum,
             Model model
     ) {
 
-        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageList(pageNum));
+        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageList(pagenum));
 
     }
 }
