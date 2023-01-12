@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Board Main List</title>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"
-          integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Board Main List</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"
+            integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
 </head>
 <body>
 <!--내비게이션 시작-->
@@ -12,7 +12,29 @@
 
 <!-- 도서 리스트 시작-->
 
-도서 리스트
+<table>
+    <thead style="background-color: #285430">
+    <tr>
+        <th>ISBN</th>
+        <th>제목</th>
+        <th>저자</th>
+        <th>출간일</th>
+        <th>재고</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${BookMainListPage.list}">
+        <td th:text="${book.isbn}"></td>
+        <td>
+            <a th:text="${book.title}" th:href="@{/view/book/bookView(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
+        </td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.pubdate}"></td>
+        <td th:text="${book.stock}"></td>
+    </tr>
+    </tbody>
+</table>
+
 
 <!-- 도서 리스트 끝-->
 
