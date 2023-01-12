@@ -1,5 +1,7 @@
 package com.app.magiclamp.model;
 
+import com.app.magiclamp.entity.Book;
+import com.app.magiclamp.entity.Cart;
 import lombok.*;
 
 @AllArgsConstructor
@@ -14,5 +16,13 @@ public class InsertSelCartRequest {
 
     private Integer bookcount;
 
-    private String isbn;
+    private Book isbn;
+
+    public Cart toCart(){
+        return Cart.builder()
+                .cartindex(cartindex)
+                .bookcount(bookcount)
+                .isbn(isbn)
+                .build();
+    }
 }
