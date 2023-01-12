@@ -36,6 +36,38 @@
     </tbody>
 </table>
 
+<!--페이징 시작-->
+
+<table style="margin-left:auto; margin-right:auto;">
+    <Tr>
+        <Td>
+            <nav>
+                <ul>
+                    <th:block th:if="${BookMainListPage.prev}">
+                        <li>
+                            <a th:href="@{/board/list(p=${BookMainListPage.startnum-1})}">PREV</a>
+                        </li>
+                    </th:block>
+                    <th:block th:each="num : ${#numbers.sequence(BookMainListPage.startnum, BookMainListPage.endnum)}" th:with="active=${BookMainListPage.pagenum == num ? 'active' : ''}">
+                        <li th:classappend="${active}">
+                            <a th:href="@{/view/book/bookMainList(p=${num})}" th:text="${num}"></a>
+                        </li>
+                    </th:block>
+                    <th:block th:if="${BookMainListPage.next}">
+                        <li>
+                            <a th:href="@{/view/book/bookMainList(p=${BookMainListPage.endnum+1})}">NEXT</a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
+        </Td>
+    </Tr>
+</table>
+
+<!--페이징 끝-->
+
+
+
 <table>
     <th:block th:each="book, bookStat : ${BookMainListPage.list}">
         <tr>
