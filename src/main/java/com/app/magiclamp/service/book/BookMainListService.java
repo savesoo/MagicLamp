@@ -19,9 +19,9 @@ public class BookMainListService {
     @Autowired
     private BookRepository bookRepository;
 
-    public BookListPage getBookMainPageList(int pageNum) {
+    public BookListPage getBookMainPageList(int pagenum) {
 
-        Page<Book> page = bookRepository.findAll(PageRequest.of(pageNum - 1, 10, Sort.by("pubdate").descending()));
+        Page<Book> page = bookRepository.findAll(PageRequest.of(pagenum - 1, 10, Sort.by("pubdate").descending()));
 
         // 도서 리스트
         List<Book> list = page.getContent();
@@ -29,7 +29,7 @@ public class BookMainListService {
         // 전체 도서의 개수
         int totalCount = (int) page.getTotalElements();
 
-        BookListPage bookMainListPage = new BookListPage(10, pageNum, list, totalCount);
+        BookListPage bookMainListPage = new BookListPage(10, pagenum, list, totalCount);
 
         return bookMainListPage;
     }
