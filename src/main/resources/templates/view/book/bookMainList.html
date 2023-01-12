@@ -5,56 +5,238 @@
     <title>Board Main List</title>
     <script src="https://code.jquery.com/jquery-1.12.4.js"
             integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+
+    <style>
+        /* Customized Paging */
+        .pg_wrap {
+            clear: both;
+            text-decoration: none;
+        }
+
+        .pg_page { /* 기본페이지 */
+            width: 30px !important;
+            height: 30px !important;
+            font-size: 13px;
+            color: #333;
+            line-height: 33px;
+            padding: 0;
+            background: #fff;
+            border: 0;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .pg_page:hover {
+            background: #f2f2f2;
+        }
+
+        .pg_current { /* 현재페이지 */
+            width: 30px !important;
+            height: 30px !important;
+            font-size: 13px;
+            color: white;
+            font-weight: normal;
+            line-height: 33px;
+            margin: 0;
+            padding: 0;
+            background: antiquewhite;
+            border: 0;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .pg_start { /* 처음 */
+            position: relative;
+            top: 50%;
+            width: 28px !important;
+            height: 28px !important;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            text-indent: -9999px;
+            display: inline-block;
+        }
+
+        .pg_start:after {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-top: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid #777;
+            border-left: 1px solid #777;
+            transform: rotate(45deg);
+        }
+
+        .pg_start:before {
+            position: absolute;
+            top: 10px;
+            left: 16px;
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-top: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid #777;
+            border-left: 1px solid #777;
+            transform: rotate(45deg);
+        }
+
+        .pg_start:hover {
+            background: #fff;
+            border: 1px solid #333;
+        }
+
+        .pg_prev { /* 이전 */
+            position: relative;
+            top: 50%;
+            width: 28px !important;
+            height: 28px !important;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            text-indent: -9999px;
+            display: inline-block;
+        }
+
+        .pg_prev:after {
+            position: absolute;
+            top: 10px;
+            left: 13px;
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-top: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid #777;
+            border-left: 1px solid #777;
+            transform: rotate(45deg);
+        }
+
+        .pg_prev:hover {
+            background: #fff;
+            border: 1px solid #333;
+        }
+
+        .pg_next { /* 다음 */
+            position: relative;
+            top: 50%;
+            width: 28px !important;
+            height: 28px !important;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            text-indent: -9999px;
+            display: inline-block;
+        }
+
+        .pg_next:after {
+            position: absolute;
+            top: 10px;
+            right: 13px;
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-top: 1px solid #777;
+            border-right: 1px solid #777;
+            border-bottom: 1px solid transparent;
+            border-left: 1px solid transparent;
+            transform: rotate(45deg);
+        }
+
+        .pg_next:hover {
+            background: #fff;
+            border: 1px solid #333;
+        }
+
+        .pg_end { /* 맨끝 */
+            position: relative;
+            top: 50%;
+            width: 28px !important;
+            height: 28px !important;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            text-indent: -9999px;
+            display: inline-block;
+        }
+
+        .pg_end:after {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-top: 1px solid #777;
+            border-right: 1px solid #777;
+            border-bottom: 1px solid transparent;
+            border-left: 1px solid transparent;
+            transform: rotate(45deg);
+        }
+
+        .pg_end:before {
+            position: absolute;
+            top: 10px;
+            right: 16px;
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-top: 1px solid #777;
+            border-right: 1px solid #777;
+            border-bottom: 1px solid transparent;
+            border-left: 1px solid transparent;
+            transform: rotate(45deg);
+        }
+
+        .pg_end:hover {
+            background: #fff;
+            border: 1px solid #333;
+        }
+    </style>
+
 </head>
 <body>
 <!--내비게이션 시작-->
 <!--내비게이션 끝-->
 
-<!-- 도서 리스트 시작-->
 
-<table>
-    <thead style="background-color: #285430">
-    <tr>
-        <th>ISBN</th>
-        <th>제목</th>
-        <th>저자</th>
-        <th>출간일</th>
-        <th>재고</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="book : ${BookMainListPage.list}">
-        <td th:text="${book.isbn}"></td>
-        <td>
-            <a th:text="${book.title}"
-               th:href="@{/view/book/bookView(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
-        </td>
-        <td th:text="${book.author}"></td>
-        <td th:text="${book.pubdate}"></td>
-        <td th:text="${book.stock}"></td>
-    </tr>
-    </tbody>
-</table>
-
-<!--페이징 시작-->
-
+<!--페이징(상부) 시작-->
 <table style="margin-left:auto; margin-right:auto;">
     <Tr>
         <Td>
-            <nav>
+            <nav class="pg_wrap">
                 <ul>
                     <th:block th:if="${BookMainListPage.prev}">
-                        <li>
+                        <li class="pg_page">
                             <a th:href="@{/view/book/bookMainList(p=${BookMainListPage.startnum-1})}">PREV</a>
                         </li>
                     </th:block>
-                    <th:block th:each="num : ${#numbers.sequence(BookMainListPage.startnum, BookMainListPage.endnum)}" th:with="active=${BookMainListPage.pagenum == num ? 'active' : ''}">
-                        <li th:classappend="${active}">
+                    <th:block th:each="num : ${#numbers.sequence(BookMainListPage.startnum, BookMainListPage.endnum)}"
+                              th:with="active=${BookMainListPage.pagenum == num ? 'pg_current' : ''}">
+                        <li th:classappend="${active}" class="pg_page">
                             <a th:href="@{/view/book/bookMainList(p=${num})}" th:text="${num}"></a>
                         </li>
                     </th:block>
                     <th:block th:if="${BookMainListPage.next}">
-                        <li>
+                        <li class="pg_page">
                             <a th:href="@{/view/book/bookMainList(p=${BookMainListPage.endnum+1})}">NEXT</a>
                         </li>
                     </th:block>
@@ -63,12 +245,21 @@
         </Td>
     </Tr>
 </table>
+<!--페이징(상부) 끝-->
 
-<!--페이징 끝-->
+<!--전체선택, 장바구니 담기 시작-->
+<table style="margin-left:auto;" width="800px">
+    <tr>
+        <td>
+            <button>전체 선택</button>
+            <button>장바구니 담기</button>
+        </td>
+    </tr>
+</table>
+<!--전체선택, 장바구니 담기 끝-->
 
-
-
-<table>
+<!-- 도서 리스트 시작-->
+<table style="margin-left:auto; margin-right:auto;">
     <th:block th:each="book, bookStat : ${BookMainListPage.list}">
         <tr>
             <td colspan="4">
@@ -112,9 +303,47 @@
     </th:block>
 
 </table>
-
-
 <!-- 도서 리스트 끝-->
+
+<!--전체선택, 장바구니 담기 시작-->
+<table style="margin-left:auto;" width="800px">
+    <tr>
+        <td>
+            <button>전체 선택</button>
+            <button>장바구니 담기</button>
+        </td>
+    </tr>
+</table>
+<!--전체선택, 장바구니 담기 끝-->
+
+<!--페이징(하부) 시작-->
+<table style="margin-left:auto; margin-right:auto;">
+    <Tr>
+        <Td>
+            <nav class="pg_wrap">
+                <ul>
+                    <th:block th:if="${BookMainListPage.prev}">
+                        <li class="pg_page">
+                            <a th:href="@{/view/book/bookMainList(p=${BookMainListPage.startnum-1})}">PREV</a>
+                        </li>
+                    </th:block>
+                    <th:block th:each="num : ${#numbers.sequence(BookMainListPage.startnum, BookMainListPage.endnum)}"
+                              th:with="active=${BookMainListPage.pagenum == num ? 'pg_current' : ''}">
+                        <li th:classappend="${active}" class="pg_page">
+                            <a th:href="@{/view/book/bookMainList(p=${num})}" th:text="${num}"></a>
+                        </li>
+                    </th:block>
+                    <th:block th:if="${BookMainListPage.next}">
+                        <li class="pg_page">
+                            <a th:href="@{/view/book/bookMainList(p=${BookMainListPage.endnum+1})}">NEXT</a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
+        </Td>
+    </Tr>
+</table>
+<!--페이징(하부) 끝-->
 
 
 </body>
