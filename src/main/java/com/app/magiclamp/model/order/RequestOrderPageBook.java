@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class RequestOrderPagebook {
+public class RequestOrderPageBook {
 
     // 사용자가 선택한 상품 data를 주문 페이지로 보내줄 DTO (HTML에서 사용)
 
@@ -33,7 +33,7 @@ public class RequestOrderPagebook {
 
     // 구매가격 및 마일리지 계산 메서드
     // 마일리지 차감은 구매시에 이루어지므로 아직 반영 X
-    private void calPriceInfo(){
+    public void calPriceInfo(){
 
         this.totalPrice = this.saleprice*this.bookcount; // 가격 = 판매가 * 수량
         this.saveMileage = (int)(this.saleprice*0.05); // 권당 적립되는 마일리지(5%)
