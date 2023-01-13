@@ -1,10 +1,18 @@
 package com.app.magiclamp.entity;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name="tbl_mileage")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
 public class Mileage {
     @Id
     @Column
