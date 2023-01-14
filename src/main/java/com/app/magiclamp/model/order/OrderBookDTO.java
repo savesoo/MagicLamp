@@ -16,6 +16,11 @@ public class OrderBookDTO {
 
     // 이전 페이지(도서 상세)에서 가지고 올 data
     private String isbn;
+
+    //구매 가능한 재고
+    private int stock;
+
+    //구매 하고 싶은 수량
     private int bookcount;
 
     // 필요한 data
@@ -34,7 +39,7 @@ public class OrderBookDTO {
     private int totalMileage; // 총 적립 마일리지(권당 적립 마일리지*수량)
 
 
-    private void calPriceInfo(){
+    public void calPriceInfo(){
 
         this.totalPrice = this.saleprice*this.bookcount; // 총 가격 = 판매가 * 수량
         this.saveMileage = (int)(this.saleprice*0.05); // 권당 적립되는 마일리지(5%)

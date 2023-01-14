@@ -296,7 +296,9 @@
                     <button>장바구니 담기</button>
                 </div>
                 <div>
-                    <button>바로구매</button>
+                    <button id="btn_buy" th:onclick="|location.href='@{/order}'|">바로구매</button>
+                    <!--<input type="hidden" name="orderBooks[0].isbn" id="isbn">
+                    <input type="hidden" name="orderBooks[0].bookcount" id="bookcount">-->
                 </div>
             </td>
         </tr>

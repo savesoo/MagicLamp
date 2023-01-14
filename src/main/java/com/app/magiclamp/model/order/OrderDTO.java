@@ -31,6 +31,7 @@ public class OrderDTO {
     private int mileage;
 
     // 배송정보
+    private String recipient;
     private String phone;
     private String postnum;
     private String address1;
