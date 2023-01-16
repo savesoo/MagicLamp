@@ -7,7 +7,7 @@
     <select id="selectByOption" parameterType="com.app.magiclamp.model.BookSearchOption"
             resultType="com.app.magiclamp.model.BookListPage">
 
-        select * from book
+        select * from tbl_book
 
         <where>
             <if test="searchType != null and keyword != null">
