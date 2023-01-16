@@ -6,7 +6,6 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "tbl_book")
@@ -76,10 +75,10 @@ public class Book {
     @Column
     private String bookimg; // 도서 이미지
 
-    @Column(columnDefinition = "timestamp not null default current_timestamp()", updatable = false)
+    @Column(columnDefinition = "timestamp not null default current_timestamp", updatable = false)
     private LocalDate regdate; // 등록일자
 
-    @Column(columnDefinition = "timestamp not null default current_timestamp()")
+    @Column(columnDefinition = "timestamp not null default current_timestamp on update current_timestamp", updatable = false)
     private LocalDate updatedate; // 수정일자
 
 }
