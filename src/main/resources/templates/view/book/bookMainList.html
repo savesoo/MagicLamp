@@ -252,7 +252,7 @@
     <tr>
         <td>
             <div style="display: inline">
-                <input type="checkbox" name="checkBook" onclick="selectAll(this)"/><b>Select All</b>
+                <input type="checkbox" name="checkBook" onclick="selectAll(this)"/><b>전체선택</b>
             </div>
         </td>
         <td>
@@ -306,7 +306,7 @@
     <tr>
         <td>
             <div style="display: inline">
-                <input type="checkbox" name="checkBook" onclick="selectAll(this)"/><b>Select All</b>
+                <input type="checkbox" name="checkBook" onclick="selectAll(this)"/><b>전체선택</b>
             </div>
         </td>
         <td>
@@ -386,6 +386,7 @@
             if (el.value != 'on') {
 
                 const payload = {
+                    userIndex: sessionUserIndex,
                     isbn: el.value,
                     bookcount: 1
                 }
@@ -393,7 +394,7 @@
                 console.log('payload => ', payload);
 
                 $.ajax({
-                    url: '/cart',
+                    url: '/cart/select',
                     type: 'post',
                     data: JSON.stringify(payload),
                     dataType: 'json',
