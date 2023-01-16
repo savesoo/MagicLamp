@@ -2,7 +2,6 @@ package com.app.magiclamp.service.book;
 
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.mapper.BookMainListMapper;
-import com.app.magiclamp.model.BookListPage;
 import com.app.magiclamp.model.BookMainListPage;
 import com.app.magiclamp.model.BookSearchOption;
 import com.app.magiclamp.repository.BookRepository;
@@ -27,15 +26,15 @@ public class BookMainListService {
 
     public BookMainListPage getBookMainPageList(int pagenum, String searchType, String keyword) {
 
-            Page<Book> page = bookRepository.findAll(PageRequest.of(pagenum - 1, 10, Sort.by("pubdate").descending()));
+        Page<Book> page = bookRepository.findAll(PageRequest.of(pagenum - 1, 10, Sort.by("pubdate").descending()));
 
-            // 도서 리스트
-            List<Book> list = page.getContent();
+        // 도서 리스트
+        List<Book> list = page.getContent();
 
-            // 전체 도서의 개수
-            int totalCount = (int) page.getTotalElements();
+        // 전체 도서의 개수
+        int totalCount = (int) page.getTotalElements();
 
-            BookMainListPage bookMainListPage = new BookMainListPage(10, pagenum, list, totalCount, searchType, keyword);
+        BookMainListPage bookMainListPage = new BookMainListPage(10, pagenum, list, totalCount, searchType, keyword);
 
         return bookMainListPage;
     }
@@ -44,14 +43,16 @@ public class BookMainListService {
 
         BookMainListPage bookMainListPage = null;
 
-            // 도서 리스트
-            List<Book> list = bookMainListMapper.selectByOption(pagenum, searchOption);
+        int stnum = (pagenum - 1) * 10;
 
-            // 전체 도서의 개수
-            log.info("전체 도서의 개수 =================>" + bookMainListMapper.selectByOptionTotalCount(searchOption));
-            int totalCount = bookMainListMapper.selectByOptionTotalCount(searchOption);
+        // 도서 리스트
+        List<Book> list = bookMainListMapper.selectByOption(stnum, searchOption);
 
-            bookMainListPage = new BookMainListPage(10, pagenum, list, totalCount, searchOption.getSearchType(), searchOption.getKeyword());
+        // 전체 도서의 개수
+        log.info("전체 도서의 개수 =================>" + bookMainListMapper.selectByOptionTotalCount(searchOption));
+        int totalCount = bookMainListMapper.selectByOptionTotalCount(searchOption);
+
+        bookMainListPage = new BookMainListPage(10, pagenum, list, totalCount, searchOption.getSearchType(), searchOption.getKeyword());
 
         return bookMainListPage;
     }
