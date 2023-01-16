@@ -26,11 +26,13 @@ public class BookListPage {
     
     private String keyword; // 검색 키워드
 
-    public BookListPage(int conuntperpage, int pagenum, List<Book> list, int totalcount) {
+    public BookListPage(int conuntperpage, int pagenum, List<Book> list, int totalcount, String searchType, String keyword) {
         this.conuntperpage = conuntperpage;
         this.pagenum = pagenum;
         this.list = list;
         this.totalcount = totalcount;
+        this.searchType = searchType;
+        this.keyword = keyword;
         calPageInfo();
     }
 
