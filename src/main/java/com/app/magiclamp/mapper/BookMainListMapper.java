@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface BookMainListMapper {
 
-    List<Book> selectByOption(BookSearchOption searchOption);
+    List<Book> selectByOption(int pagenum, BookSearchOption searchOption);
 
     int selectByOptionTotalCount(BookSearchOption searchOption);
 

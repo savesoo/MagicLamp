@@ -45,11 +45,10 @@ public class BookMainListService {
         BookMainListPage bookMainListPage = null;
 
             // 도서 리스트
-            List<Book> list = bookMainListMapper.selectByOption(searchOption);
+            List<Book> list = bookMainListMapper.selectByOption(pagenum, searchOption);
 
             // 전체 도서의 개수
             log.info("전체 도서의 개수 =================>" + bookMainListMapper.selectByOptionTotalCount(searchOption));
-
             int totalCount = bookMainListMapper.selectByOptionTotalCount(searchOption);
 
             bookMainListPage = new BookMainListPage(10, pagenum, list, totalCount, searchOption.getSearchType(), searchOption.getKeyword());
