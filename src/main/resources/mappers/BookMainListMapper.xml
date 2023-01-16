@@ -4,31 +4,31 @@
 
 <mapper namespace="com.app.magiclamp.mapper.BookMainListMapper">
 
-    <select id="selectByOption" parameterType="com.app.magiclamp.model.BookSearchOption" resultType="com.app.magiclamp.entity.Book">
+    <select id="selectByOption" resultType="com.app.magiclamp.entity.Book">
 
         select * from tbl_book
 
         <where>
-            <if test="searchType != null and keyword != null">
-                <if test="searchType == 'isbn'">
+            <if test="p2.searchType != null and p2.keyword != null">
+                <if test="p2.searchType == 'isbn'">
                     <include refid="searchIsbn"/>
                 </if>
-                <if test="searchType == 'title'">
+                <if test="p2.searchType == 'title'">
                     <include refid="searchTitle"/>
                 </if>
             </if>
         </where>
 
-        order by pubdate desc limit (pagenum-1)*10 , 10
+        order by pubdate desc limit #{p1} , 10
 
     </select>
 
     <sql id="searchIsbn">
-        isbn like concat('%', #{keyword}, '%')
+        isbn like concat('%', #{p2.keyword}, '%')
     </sql>
 
     <sql id="searchTitle">
-        title like concat('%', #{keyword}, '%')
+        title like concat('%', #{p2.keyword}, '%')
     </sql>
 
     <select id="selectByOptionTotalCount" parameterType="com.app.magiclamp.model.BookSearchOption" resultType="Integer">
