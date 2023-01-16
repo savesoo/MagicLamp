@@ -25,6 +25,7 @@ public class BookMainListController {
     @GetMapping
     public void getBookMainList(
             @RequestParam(value = "p", defaultValue = "1") int pagenum,
+            BookSearchOption searchOption,
             HttpServletRequest request,
             Model model
     ) {
@@ -33,7 +34,10 @@ public class BookMainListController {
 
         model.addAttribute("loginInfo", session.getAttribute("loginInfo"));
 
-        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageList(pagenum));
+        String searchType = searchOption.getSearchType();
+        String keyword = searchOption.getKeyword();
+
+        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageList(pagenum, searchType, keyword));
 
     }
 
@@ -50,7 +54,7 @@ public class BookMainListController {
 
         model.addAttribute("loginInfo", session.getAttribute("loginInfo"));
 
-        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageSelectList(pagenum, searchOption));
+        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageSearchList(pagenum, searchOption));
     }
 
 }
