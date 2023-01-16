@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,7 +25,6 @@ public class BookMainListController {
     @GetMapping
     public void getBookMainList(
             @RequestParam(value = "p", defaultValue = "1") int pagenum,
-            BookSearchOption searchOption,
             HttpServletRequest request,
             Model model
     ) {
@@ -33,7 +33,24 @@ public class BookMainListController {
 
         model.addAttribute("loginInfo", session.getAttribute("loginInfo"));
 
-        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageList(pagenum, searchOption));
+        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageList(pagenum));
 
     }
+
+    @PostMapping
+    public void postBookMainList(
+            @RequestParam(value = "p", defaultValue = "1") int pagenum,
+            BookSearchOption searchOption,
+            HttpServletRequest request,
+            Model model
+    ){
+        log.info("PostMapping 진입............");
+
+        HttpSession session = request.getSession();
+
+        model.addAttribute("loginInfo", session.getAttribute("loginInfo"));
+
+        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageSelectList(pagenum, searchOption));
+    }
+
 }
