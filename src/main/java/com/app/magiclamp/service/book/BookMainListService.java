@@ -46,13 +46,16 @@ public class BookMainListService {
 
             Page<Book> page = bookRepository.findAll(PageRequest.of(pagenum - 1, 10, Sort.by("pubdate").descending()));
 
-            Page<Book> page2 = bookMainListMapper.selectByOption(searchOption);
-
             // 도서 리스트
-            List<Book> list = page2.getContent();
+            List<Book> list = bookMainListMapper.selectByOption(searchOption);
+
+
+//            List<Book> list = page2.getContent();
 
             // 전체 도서의 개수
-            int totalCount = (int) page2.getTotalElements();
+            log.info("전체 도서의 개수 =================>" + bookMainListMapper.selectByOptionTotalCount(searchOption));
+
+            int totalCount = bookMainListMapper.selectByOptionTotalCount(searchOption);
 
             bookMainListPage = new BookListPage(10, pagenum, list, totalCount);
 
