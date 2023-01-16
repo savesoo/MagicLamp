@@ -28,10 +28,4 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
     @Query("select c from Cart c where c.userindex = ?1 order by c.cartindex DESC")
     List<Cart> findByUserindexOrderByCartindexDesc(Integer userindex);
 
-
-
-
-
-
-
 }
