@@ -1,8 +1,8 @@
 package com.app.magiclamp.service.administrator;
 
 
-import com.app.magiclamp.model.BookListPage;
 import com.app.magiclamp.entity.Book;
+import com.app.magiclamp.model.administrator.BookListPage;
 import com.app.magiclamp.repository.BookAdministratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
