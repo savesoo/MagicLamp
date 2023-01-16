@@ -14,6 +14,8 @@ public class InsertSelCartRequest {
 
     private Integer cartindex;
 
+    private Integer userIndex;
+
     private Integer bookcount;
 
     private Book isbn;
@@ -21,6 +23,7 @@ public class InsertSelCartRequest {
     public Cart toCart(){
         return Cart.builder()
                 .cartindex(cartindex)
+                .userindex(userIndex)
                 .bookcount(bookcount)
                 .isbn(isbn)
                 .build();
