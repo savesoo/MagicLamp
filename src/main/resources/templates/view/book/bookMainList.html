@@ -252,7 +252,7 @@
                     <th:block th:each="num : ${#numbers.sequence(BookMainListPage.startnum, BookMainListPage.endnum)}"
                               th:with="active=${BookMainListPage.pagenum == num ? 'pg_current' : ''}">
                         <li th:classappend="${active}" class="pg_page">
-                            <a th:href="@{/view/book/bookMainList(p=${num},searchType=${searchType},keyword=${searchType})}" th:text="${num}"></a>
+                            <a th:href="@{/view/book/bookMainList(p=${num},searchType=${BookMainListPage.searchType},keyword=${BookMainListPage.searchType})}" th:text="${num}"></a>
                         </li>
                     </th:block>
                     <th:block th:if="${BookMainListPage.next}">
