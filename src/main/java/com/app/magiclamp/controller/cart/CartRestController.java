@@ -20,7 +20,7 @@ public class CartRestController {
     @Autowired(required = false)
     private CartInsertService cartInsertService;
 
-    @PostMapping
+    @PostMapping("/select")
     public ResponseEntity<Cart> insertSelCart(
             @RequestBody InsertSelCartRequest insertSelCartRequest
     ) {
