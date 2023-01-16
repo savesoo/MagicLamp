@@ -37,8 +37,15 @@ public class BookMainListController {
         String searchType = searchOption.getSearchType();
         String keyword = searchOption.getKeyword();
 
-        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageList(pagenum, searchType, keyword));
+        if (searchOption.getKeyword() == null) {
 
+            model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageList(pagenum, searchType, keyword));
+
+        } else {
+
+            model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageSearchList(pagenum, searchOption));
+
+        }
     }
 
     @PostMapping
@@ -47,7 +54,7 @@ public class BookMainListController {
             BookSearchOption searchOption,
             HttpServletRequest request,
             Model model
-    ){
+    ) {
         log.info("PostMapping 진입............");
 
         HttpSession session = request.getSession();
