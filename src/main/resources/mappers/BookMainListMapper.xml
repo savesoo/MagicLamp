@@ -19,7 +19,7 @@
             </if>
         </where>
 
-        order by pubdate desc
+        order by pubdate desc limit (pagenum-1)*10 , 10
 
     </select>
 
