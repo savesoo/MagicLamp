@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.magiclamp.mapper.BookMainListMapper">
+
+    <select id="selectByOption" parameterType="com.app.magiclamp.model.BookSearchOption"
+            resultType="com.app.magiclamp.model.BookListPage">
+
+        select * from book
+
+        <where>
+            <if test="searchType != null and keyword != null">
+                <if test="searchType == 'isbn'">
+                    <include refid="searchIsbn"/>
+                </if>
+                <if test="searchType == 'title'">
+                    <include refid="searchTitle"/>
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <sql id="searchIsbn">
+        isbn like concat('%', #{keyword}, '%')
+    </sql>
+
+    <sql id="searchTitle">
+        title like concat('%', #{keyword}, '%')
+    </sql>
+
+</mapper>
