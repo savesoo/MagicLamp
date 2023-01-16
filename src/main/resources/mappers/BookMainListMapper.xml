@@ -18,6 +18,9 @@
                 </if>
             </if>
         </where>
+
+        order by pubdate desc
+
     </select>
 
     <sql id="searchIsbn">
@@ -42,6 +45,7 @@
                 </if>
             </if>
         </where>
+
     </select>
 
     <sql id="searchIsbn2">
