@@ -19,6 +19,9 @@ public class Cart {
     @Column
     private int cartindex;
 
+    @Column(columnDefinition = "int not null")
+    private Integer userindex;
+
     @ManyToOne
     @JoinColumn(name = "isbn", columnDefinition = "char(13) not null")
     private Book isbn;
