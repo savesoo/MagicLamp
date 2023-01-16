@@ -2,8 +2,8 @@ package com.app.magiclamp.service.book;
 
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.mapper.BookMainListMapper;
-import com.app.magiclamp.model.BookMainListPage;
-import com.app.magiclamp.model.BookSearchOption;
+import com.app.magiclamp.model.bookMain.BookMainListPage;
+import com.app.magiclamp.model.bookMain.BookSearchOption;
 import com.app.magiclamp.repository.BookRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

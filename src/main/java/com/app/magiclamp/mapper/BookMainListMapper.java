@@ -1,7 +1,7 @@
 package com.app.magiclamp.mapper;
 
 import com.app.magiclamp.entity.Book;
-import com.app.magiclamp.model.BookSearchOption;
+import com.app.magiclamp.model.bookMain.BookSearchOption;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

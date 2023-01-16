@@ -31,7 +31,7 @@
         title like concat('%', #{p2.keyword}, '%')
     </sql>
 
-    <select id="selectByOptionTotalCount" parameterType="com.app.magiclamp.model.BookSearchOption" resultType="Integer">
+    <select id="selectByOptionTotalCount" parameterType="com.app.magiclamp.model.bookMain.BookSearchOption" resultType="Integer">
 
         select count(isbn) from tbl_book
 

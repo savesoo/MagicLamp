@@ -1,6 +1,6 @@
 package com.app.magiclamp.controller.book;
 
-import com.app.magiclamp.model.BookSearchOption;
+import com.app.magiclamp.model.bookMain.BookSearchOption;
 import com.app.magiclamp.service.book.BookMainListService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
