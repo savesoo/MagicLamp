@@ -14,9 +14,9 @@ public class RequestOrderPage {
 
     // 사용자가 선택한 상품이 여러 개인 경우(장바구니 사용시) 사용할 DTO (HTML에서 사용)
 
-    private List<RequestOrderPagebook> orderBooks;
+    private List<RequestOrderPageBook> orderBooks;
 
-    public List<RequestOrderPagebook> getOrder(){
+    public List<RequestOrderPageBook> getOrder(){
         return orderBooks;
     }
 
