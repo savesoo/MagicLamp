@@ -1,5 +1,6 @@
 package com.app.magiclamp.entity;
 
+import com.app.magiclamp.model.BookInfoDTO;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -80,5 +81,23 @@ public class Book {
 
     @Column(columnDefinition = "timestamp not null default current_timestamp on update current_timestamp", updatable = false)
     private LocalDate updatedate; // 수정일자
+
+
+
+    public BookInfoDTO toBookInfo(){
+
+        return BookInfoDTO.builder()
+                .isbn(isbn)
+                .title(title)
+                .author(author)
+                .publisher(publisher)
+                .price(price)
+                .saleprice(saleprice)
+                .mileagerate(mileagerate)
+                .stock(stock)
+                .category(category)
+                .bookimg(bookimg)
+                .build();
+    }
 
 }
