@@ -67,10 +67,10 @@ public class Book {
     private String category; // 카테고리
     // 카테고리 종류: 건강, 경제경영, 고전, 과학, 대학교재, 만화, 사회과학, 소설, 에세이, 여행, 역사, 인문학, 자기계발, 종교
 
-    @Column
+    @Column(columnDefinition = "TEXT NULL DEFAULT NULL")
     private String description; // 도서 소개
 
-    @Column
+    @Column(columnDefinition = "TEXT NULL DEFAULT NULL")
     private String contents; // 도서 목차
 
     @Column
