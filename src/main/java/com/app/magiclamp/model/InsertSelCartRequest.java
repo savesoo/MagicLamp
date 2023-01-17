@@ -12,20 +12,17 @@ import lombok.*;
 @Builder
 public class InsertSelCartRequest {
 
-    private Integer cartindex;
-
-    private Integer userIndex;
+    private Integer userindex;
 
     private Integer bookcount;
 
-    private Book isbn;
+    private String isbn;
 
     public Cart toCart(){
         return Cart.builder()
-                .cartindex(cartindex)
-                .userindex(userIndex)
+                .userindex(userindex)
                 .bookcount(bookcount)
-                .isbn(isbn)
+                .isbn(Book.builder().isbn(isbn).build())
                 .build();
     }
 }
