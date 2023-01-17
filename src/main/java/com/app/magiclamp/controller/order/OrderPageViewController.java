@@ -1,6 +1,7 @@
 package com.app.magiclamp.controller.order;
 
 import com.app.magiclamp.entity.AddrBook;
+import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.entity.Mileage;
 import com.app.magiclamp.model.AuthUserDTO;
 import com.app.magiclamp.model.order.RequestOrderBook;
@@ -9,10 +10,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -23,38 +24,34 @@ public class OrderPageViewController {
     @Autowired
     private OrderPageViewService orderPageViewService;
 
+
+
     @GetMapping
-    public ModelAndView getOrderPage(@AuthenticationPrincipal AuthUserDTO userDTO,
-                                     //@RequestBody List<RequestOrderBook> orders,
-                                     RequestOrderBook orders
-                                     ) {
-
-        log.info("order >>> " + orders);
-
-        ModelAndView mav = new ModelAndView();
-        mav.clear();
-        mav.addObject("userInfo", userDTO);
+    public String getob(@AuthenticationPrincipal AuthUserDTO userDTO,
+                        @RequestParam(value = "isbn" )String isbn,
+                        RequestOrderBook orders,
+                        Model model){
 
 
+        log.info(" controller order >>> " + orders);
+        model.addAttribute("userInfo", userDTO);
 
-        // 화면 출력용 코드 나중에 삭제
+        List<String> isbns = new ArrayList<>();
+        isbns.add(isbn);
+
+
+        List<Book> bookList = orderPageViewService.getbooks(isbns);
+        model.addAttribute("book", bookList);
+
         AddrBook add = orderPageViewService.getUserAddress(userDTO.getUserindex());
-        mav.addObject("userAddress", add);
-        Mileage mileage = orderPageViewService.getCurrentMileage(userDTO.getUserindex());
-        mav.addObject("currMileage", mileage);
+        model.addAttribute("userAddress", add);
 
-        mav.setViewName("view/order/order");
-        return mav;
+        Mileage mileage = orderPageViewService.getCurrentMileage(userDTO.getUserindex());
+        model.addAttribute("currMileage", mileage);
+
+        return "/view/order/order";
 
     }
-
-
-    /*@PostMapping
-    public String postOrderForm(){
-
-        return "redirect:/list";
-    }*/
-
 
 
 }

@@ -317,9 +317,11 @@
                     <button>장바구니 담기</button>
                 </div>
                 <div>
-                    <button id="btn_buy" th:onclick="|location.href='@{/order}'|">바로구매</button>
-                    <!--<input type="hidden" name="orderBooks[0].isbn" id="isbn">
-                    <input type="hidden" name="orderBooks[0].bookcount" id="bookcount">-->
+                    <a class="btn_buy" th:id="'isbn-'+${bookStat.count}" th:value="${book.isbn}"
+                       th:href="@{/order(isbn=${book.isbn})}"> 바로 구매 </a>
+
+                    [[${bookStat.count}]]
+
                 </div>
             </td>
         </tr>
@@ -439,6 +441,10 @@
     }
 
 </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
 </body>
 </html>
