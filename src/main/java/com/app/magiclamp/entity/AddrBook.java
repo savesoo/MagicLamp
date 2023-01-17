@@ -25,7 +25,7 @@ public class AddrBook {
     @Column
     private String addrname;
 
-    @Column(columnDefinition = "varchar(2) not null")
+    @Column(columnDefinition = "varchar(20) not null")
     private String recipient;
 
     @Column(columnDefinition = "char(11) not null")
