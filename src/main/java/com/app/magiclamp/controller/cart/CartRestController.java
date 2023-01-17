@@ -12,24 +12,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/cart")
 @Log4j2
 public class CartRestController {
 
-    @Autowired(required = false)
+    @Autowired
     private CartInsertService cartInsertService;
 
     @PostMapping("/select")
     public ResponseEntity<Cart> insertSelCart(
-            @RequestBody InsertSelCartRequest insertSelCartRequest
+            @RequestBody List<InsertSelCartRequest> insertSelCartRequest
     ) {
+
+        for (InsertSelCartRequest req : insertSelCartRequest){
+
+            log.info("req.............." + req);
+
+        }
 
         log.info("PostMapping 진입 insert 전 insertSelCartRequest ==> " + insertSelCartRequest);
 
-        Cart result = cartInsertService.insertSelCart(insertSelCartRequest);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+//        Cart result = cartInsertService.insertSelCart(insertSelCartRequest);
+
+
+//        log.info("PostMapping 진입.... insert 후 insertSelCartRequest ==> " + result);
+
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 }
