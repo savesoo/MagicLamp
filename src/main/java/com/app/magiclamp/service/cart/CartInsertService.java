@@ -15,10 +15,14 @@ public class CartInsertService {
     private CartRepository cartRepository;
 
     public Cart insertSelCart(InsertSelCartRequest insertSelCartRequest) {
-
+               
         Cart cart = insertSelCartRequest.toCart();
 
+        log.info("CartInsert 진입 전 cart  ==> " + cart);
+
         Cart result = cartRepository.save(cart);
+
+        log.info("CartInsert 진입 후 result ==> " + result);
 
         return result;
     }
