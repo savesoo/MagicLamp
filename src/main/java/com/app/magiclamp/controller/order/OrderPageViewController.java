@@ -1,18 +1,15 @@
 package com.app.magiclamp.controller.order;
 
 import com.app.magiclamp.entity.AddrBook;
-import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.entity.Mileage;
 import com.app.magiclamp.model.AuthUserDTO;
 import com.app.magiclamp.model.order.RequestOrderBook;
-import com.app.magiclamp.service.cart.order.OrderPageViewService;
+import com.app.magiclamp.service.order.OrderPageViewService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,9 +23,11 @@ public class OrderPageViewController {
     @Autowired
     private OrderPageViewService orderPageViewService;
 
-    @PostMapping
+    @GetMapping
     public ModelAndView getOrderPage(@AuthenticationPrincipal AuthUserDTO userDTO,
-                                     @RequestBody List<RequestOrderBook> orders) {
+                                     //@RequestBody List<RequestOrderBook> orders,
+                                     RequestOrderBook orders
+                                     ) {
 
         log.info("order >>> " + orders);
 
