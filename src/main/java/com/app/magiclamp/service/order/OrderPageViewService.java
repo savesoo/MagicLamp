@@ -69,6 +69,7 @@ public class OrderPageViewService {
             // -> book으로 객체를 생성 -> select한 book에 대한 정보 저장
             BookInfoDTO bookInfo = book.toBookInfo();
 
+
             for( RequestOrderBook ob : orders ) {
 
                 // 요청 정보와 저장된 isbn이 동일한 경우
