@@ -36,12 +36,22 @@ public class CartRestController {
         log.info("PostMapping 진입 insert 전 insertSelCartRequest ==> " + insertSelCartRequest);
 
 
-//        Cart result = cartInsertService.insertSelCart(insertSelCartRequest);
+        Cart result = cartInsertService.insertSelCart(insertSelCartRequest);
 
 
 //        log.info("PostMapping 진입.... insert 후 insertSelCartRequest ==> " + result);
 
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public  ResponseEntity<Cart> insertOneCart(
+            @RequestBody InsertSelCartRequest insertSelCartRequest
+    ){
+
+        Cart result = cartInsertService.insertOneCart(insertSelCartRequest);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }
