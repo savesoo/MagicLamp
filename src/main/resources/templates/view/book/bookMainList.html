@@ -315,7 +315,7 @@
             <td width="20%" style="text-align: center">
                 <div>
 <!--                    <button onclick="insertOneCart()">장바구니 담기</button>-->
-                    <button onclick="insertOneCart(this)" th:value="${book.isbn}">장바구니 담기[[${book.isbn}]]</button>
+                    <button onclick="insertOneCart(this)" th:value="${book.isbn}">장바구니 담기</button>
                     <input type="hidden" th:value="${book.isbn}">
                 </div>
                 <div>
@@ -451,11 +451,6 @@
 
     function insertOneCart(dat) {
 
-        // const isbn = document.getElementById('checkBK');
-        let btn = document.getSelection(dat);
-
-        console.log('btn의 isbn ===> ', btn.value)
-
         console.log('isbn ===> ', dat.value);
 
         let payload = {
@@ -466,23 +461,23 @@
 
         console.log('payload => ', payload);
 
-        // $.ajax({
-        //     url: '/cart',
-        //     type: 'post',
-        //     data: JSON.stringify(payload),
-        //     dataType: 'json',
-        //     contentType: 'application/json',
-        //     success: function (res) {
-        //         console.log('카트 등록 성공!!!');
-        //         if (confirm("장바구니로 이동하시겠니까?")) {
-        //             location.href = '/view/book/bookMainList'; /*임시 링크*/
-        //         }
-        //     },
-        //     error: function (error) {
-        //         console.log("카트 등록 실패!!", error);
-        //         alert('이미 카트에 담겨 있는 도서들입니다.');
-        //     }
-        // });
+        $.ajax({
+            url: '/cart',
+            type: 'post',
+            data: JSON.stringify(payload),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (res) {
+                console.log('카트 등록 성공!!!');
+                if (confirm("장바구니로 이동하시겠니까?")) {
+                    location.href = '/view/book/bookMainList'; /*임시 링크*/
+                }
+            },
+            error: function (error) {
+                console.log("카트 등록 실패!!", error);
+                alert('이미 카트에 담겨 있는 도서들입니다.');
+            }
+        });
     }
 
 </script>
