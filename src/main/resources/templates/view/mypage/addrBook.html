@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>배송 주소록</title>
+    <script src="/js/addrbook.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
 </head>
 <body>
 <div>
@@ -11,12 +14,40 @@
 </div>
 <div>
   <table>
+    <thead>
     <tr>
       <th><input type="checkbox" name="addrAllSelect" id="addrAllSelect"></th>
       <th>수령인</th>
       <th>주소</th>
       <th>삭제</th>
     </tr>
+    </thead>
+    <tbody>
+      <tr th:each="list : ${addrList}">
+        <td><input type="checkbox" name="addrchk" th:value="${list.addrindex}"></td>
+        <td>
+          <label><th:block th:text="${list.recipient}"></th:block></label>
+          <th:block th:if="${list.priority} == 1"><br><span style="color: red">(기본 정보 주소)</span></th:block>
+        </td>
+<!--        <td th:text="|(${list.postnum})-->
+<!--                      ${list.address1}-->
+<!--                      ${list.address2}-->
+<!--                      ${list.phone}|">-->
+<!--        </td>-->
+        <td>
+          <label>(<th:block th:text="${list.postnum}"></th:block>)</label>
+          <br>
+          <label><th:block th:text="${list.address1}"></th:block></label>
+          <label><th:block th:text="${list.address2}"></th:block></label>
+          <br>
+          <label><th:block th:text="${list.phone}"></th:block></label>
+        </td>
+        <td>
+          <button name="addrModifyBtn">수정</button>
+          <th:block th:if="${list.priority} != 1"><button name="addrDeleteBtn">삭제</button></th:block>
+        </td>
+      </tr>
+    </tbody>
     <tr>
       <td></td>
       <td></td>
@@ -24,6 +55,18 @@
       <td></td>
     </tr>
   </table>
+</div>
+
+<div id="replyEditModal" style="display: none">
+  <div class="mb-3">
+    <input type="hidden" id="mindex">
+    <input type="text" id="mrecipient">
+    <input type="text" id="mpriority" >
+    <input type="text" id="mpostnum">
+    <input type="text" id="maddress1">
+    <input type="text" id="maddress2">
+    <input type="text" id="mphone">
+  </div>
 </div>
 </body>
 </html>
