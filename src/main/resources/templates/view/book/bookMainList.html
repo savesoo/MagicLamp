@@ -318,7 +318,7 @@
                 </div>
                 <div>
                     <a class="btn_buy" th:id="'isbn-'+${bookStat.count}" th:value="${book.isbn}"
-                       th:href="@{/order(isbn=${book.isbn})}"> 바로 구매 </a>
+                       th:href="@{/order(isbn=${book.isbn}, bookcount=${1})}"> 바로 구매 </a>
 
                     [[${bookStat.count}]]
 

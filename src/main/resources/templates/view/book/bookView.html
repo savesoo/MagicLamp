@@ -13,7 +13,7 @@
 
 <!-- 도서 상세 보기 시작-->
 
-<!--<input th:value="${bookView.title}">-->
+<input th:value="${bookView.title}">
 
 
 <!-- 도서 상세 보기 끝-->
@@ -22,8 +22,7 @@
 <!--구매 버튼 임시 연결-->
 <div class="order_data">
     <a class="btn_buy"
-       th:href="@{/order(isbn=${bookView.isbn})}"> 바로 구매 </a>
-
+       th:href="@{/order(isbn=${bookView.isbn}, bookcount=${1})}"> 바로 구매 </a>
 
     [[${bookView.isbn}]]
 </div>
