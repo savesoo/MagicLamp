@@ -16,10 +16,18 @@
       <!--마일리지-->
       <!--총 주문 정보-->
 
-      [[${userInfo}]]
-      [[${currMileage}]]
-      [[${userAddress}]]
+      <div>
 
+        [[${userInfo}]]
+        <br>
+        [[${ordersInfo}]]
+        <br>
+
+
+      </div>
+
+
+      <a> 님이 결제하실 금액은 총 [[${ordersInfo.bookInfos.totalPrice}]]원입니다.</a>
 
     </table>
 
