@@ -314,7 +314,9 @@
             </td>
             <td width="20%" style="text-align: center">
                 <div>
-                    <button th:onclick="insertOneCart(${book.isbn})">장바구니 담기</button>
+<!--                    <button onclick="insertOneCart()">장바구니 담기</button>-->
+                    <button onclick="insertOneCart(this)" th:value="${book.isbn}">장바구니 담기[[${book.isbn}]]</button>
+                    <input type="hidden" th:value="${book.isbn}">
                 </div>
                 <div>
                     <a class="btn_buy" th:id="'isbn-'+${bookStat.count}" th:value="${book.isbn}"
@@ -370,10 +372,13 @@
     </Tr>
 </table>
 <!--페이징(하부) 끝-->
-<script>
+
+<script th:inline="javascript">
 
     $(document).ready(function () {
         console.log('document.ready 진입');
+
+
 
     })
 
@@ -444,35 +449,40 @@
         });
     }
 
-    function insertOneCart(bookisbn) {
+    function insertOneCart(dat) {
 
-        console.log('isbn ===> ', bookisbn);
+        // const isbn = document.getElementById('checkBK');
+        let btn = document.getSelection(dat);
+
+        console.log('btn의 isbn ===> ', btn.value)
+
+        console.log('isbn ===> ', dat.value);
 
         let payload = {
             userindex: 1,
-            isbn: bookisbn,
+            isbn: dat.value,
             bookcount: 1
         }
 
         console.log('payload => ', payload);
 
-        $.ajax({
-            url: '/cart',
-            type: 'post',
-            data: JSON.stringify(payload),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (res) {
-                console.log('카트 등록 성공!!!');
-                if (confirm("장바구니로 이동하시겠니까?")) {
-                    location.href = '/view/book/bookMainList'; /*임시 링크*/
-                }
-            },
-            error: function (error) {
-                console.log("카트 등록 실패!!", error);
-                alert('이미 카트에 담겨 있는 도서들입니다.');
-            }
-        });
+        // $.ajax({
+        //     url: '/cart',
+        //     type: 'post',
+        //     data: JSON.stringify(payload),
+        //     dataType: 'json',
+        //     contentType: 'application/json',
+        //     success: function (res) {
+        //         console.log('카트 등록 성공!!!');
+        //         if (confirm("장바구니로 이동하시겠니까?")) {
+        //             location.href = '/view/book/bookMainList'; /*임시 링크*/
+        //         }
+        //     },
+        //     error: function (error) {
+        //         console.log("카트 등록 실패!!", error);
+        //         alert('이미 카트에 담겨 있는 도서들입니다.');
+        //     }
+        // });
     }
 
 </script>
