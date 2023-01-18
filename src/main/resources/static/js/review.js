@@ -20,7 +20,18 @@ function starCheck(){
     starFieldset.setAttribute('check', 'checked')
 }
 
+if(myReview != null){
+    const inputArea = document.querySelector('.review_input_textarea')
+    const inputBtn = document.querySelector('.review_btn')
+    inputArea.style.display = 'none'
+    inputBtn.style.display = 'none'
+
+}
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
+
 
     // 리뷰 리스트 출력 영역 캐스팅
     reviewList = document.querySelector('.review_list_wrapper > ul')
@@ -76,10 +87,11 @@ function setReviewList(pageNum){
                         break
                 }
                 html += '</div><div class="reviewer_info">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span>'+ review.username+'</span></div></div>'
-                html += '<div class="review_date">'+review.regdate+'</div></div>'
+                html += '<div class="review_date">'+review.regdate[0]+'.'+review.regdate[1]+'.'+review.regdate[2]+'</div></div>'
                 html += '<div class="list_right"><p class="review_content">' + review.reviewcontent + '</p></div>'
 
                 newLI.innerHTML = html
+                newLI.setAttribute('index', review.reviewindex)
                 reviewList.appendChild(newLI)
 
             });
@@ -151,4 +163,23 @@ function insertReview(){
         .catch(err => console.log(err))}
 
 }
+
+function deleteReview(reviewindex){
+    if (!confirm('삭제하시겠습니까?')){
+        return
+    }
+
+    axios.delete('/review/' + reviewindex)
+        .then(res => {
+
+            if(res.data == 1){
+                const delLI = document.querySelector('li[index="'+reviewindex+'"]')
+                reviewList.removeChild(delLI)
+            }
+            location.reload()
+        })
+        .catch()
+}
+
+
 

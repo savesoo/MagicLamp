@@ -218,4 +218,30 @@ article {
     display: none;
 }
 
+#review_info_section .review_input_right .my_review {
+    color: #666; font-size: 12px; line-height: 1em;
+}
 
+#review_info_section .review_input_right .my_review .review_content_wrapper {
+    background: #f2f4f5; border-radius: 3px; padding: 18px; position: relative;
+}
+
+#review_info_section .review_input_right .my_review .review_content_wrapper .review_content {
+    margin-top: 14px; font-size: 13px; color: #333; line-height: 1.5em; word-break: break-all;
+}
+
+#review_info_section .review_input_right .my_review .review_content_wrapper .my_review_date {
+    position: relative; cursor: default; width: 100%; display: table;
+}
+
+#review_info_section .review_input_right .my_review .review_content_wrapper .my_review_date .left_column {
+    display: table-cell; vertical-align: middle; text-align: left;
+}
+
+#review_info_section .review_input_right .my_review .review_content_wrapper .my_review_date .right_column {
+    text-align: right;
+}
+
+.bi-trash {
+    cursor: pointer;
+}

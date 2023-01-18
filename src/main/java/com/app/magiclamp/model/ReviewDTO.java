@@ -5,6 +5,8 @@ import com.app.magiclamp.entity.Review;
 import com.app.magiclamp.entity.User;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,7 +20,7 @@ public class ReviewDTO {
     private Integer star;
     private String reviewcontent;
 
-    private String regdate;
+    private LocalDate regdate;
 
     private String username;
 

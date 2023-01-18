@@ -50,6 +50,7 @@ public class BookViewController {
         model.addAttribute("star2", reviewReadService.count2(isbn));
         model.addAttribute("star1", reviewReadService.count1(isbn));
         model.addAttribute("loginInfo", authUserDTO == null? -1 : authUserDTO.getUserindex());
+        model.addAttribute("myReview", reviewReadService.readMyReview(isbn, authUserDTO == null? -1 : authUserDTO.getUserindex()));
 
         log.info("bookViewService.selectBook(isbn) >>>>>>>>>>>>>>>>> " + bookViewService.selectBook(isbn));
 

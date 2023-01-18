@@ -15,7 +15,7 @@ public class ReviewReadService {
     private ReviewMapper reviewMapper;
 
     public Review readMyReview (String isbn, Integer reviewer){
-        return reviewRepository.findByIsbn_IsbnAndReviewer_Userindex(isbn, reviewer).get();
+        return reviewRepository.findByIsbn_IsbnAndReviewer_Userindex(isbn, reviewer).orElse(null);
     }
 
     public Double calculateTheAvg(String isbn){

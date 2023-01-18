@@ -2,6 +2,7 @@ package com.app.magiclamp.controller;
 
 import com.app.magiclamp.model.ReviewDTO;
 import com.app.magiclamp.entity.Review;
+import com.app.magiclamp.service.review.ReviewDeleteService;
 import com.app.magiclamp.service.review.ReviewInsertService;
 import com.app.magiclamp.service.review.ReviewListService;
 import lombok.extern.log4j.Log4j2;
@@ -26,6 +27,9 @@ public class ReviewRestController {
     @Autowired
     private ReviewListService reviewListService;
 
+    @Autowired
+    private ReviewDeleteService reviewDeleteService;
+
 
     @PostMapping
     public ResponseEntity<Review> insertReview(@RequestBody ReviewDTO reviewDTO){
@@ -47,5 +51,10 @@ public class ReviewRestController {
         map.put("total", total);
 
         return map;
+    }
+
+    @DeleteMapping("/{reviewindex}")
+    public ResponseEntity<Integer> deleteReview(@PathVariable("reviewindex") int reviewindex){
+        return new ResponseEntity<>(reviewDeleteService.deleteByReviewIndex(reviewindex), HttpStatus.OK);
     }
 }
