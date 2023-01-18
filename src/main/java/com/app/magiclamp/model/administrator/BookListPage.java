@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Builder
 public class BookListPage {
 
     private int conuntperpage;  // 페이지 당 출력할 게시물의 수
