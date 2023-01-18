@@ -308,13 +308,13 @@
                 ->
                 <div th:text="${#numbers.formatInteger(book.saleprice, 0, 'COMMA')} + ' (10% 할인)'"
                      style="display: inline"></div>
-                <div th:text="${', 마일리지: ' + #numbers.formatInteger((book.saleprice*book.mileagerate/100), 0, 'COMMA') + '원 (' + book.mileagerate + '% 적립)'}"
+                <div th:text="${', 마일리지: ' + #numbers.formatInteger((book.price*book.mileagerate/100), 0, 'COMMA') + '원 (' + book.mileagerate + '% 적립)'}"
                      style="display: inline"></div>
                 <!--<div th:text="${book.title}"></div> 별점 -->
             </td>
             <td width="20%" style="text-align: center">
                 <div>
-                    <button>장바구니 담기</button>
+                    <button th:onclick="insertOneCart(${book.isbn})">장바구니 담기</button>
                 </div>
                 <div>
                     <a class="btn_buy" th:id="'isbn-'+${bookStat.count}" th:value="${book.isbn}"
@@ -433,9 +433,44 @@
             contentType: 'application/json',
             success: function (res) {
                 console.log('카트 등록 성공!!!');
+                if (confirm("장바구니로 이동하시겠니까?")) {
+                    location.href = '/view/book/bookMainList'; /*임시 링크*/
+                }
             },
             error: function (error) {
                 console.log("카트 등록 실패!!", error);
+                alert('이미 카트에 담겨 있는 도서들입니다.');
+            }
+        });
+    }
+
+    function insertOneCart(bookisbn) {
+
+        console.log('isbn ===> ', bookisbn);
+
+        let payload = {
+            userindex: 1,
+            isbn: bookisbn,
+            bookcount: 1
+        }
+
+        console.log('payload => ', payload);
+
+        $.ajax({
+            url: '/cart',
+            type: 'post',
+            data: JSON.stringify(payload),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (res) {
+                console.log('카트 등록 성공!!!');
+                if (confirm("장바구니로 이동하시겠니까?")) {
+                    location.href = '/view/book/bookMainList'; /*임시 링크*/
+                }
+            },
+            error: function (error) {
+                console.log("카트 등록 실패!!", error);
+                alert('이미 카트에 담겨 있는 도서들입니다.');
             }
         });
     }
