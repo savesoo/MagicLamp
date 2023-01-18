@@ -13,20 +13,101 @@
 
 <!-- 도서 상세 보기 시작-->
 
-<input th:value="${bookView.title}">
+<table style="margin-left:auto; margin-right:auto; width: 890px">
+    <tr>
+        <td>
+            <!--상단 타이틀 (&저자,출판사,출간일) 시작-->
+            <div>
+                <ul>
+                    <li>
+                        <div>
+                            <span th:text="${bookView.title}"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span th:text="${bookView.author + ' | ' + bookView.publisher + ' | ' + bookView.pubdate }"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <hr/>
+            <!--상단 타이틀 (&저자,출판사,출간일) 끝-->
 
+            <!--도서이미지 시작-->
+            <div style="display: inline; width: 300px">
+                <img src="https://image.aladin.co.kr/product/30860/85/cover500/8932922942_1.jpg" width="300px">
+            </div>
+            <!--도서이미지 끝-->
 
+            <!--도서 상품정보 시작-->
+            <div style="display: inline-block; vertical-align: top">
+                <ul>
+                    <li>
+                        <div style="display: inline">정가</div>
+                        <div style="display: inline">[[${#numbers.formatInteger(bookView.price, 0, 'COMMA')}]]원</div>
+                    </li>
+                    <li>
+                        <div style="display: inline">판매가</div>
+                        <div style="display: inline">[[${#numbers.formatInteger(bookView.saleprice, 0, 'COMMA')}]]원 (10%, [[${#numbers.formatInteger(bookView.price-bookView.saleprice, 0, 'COMMA')}]]원 할인)</div>
+                    </li>
+                    <li>
+                        <div style="display: inline">마일리지</div>
+                        <div style="display: inline">[[${#numbers.formatInteger(bookView.price*bookView.mileagerate/100, 0, 'COMMA')}]]원 (5%)</div>
+                    </li>
+                    <li>
+                        <div style="display: inline">별점</div>
+                        <div style="display: inline">5점</div>
+                    </li>
+                    <li>
+                        <div style="display: inline">수량</div>
+                        <div style="display: inline">
+                            <input type="text" name="qty" id="result" min="0" value="1">
+                            <input type="button" onclick="count('plus')" value="+"/>
+                            <input type="button" onclick="count('minus')" value="-"/>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="display: inline">총 상품금액</div>
+                        <div style="display: inline">
+                            <span id="totalPrice">
+                                [[${#numbers.formatInteger(bookView.saleprice, 0, 'COMMA')}]]원
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="display: inline">
+                            <button onclick="insertOneCart(this)" th:value="${bookView.isbn}">장바구니 담기</button>
+                        </div>
+                        <div style="display: inline">
+                            <a class="btn_buy" th:href="@{/order(isbn=${bookView.isbn}, bookcount=${1})}" id="dirQty">
+                            <button >바로구매</button>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <hr/>
+            <div>
+                <h3>기본 정보</h3>
+                <div th:text="${bookView.pages + '쪽 | ' + bookView.size + ' | ' + bookView.weight + 'g | ISBN: ' + bookView.isbn}"></div>
+                <div th:text="${'주제 분류: ' + bookView.category}"></div>
+            </div>
+            <hr/>
+            <div>
+                <h3>책 소개</h3>
+                <div th:text="${bookView.description}"></div>
+            </div>
+            <hr/>
+            <div>
+                <h3>목차</h3>
+                <div th:text="${bookView.contents}"></div>
+            </div>
+            <!--도서 상품정보 끝-->
+        </td>
+    </tr>
+</table>
 <!-- 도서 상세 보기 끝-->
-
-
-<!--구매 버튼 임시 연결-->
-<div class="order_data">
-    <a class="btn_buy"
-       th:href="@{/order(isbn=${bookView.isbn}, bookcount=${1})}"> 바로 구매 </a>
-
-    [[${bookView.isbn}]]
-</div>
-
 
 <!-- 리뷰 영역 -->
 <article>
@@ -208,6 +289,78 @@
     var page = 1
 </script>
 <script src="/js/review.js"></script>
+
+<!--도서 상세 관련 script -->
+<script th:inline="javascript">
+
+    let price = [[${bookView.saleprice}]]
+    const isbnisbn = [[${bookView.isbn}]]
+    let qty = 0
+
+    function count(type)  {
+        // 결과를 표시할 element
+        const resultEl = document.getElementById('result');
+        const resultTotal = document.getElementById('totalPrice');
+        const dirQty = document.getElementById('dirQty');
+
+        // 현재 화면에 표시된 값
+        let number = resultEl.value;
+
+        console.log('resultEl.value ==> ', resultEl.value);
+        console.log('type ==> ', type);
+
+        // 더하기/빼기
+        if(type === 'plus') {
+            number = parseInt(number) + 1;
+        }else if(type === 'minus')  {
+            number = parseInt(number) - 1;
+            if (number < 1){
+                return;
+            }
+        }
+
+        // 결과 출력
+        resultEl.value = number;
+        dirQty.value = number;
+        resultTotal.innerText = (price * number).toLocaleString() + '원';
+        console.log('dirQty.value ==> ', dirQty.value);
+        dirQty.setAttribute('href', '/order?isbn='+isbnisbn+'&bookcount='+number);
+        qty = number;
+
+    }
+
+    function insertOneCart(dat) {
+
+        console.log('isbn ===> ', dat.value);
+
+        let payload = {
+            userindex: 1,
+            isbn: dat.value,
+            bookcount: qty
+        }
+
+        console.log('payload => ', payload);
+
+        $.ajax({
+            url: '/cart',
+            type: 'post',
+            data: JSON.stringify(payload),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (res) {
+                console.log('카트 등록 성공!!!');
+                if (confirm("장바구니로 이동하시겠니까?")) {
+                    location.href = '/view/book/bookMainList'; /*임시 링크*/
+                }
+            },
+            error: function (error) {
+                console.log("카트 등록 실패!!", error);
+                alert('이미 카트에 담겨 있는 도서들입니다.');
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
 
