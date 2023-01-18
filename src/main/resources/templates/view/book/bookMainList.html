@@ -228,7 +228,7 @@
                         <option value="isbn">ISBN</option>
                         <option value="title">도서명</option>
                     </select>
-                    <input type="text" name="keyword">
+                    <input type="text" name="keyword" id="searchinput">
                     <input type="submit" value="검색">
                 </form>
             </div>
@@ -253,7 +253,7 @@
                               th:with="active=${BookMainListPage.pagenum == num ? 'pg_current' : ''}">
                         <li th:classappend="${active}" class="pg_page">
                             <a th:href="@{/view/book/bookMainList(p=${num},searchType=${BookMainListPage.searchType},keyword=${BookMainListPage.keyword})}"
-                               th:text="${num}"></a>
+                               th:text="${num}" th:name="atag"></a>
                         </li>
                     </th:block>
                     <th:block th:if="${BookMainListPage.next}">
@@ -314,7 +314,7 @@
             </td>
             <td width="20%" style="text-align: center">
                 <div>
-<!--                    <button onclick="insertOneCart()">장바구니 담기</button>-->
+                    <!--                    <button onclick="insertOneCart()">장바구니 담기</button>-->
                     <button onclick="insertOneCart(this)" th:value="${book.isbn}">장바구니 담기</button>
                     <input type="hidden" th:value="${book.isbn}">
                 </div>
@@ -375,12 +375,19 @@
 
 <script th:inline="javascript">
 
+    let num = [[${num}]]
+    const atag = document.getElementsByName('atag');
+
     $(document).ready(function () {
         console.log('document.ready 진입');
 
 
-
     })
+
+    $('#searchinput').focus(function (){
+        console.log('검색바에 포커스 올라감!');
+        // atag.setAttribute('href', '/view/book/bookMainList?p='+num);
+    });
 
     function selectAll(selectAll) {
         const checkBooks = document.getElementsByName('checkBook');
@@ -479,6 +486,7 @@
             }
         });
     }
+
 
 </script>
 
