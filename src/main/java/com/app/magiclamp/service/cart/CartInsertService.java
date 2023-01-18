@@ -51,9 +51,25 @@ public class CartInsertService {
 
     public Cart insertOneCart(InsertSelCartRequest insertSelCartRequest) {
 
-        Cart cart = insertSelCartRequest.toCart();
+        Cart result = null;
 
-        Cart result = cartRepository.save(cart);
+        String isbnCart = insertSelCartRequest.getIsbn();
+
+        Integer userindexCart = insertSelCartRequest.getUserindex();
+
+        Cart searchResult = cartMapper.searchIsbn(isbnCart, userindexCart);
+
+        if (searchResult == null) {
+
+            Cart cart = insertSelCartRequest.toCart();
+
+            log.info("CartInsert 진입 전 cart  ==> " + cart);
+
+            result = cartRepository.save(cart);
+
+            log.info("CartInsert 진입 후 result ==> " + result);
+
+        }
 
         return result;
     }
