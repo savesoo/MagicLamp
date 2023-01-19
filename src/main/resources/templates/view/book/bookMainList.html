@@ -253,7 +253,7 @@
                               th:with="active=${BookMainListPage.pagenum == num ? 'pg_current' : ''}">
                         <li th:classappend="${active}" class="pg_page">
                             <a th:href="@{/view/book/bookMainList(p=${num},searchType=${BookMainListPage.searchType},keyword=${BookMainListPage.keyword})}"
-                               th:text="${num}" id="atag"></a>
+                               th:text="${num}"></a>
                         </li>
                     </th:block>
                     <th:block th:if="${BookMainListPage.next}">
@@ -358,7 +358,8 @@
                     <th:block th:each="num : ${#numbers.sequence(BookMainListPage.startnum, BookMainListPage.endnum)}"
                               th:with="active=${BookMainListPage.pagenum == num ? 'pg_current' : ''}">
                         <li th:classappend="${active}" class="pg_page">
-                            <a th:href="@{/view/book/bookMainList(p=${num})}" th:text="${num}"></a>
+                            <a th:href="@{/view/book/bookMainList(p=${num},searchType=${BookMainListPage.searchType},keyword=${BookMainListPage.keyword})}"
+                               th:text="${num}"></a>
                         </li>
                     </th:block>
                     <th:block th:if="${BookMainListPage.next}">
@@ -375,18 +376,11 @@
 
 <script th:inline="javascript">
 
-    let num = [[${num}]]
-    let atag = document.getElementById('atag');
-
     $(document).ready(function () {
         console.log('document.ready 진입');
 
 
     })
-
-    $('#searchinput').focus(function (){
-        console.log('검색바에 포커스 올라감!');
-    });
 
     function selectAll(selectAll) {
         const checkBooks = document.getElementsByName('checkBook');
