@@ -9,7 +9,29 @@
     검색: <input type="text" name="keyword">
     <input type="submit">
 </form>
+<hr/>
 
+<table>
+    <tr>
+        <td>ISBN</td>
+        <td>title</td>
+        <td>도서이미지</td>
+    </tr>
+    <div id="result">
+
+    </div>
+</table>
+
+<hr/>
 <div>[[${naverBlog}]]</div>
+<script th:inline="javascript">
+
+    let api = [[${naverBlog}]]
+
+    let obj = JSON.parse(api);
+
+    console.log('obj => ', obj);
+
+</script>
 </body>
 </html>
