@@ -312,7 +312,14 @@
                 <div th:text="${', 마일리지: ' + #numbers.formatInteger((book.price*book.mileagerate/100), 0, 'COMMA') + '원 (' + book.mileagerate + '% 적립)'}"
                      style="display: inline"></div>
                 <div>
-
+                    <th:block th:if="${book.star > 0}">
+                        별점:
+                        <th:block th:if="${book.star == 5}">★★★★★</th:block>
+                        <th:block th:if="${book.star == 4}">★★★★☆</th:block>
+                        <th:block th:if="${book.star == 3}">★★★☆☆</th:block>
+                        <th:block th:if="${book.star == 2}">★★☆☆☆</th:block>
+                        <th:block th:if="${book.star == 1}">★☆☆☆☆</th:block>
+                    </th:block>
                 </div>
             </td>
             <td width="20%" style="text-align: center">
