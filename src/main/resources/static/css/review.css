@@ -113,7 +113,7 @@ article {
 }
 
 .star_rate_touch_area label:hover {
-    text-shadow: 0 0 0 rgba(239, 59, 150, 0.99);
+    text-shadow: 0 0 0 rgba(239, 59, 150, 0.99); cursor: pointer;
 }
 
 .star_rate_touch_area label:hover ~ label {
@@ -129,10 +129,30 @@ article {
     padding: 12px 15px; line-height: 1.5em; color: #a7b1bb; resize: vertical;
 }
 
+#review_info_section .review_input_right .button_wrapper {
+    padding: 8px 0; height: 30px;
+}
+
 #review_info_section .review_input_right .review_btn {
+    padding: 6px 18px; font-size: 12px; box-shadow: 0 1px 1px 0 rgb(31 140 230 / 30%); border: 1px solid #0077d9; border-radius: 4px; color: #fff;
+    transition: background .2s,color .2s; vertical-align: baseline; text-align: center; display: inline-block; font-weight: 700; box-sizing: border-box;
+    text-decoration: none; appearance: none; background: #1f8ce6; float: right; cursor: pointer;
+}
+
+#review_info_section .review_input_right .modify_btn {
     padding: 8px 18px; font-size: 12px; box-shadow: 0 1px 1px 0 rgb(31 140 230 / 30%); border: 1px solid #0077d9; border-radius: 4px; color: #fff;
     transition: background .2s,color .2s; vertical-align: baseline; text-align: center; display: inline-block; font-weight: 700; box-sizing: border-box;
-    text-decoration: none; appearance: none; background: #1f8ce6; float: right;
+    text-decoration: none; appearance: none; background: #1f8ce6; float: right; cursor: pointer; margin-top: 8px; margin-left: 4px;
+}
+
+#review_info_section .review_input_right .modify_cancel_btn {
+    padding: 8px 18px; font-size: 12px; box-shadow: 0 1px 1px 0 rgb(125 142 158 / 30%); border: 1px solid #636c73; border-radius: 4px; color: #fff;
+    transition: background .2s,color .2s; vertical-align: baseline; text-align: center; display: inline-block; font-weight: 700; box-sizing: border-box;
+    text-decoration: none; appearance: none; background: #7d8e9e; float: right; cursor: pointer; margin-top: 8px;
+}
+
+#review_info_section .review_input_right .hidden {
+    display: none;
 }
 
 #review_list_section {
@@ -153,11 +173,11 @@ article {
 }
 
 .review_tab .review_filter {
-    position: absolute; right: 0; bottom: 0; list-style: none;
+    margin: 0; padding: 0; position: absolute; right: 0; bottom: 0; list-style: none;
 }
 
 .review_filter .filter_list {
-    margin: 0; padding: 0; display: inline-block;
+    margin: 0; padding: 8px 0; display: inline-block; cursor: pointer;
 }
 
 .review_filter .filter_list a {
@@ -204,15 +224,21 @@ article {
     padding-bottom: 10px; font-size: 13px; color: #212529; line-height: 1.7em; word-break: break-all;
 }
 
-#review_list_section .review_list_wrapper .review_list .list_right .more_review {
+.more_review {
     -webkit-appearance: none; background: 0 0; border: none; font-size: 13px; padding-left: 3px; line-height: 1.5em;
-    box-shadow: none; color: #738096; transition: color .2s;
+    box-shadow: none; color: #738096; transition: color .2s; cursor: pointer;
 }
 
+#review_list_section .review_list_wrapper .more_review_button_wrapper {
+    padding-top: 15px; background: #fff; margin-top: -1px;
+}
+
+
 #review_list_section .review_list_wrapper .more_review_button {
-    padding-top: 15px; background: #fff; margin-top: -1px; border: 2px solid #d1d5d9; border-radius: 3px; text-align: center; width: 100%;
+    display: block; background: #fff; margin-top: -1px; border: 2px solid #d1d5d9; border-radius: 3px; text-align: center; width: 100%;
     font-size: 13px; font-weight: 700; padding: 13px 0; cursor: pointer;
 }
+
 
 #review_list_section .review_list_wrapper .review_list .list_right .hidden {
     display: none;
@@ -226,7 +252,7 @@ article {
     background: #f2f4f5; border-radius: 3px; padding: 18px; position: relative;
 }
 
-#review_info_section .review_input_right .my_review .review_content_wrapper .review_content {
+#review_info_section .review_input_right .my_review .review_content_wrapper .my_review_content {
     margin-top: 14px; font-size: 13px; color: #333; line-height: 1.5em; word-break: break-all;
 }
 
@@ -242,6 +268,15 @@ article {
     text-align: right;
 }
 
-.bi-trash {
-    cursor: pointer;
+#review_info_section .review_input_right .my_review .review_content_wrapper .my_review_content .hidden {
+    display: none;
 }
+
+.bi-pencil {
+    cursor: pointer; padding: 2px 14px;
+}
+
+.bi-trash {
+    cursor: pointer; border-left: 1px solid #dee4ea; padding: 2px 14px;
+}
+

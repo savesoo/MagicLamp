@@ -17,10 +17,11 @@ public class ReviewListService {
     private ReviewRepository reviewRepository;
 
     public List<ReviewDTO> getList(String isbn, int pageNum){
-        int index = (pageNum-1) * 10;
-        int count = 10;
+        int index = (pageNum-1) * 5;
+        int count = 5;
         return reviewMapper.getList(isbn, index, count);
     }
+
 
     public long countPeople(String isbn){
         return reviewRepository.countByIsbn_Isbn(isbn);

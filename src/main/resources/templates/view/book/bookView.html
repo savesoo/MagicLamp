@@ -232,16 +232,16 @@
                         <span class="rate_num" th:text="|${myReview.star}.0|"></span></p>
                     <div class="star_rate_touch_area">
                         <fieldset>
-                            <input type="radio" name="star" value="5"
-                                   th:checked="${myReview.star eq 5}"><label for="rate1">★</label>
-                            <input type="radio" name="star" value="4"
-                                   th:checked="${myReview.star eq 4}"><label for="rate2">★</label>
-                            <input type="radio" name="star" value="3"
-                                   th:checked="${myReview.star eq 3}"><label for="rate3">★</label>
-                            <input type="radio" name="star" value="2"
-                                   th:checked="${myReview.star eq 2}"><label for="rate4">★</label>
-                            <input type="radio" name="star" value="1"
-                                   th:checked="${myReview.star eq 1}"><label for="rate5">★</label>
+                            <input type="radio" name="star" value="5" id="star1"
+                                   th:checked="${myReview.star eq 5}"><label for="star1">★</label>
+                            <input type="radio" name="star" value="4" id="star2"
+                                   th:checked="${myReview.star eq 4}"><label for="star2">★</label>
+                            <input type="radio" name="star" value="3" id="star3"
+                                   th:checked="${myReview.star eq 3}"><label for="star3">★</label>
+                            <input type="radio" name="star" value="2" id="star4"
+                                   th:checked="${myReview.star eq 2}"><label for="star4">★</label>
+                            <input type="radio" name="star" value="1" id="star5"
+                                   th:checked="${myReview.star eq 1}"><label for="star5">★</label>
                         </fieldset>
                     </div>
                 </th:block>
@@ -251,13 +251,25 @@
             <th:block sec:authorize="isAuthenticated()">
                 <input type="hidden" id="reviewer" th:value="${#authentication.principal.userindex}">
             </th:block>
-            <button type="submit" class="review_btn">리뷰 남기기</button>
+            <div class="button_wrapper">
+                <button type="submit" class="review_btn">리뷰 남기기</button>
+            </div>
+            <div class="modify_button_wrapper">
+                <button type="submit" class="modify_btn hidden">수정완료</button>
+                <button type="submit" class="modify_cancel_btn hidden">취소</button>
+            </div>
             <th:block th:if="${myReview} != null">
                 <div class="my_review">
                     <div class="review_content_wrapper">
                         <div class="my_review_date">
                             <p class="left_column"><span class="review_date" th:text="${myReview.regdate}"></span></p>
                             <div class="right_column">
+                                <a th:onclick="'javascript:modifyReview()'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-pencil" viewBox="0 0 16 16">
+                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                    </svg>
+                                </a>
                                 <a th:onclick="|javascript:deleteReview('${myReview.reviewindex}')|">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-trash" viewBox="0 0 16 16">
@@ -268,7 +280,7 @@
                                 </a>
                             </div>
                         </div>
-                        <p class="review_content" th:text="${myReview.reviewcontent}"></p>
+                        <p class="my_review_content" th:text="${myReview.reviewcontent}"></p>
                     </div>
                 </div>
             </th:block>
@@ -293,8 +305,10 @@
                 </div>
             </th:block>
             <ul>
-
             </ul>
+            <div class="more_review_button_wrapper" id="example">
+                <button type="button" class="more_review_button">더보기</button>
+            </div>
         </div>
     </div>
 </article>
