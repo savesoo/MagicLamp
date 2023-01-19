@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Builder
 public class BookRequest {
 
-    /*도서메일리스와 상세 페이지에 도서의 총 별점을 표시하기 위해 기존 Book 엔티티에 별점 필드를 추가하였음*/
+    /*도서메일리스와 상세 페이지에 도서의 총 별점과 리뷰수을 표시하기 위해 기존 Book 엔티티에 내용에 별점,리뷰수 필드를 추가하였음*/
 
     private String isbn; // 도서ISBN
 
@@ -52,6 +52,8 @@ public class BookRequest {
     private String bookimg; // 도서 이미지
 
     private int star; // 도서 별점
+    
+    private int cnt; // 도서 리뷰수
 
     private LocalDate regdate; // 등록일자
 
