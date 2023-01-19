@@ -1,8 +1,6 @@
 package com.app.magiclamp.repository;
 
 import com.app.magiclamp.entity.Book;
-import com.app.magiclamp.model.BookInfoDTO;
-import com.app.magiclamp.model.order.RequestOrderBook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
