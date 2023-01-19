@@ -212,6 +212,7 @@
         }
     </style>
 
+    <link href="/css/review.css" rel="stylesheet">
 </head>
 <body>
 <!--내비게이션 시작-->
@@ -310,7 +311,9 @@
                      style="display: inline"></div>
                 <div th:text="${', 마일리지: ' + #numbers.formatInteger((book.price*book.mileagerate/100), 0, 'COMMA') + '원 (' + book.mileagerate + '% 적립)'}"
                      style="display: inline"></div>
-                <!--<div th:text="${book.title}"></div> 별점 -->
+                <div>
+
+                </div>
             </td>
             <td width="20%" style="text-align: center">
                 <div>
