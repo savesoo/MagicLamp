@@ -47,21 +47,4 @@ public class BookMainListController {
 
         }
     }
-
-    @PostMapping
-    public void postBookMainList(
-            @RequestParam(value = "p", defaultValue = "1") int pagenum,
-            BookSearchOption searchOption,
-            HttpServletRequest request,
-            Model model
-    ) {
-        log.info("PostMapping 진입............");
-
-        HttpSession session = request.getSession();
-
-        model.addAttribute("loginInfo", session.getAttribute("loginInfo"));
-
-        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageSearchList(pagenum, searchOption));
-    }
-
 }
