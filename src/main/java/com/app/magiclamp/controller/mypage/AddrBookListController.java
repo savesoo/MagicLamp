@@ -1,9 +1,11 @@
 package com.app.magiclamp.controller.mypage;
 
 import com.app.magiclamp.entity.AddrBook;
+import com.app.magiclamp.model.AuthUserDTO;
 import com.app.magiclamp.service.mypage.AddrBookListService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +21,16 @@ public class AddrBookListController {
     private AddrBookListService addrBookListService;
 
     @GetMapping("mypage/addrbook")
-    public String selectAddrBookList(@RequestParam(value = "userindex") int userindex, Model model){
-        String newline = System.getProperty("line.separator").toString();
-        log.info("UserIndex >>>>>>>>>>>>>>>>>>>> " + userindex);
-        List<AddrBook> list = addrBookListService.selectAddrBookAll(userindex);
+    public String selectAddrBookList(
+            @RequestParam(value = "page", defaultValue = "1") int pageNum,
+            @RequestParam(value = "keyword", defaultValue = "") String recipient,
+            @AuthenticationPrincipal AuthUserDTO user,
+            Model model){
 
-        log.info("AddrBookList >>>>>>>>>>>>>>>>>>>> " + list);
-        log.info("AddrBookListSize >>>>>>>>>>>>>>>>>>>> " + list.size());
-
-        model.addAttribute("addrList", list);
-        model.addAttribute("newline", newline);
+        model.addAttribute("addrList", addrBookListService.getAddrBookPage(user.getUserindex(), pageNum, recipient));
+        if(!recipient.equals(" ") && recipient != null){
+            model.addAttribute("keyword", recipient);
+        }
 
         return "view/mypage/addrbook";
     }

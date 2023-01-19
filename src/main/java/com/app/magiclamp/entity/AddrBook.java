@@ -19,7 +19,7 @@ public class AddrBook {
     @Column
     private int addrindex;
 
-    @Column(columnDefinition = "int not null")
+    @Column(columnDefinition = "int not null", updatable = false)
     private int userindex;
 
     @Column
@@ -40,6 +40,6 @@ public class AddrBook {
     @Column(columnDefinition = "varchar(100) not null")
     private String address2;
 
-    @Column(columnDefinition = "int default 0")
+    @Column(columnDefinition = "int default 0", updatable = false)
     private int priority;
 }

@@ -3,70 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <title>배송 주소록</title>
-    <script src="/js/addrbook.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <link href="/css/addrbook.css" rel="stylesheet">
 </head>
 <body>
 <div>
-  <a>선택 삭제</a>
-  <a>새 주소 추가</a>
+  <form action="/mypage/addrbook" method="get">
+  <input type="text" name="keyword" id="keyword" th:value="${keyword}">
+  <input type="submit" value="주소검색">
+<!--  <button id="keywordSearchBtn" name="keywordSearchBtn" onclick="searchRecipient()">주소검색</button>-->
+  <a onclick="addrChkDelete()">선택 삭제</a>
+  <a onclick="newAddr()">새 주소 추가</a>
+  </form>
 </div>
 <div>
   <table>
     <thead>
     <tr>
       <th><input type="checkbox" name="addrAllSelect" id="addrAllSelect"></th>
+      <th>배송지</th>
       <th>수령인</th>
       <th>주소</th>
       <th>삭제</th>
     </tr>
     </thead>
     <tbody>
-      <tr th:each="list : ${addrList}">
-        <td><input type="checkbox" name="addrchk" th:value="${list.addrindex}"></td>
+      <th:block th:if="${addrList.list.size() ==0 || addrList.list.isEmpty()}">
+        <tr>
+          <td colspan="5">검색하신 결과가 없습니다.</td>
+        </tr>
+      </th:block>
+      <th:block th:unless="${addrList.list.size() ==0 || addrList.list.isEmpty()}">
+      <tr th:each="addr : ${addrList.list}">
+        <th:block th:if="${addr.priority == 1}"><td><input type="checkbox" name="addrchk" th:value="${addr.addrindex}" disabled></td></th:block>
+        <th:block th:unless="${addr.priority == 1}"><td><input type="checkbox" name="addrchk" th:value="${addr.addrindex}"></td></th:block>
+        <td><label><th:block th:text="${addr.addrname}"></th:block></label></td>
         <td>
-          <label><th:block th:text="${list.recipient}"></th:block></label>
-          <th:block th:if="${list.priority} == 1"><br><span style="color: red">(기본 정보 주소)</span></th:block>
+          <label><th:block th:text="${addr.recipient}"></th:block></label>
+          <th:block th:if="${addr.priority} == 1"><br><span style="color: red">(기본 정보 주소)</span></th:block>
         </td>
-<!--        <td th:text="|(${list.postnum})-->
-<!--                      ${list.address1}-->
-<!--                      ${list.address2}-->
-<!--                      ${list.phone}|">-->
-<!--        </td>-->
         <td>
-          <label>(<th:block th:text="${list.postnum}"></th:block>)</label>
+          <label>(<th:block th:text="${addr.postnum}"></th:block>)</label>
           <br>
-          <label><th:block th:text="${list.address1}"></th:block></label>
-          <label><th:block th:text="${list.address2}"></th:block></label>
+          <label><th:block th:text="${addr.address1}"></th:block></label>
+          <label><th:block th:text="${addr.address2}"></th:block></label>
           <br>
-          <label><th:block th:text="${list.phone}"></th:block></label>
+          <label><th:block th:text="${addr.phone}"></th:block></label>
         </td>
         <td>
           <button name="addrModifyBtn">수정</button>
-          <th:block th:if="${list.priority} != 1"><button name="addrDeleteBtn">삭제</button></th:block>
+          <th:block th:if="${addr.priority} != 1"><button name="addrDeleteBtn">삭제</button></th:block>
         </td>
       </tr>
+      </th:block>
     </tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
   </table>
+  <nav aria-label="">
+    <ul class="pagination">
+      <input type="hidden" id="pagenum" th:value="${addrList.pageNum}">
+      <th:block th:if="${addrList.prev}">
+        <li class="page-item">
+          <a class="page-link" th:href="@{/mypage/addrbook(page=${addrList.startNum-1}, keyword=${keyword})}">&laquo;</a>
+        </li>
+      </th:block>
+      <th:block th:each="num : ${#numbers.sequence(addrList.startNum, addrList.endNum)}" th:with="active=${addrList.pageNum==num?'active':''}">
+        <li class="page-item" th:classappend="${active}">
+          <a class="page-link" th:href="@{/mypage/addrbook(page=${num}, keyword=${keyword})}" th:text="${num}"></a>
+        </li>
+      </th:block>
+      <th:block th:if="${addrList.next}">
+        <li class="page-item">
+          <a class="page-link" th:href="@{/mypage/addrbook(page=${addrList.endNum+1}, keyword=${keyword})}">&raquo;</a>
+        </li>
+      </th:block>
+    </ul>
+  </nav>
 </div>
 
-<div id="replyEditModal" style="display: none">
-  <div class="mb-3">
-    <input type="hidden" id="mindex">
-    <input type="text" id="mrecipient">
-    <input type="text" id="mpriority" >
-    <input type="text" id="mpostnum">
-    <input type="text" id="maddress1">
-    <input type="text" id="maddress2">
-    <input type="text" id="mphone">
-  </div>
+<div id="addrModal" class="modal">
+  <form>
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+
+      <input type="hidden" id="maddrindex">
+      <label for="maddrname">배송지</label><input type="text" id="maddrname">
+      <label for="mrecipient">수령인</label><input type="text" id="mrecipient">
+      <label for="mpostnum">우편번호</label><input type="text" id="mpostnum">
+      <label for="maddress1">주소</label><input type="text" id="maddress1">
+      <label for="maddress2">상세주소</label><input type="text" id="maddress2">
+      <label for="mphone">전화번호</label><input type="text" id="mphone">
+
+      <input type="button" id="add" value="추가" onclick="addrAdd()">
+      <input type="button" id="modify" value="수정" onclick="addrModify()">
+    </div>
+  </form>
 </div>
+  <script src="/js/addrbook.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
