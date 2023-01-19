@@ -1,6 +1,7 @@
 package com.app.magiclamp.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Builder
+@DynamicUpdate
 public class Mileage {
     @Id
     @Column
@@ -20,6 +22,11 @@ public class Mileage {
 
     @Column(columnDefinition = "int default 0")
     private Integer mileage;
+
+    @Column(columnDefinition = "int default 0")
+    private Integer usemileage;
+
     @Column(columnDefinition = "timestamp not null default current_timestamp()")
     private LocalDate updatedate;
+
 }
