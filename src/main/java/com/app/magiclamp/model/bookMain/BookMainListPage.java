@@ -15,7 +15,7 @@ public class BookMainListPage {
 
     private int conuntperpage;  // 페이지 당 출력할 게시물의 수
     private int pagenum;    // 현재 페이지 번호
-    private List<Book> list;    // 게시물의 리스트
+    private List<BookRequest> list;    // 게시물의 리스트
     private int totalcount;     // 전체 게시물의 개수
     private int startnum;       // 페이징의 시작 번호
     private int endnum;     // 페이징의 끝 번호
@@ -26,7 +26,7 @@ public class BookMainListPage {
 
     private String keyword; // 검색 키워드
 
-    public BookMainListPage(int conuntperpage, int pagenum, List<Book> list, int totalcount, String searchType, String keyword) {
+    public BookMainListPage(int conuntperpage, int pagenum, List<BookRequest> list, int totalcount, String searchType, String keyword) {
         this.conuntperpage = conuntperpage;
         this.pagenum = pagenum;
         this.list = list;
