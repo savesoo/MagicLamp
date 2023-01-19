@@ -3,6 +3,7 @@ package com.app.magiclamp.service.book;
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.mapper.BookMainListMapper;
 import com.app.magiclamp.model.bookMain.BookMainListPage;
+import com.app.magiclamp.model.bookMain.BookRequest;
 import com.app.magiclamp.model.bookMain.BookSearchOption;
 import com.app.magiclamp.repository.BookRepository;
 import lombok.extern.log4j.Log4j2;
@@ -31,10 +32,12 @@ public class BookMainListService {
         // 도서 리스트
         List<Book> list = page.getContent();
 
+        List<BookRequest> starPage = bookMainListMapper.selectBookStar((pagenum - 1)*10, 10); // 임시
+
         // 전체 도서의 개수
         int totalCount = (int) page.getTotalElements();
 
-        BookMainListPage bookMainListPage = new BookMainListPage(10, pagenum, list, totalCount, searchType, keyword);
+        BookMainListPage bookMainListPage = new BookMainListPage(10, pagenum, starPage, totalCount, searchType, keyword);
 
         return bookMainListPage;
     }
@@ -46,7 +49,8 @@ public class BookMainListService {
         int stnum = (pagenum - 1) * 10;
 
         // 도서 리스트
-        List<Book> list = bookMainListMapper.selectByOption(stnum, searchOption);
+//        List<Book> list = bookMainListMapper.selectByOption(stnum, searchOption);
+        List<BookRequest> list = bookMainListMapper.selectByOption(stnum, searchOption);
 
         // 전체 도서의 개수
         log.info("전체 도서의 개수 =================>" + bookMainListMapper.selectByOptionTotalCount(searchOption));
