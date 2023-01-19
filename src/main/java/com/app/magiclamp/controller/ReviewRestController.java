@@ -5,6 +5,7 @@ import com.app.magiclamp.entity.Review;
 import com.app.magiclamp.service.review.ReviewDeleteService;
 import com.app.magiclamp.service.review.ReviewInsertService;
 import com.app.magiclamp.service.review.ReviewListService;
+import com.app.magiclamp.service.review.ReviewModifyService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,9 @@ public class ReviewRestController {
 
     @Autowired
     private ReviewDeleteService reviewDeleteService;
+
+    @Autowired
+    private ReviewModifyService reviewModifyService;
 
 
     @PostMapping
@@ -56,5 +60,11 @@ public class ReviewRestController {
     @DeleteMapping("/{reviewindex}")
     public ResponseEntity<Integer> deleteReview(@PathVariable("reviewindex") int reviewindex){
         return new ResponseEntity<>(reviewDeleteService.deleteByReviewIndex(reviewindex), HttpStatus.OK);
+    }
+
+    @PutMapping("/{reviewindex}")
+    public ResponseEntity<Integer> modifyReview(@PathVariable("reviewindex") int reviewindex, @RequestBody ReviewDTO reviewDTO){
+        reviewDTO.setReviewindex(reviewindex);
+        return new ResponseEntity<>(reviewModifyService.modifyReview(reviewDTO), HttpStatus.OK);
     }
 }

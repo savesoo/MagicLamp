@@ -22,12 +22,38 @@ function starCheck(){
 
 if(myReview != null){
     const inputArea = document.querySelector('.review_input_textarea')
-    const inputBtn = document.querySelector('.review_btn')
-    inputArea.style.display = 'none'
+    const inputBtn = document.querySelector('.button_wrapper')
     inputBtn.style.display = 'none'
+    inputArea.style.display = 'none'
+    const myReviewContent = document.querySelector('.my_review_content')
+    const myReviewContent_text = myReviewContent.textContent
+    const myReviewContent_text_short = myReviewContent_text.substring(0, 140) + "..."
+    const myReview_more = document.createElement('button')
+    myReview_more.setAttribute('class', 'more_review')
+    myReview_more.textContent = '계속 읽기'
 
+    const visible_mycontent = document.createElement('span')
+    visible_mycontent.setAttribute('class', 'visible')
+    visible_mycontent.textContent = myReviewContent_text_short
+
+    const hidden_mycontent = document.createElement('span')
+    hidden_mycontent.setAttribute('class', 'hidden')
+    hidden_mycontent.textContent = myReviewContent_text
+
+    if(myReviewContent_text.length >= 140){
+        myReviewContent.innerHTML=''
+        myReviewContent.appendChild(visible_mycontent)
+        visible_mycontent.appendChild(myReview_more)
+        myReviewContent.appendChild(hidden_mycontent)
+    }
+
+    myReview_more.addEventListener("click", toggle_mycontent)
+
+    function toggle_mycontent(){
+        myReviewContent.firstChild.className = 'hidden'
+        myReviewContent.lastChild.classList.remove('hidden')
+    }
 }
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     review_btn.addEventListener('click', insertReview)
 
     setReviewList(1)
+
 })
 
 function setReviewList(pageNum){
@@ -54,17 +81,14 @@ function setReviewList(pageNum){
             let list = res.data.list
             let html = ''
 
-            let more_review_btn = document.createElement('button')
-            more_review_btn.setAttribute('class', 'more_review_button')
-            more_review_btn.setAttribute('id', 'more_review_button')
-            more_review_btn.setAttribute('onclick', 'setReviewList(++page); more_review_btn(this.id)')
+            const more_review_btn = document.querySelector('.more_review_button')
+            more_review_btn.setAttribute('onclick', 'setReviewList(++page)')
+            const more_review_wrapper = document.querySelector('.more_review_button_wrapper')
 
-            more_review_btn.textContent = '더보기'
-
-            if(page*10 >= res.data.total){
-                more_review_btn.style.display = 'none'
+            if(page*5 >= res.data.total){
+                more_review_wrapper.style.display = 'none'
             } else {
-                more_review_btn.style.display = 'block'
+                more_review_wrapper.style.display = 'block'
             }
 
             list.forEach((review, index) => {
@@ -95,7 +119,6 @@ function setReviewList(pageNum){
                 reviewList.appendChild(newLI)
 
             });
-            reviewList.appendChild(more_review_btn)
 
             const sections = document.querySelectorAll('.review_content')
             for(i=0; i<sections.length; i++){
@@ -129,13 +152,10 @@ function setReviewList(pageNum){
                     item.lastChild.classList.remove('hidden')
                 }
             }
+
         })
         .catch()
 
-}
-
-function more_review_btn(clicked){
-    document.getElementById(clicked).remove()
 }
 
 function insertReview(){
@@ -165,7 +185,7 @@ function insertReview(){
 }
 
 function deleteReview(reviewindex){
-    if (!confirm('삭제하시겠습니까?')){
+    if (!confirm('정말 삭제하시겠습니까?')){
         return
     }
 
@@ -180,6 +200,53 @@ function deleteReview(reviewindex){
         })
         .catch()
 }
+
+function modifyReview(){
+    const inputArea = document.querySelector('.review_input_textarea')
+    inputArea.style.display = 'block'
+    const myReviewContent = document.querySelector('.my_review_content')
+    inputArea.textContent = myReview.reviewcontent
+    const my_review = document.querySelector('.my_review')
+    my_review.style.display = 'none'
+    const modifyButton = document.querySelector('.modify_btn')
+    modifyButton.classList.remove('hidden')
+    const modifyCancelButton = document.querySelector('.modify_cancel_btn')
+    modifyCancelButton.classList.remove('hidden')
+
+    modifyButton.addEventListener("click", modifyComplete)
+    modifyCancelButton.addEventListener("click", cancelModification)
+}
+
+function modifyComplete(){
+    const payload = {
+        reviewindex : myReview.reviewindex,
+        isbn : isbn,
+        reviewer: document.querySelector('#reviewer').value,
+        star : document.querySelector('input[name="star"]:checked').value,
+        reviewcontent : document.querySelector('.review_input_textarea').value,
+        regdate : myReview.regdate
+    }
+
+    console.log(payload)
+
+    axios.put('/review/' + payload.reviewindex, payload)
+        .then(res => {
+            location.reload()
+        }).catch()
+}
+
+function cancelModification(){
+    const inputArea = document.querySelector('.review_input_textarea')
+    inputArea.style.display='none'
+    const my_review = document.querySelector('.my_review')
+    my_review.style.display='block'
+    const modifyButton = document.querySelector('.modify_btn')
+    modifyButton.setAttribute('class', 'modify_btn hidden')
+    const modifyCancelButton = document.querySelector('.modify_cancel_btn')
+    modifyCancelButton.setAttribute('class', 'modify_cancel_btn hidden')
+}
+
+
 
 
 
