@@ -25,23 +25,6 @@ public class BookMainListService {
     @Autowired
     private BookMainListMapper bookMainListMapper;
 
-    public BookMainListPage getBookMainPageList(int pagenum, String searchType, String keyword) {
-
-        Page<Book> page = bookRepository.findAll(PageRequest.of(pagenum - 1, 10, Sort.by("pubdate").descending()));
-
-        // 도서 리스트
-        List<Book> list = page.getContent();
-
-        List<BookRequest> starPage = bookMainListMapper.selectBookStar((pagenum - 1)*10, 10); // 임시
-
-        // 전체 도서의 개수
-        int totalCount = (int) page.getTotalElements();
-
-        BookMainListPage bookMainListPage = new BookMainListPage(10, pagenum, starPage, totalCount, searchType, keyword);
-
-        return bookMainListPage;
-    }
-
     public BookMainListPage getBookMainPageSearchList(int pagenum, BookSearchOption searchOption) {
 
         BookMainListPage bookMainListPage = null;
