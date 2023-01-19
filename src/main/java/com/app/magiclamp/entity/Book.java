@@ -5,7 +5,10 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
@@ -82,8 +85,6 @@ public class Book {
     @Column(columnDefinition = "timestamp not null default current_timestamp on update current_timestamp", updatable = false)
     private LocalDate updatedate; // 수정일자
 
-
-
     public BookInfoDTO toBookInfo(){
 
         return BookInfoDTO.builder()
@@ -99,5 +100,4 @@ public class Book {
                 .bookimg(bookimg)
                 .build();
     }
-
 }
