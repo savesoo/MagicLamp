@@ -37,14 +37,8 @@ public class BookMainListController {
         String searchType = searchOption.getSearchType();
         String keyword = searchOption.getKeyword();
 
-        if (searchOption.getKeyword() == null) {
+        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageSearchList(pagenum, searchOption));
+        log.info("getKeyword() 값 있음. pagenum, searchType, keyword................... ===> " + pagenum, searchType, keyword);
 
-            model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageList(pagenum, searchType, keyword));
-
-        } else {
-
-            model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageSearchList(pagenum, searchOption));
-
-        }
     }
 }
