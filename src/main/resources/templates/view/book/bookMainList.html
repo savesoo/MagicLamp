@@ -319,11 +319,8 @@
                     <input type="hidden" th:value="${book.isbn}">
                 </div>
                 <div>
-                    <a class="btn_buy" th:id="'isbn-'+${bookStat.count}" th:value="${book.isbn}"
+                    <a class="btn_buy"
                        th:href="@{/order(isbn=${book.isbn}, bookcount=${1})}"> 바로 구매 </a>
-
-                    [[${bookStat.count}]]
-
                 </div>
             </td>
         </tr>
