@@ -80,10 +80,9 @@
                             <button onclick="insertOneCart(this)" id="bookIsbn" th:value="${bookView.isbn}">장바구니 담기</button>
                         </div>
                         <div style="display: inline">
-                            <button class="btn_buy" id="dirQty" value="1">
-                                바로구매
-                            <!--<button >바로구매</button>-->
-                            </button>
+                            <a class="btn_buy" th:href="@{/order(isbn=${bookView.isbn}, bookcount=${1})}" id="dirQty">
+                                <button >바로구매</button>
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -359,27 +358,6 @@
                 alert('이미 카트에 담겨 있는 도서들입니다.');
             }
         });
-    }
-</script>
-
-<!--구매 버튼 script-->
-<script>
-
-    /*이벤트 연결*/
-    document.addEventListener("DOMContentLoaded", () => {
-        document.querySelector('#dirQty').addEventListener('click', getOrderNow);
-    });
-
-    function getOrderNow() {
-        const orderdata = {
-            /*장바구니 버튼에 있는 data 사용*/
-            isbn: document.querySelector('#bookIsbn').value,
-            bookcount: parseInt(document.querySelector('#result').value)
-        }
-
-        /*클릭하면 data 전송*/
-        location.href = `/order?isbn=${orderdata.isbn}&bookcount=${orderdata.bookcount}`
-
     }
 </script>
 
