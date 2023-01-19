@@ -4,9 +4,9 @@
 
 <mapper namespace="com.app.magiclamp.mapper.BookMainListMapper">
 
-    <select id="selectByOption" resultType="com.app.magiclamp.entity.Book">
+    <select id="selectByOption" resultType="com.app.magiclamp.model.bookMain.BookRequest">
 
-        select * from tbl_book
+        select r.star, b.* from tbl_book b left outer join (SELECT isbn, round(avg(star)) as star FROM project_lamp.tbl_review group by isbn order by isbn) r on b.isbn=r.isbn
 
         <where>
             <if test="p2.searchType != null and p2.keyword != null">
@@ -24,7 +24,7 @@
     </select>
 
     <sql id="searchIsbn">
-        isbn like concat('%', #{p2.keyword}, '%')
+        b.isbn like concat('%', #{p2.keyword}, '%')
     </sql>
 
     <sql id="searchTitle">
