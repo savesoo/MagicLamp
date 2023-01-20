@@ -15,6 +15,8 @@ public interface ReviewMapper {
     Double calculateTheAverageOfStar(String isbn);
 
     // 리뷰 목록
-    @Select("select * from tbl_review as r left outer join tbl_user as u on r.reviewer=u.userindex where r.isbn=#{isbn} order by r.reviewindex desc limit #{start}, #{end}")
+    /*@Select("select * from tbl_review as r left outer join tbl_user as u on r.reviewer=u.userindex where r.isbn=#{isbn} order by r.reviewindex desc limit #{start}, #{end}")*/
+    @Select("select c.cnt, u.username, r.*from tbl_review as r left outer join (select * from tbl_user) as u on r.reviewer=u.userindex left outer join (select reviewindex, count(reviewindex) as cnt from tbl_like group by reviewindex) as c on r.reviewindex=c.reviewindex where r.isbn=#{isbn} order by r.reviewindex desc limit #{start}, #{end}")
     List<ReviewDTO> getList(@Param("isbn") String isbn, @Param("start") int start, @Param("end") int end);
+
 }

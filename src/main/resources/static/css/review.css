@@ -280,3 +280,21 @@ article {
     cursor: pointer; border-left: 1px solid #dee4ea; padding: 2px 14px;
 }
 
+#review_list_section .review_list_wrapper .review_list .list_right .review_status {
+    display: block; margin: 10px 0; cursor: default; text-align: right;
+}
+
+#review_list_section .review_list_wrapper .review_list .list_right .review_status .like_button {
+    min-width: 51px; position: relative; padding: 3px 10px; appearance: none; outline: 0; text-decoration: none; box-sizing: border-box; border-radius: 4px;
+    font-weight: 700; display: inline-block; text-align: center; cursor: pointer; line-height: 1em; vertical-align: baseline; color: #808991; background: #fff;
+    border: 1px solid #d1d5d9; box-shadow: 0 1px 1px 0 rgb(209 213 217 / 30%); font-size: 11px;
+}
+
+#review_list_section .review_list_wrapper .review_list .list_right .review_status .like_button.active {
+    color: #EF3B96FC;
+}
+
+
+#review_list_section .review_list_wrapper .review_list .list_right .review_status .like_button .like_text {
+    display: inline-block; padding-left: 3px;
+}

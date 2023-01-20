@@ -24,6 +24,8 @@ public class ReviewDTO {
 
     private String username;
 
+    private Integer cnt;
+
     public Review toReviewEntity(){
         return Review.builder()
                 .reviewindex(reviewindex)
