@@ -1,0 +1,81 @@
+body {
+    color: #3E3E3E;
+    font-family: Malgun Gothic,'돋움','굴림',Gulim,dotum,'Segoe WPC','Segoe UI','Apple SD Gothic Neo',Helvetica,AppleGothic,Sans-serif!important;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 3px;
+    margin-top: 30px;
+}
+
+
+table {
+    webkit-border-horizontal-spacing: 1px;
+    webkit-border-vertical-spacing: 1px;
+    width: 670px;
+    background-color: rgb(131, 184, 194);
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+}
+
+tr {
+    color: #3E3E3E;
+    font-family: Malgun Gothic,'돋움','굴림',Gulim,dotum,'Segoe WPC','Segoe UI','Apple SD Gothic Neo',Helvetica,AppleGothic,Sans-serif!important;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 3px;
+}
+
+td {
+    color: #3E3E3E;
+    font-family: Malgun Gothic,'돋움','굴림',Gulim,dotum,'Segoe WPC','Segoe UI','Apple SD Gothic Neo',Helvetica,AppleGothic,Sans-serif!important;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 3px;
+}
+
+
+.popup {
+    font-family: 'Apple SD Gothic Neo',Malgun Gothic, "굴림";
+    font-weight: bold;
+    color: #5A5A5A;
+    background-color: #edf5fc;
+    text-decoration: none;
+    width: 23%;
+    padding-left:14px;
+    text-align: left;
+}
+
+.bookinfo_div, .miluse_div, .addinfo_div {
+    border-collapse: collapse;
+    width: 670px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+
+.data_td {
+    padding-left:14px;
+    background-color : #FFFFFF;
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+.orderbtn_div {
+    width: 670px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px;
+}
+
+table> th {
+    font-size: 10pt;
+    line-height: 19px;
+}
+
+div > p {
+    font-size: 12pt;
+}

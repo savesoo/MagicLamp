@@ -2,39 +2,169 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Order</title>
+    <title>주문 페이지</title>
+   <link href="/css/order.css" rel="stylesheet">
 </head>
 <body>
 
   <h1>주문 페이지</h1>
 
-  <form>
-    <table border="1px solid">
+  <div id="order_div">
 
-      <!--회원-->
-      <!--배송지-->
-      <!--마일리지-->
-      <!--총 주문 정보-->
+    <!------------ 주문서 테이블 영역 시작 -------------->
+    <table>
+
+      <!------------배송지 정보 영역 -------------->
 
       <div>
+          <div class="addinfo_div">
 
-        [[${userInfo}]]
-        <br>
-        [[${ordersInfo}]]
-        <br>
+            <h3> 배송 정보 확인 </h3>
 
+            <table>
+              <th:block th:each="user : ${ordersInfo}">
+                <tr>
+                  <th class="popup"> 주문인 </th>
+                  <td class="data_td">
+                    <input th:text  th:value="${user.recipient}">
+                  </td>
+                </tr>
+                <!-------------------------->
+                <tr>
+                  <th class="popup"> 주소 </th>
+                  <td class="data_td">
+                    <div>
+                    <span>
+                      <input type="text"  th:value="${user.postnum}">
+                      <button> 주소 검색 </button>
+                    </span>
+                    </div>
+                    <div>
+                      <input type="text"  th:value="${user.address1}">
+                      <input type="text"  th:value="${user.address2}">
+                    </div>
+                  </td>
+                </tr>
+                <!-------------------------->
+                <tr>
+                  <th class="popup"> 연락처 </th>
+                  <td class="data_td"> <input type="text"  th:value="${user.phone}"> </td>
+                </tr>
+              </th:block>
+            </table>
+
+          </div>
+        </div>
+
+      <!------------마일리지 정보 영역 -------------->
+
+      <div>
+        <div class="miluse_div">
+          <h3> 마일리지 사용하기 </h3>
+
+          <table>
+            <th:block th:each="mm : ${ordersInfo}">
+              <tr>
+                <th class="popup">
+                  <label> 보유한 마일리지 </label>
+                </th>
+                <td class="data_td input_use_mileage" >
+                  <strong> [[${mm.mileage}]] </strong>
+                </td>
+                <td class="data_td">
+                  <span> <input type="text" id="use_all" name="usemileage" value="사용액"> </span>
+                  <button> 전액 사용 </button>
+                </td>
+              </tr>
+            </th:block>
+          </table>
+
+        </div>
+      </div>
+
+      <!------------상품 정보 확인 영역 -------------->
+
+      <div>
+        <div class="bookinfo_div">
+          <h3> 주문 상품 정보 </h3>
+          <table>
+            <th:block th:each=" b : ${ordersInfo.bookInfos}">
+              <tr>
+                <th class="popup">상품명</th>
+                <td class="data_td">
+                  <p th:href="@{#}"> [[${b.title}]] </p>  <!--fake 링크-->
+                </td>
+              </tr>
+              <!-------------------------->
+              <tr>
+                <th class="popup">수량</th>
+                <td class="data_td">
+                  <p> [[${b.bookcount}]] </p>
+                </td>
+              </tr>
+              <!-------------------------->
+              <tr>
+                <th class="popup">할인 금액</th>
+                <td class="data_td">
+                  <input type="text" value="할인됐당"> 원
+                </td>
+              </tr>
+              <!-------------------------->
+              <tr>
+                <th class="popup">결제 금액</th>
+                <td class="data_td">
+                  <strong> [[${b.totalPrice}]] </strong> 원
+                </td>
+              </tr>
+              <!-------------------------->
+              <tr>
+                <th class="popup">적립 예정 마일리지</th>
+                <td class="data_td">
+                  <strong> [[${b.totalMileage}]] </strong> 점
+                </td>
+              </tr>
+
+            </th:block>
+          </table>
+
+          <div th:each=" pay : ${ordersInfo.bookInfos}">
+            <p> 결제하실 금액은 총 <strong> [[${pay.totalPrice}]] </strong> 원입니다.</p>
+          </div>
+
+        </div>
 
       </div>
 
 
-
-
     </table>
 
-    <input class="btn" type="submit" value="결제하기">
-  </form>
+    <!------------버튼 영역 -------------->
 
-  <button th:onclick="|location.href='@{/}'|">주문 취소</button>
+    <div class="orderbtn_div">
+      <button> 결제하기 </button>
+      <!--<button class="btn order_btn" type="submit"> 결제하기 </button>-->
+      <button th:onclick="|location.href='@{/}'|">주문 취소</button>
+    </div>
+
+  </div>
+
+
+  <!--order 요청시 보낼 form-->
+  <form class="order_form" action="/order/payment" method="post">
+    <th:block th:each="order, stat : ${ordersInfo.bookInfos}" >
+      <input type="hidden" name="bookInfo[].isbn" th:value="${order.isbn}">
+      <input type="hidden" name="bookInfo[].bookcount" th:value="${order.bookcount}">
+    </th:block>
+    <input type="hidden" name="mileage" th:value="${ordersInfo.mileage}">
+    <input type="hidden" name="totalMileage" th:value="${ordersInfo.totalMileage}">
+    <input type="hidden" name="recipient" th:value="${ordersInfo.recipient}">
+    <input type="hidden" name="postnum" th:value="${ordersInfo.postnum}">
+    <input type="hidden" name="address1" th:value="${ordersInfo.address1}">
+    <input type="hidden" name="address2" th:value="${ordersInfo.address2}">
+    <input type="hidden" name="phone" th:value="${ordersInfo.phone}">
+    <input type="hidden" name="totalPrice" th:value="${ordersInfo.totalPrice}">
+    <input type="hidden" name="usemileage" >
+  </form>
 
 </body>
 </html>
