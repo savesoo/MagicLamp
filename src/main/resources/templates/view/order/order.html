@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link href="/css/order.css" rel="stylesheet">
     <title>주문 페이지</title>
-   <link href="/css/order.css" rel="stylesheet">
 </head>
 <body>
 
@@ -12,137 +12,153 @@
   <div id="order_div">
 
     <!------------ 주문서 테이블 영역 시작 -------------->
+
     <table>
+
+      <!------------상품 정보 확인 영역 -------------->
+
+      <div>
+          <div class="bookinfo_div">
+              <h3> 주문 상품 정보 </h3>
+              <table style="background-color: #a2a2a2">
+                  <tr class="infohead">
+                      <td> 제목 </td>
+                      <td> 가격 / 적립금 </td>
+                      <td> 수량 </td>
+                      <td> 합계 </td>
+                  </tr>
+                  <tr class="infobody" th:each=" book : ${ordersInfo.bookInfos}">
+                      <td class="data_td">
+                          <p th:href="@{#}" th:text="${book.title}"/> <!--fake 링크-->
+                      </td>
+                      <td> [[${#numbers.formatInteger(book.saleprice, 0, 'COMMA')}]] 원 / [[${#numbers.formatInteger(book.saveMileage, 0, 'COMMA')}]] 원 </td>
+                      <td th:text="${book.bookcount}"/>
+                      <td th:text="${#numbers.formatInteger(book.totalPrice, 0, 'COMMA')}"> 원 </td>
+                  </tr>
+              </table>
+          </div>
+      </div>
 
       <!------------배송지 정보 영역 -------------->
 
       <div>
           <div class="addinfo_div">
-
-            <h3> 배송 정보 확인 </h3>
-
-            <table>
-              <th:block th:each="user : ${ordersInfo}">
-                <tr>
-                  <th class="popup"> 주문인 </th>
-                  <td class="data_td">
-                    <input th:text  th:value="${user.recipient}">
-                  </td>
-                </tr>
-                <!-------------------------->
-                <tr>
-                  <th class="popup"> 주소 </th>
-                  <td class="data_td">
-                    <div>
-                    <span>
-                      <input type="text"  th:value="${user.postnum}">
-                      <button> 주소 검색 </button>
-                    </span>
-                    </div>
-                    <div>
-                      <input type="text"  th:value="${user.address1}">
-                      <input type="text"  th:value="${user.address2}">
-                    </div>
-                  </td>
-                </tr>
-                <!-------------------------->
-                <tr>
-                  <th class="popup"> 연락처 </th>
-                  <td class="data_td"> <input type="text"  th:value="${user.phone}"> </td>
-                </tr>
-              </th:block>
-            </table>
-
+              <h3> 배송 정보 확인 </h3>
+              <table>
+                  <th:block th:each="user : ${ordersInfo}">
+                      <tr>
+                        <th class="popup"> 주문인 </th>
+                        <td class="data_td">
+                          <input th:value="${user.recipient}">
+                        </td>
+                      </tr>
+                      <!-------------------------->
+                      <tr>
+                        <th class="popup"> 주소 </th>
+                        <td class="data_td">
+                          <div>
+                          <span>
+                            <input type="text" th:value="${user.postnum}">
+                            <button> 주소 검색 </button>
+                          </span>
+                          </div>
+                          <div>
+                            <input type="text" th:value="${user.address1}">
+                            <input type="text" th:value="${user.address2}">
+                          </div>
+                        </td>
+                      </tr>
+                      <!-------------------------->
+                      <tr>
+                        <th class="popup"> 연락처 </th>
+                        <td class="data_td"> <input type="text" th:value="${user.phone}"> </td>
+                      </tr>
+                  </th:block>
+              </table>
           </div>
-        </div>
+      </div>
 
       <!------------마일리지 정보 영역 -------------->
 
       <div>
-        <div class="miluse_div">
-          <h3> 마일리지 사용하기 </h3>
-
-          <table>
-            <th:block th:each="mm : ${ordersInfo}">
-              <tr>
-                <th class="popup">
-                  <label> 보유한 마일리지 </label>
-                </th>
-                <td class="data_td input_use_mileage" >
-                  <strong> [[${mm.mileage}]] </strong>
-                </td>
-                <td class="data_td">
-                  <span> <input type="text" id="use_all" name="usemileage" value="사용액"> </span>
-                  <button> 전액 사용 </button>
-                </td>
-              </tr>
-            </th:block>
-          </table>
-
-        </div>
+          <div class="miluse_div">
+              <h3> 마일리지 사용하기 </h3>
+              <table>
+                  <th:block th:each="mm : ${ordersInfo}">
+                      <tr>
+                          <th class="popup">
+                              <label> 보유한 마일리지 </label>
+                          </th>
+                          <td class="data_td" >
+                              <strong class="input_my_mileage" th:text="${#numbers.formatInteger(mm.mileage, '0', 'COMMA')}"/>
+                          </td>
+                          <td class="data_td">
+                              <span> <input type="text" name="usemil" value="0" placeholder="사용할 금액"> </span>
+                              <button class="usemil_btn"> 사용하기 </button>
+                          </td>
+                      </tr>
+                  </th:block>
+              </table>
+          </div>
       </div>
 
-      <!------------상품 정보 확인 영역 -------------->
+      <!------------결제 금액 확인 영역 -------------->
 
       <div>
-        <div class="bookinfo_div">
-          <h3> 주문 상품 정보 </h3>
-          <table>
-            <th:block th:each=" b : ${ordersInfo.bookInfos}">
-              <tr>
-                <th class="popup">상품명</th>
-                <td class="data_td">
-                  <p th:href="@{#}"> [[${b.title}]] </p>  <!--fake 링크-->
-                </td>
-              </tr>
-              <!-------------------------->
-              <tr>
-                <th class="popup">수량</th>
-                <td class="data_td">
-                  <p> [[${b.bookcount}]] </p>
-                </td>
-              </tr>
-              <!-------------------------->
-              <tr>
-                <th class="popup">할인 금액</th>
-                <td class="data_td">
-                  <input type="text" value="할인됐당"> 원
-                </td>
-              </tr>
-              <!-------------------------->
-              <tr>
-                <th class="popup">결제 금액</th>
-                <td class="data_td">
-                  <strong> [[${b.totalPrice}]] </strong> 원
-                </td>
-              </tr>
-              <!-------------------------->
-              <tr>
-                <th class="popup">적립 예정 마일리지</th>
-                <td class="data_td">
-                  <strong> [[${b.totalMileage}]] </strong> 점
-                </td>
-              </tr>
+          <div class="payinfo_div">
+              <h3> 결제 정보 </h3>
+              <table>
+                  <th:block th:each=" b : ${ordersInfo}">
+                      <tr>
+                          <th class="popup">수량</th>
+                          <td class="data_td">
+                              <p> 총 [[${b.totalBookCnt}]] 권 </p>
+                          </td>
+                      </tr>
+                      <!-------------------------->
+                      <tr>
+                          <th class="popup"> 결제 예상 금액 </th>
+                          <td class="data_td" id="expectprice">
+                              <strong th:text="${#numbers.formatInteger(b.orderTotalPrice, '0', 'COMMA')}"/> 원
+                          </td>
+                      </tr>
+                      <!-------------------------->
+                      <tr>
+                          <th class="popup">적립 예정 마일리지</th>
+                          <td class="data_td">
+                              <strong th:text="${#numbers.formatInteger(b.totalSaveMileage, '0', 'COMMA')}"/> 점
+                          </td>
+                      </tr>
+                      <!-------------------------->
+                      <tr>
+                          <th class="popup">할인 금액</th>
+                          <td class="data_td">
+                              <strong id="input_saled" th:text="${#numbers.formatInteger(0, '0', 'COMMA')}"/> 원
+                          </td>
+                      </tr>
+                      <!-------------------------->
+                      <tr>
+                          <th class="popup"> 결제 금액 </th>
+                          <td class="data_td">
+                              <strong id="calprice" th:text="${#numbers.formatInteger(b.orderTotalPrice, '0', 'COMMA')}"/> 원
+                          </td>
+                      </tr>
 
-            </th:block>
-          </table>
-
-          <div th:each=" pay : ${ordersInfo.bookInfos}">
-            <p> 결제하실 금액은 총 <strong> [[${pay.totalPrice}]] </strong> 원입니다.</p>
+                  </th:block>
+              </table>
+              <!-------------------------->
+              <div th:each="pay : ${ordersInfo}">
+                  <p> 결제하실 금액은 총 <strong id="resultprice" th:text="${#numbers.formatInteger(pay.orderTotalPrice, '0', 'COMMA')}"/> 원 입니다.</p>
+              </div>
           </div>
-
-        </div>
-
       </div>
-
 
     </table>
 
     <!------------버튼 영역 -------------->
 
     <div class="orderbtn_div">
-      <button> 결제하기 </button>
-      <!--<button class="btn order_btn" type="submit"> 결제하기 </button>-->
+      <button class="btn order_btn" type="submit"> 결제하기 </button>
       <button th:onclick="|location.href='@{/}'|">주문 취소</button>
     </div>
 
@@ -151,20 +167,65 @@
 
   <!--order 요청시 보낼 form-->
   <form class="order_form" action="/order/payment" method="post">
-    <th:block th:each="order, stat : ${ordersInfo.bookInfos}" >
-      <input type="hidden" name="bookInfo[].isbn" th:value="${order.isbn}">
-      <input type="hidden" name="bookInfo[].bookcount" th:value="${order.bookcount}">
-    </th:block>
-    <input type="hidden" name="mileage" th:value="${ordersInfo.mileage}">
-    <input type="hidden" name="totalMileage" th:value="${ordersInfo.totalMileage}">
-    <input type="hidden" name="recipient" th:value="${ordersInfo.recipient}">
-    <input type="hidden" name="postnum" th:value="${ordersInfo.postnum}">
-    <input type="hidden" name="address1" th:value="${ordersInfo.address1}">
-    <input type="hidden" name="address2" th:value="${ordersInfo.address2}">
-    <input type="hidden" name="phone" th:value="${ordersInfo.phone}">
-    <input type="hidden" name="totalPrice" th:value="${ordersInfo.totalPrice}">
-    <input type="hidden" name="usemileage" >
+
+      <th:block th:each="order, stat : ${ordersInfo.bookInfos}" >
+          <input name="bookInfo[0].isbn" th:value="${order.isbn}" type="hidden">
+          <input name="bookInfo[0].bookcount" th:value="${order.bookcount}" type="hidden">
+          <input name="bookInfo[0].saleprice" th:value="${order.saleprice}" type="hidden">
+          <input name="bookInfo[0].totalPrice" th:value="${order.totalPrice}" type="hidden">
+          <input name="bookInfo[0].totalMileage" th:value="${order.totalMileage}" type="hidden">
+      </th:block>
+
+      <input name="mileage" th:value="${ordersInfo.mileage}" type="hidden">
+      <input name="recipient" th:value="${ordersInfo.recipient}" type="hidden">
+      <input name="postnum" th:value="${ordersInfo.postnum}" type="hidden">
+      <input name="address1" th:value="${ordersInfo.address1}" type="hidden">
+      <input name="address2" th:value="${ordersInfo.address2}" type="hidden">
+      <input name="phone" th:value="${ordersInfo.phone}" type="hidden">
+
   </form>
+
+
+  <!--마일리지 사용 버튼 script-->
+  <script>
+
+      let totalprice = [[${ordersInfo.orderTotalPrice}]]
+      let myMileage = [[${ordersInfo.mileage}]]
+
+      document.addEventListener("DOMContentLoaded", () => {
+          document.querySelector(".usemil_btn").addEventListener('click', useMileage);
+      })
+
+      function  useMileage() {
+
+          const m = document.getElementsByName("usemil")[0].value;
+
+          document.querySelector("#input_saled").innerText = m.toLocaleString(); // 사용한 마일리지
+          document.querySelector(".input_my_mileage").innerHTML = (myMileage-m).toLocaleString(); // 현 마일리지 계산
+          document.querySelector("#calprice").innerText = (totalprice-m).toLocaleString(); // 총 금액에 반영
+          document.querySelector("#resultprice").innerText = (totalprice-m).toLocaleString();
+      }
+
+  </script>
+
+  <!--주문 버튼 script-->
+  <script>
+
+    /*이벤트 연결*/
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector('.order_btn').addEventListener('click', moveToPayment);
+    });
+
+    function moveToPayment() {
+      const form = document.querySelector('.order_form');
+
+
+
+      form.submit();
+
+    }
+
+  </script>
 
 </body>
 </html>
