@@ -1,18 +1,17 @@
 package com.app.magiclamp.controller.order;
 
 import com.app.magiclamp.model.AuthUserDTO;
-import com.app.magiclamp.model.order.OrderBookPageDTO;
-import com.app.magiclamp.model.order.OrderDTO;
-import com.app.magiclamp.model.order.RequestPaymentBook;
 import com.app.magiclamp.model.order.RequestOrderBook;
-import com.app.magiclamp.service.order.OrderInsertService;
+import com.app.magiclamp.model.order.RequestPaymentBook;
 import com.app.magiclamp.service.order.OrderPageViewService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
 @Controller
@@ -22,8 +21,8 @@ public class OrderPageViewController {
     @Autowired
     private OrderPageViewService orderPageViewService;
 
-    @Autowired
-    private OrderInsertService orderInsertService;
+//    @Autowired
+//    private OrderInsertService orderInsertService;
 
     // 어떻게 list로 받을지 고민하기
     @GetMapping
