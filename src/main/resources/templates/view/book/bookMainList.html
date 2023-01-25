@@ -391,6 +391,7 @@
 <script th:inline="javascript">
 
     var loginInfo = [[${loginInfo}]]
+    const ui = [[${#authentication.principal.userindex}]]
 
     $(document).ready(function () {
 
@@ -439,7 +440,7 @@
                 if (el.value != 'on') {
 
                     payload = {
-                        userindex: 1,
+                        userindex: ui,
                         isbn: el.value,
                         bookcount: 1
                     }
