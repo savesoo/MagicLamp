@@ -42,6 +42,7 @@ public class BookViewController {
         model.addAttribute("pageNum", pageNum);
         model.addAttribute("bookView", bookViewService.selectBook(isbn));
         model.addAttribute("bookViewAlpha", bookViewService.selectBookAlpha(isbn));
+        log.info("authUserDTO........... ===> " + authUserDTO);
 
         model.addAttribute("avg", reviewReadService.calculateTheAvg(isbn));
         model.addAttribute("people", reviewReadService.countPeople(isbn));
