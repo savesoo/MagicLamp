@@ -2,6 +2,7 @@ package com.app.magiclamp.spring;
 
 import com.app.magiclamp.model.AuthUserDTO;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +12,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,13 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         List<String> roleNames = new ArrayList<>();
         for(GrantedAuthority authority : authUserDTO.getAuthorities()) {
             roleNames.add(authority.getAuthority());
+        }
+
+        HttpSession session = request.getSession();
+        log.info("preUrl ===> " +  session.getAttribute("preUrl"));
+
+        if (session.getAttribute("preUrl") != null){
+            response.sendRedirect((String) session.getAttribute("preUrl"));
         }
 
         response.sendRedirect("/");
