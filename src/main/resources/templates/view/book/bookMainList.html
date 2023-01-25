@@ -391,7 +391,6 @@
 <script th:inline="javascript">
 
     var loginInfo = [[${loginInfo}]]
-    const ui = [[${#authentication.principal.userindex}]]
 
     $(document).ready(function () {
 
@@ -419,9 +418,11 @@
 
         console.log('window.location.href ===> ', window.location.href.substring(21));
 
-        sessionStorage.setItem('preUrl', window.location.href.substring(21))
+        let date = new Date();
+        date.setTime(date.getTime() + 24*60*60*1000);
+        document.cookie = 'preUrl' + '=' + window.location.href.substring(21) + ';expires=' + date.toUTCString() + ';path=/';
 
-        console.log('preUrl ===> ', sessionStorage.getItem('preUrl'));
+        console.log('preUrl ===> ', document.cookie);
 
         loginCheck();
 
@@ -440,7 +441,7 @@
                 if (el.value != 'on') {
 
                     payload = {
-                        userindex: ui,
+                        userindex: loginInfo,
                         isbn: el.value,
                         bookcount: 1
                     }
@@ -478,9 +479,11 @@
 
         console.log('window.location.href ===> ', window.location.href.substring(21));
 
-        sessionStorage.setItem('preUrl', window.location.href.substring(21))
+        let date = new Date();
+        date.setTime(date.getTime() + 24*60*60*1000);
+        document.cookie = 'preUrl' + '=' + window.location.href.substring(21) + ';expires=' + date.toUTCString() + ';path=/';
 
-        console.log('preUrl ===> ', sessionStorage.getItem('preUrl'));
+        console.log('preUrl ===> ', document.cookie);
 
         loginCheck();
 
