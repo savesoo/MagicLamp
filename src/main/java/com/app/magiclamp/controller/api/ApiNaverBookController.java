@@ -1,7 +1,6 @@
 package com.app.magiclamp.controller.api;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,15 +18,15 @@ import java.util.Map;
 @Controller
 @Log4j2
 @RequestMapping("/view/api")
-public class ApiNaverController {
+public class ApiNaverBookController {
 
     @GetMapping("/naverBlog")
     public void getNaverBlog(
-            String keyword,
+            @RequestParam("keyword") String keyword,
             Model model
     ){
 
-        if (keyword == null){
+        if (keyword == null || keyword.equals("")){
             keyword = "정보처리기사";
         }
 
