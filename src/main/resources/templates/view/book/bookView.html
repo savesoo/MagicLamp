@@ -79,7 +79,7 @@
                     <li>
                         <div style="display: inline">수량</div>
                         <div style="display: inline">
-                            <input type="text" name="qty" id="result" min="0" value="1">
+                            <input type="text" name="qty" id="result" min="1" value="1">
                             <input type="button" onclick="count('plus')" value="+"/>
                             <input type="button" onclick="count('minus')" value="-"/>
                         </div>
@@ -325,9 +325,11 @@
 <!--도서 상세 관련 script -->
 <script th:inline="javascript">
 
+
+    const ui = [[${#authentication.principal.userindex}]]
     let price = [[${bookView.saleprice}]]
     const isbnisbn = [[${bookView.isbn}]]
-    let qty = 0
+    let qty = 1
 
     function count(type) {
         // 결과를 표시할 element
@@ -363,33 +365,46 @@
 
     function insertOneCart(dat) {
 
-        console.log('isbn ===> ', dat.value);
+        console.log('window.location.href ===> ', window.location.href.substring(21));
 
-        let payload = {
-            userindex: 1,
-            isbn: dat.value,
-            bookcount: qty
+        sessionStorage.setItem('preUrl', window.location.href.substring(21));
+
+        console.log('preUrl ===> ', sessionStorage.getItem('preUrl'));
+
+        loginCheck();
+
+        if (loginInfo > 0){
+
+            let payload = {
+                userindex: ui,
+                isbn: dat.value,
+                bookcount: qty
+            }
+
+            console.log('isbn ===> ', dat.value);
+
+            console.log('payload => ', payload);
+
+            $.ajax({
+                url: '/cart',
+                type: 'post',
+                data: JSON.stringify(payload),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (res) {
+                    console.log('카트 등록 성공!!!');
+                    if (confirm("장바구니로 이동하시겠니까?")) {
+                        location.href = '/view/book/bookMainList'; /*임시 링크*/
+                    }
+                },
+                error: function (error) {
+                    console.log("카트 등록 실패!!", error);
+                    alert('이미 카트에 담겨 있는 도서들입니다.');
+                }
+            });
+
         }
 
-        console.log('payload => ', payload);
-
-        $.ajax({
-            url: '/cart',
-            type: 'post',
-            data: JSON.stringify(payload),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (res) {
-                console.log('카트 등록 성공!!!');
-                if (confirm("장바구니로 이동하시겠니까?")) {
-                    location.href = '/view/book/bookMainList'; /*임시 링크*/
-                }
-            },
-            error: function (error) {
-                console.log("카트 등록 실패!!", error);
-                alert('이미 카트에 담겨 있는 도서들입니다.');
-            }
-        });
     }
 </script>
 
