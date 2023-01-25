@@ -20,38 +20,40 @@ public class OrderBookPageDTO {
     // 책 정보를 갖는 List
     private List<BookInfoDTO> bookInfos;
 
-    // 이전 페이지(도서 상세)에서 가지고 올 data
-    private String isbn;
-    private int bookcount;
+    private int totalBookCnt;
 
-    private Integer saleprice; // 판매가(보통 10%할인)
+    // 현재 마일리지(DB에서 가져오기)
+    private int mileage;
 
-
-    // 구매액과 마일리지
-    private int realprice;
-    private int mileage; // 현재 마일리지
-
-
-    // 배송정보
+    // 배송정보(DB에서 가져오기)
     private String recipient;
     private String phone;
     private String postnum;
     private String address1;
     private String address2;
 
-
     // DB에 없는 data
-    private int totalPrice; // 총 결제금액(최종 가격-realprice*수량)
-    private int saveMileage; // 권당 적립 마일리지
-    private int totalMileage; // 총 적립 마일리지(권당 적립 마일리지*수량)
+    private int orderTotalPrice; // 주문시 총 결제금액
+    private int totalSaveMileage; // 주문시 총 적립 마일리지
 
 
+    // 주문페이지에 출력될 책 list에 추가
     public void addToBookInfoList(BookInfoDTO bookInfo){
 
         List<BookInfoDTO> list = new ArrayList<>();
         list.add(bookInfo);
         this.setBookInfos(list);
 
+    }
+
+    // 총 합산금액, 최종 적립 마일리지 계산 메서드
+    public void calTotalprice(){
+
+        for(BookInfoDTO order : bookInfos){
+            totalBookCnt += order.getBookcount();
+            orderTotalPrice += order.getTotalPrice();
+            totalSaveMileage += order.getTotalMileage();
+        }
     }
 
 

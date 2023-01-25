@@ -29,6 +29,7 @@ public class OrderDTO {
     // 구매액과 마일리지
     private int realprice;
     private int mileage;
+    private int usemileage; // 사용 마일리지
 
     // 배송정보
     private String recipient;
@@ -49,18 +50,18 @@ public class OrderDTO {
     private int totalSaveMileage; // 주문시 총 적립 마일리지
 
 
-    private List<OrderBookDTO> orders;
+    private List<RequestPaymentBook> orders;
 
 
     // 주문시 실 결제금액 계산 메서드
     public void calTotalprice(){
 
-        for(OrderBookDTO order : orders){
+        for(RequestPaymentBook order : orders){
             orderTotalPrice += order.getTotalPrice();
             totalSaveMileage += order.getTotalMileage();
         }
 
-        realprice = orderTotalPrice - mileage;
+        realprice = orderTotalPrice - usemileage + totalSaveMileage;
     }
 
 }
