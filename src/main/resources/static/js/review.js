@@ -124,7 +124,7 @@ function setReviewList(pageNum) {
                 html += '</div><div class="reviewer_info">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span>' + review.username + '</span></div></div>'
                 html += '<div class="review_date">' + review.regdate[0] + '.' + review.regdate[1] + '.' + review.regdate[2] + '</div></div>'
                 html += '<div class="list_right"><p class="review_content">' + review.reviewcontent + '</p>'
-                html += '<div class="review_status"><button type="button" class="like_button">'
+                html += '<div class="review_status"><button type="button" class="like_button" like="false">'
                 html += '<span class="button_icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">\n' +
                     '  <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>\n' +
                     '</svg></span><span class="like_text">' + review.cnt + '</span></button></div></div>'
@@ -172,15 +172,6 @@ function setReviewList(pageNum) {
             for (i = 0; i < thumbs.length; i++) {
                 const likebtn = thumbs.item(i)
 
-                axios.get('/like/' + likebtn.parentElement.parentElement.parentElement.getAttribute('index') + '/' + loginInfo)
-                    .then(res => {
-                        console.log('if me check', res.data)
-                        if (res.data == 0) {
-                            likebtn.setAttribute('class', 'like_button active')
-                        }
-                    }).catch()
-
-
                 likebtn.addEventListener("click", e => {
 
                     if (loginInfo == -1) {
@@ -189,8 +180,6 @@ function setReviewList(pageNum) {
                     }
 
                     const basicnum = e.currentTarget.children[1]
-                    basicnum.textContent = parseInt(basicnum.textContent, 10) + 1
-                    likebtn.setAttribute('class', 'like_button active')
                     const parentTag = e.currentTarget.parentElement.parentElement.parentElement
                     const id = parentTag.getAttribute('index')
 
@@ -198,13 +187,31 @@ function setReviewList(pageNum) {
                         reviewindex: id,
                         userindex: document.querySelector('#reviewer').value
                     }
-
-                    axios.post('/like/' + id, payload)
-                        .then(res => {
-                            console.log('like post > ', res.data)
-                        }).catch()
+                    if (likebtn.getAttribute('like') == 'false') {
+                        axios.post('/like/' + id, payload)
+                            .then(post => {
+                                console.log('like post > ', post.data)
+                                basicnum.textContent = parseInt(basicnum.textContent, 10) + 1
+                                likebtn.setAttribute('class', 'like_button active')
+                                likebtn.setAttribute('like', 'true')
+                            }).catch()
+                    } else if (likebtn.getAttribute('like') == 'true') {
+                        axios.delete('/like/' + id + '/' + loginInfo)
+                            .then(() => {
+                                basicnum.textContent = parseInt(basicnum.textContent, 10) - 1
+                                likebtn.setAttribute('class', 'like_button')
+                                likebtn.setAttribute('like', 'false')
+                            }).catch()
+                    }
                 })
 
+                axios.get('/like/' + likebtn.parentElement.parentElement.parentElement.getAttribute('index') + '/' + loginInfo)
+                    .then(res => {
+                        if (res.data == 0) {
+                            likebtn.setAttribute('class', 'like_button active')
+                            likebtn.setAttribute('like', 'true')
+                        }
+                    }).catch()
             }
         }).catch()
 }

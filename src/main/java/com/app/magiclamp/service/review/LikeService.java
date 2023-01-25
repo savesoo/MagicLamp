@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LikeDistinguishService {
+public class LikeService {
     @Autowired
     private LikeRepository likeRepository;
 
-    public Like distinguishMe(int reviewindex, int userindex){
+    public Like findById(int reviewindex, int userindex){
         return likeRepository.findByReviewindex_ReviewindexAndUserindex_Userindex(reviewindex, userindex).orElse(null);
     }
 }

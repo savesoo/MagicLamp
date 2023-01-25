@@ -2,10 +2,7 @@ package com.app.magiclamp.controller;
 
 import com.app.magiclamp.model.ReviewDTO;
 import com.app.magiclamp.entity.Review;
-import com.app.magiclamp.service.review.ReviewDeleteService;
-import com.app.magiclamp.service.review.ReviewInsertService;
-import com.app.magiclamp.service.review.ReviewListService;
-import com.app.magiclamp.service.review.ReviewModifyService;
+import com.app.magiclamp.service.review.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +32,7 @@ public class ReviewRestController {
     private ReviewModifyService reviewModifyService;
 
 
+
     @PostMapping
     public ResponseEntity<Review> insertReview(@RequestBody ReviewDTO reviewDTO){
         log.info("insert 전 : " + reviewDTO);
@@ -48,12 +46,11 @@ public class ReviewRestController {
     @GetMapping(value = "/{isbn}/{pageNum}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Object> getReviewList(@PathVariable("isbn") String isbn, @PathVariable("pageNum") int pageNum) {
         List<ReviewDTO> list = reviewListService.getList(isbn, pageNum);
-        log.info(" list >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + list);
         long total = reviewListService.countPeople(isbn);
+
         Map<String, Object> map = new HashMap<>();
         map.put("list", list);
         map.put("total", total);
-
         return map;
     }
 
