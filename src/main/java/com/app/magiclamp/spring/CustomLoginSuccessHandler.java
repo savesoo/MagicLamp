@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -46,13 +47,23 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
             roleNames.add(authority.getAuthority());
         }
 
-        HttpSession session = request.getSession();
-        log.info("preUrl ===> " +  session.getAttribute("preUrl"));
+        Cookie[] cookies = request.getCookies();
 
-        if (session.getAttribute("preUrl") != null){
-            response.sendRedirect((String) session.getAttribute("preUrl"));
+        String preUrl = null;
+
+        for(Cookie c : cookies) {
+            if (c.getName().equals("preUrl")) {
+                preUrl = c.getValue();
+            }
+            ;
         }
 
-        response.sendRedirect("/");
+        log.info("preUrl ===> " +  preUrl);
+
+        if (preUrl != null){
+            response.sendRedirect("" + preUrl + "");
+        } else {
+            response.sendRedirect("/");
+        }
     }
 }
