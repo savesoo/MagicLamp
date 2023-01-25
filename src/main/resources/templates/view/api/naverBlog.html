@@ -32,6 +32,13 @@
 
     console.log('obj => ', obj);
 
+    for(let prop in obj){
+        console.log('obj를 하나씩 반복 ----> ', prop);
+        for (let p in prop){
+            console.log('prop을 하나씩 반복 ', p);
+        }
+    }
+
 </script>
 </body>
 </html>
