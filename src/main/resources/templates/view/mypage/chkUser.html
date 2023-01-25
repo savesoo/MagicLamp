@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>비밀번호 확인</title>
+</head>
+<body>
+<form id="chkForm" method="post">
+<div>
+    <label for="userid">아이디</label>
+    <input type="text" id="userid" name="username" th:value="${name}" readonly>
+</div>
+<div>
+    <label for="userpwd">비밀번호</label>
+    <input type="password" id="userpwd" name="password" placeholder="Password">
+</div>
+    <input type="hidden" id="division" name="division" th:value="${division}">
+</form>
+<button id="chkBtn">확인</button>
+
+<script text="javascript">
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('chkBtn').onclick = function() {
+        let form = document.getElementById('chkForm');
+            form.action = "chkUserAuth"
+            form.submit();
+    };
+});
+
+</script>
+</body>
+</html>

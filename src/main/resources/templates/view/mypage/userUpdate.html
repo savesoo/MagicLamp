@@ -1,42 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원 정보 수정</title>
 </head>
 <body>
-<form method="post">
-    <div>
-        <label for="userId" >아이디</label>
-        <input type="text" id="userId" name="username" value="test" readonly>
+    <div id="uid">
+        <label>아이디</label>
+        <span id="s_username" th:text="${userInfo.username}"></span>
+<!--        <input type="text" id="usernameUpt" name="usernameUpt" th:value="${userInfo.username}" readonly>-->
     </div>
 
-    <div>
-        <label for="userPw">비밀번호</label>
-        <input type="password" id="userPw" name="password" required value="1111">
-    </div>
-    <div>
-        <label for="rePw">비밀번호 재확인</label>
-        <input type="password" id="rePw" name="password-check" required value="1111">
+    <div id="pwd">
+        <label>비밀번호</label>
+        <input type="password" id="passwordUpt" name="passwordUpt" style="display: none">
+        <input type="button" id="pwdChange" name="pwdChange" value="변경하기">
+        <input type="button" id="pwdUpdate" name="pwdUpdate" value="저장" style="display: none">
+        <input type="button" id="pwdUpdateCancel" name="pwdUpdateCancel" value="취소" style="display: none">
     </div>
 
-    <div>
+    <div id="uname">
         <label for="name">이름</label>
-        <input type="text" id="name" name="name" required value="test" readonly>
+        <input type="text" id="name" name="name" th:value="${userInfo.name}" readonly>
     </div>
-    <div>
-        <label for="phone">연락처 </label>
-        <input type="text" id="phone" name="phone" placeholder="-를 제외한 11자리" value="01012345678">
+    <div id="uphone">
+        <label>연락처 </label>
+        <span id="phoneSpan" name="phoneSpan" th:text="${userInfo.phone}"></span>
+        <input type="button" id="phoneUptBtn" name="phoneUptBtn" value="변경하기">
+        <input type="text" id="phone" name="phone" placeholder="-를 제외한 11자리" style="display: none">
+        <input type="button" id="phoneUptSave" name="phoneUptBtn" value="저장" style="display: none">
+        <input type="button" id="phoneUptCancel" name="phoneUptCancel" value="취소" style="display: none">
+
     </div>
-    <div>
-        <label for="postnum">우편번호 </label>
-        <input type="text" id="postnum" name="postnum" value="12345">
-        <label for="address1">주소 </label>
-        <input type="text" id="address1" name="address1" value="Seoul">
-        <label for="address2">상세주소 </label>
-        <input type="text" id="address2" name="address2" value="test">
+    <div id="uaddr">
+        <label>우편번호 </label>
+        <span id="spanPost" th:text="|(${userInfo.postnum})|"></span>
+        <input type="text" id="postnum" name="postnum" style="display: none">
+        <label>주소 </label>
+        <span id="spanAddr1" th:text="${userInfo.address1}"></span>
+        <input type="text" id="address1" name="address1" style="display: none">
+        <label>상세주소 </label>
+        <span id="spanAddr2" th:text="${userInfo.address2}"></span>
+        <input type="text" id="address2" name="address2" style="display: none">
+        <input type="button" id="addressUptBtn" name="addressUptBtn" value="변경하기">
+        <input type="button" id="addressUptSave" name="addressUptBtn" value="저장" style="display: none">
+        <input type="button" id="addressUptCancel" name="addressUptCancel" value="취소" style="display: none">
     </div>
-    <button type="button" id="updateBtn">수정</button>
-</form>
+    <script src="/js/mypage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
 </body>
 </html>

@@ -73,8 +73,12 @@ function addrChkDelete(){
     let pagenum = document.querySelector('#pagenum').value;
 
     chkAddr.forEach( (checkbox) => {
-        if(checkbox.checked)
-            addrList.push(checkbox.value);
+        if(checkbox.checked) {
+            if($(checkbox).attr('type') != 'text'){
+                console.log(checkbox.value);
+                addrList.push(checkbox.value);
+            }
+        }
     })
 
     addrDelete(addrList, pagenum, keyword);

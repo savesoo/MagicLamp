@@ -33,9 +33,17 @@ public interface AddrBookRepository extends JpaRepository<AddrBook, Integer>, Jp
     int updateAddrBookByAddrindex(String addrname, String recipient, String phone, String postnum, String address1, String address2, int priority, int addrindex);
 
     // 배송 주소록 삭제
+//    @Transactional
+//    @Modifying
+//    @Query("delete from AddrBook a where a.addrindex = ?1 and a.userindex = ?2")
+//    int deleteByAddrindex(int addrindex, int userindex);
+
+    // 배송 주소록 삭제
     @Transactional
     @Modifying
-    @Query("delete from AddrBook a where a.addrindex = ?1 and a.userindex = ?2")
+    @Query("delete from AddrBook a where a.addrindex = ?1 and a.userindex = ?2 and a.priority = 0")
     int deleteByAddrindex(int addrindex, int userindex);
+
+
 
 }

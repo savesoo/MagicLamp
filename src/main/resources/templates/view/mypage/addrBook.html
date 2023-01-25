@@ -34,7 +34,7 @@
       </th:block>
       <th:block th:unless="${addrList.list.size() ==0 || addrList.list.isEmpty()}">
       <tr th:each="addr : ${addrList.list}">
-        <th:block th:if="${addr.priority == 1}"><td><input type="checkbox" name="addrchk" th:value="${addr.addrindex}" disabled></td></th:block>
+        <th:block th:if="${addr.priority == 1}"><td><input type="text" name="addrchk" th:value="${addr.addrindex}" style="display: none"></td></th:block>
         <th:block th:unless="${addr.priority == 1}"><td><input type="checkbox" name="addrchk" th:value="${addr.addrindex}"></td></th:block>
         <td><label><th:block th:text="${addr.addrname}"></th:block></label></td>
         <td>
