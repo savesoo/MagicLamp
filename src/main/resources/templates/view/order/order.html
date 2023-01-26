@@ -89,11 +89,11 @@
                           <th class="popup">
                               <label> 보유한 마일리지 </label>
                           </th>
-                          <td class="data_td" >
-                              <strong class="input_my_mileage" th:text="${#numbers.formatInteger(mm.mileage, '0', 'COMMA')}"/>
+                          <td class="data_td">
+                              <strong class="input_my_mileage" id="my_mileage" th:text="${#numbers.formatInteger(mm.mileage, '0', 'COMMA')}"/>
                           </td>
                           <td class="data_td">
-                              <span> <input type="text" name="usemil" value="0" placeholder="사용할 금액"> </span>
+                              <span> <input type="text" name="usemil" th:value="${0}" placeholder="사용할 금액"> </span>
                               <button class="usemil_btn"> 사용하기 </button>
                           </td>
                       </tr>
@@ -118,7 +118,7 @@
                       <!-------------------------->
                       <tr>
                           <th class="popup"> 결제 예상 금액 </th>
-                          <td class="data_td" id="expectprice">
+                          <td class="data_td">
                               <strong th:text="${#numbers.formatInteger(b.orderTotalPrice, '0', 'COMMA')}"/> 원
                           </td>
                       </tr>
@@ -126,7 +126,7 @@
                       <tr>
                           <th class="popup">적립 예정 마일리지</th>
                           <td class="data_td">
-                              <strong th:text="${#numbers.formatInteger(b.totalSaveMileage, '0', 'COMMA')}"/> 점
+                              <strong name="saveMileage" th:text="${#numbers.formatInteger(b.totalSaveMileage, '0', 'COMMA')}"/> 점
                           </td>
                       </tr>
                       <!-------------------------->
@@ -169,12 +169,15 @@
   <form class="order_form" action="/order/payment" method="post">
 
       <th:block th:each="order, stat : ${ordersInfo.bookInfos}" >
-          <input name="bookInfo[0].isbn" th:value="${order.isbn}" type="hidden">
-          <input name="bookInfo[0].bookcount" th:value="${order.bookcount}" type="hidden">
-          <input name="bookInfo[0].saleprice" th:value="${order.saleprice}" type="hidden">
-          <input name="bookInfo[0].totalPrice" th:value="${order.totalPrice}" type="hidden">
-          <input name="bookInfo[0].totalMileage" th:value="${order.totalMileage}" type="hidden">
+          <input th:name="'bookInfos['+${stat.index}+'].isbn'" th:value="${order.isbn}" type="hidden">
+          <input th:name="'bookInfos['+${stat.index}+'].bookcount'" th:value="${order.bookcount}" type="hidden">
+          <input th:name="'bookInfos['+${stat.index}+'].saleprice'" th:value="${order.saleprice}" type="hidden">
+          <input th:name="'bookInfos['+${stat.index}+'].totalPrice'" th:value="${order.totalPrice}" type="hidden">
+          <input th:name="'bookInfos['+${stat.index}+'].saveMileage'" th:value="${order.saveMileage}" type="hidden">
+          <input th:name="'bookInfos['+${stat.index}+'].totalMileage'" th:value="${order.totalMileage}" type="hidden">
       </th:block>
+
+      <input name="usemileage" type="hidden">
 
       <input name="mileage" th:value="${ordersInfo.mileage}" type="hidden">
       <input name="recipient" th:value="${ordersInfo.recipient}" type="hidden">
@@ -183,48 +186,18 @@
       <input name="address2" th:value="${ordersInfo.address2}" type="hidden">
       <input name="phone" th:value="${ordersInfo.phone}" type="hidden">
 
+      <input name="totalBookCnt" th:value="${ordersInfo.totalBookCnt}" type="hidden">
+      <input name="totalSaveMileage" th:value="${ordersInfo.totalSaveMileage}" type="hidden">
+      <input name="orderTotalPrice" th:value="${ordersInfo.orderTotalPrice}" type="hidden">
+
+      <input name="userindex" th:value="${loginInfo}" type="hidden">
+
+
   </form>
 
-
-  <!--마일리지 사용 버튼 script-->
-  <script>
-
-      let totalprice = [[${ordersInfo.orderTotalPrice}]]
-      let myMileage = [[${ordersInfo.mileage}]]
-
-      document.addEventListener("DOMContentLoaded", () => {
-          document.querySelector(".usemil_btn").addEventListener('click', useMileage);
-      })
-
-      function  useMileage() {
-
-          const m = document.getElementsByName("usemil")[0].value;
-
-          document.querySelector("#input_saled").innerText = m.toLocaleString(); // 사용한 마일리지
-          document.querySelector(".input_my_mileage").innerHTML = (myMileage-m).toLocaleString(); // 현 마일리지 계산
-          document.querySelector("#calprice").innerText = (totalprice-m).toLocaleString(); // 총 금액에 반영
-          document.querySelector("#resultprice").innerText = (totalprice-m).toLocaleString();
-      }
-
-  </script>
-
-  <!--주문 버튼 script-->
-  <script>
-
-    /*이벤트 연결*/
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelector('.order_btn').addEventListener('click', moveToPayment);
-    });
-
-    function moveToPayment() {
-      const form = document.querySelector('.order_form');
-
-
-
-      form.submit();
-
-    }
-
+  <script src="/js/order.js"></script>
+  <script th:inline="javascript">
+      var loginInfo = [[${loginInfo}]]
   </script>
 
 </body>
