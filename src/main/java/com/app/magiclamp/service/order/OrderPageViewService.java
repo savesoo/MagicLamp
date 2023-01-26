@@ -10,6 +10,10 @@ import com.app.magiclamp.repository.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log4j2
@@ -25,12 +29,21 @@ public class OrderPageViewService {
     private MileageRepository mileageRepository;
 
     // 바로구매 클릭시 한 권 정보 get
+    @Transactional
     public OrderBookPageDTO getOrderBook(RequestOrderBook orders, int userindex){
+
+        log.info(" order view service ... ");
 
         OrderBookPageDTO orderBookPageDTO = new OrderBookPageDTO();
 
+        log.info(" isbn >>> " + orders.getIsbn());
+
         Book book = bookRepository.findById(orders.getIsbn()).get();
         BookInfoDTO bookInfo = book.toBookInfo(); // DB에서 책 정보 불러오기
+
+        if( book==null || bookInfo==null){
+            return null;
+        }
 
         if(orders.getIsbn()== book.getIsbn()){
 
@@ -41,8 +54,10 @@ public class OrderPageViewService {
 
         // list에 추가
         orderBookPageDTO.addToBookInfoList(bookInfo);
+        // 총액 합산
+        orderBookPageDTO.calTotalprice();
 
-        log.info("책 정보 insert >>>>>>>>>>>>> " + bookInfo);
+        log.info("책 정보 >>>>>>>>>>>>> " + bookInfo);
 
 
         // 반환할 객체에 data 넣어주기
@@ -50,7 +65,7 @@ public class OrderPageViewService {
         Mileage m = getCurrentMileage(userindex);
         orderBookPageDTO.setMileage(m.getMileage());
 
-        log.info("Mileadge >>> " + m.getMileage());
+        log.info("Mileage >>> " + m.getMileage());
 
         //주소지
         AddrBook add = getUserAddress(userindex);
@@ -62,9 +77,14 @@ public class OrderPageViewService {
 
         log.info("AddrBook >>> " + add);
 
-        log.info("order >>> " + orderBookPageDTO.getBookInfos());
+        log.info("view order >>> " + orderBookPageDTO);
 
         return orderBookPageDTO;
+    }
+
+    public List<Book> getbooks(List<String> isbns){
+
+        return  bookRepository.findByIsbnIn(isbns);
     }
 
     public AddrBook getUserAddress(int userindex){
@@ -79,7 +99,17 @@ public class OrderPageViewService {
 
         // 현재 마일리지
         // userindex로 마일리지 select
-        return mileageRepository.findById(userindex).get();
+
+        Mileage mileage = mileageRepository.findByUserindex(userindex);
+
+        if(mileage==null){
+
+            Mileage m = Mileage.builder().userindex(userindex).mileage(0).build();
+            mileage = mileageRepository.save(m);
+
+        }
+
+        return mileage;
 
     }
 

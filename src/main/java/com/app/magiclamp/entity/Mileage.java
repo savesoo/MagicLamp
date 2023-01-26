@@ -1,6 +1,7 @@
 package com.app.magiclamp.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @ToString
 @Builder
 @DynamicUpdate
+@DynamicInsert
 public class Mileage {
 
     @Id
