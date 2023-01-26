@@ -17,6 +17,8 @@
     <span th:text="${mileList.totalUse}"></span>
     <label>잔여</label>
     <span th:text="${mileList.totalSave}-${mileList.totalUse}"></span>
+    <label>소멸 예정(1달 이내)</label>
+    <span th:text="${mileList.totalExpired}"></span>
 
     <table>
         <thead>

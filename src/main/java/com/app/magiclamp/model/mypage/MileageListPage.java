@@ -43,19 +43,23 @@ public class MileageListPage {
     // 총 적립 마일리지
     private int totalSave;
 
+    private int totalExpired;
+
     public MileageListPage(
             int countPerPage,
             int pageNum,
             List<Mileage> list,
             int totalCount,
             int totalUse,
-            int totalSave) {
+            int totalSave,
+            int totalExpired) {
         this.countPerPage = countPerPage;
         this.pageNum = pageNum;
         this.list = list;
         this.totalCount = totalCount;
         this.totalUse = totalUse;
         this.totalSave = totalSave;
+        this.totalExpired = totalExpired;
         calPageInfo();
     }
 

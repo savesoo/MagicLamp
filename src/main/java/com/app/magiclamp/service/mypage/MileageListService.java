@@ -49,8 +49,9 @@ public class MileageListService {
             Map<String,Integer> totalMile = mypageMapper.selectTotalMileage(userindex);
             int totalUse = Integer.parseInt(String.valueOf(totalMile.get("totalUse")));
             int totalSave = Integer.parseInt(String.valueOf(totalMile.get("totalSave")));
+            int totalExpired = mypageMapper.expiredMileage(userindex);
 
-            MileageListPage mileageListPage = new MileageListPage(10, pageNum, list, totalCount, totalUse, totalSave);
+            MileageListPage mileageListPage = new MileageListPage(10, pageNum, list, totalCount, totalUse, totalSave, totalExpired);
 
         return mileageListPage;
 
