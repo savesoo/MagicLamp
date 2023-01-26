@@ -2,7 +2,9 @@ package com.app.magiclamp.repository;
 
 import com.app.magiclamp.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,5 +17,9 @@ public interface BookRepository extends JpaRepository<Book, String> {
     @Query("select b from Book b where b.isbn in :isbns")
     List<Book> findByIsbnIn(Collection<String> isbns);
 
+    @Transactional
+    @Modifying
+    @Query("update Book b set b.stock = :stock where b.isbn = :isbn")
+    int updateStockByIsbn(Integer stock, String isbn);
 
 }
