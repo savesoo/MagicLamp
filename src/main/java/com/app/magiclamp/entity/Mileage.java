@@ -16,8 +16,13 @@ import java.time.LocalDate;
 @Builder
 @DynamicUpdate
 public class Mileage {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    private Integer mileageindex;
+
+    @Column(columnDefinition = "int not null")
     private Integer userindex;
 
     @Column(columnDefinition = "int default 0")
