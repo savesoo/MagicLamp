@@ -20,6 +20,8 @@ public class AddrBookRequest {
     private String address2;
     private String phone;
 
+    private int priority;
+
     public AddrBook toAddrBookEntity(){
         return AddrBook.builder()
                 .addrindex(addrindex)

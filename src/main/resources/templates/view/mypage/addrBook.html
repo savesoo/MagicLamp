@@ -34,7 +34,13 @@
       </th:block>
       <th:block th:unless="${addrList.list.size() ==0 || addrList.list.isEmpty()}">
       <tr th:each="addr : ${addrList.list}">
-        <th:block th:if="${addr.priority == 1}"><td><input type="text" name="addrchk" th:value="${addr.addrindex}" style="display: none"></td></th:block>
+        <th:block th:if="${addr.priority == 1}">
+          <td>
+            <input type="text" name="addrchk" th:value="${addr.addrindex}" style="display: none">
+            <input type="hidden" name="priority" id="priority" th:value="${addr.priority}">
+            <input type="hidden" name="userindex" id="userindex" th:value="${addr.userindex}">
+          </td>
+        </th:block>
         <th:block th:unless="${addr.priority == 1}"><td><input type="checkbox" name="addrchk" th:value="${addr.addrindex}"></td></th:block>
         <td><label><th:block th:text="${addr.addrname}"></th:block></label></td>
         <td>
@@ -85,6 +91,8 @@
       <span class="modal-close">&times;</span>
 
       <input type="hidden" id="maddrindex">
+      <input type="hidden" id="mpriority">
+      <input type="hidden" id="muserindex">
       <label for="maddrname">배송지</label><input type="text" id="maddrname">
       <label for="mrecipient">수령인</label><input type="text" id="mrecipient">
       <label for="mpostnum">우편번호</label><input type="text" id="mpostnum">

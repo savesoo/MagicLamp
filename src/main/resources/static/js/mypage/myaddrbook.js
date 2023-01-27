@@ -27,8 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let address1 = td.eq(3).children().eq(2).text();
         let address2 = td.eq(3).children().eq(3).text();
         let phone = td.eq(3).children().eq(5).text();
+        let priority = td.eq(0).children().eq(0).val();
+        let userindex = td.eq(0).children().eq(1).val();
 
-        console.log(addrindex);
+        console.log(priority);
+        console.log(userindex);
 
         document.querySelector('#maddrindex').value= addrindex;
         document.querySelector('#maddrname').value= addrname;
@@ -37,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#maddress1').value = address1;
         document.querySelector('#maddress2').value = address2
         document.querySelector('#mphone').value = phone;
+        document.querySelector('#mpriority').value = priority;
 
         document.getElementById("add").style.display='none';
         modal.style.display="block";
@@ -75,7 +79,6 @@ function addrChkDelete(){
     chkAddr.forEach( (checkbox) => {
         if(checkbox.checked) {
             if($(checkbox).attr('type') != 'text'){
-                console.log(checkbox.value);
                 addrList.push(checkbox.value);
             }
         }
@@ -94,7 +97,6 @@ function addrDelete(addrindex, pagenum, keyword){
     if(confirm("삭제하시겠습니까?")) {
         axios.delete('addrbook/' + addrindex)
             .then(res => {
-                console.log('delete response ==>', res.data);
                 if (res.data == 1) {
                     alert('삭제 되었습니다.')
                     location.href = '/mypage/addrbook?page=' + pagenum + '&keyword=' + keyword;
@@ -111,6 +113,7 @@ function addrModify(){
     let modal = document.getElementById("addrModal");
     let keyword = document.querySelector('#keyword').value;
     let pagenum = document.querySelector('#pagenum').value;
+    let priority = document.querySelector('#mpriority').value;
 
     const addrbook = {
         addrindex : document.querySelector('#maddrindex').value,
@@ -119,7 +122,9 @@ function addrModify(){
         postnum : document.querySelector('#mpostnum').value,
         address1 : document.querySelector('#maddress1').value,
         address2 : document.querySelector('#maddress2').value,
-        phone : document.querySelector('#mphone').value
+        phone : document.querySelector('#mphone').value,
+        priority : document.querySelector('#mpriority').value,
+        userindex : document.querySelector('#muserindex').value
     }
 
     axios.put('addrbook/', addrbook)

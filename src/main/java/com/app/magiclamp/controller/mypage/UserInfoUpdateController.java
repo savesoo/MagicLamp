@@ -43,7 +43,7 @@ public class UserInfoUpdateController {
 
         log.info("Controller Id >>> " + user.getUsername());
         log.info("Controller Phone >>> " + userUpdateRequest.getPhone());
-        int result = userInfoUpdateService.updateUserPhone(userUpdateRequest.getPhone(), user.getUsername());
+        int result = userInfoUpdateService.updateUserPhone(userUpdateRequest.getPhone(), user.getUsername(), user.getUserindex());
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -55,14 +55,15 @@ public class UserInfoUpdateController {
     ){
 
         log.info("Controller Id >>> " + user.getUsername());
+        log.info("Controller userIndex >>> " + user.getUserindex());
         log.info("Controller Postnum >>> " + userUpdateRequest.getPostnum());
-        log.info("Controller Address >>> " + userUpdateRequest.getAddress1());
-        log.info("Controller Address >>> " + userUpdateRequest.getAddress2());
+        log.info("Controller Address1 >>> " + userUpdateRequest.getAddress1());
+        log.info("Controller Address2 >>> " + userUpdateRequest.getAddress2());
         int result = userInfoUpdateService.updateUserAddress(
                 userUpdateRequest.getPostnum(),
                 userUpdateRequest.getAddress1(),
                 userUpdateRequest.getAddress2(),
-                user.getUsername());
+                user.getUserindex());
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
