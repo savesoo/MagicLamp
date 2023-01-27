@@ -23,6 +23,15 @@ function loginCheck() {
     }
 }
 
+function loginCheckCh() {
+    if (loginInfo < 0) {
+        const answer = confirm('로그인 상태에서 가능합니다. 로그인 페이지로 이동합니다.')
+        if (answer == true) {
+            location.href = "/login";
+        }
+    }
+}
+
 function orderCheck(){
     return axios.get('/review/register/check/' + isbn + '/' + loginInfo).then(response => response.data)
 }
