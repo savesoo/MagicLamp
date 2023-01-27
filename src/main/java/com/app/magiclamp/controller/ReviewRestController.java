@@ -54,6 +54,28 @@ public class ReviewRestController {
         return map;
     }
 
+    @GetMapping(value = "/like/{isbn}/{pageNum}")
+    public Map<String, Object> getOrderByLikeReviewList(@PathVariable("isbn") String isbn, @PathVariable("pageNum") int pageNum){
+        List<ReviewDTO> list = reviewListService.findAllByLike(isbn, pageNum);
+        long total = reviewListService.countPeople(isbn);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", list);
+        map.put("total", total);
+        return map;
+    }
+
+    @GetMapping(value = "/star/{isbn}/{pageNum}")
+    public Map<String, Object> getOrderByStarReviewList(@PathVariable("isbn") String isbn, @PathVariable("pageNum") int pageNum){
+        List<ReviewDTO> list = reviewListService.findAllByHighRating(isbn, pageNum);
+        long total = reviewListService.countPeople(isbn);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", list);
+        map.put("total", total);
+        return map;
+    }
+
     @DeleteMapping("/{reviewindex}")
     public ResponseEntity<Integer> deleteReview(@PathVariable("reviewindex") int reviewindex){
         return new ResponseEntity<>(reviewDeleteService.deleteByReviewIndex(reviewindex), HttpStatus.OK);

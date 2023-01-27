@@ -181,7 +181,11 @@ article {
 }
 
 .review_filter .filter_list a {
-    margin: 0; text-decoration: none; line-height: 1em; display: block; padding: 8px; margin-top: -8px; font-size: 12px; font-weight: 700;
+    margin: 0; text-decoration: none; line-height: 1em; display: block; padding: 8px; margin-top: -8px; font-size: 12px; font-weight: 700; color: #808991;
+}
+
+.review_filter .filter_list a.active {
+    color: #303538;
 }
 
 #review_list_section .review_list_empty {
@@ -231,6 +235,11 @@ article {
 
 #review_list_section .review_list_wrapper .more_review_button_wrapper {
     padding-top: 15px; background: #fff; margin-top: -1px;
+}
+
+
+#review_list_section .review_list_wrapper .more_review_button_wrapper.hidden {
+    display: none;
 }
 
 

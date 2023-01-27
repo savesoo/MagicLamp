@@ -19,4 +19,9 @@ public interface ReviewMapper {
     @Select("select c.cnt, u.username, r.*from tbl_review as r left outer join (select * from tbl_user) as u on r.reviewer=u.userindex left outer join (select reviewindex, count(reviewindex) as cnt from tbl_like group by reviewindex) as c on r.reviewindex=c.reviewindex where r.isbn=#{isbn} order by r.reviewindex desc limit #{start}, #{end}")
     List<ReviewDTO> getList(@Param("isbn") String isbn, @Param("start") int start, @Param("end") int end);
 
+    @Select("select c.cnt, u.username, r.*from tbl_review as r left outer join (select * from tbl_user) as u on r.reviewer=u.userindex left outer join (select reviewindex, count(reviewindex) as cnt from tbl_like group by reviewindex) as c on r.reviewindex=c.reviewindex where r.isbn=#{isbn} order by c.cnt desc limit #{start}, #{end}")
+    List<ReviewDTO> findAllByLike(@Param("isbn") String isbn, @Param("start") int start, @Param("end") int end);
+
+    @Select("select c.cnt, u.username, r.*from tbl_review as r left outer join (select * from tbl_user) as u on r.reviewer=u.userindex left outer join (select reviewindex, count(reviewindex) as cnt from tbl_like group by reviewindex) as c on r.reviewindex=c.reviewindex where r.isbn=#{isbn} order by r.star desc limit #{start}, #{end}")
+    List<ReviewDTO> findAllByHighRating(@Param("isbn") String isbn, @Param("start") int start, @Param("end") int end);
 }

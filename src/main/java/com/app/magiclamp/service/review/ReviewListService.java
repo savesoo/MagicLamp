@@ -22,6 +22,17 @@ public class ReviewListService {
         return reviewMapper.getList(isbn, index, count);
     }
 
+    public List<ReviewDTO> findAllByLike(String isbn, int pageNum){
+        int index = (pageNum-1) * 5;
+        int count = 5;
+        return reviewMapper.findAllByLike(isbn, index, count);
+    }
+
+    public List<ReviewDTO> findAllByHighRating(String isbn, int pageNum){
+        int index = (pageNum-1) * 5;
+        int count = 5;
+        return reviewMapper.findAllByHighRating(isbn, index, count);
+    }
 
     public long countPeople(String isbn){
         return reviewRepository.countByIsbn_Isbn(isbn);
