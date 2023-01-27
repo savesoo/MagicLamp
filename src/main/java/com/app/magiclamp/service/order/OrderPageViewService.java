@@ -3,6 +3,7 @@ package com.app.magiclamp.service.order;
 import com.app.magiclamp.entity.AddrBook;
 import com.app.magiclamp.entity.Mileage;
 import com.app.magiclamp.entity.Book;
+import com.app.magiclamp.entity.User;
 import com.app.magiclamp.model.BookInfoDTO;
 import com.app.magiclamp.model.order.RequestOrderBook;
 import com.app.magiclamp.model.order.OrderBookPageDTO;
@@ -18,6 +19,8 @@ import java.util.List;
 @Service
 @Log4j2
 public class OrderPageViewService {
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private BookRepository bookRepository;
@@ -91,7 +94,26 @@ public class OrderPageViewService {
 
         // 저장된 배송정보
         // userindex, priority=1로 AddrBook select
-        return addrBookRepository.findByUserindexAndPriority(userindex, 1);
+        AddrBook add = addrBookRepository.findByUserindexAndPriority(userindex, 1);
+        User user = userRepository.findById(userindex).get();
+
+        // null일 때 회원가입시 입력받은 주소로 기본 배송지 생성
+        if(add==null){
+
+            AddrBook registAdd = AddrBook.builder()
+                    .userindex(userindex)
+                    .recipient(user.getUsername())
+                    .phone(user.getPhone())
+                    .postnum(user.getPostnum())
+                    .address1(user.getAddress1())
+                    .address2(user.getAddress2())
+                    .priority(1)
+                    .build();
+
+            add = addrBookRepository.save(registAdd);
+        }
+
+        return add;
 
     }
 
@@ -102,6 +124,7 @@ public class OrderPageViewService {
 
         Mileage mileage = mileageRepository.findByUserindex(userindex);
 
+        // null일 때 data 생성해서 반환
         if(mileage==null){
 
             Mileage m = Mileage.builder().userindex(userindex).mileage(0).build();
