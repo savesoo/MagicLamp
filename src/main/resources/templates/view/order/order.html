@@ -133,14 +133,14 @@
                       <tr>
                           <th class="popup">할인 금액</th>
                           <td class="data_td">
-                              <strong id="input_saled" th:text="${#numbers.formatInteger(0, '0', 'COMMA')}"/> 원
+                              <strong id="used_mileage" th:text="${#numbers.formatInteger(0, '0', 'COMMA')}"/> 원
                           </td>
                       </tr>
                       <!-------------------------->
                       <tr>
                           <th class="popup"> 결제 금액 </th>
                           <td class="data_td">
-                              <strong id="calprice" th:text="${#numbers.formatInteger(b.orderTotalPrice, '0', 'COMMA')}"/> 원
+                              <strong id="calPrice" th:text="${#numbers.formatInteger(b.orderTotalPrice, '0', 'COMMA')}"/> 원
                           </td>
                       </tr>
 
@@ -148,7 +148,7 @@
               </table>
               <!-------------------------->
               <div th:each="pay : ${ordersInfo}">
-                  <p> 결제하실 금액은 총 <strong id="resultprice" th:text="${#numbers.formatInteger(pay.orderTotalPrice, '0', 'COMMA')}"/> 원 입니다.</p>
+                  <p> 결제하실 금액은 총 <strong id="resultPrice" th:text="${#numbers.formatInteger(pay.orderTotalPrice, '0', 'COMMA')}"/> 원 입니다.</p>
               </div>
           </div>
       </div>
@@ -198,6 +198,8 @@
   <script src="/js/order.js"></script>
   <script th:inline="javascript">
       var loginInfo = [[${loginInfo}]]
+      let totalPrice = [[${ordersInfo.orderTotalPrice}]]
+      let myMileage = [[${ordersInfo.mileage}]]
   </script>
 
 </body>
