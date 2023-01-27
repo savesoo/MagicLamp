@@ -52,16 +52,4 @@ public class OrderDTO {
 
     private List<RequestPaymentBook> orders;
 
-
-    // 주문시 실 결제금액 계산 메서드
-    public void calTotalprice(){
-
-        for(RequestPaymentBook order : orders){
-            orderTotalPrice += order.getTotalPrice();
-            totalSaveMileage += order.getTotalMileage();
-        }
-
-        realprice = orderTotalPrice - usemileage + totalSaveMileage;
-    }
-
 }
