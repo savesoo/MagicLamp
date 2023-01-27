@@ -26,7 +26,6 @@ public class MyPageReviewListController {
     ) {
 
         int userindex = user.getUserindex();
-        String searchTitle = option.getSearchTitle();
 
         log.info("######################" + option);
         model.addAttribute("reviewList", myPageReviewListService.getMyPageReviewList(userindex, pageNum, option));
