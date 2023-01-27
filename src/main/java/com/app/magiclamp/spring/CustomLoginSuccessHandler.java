@@ -49,19 +49,20 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         Cookie[] cookies = request.getCookies();
 
-        String preUrl = null;
+        log.info("###################cookie " + cookies);
+        String prePath = null;
 
         for(Cookie c : cookies) {
-            if (c.getName().equals("preUrl")) {
-                preUrl = c.getValue();
+            if (c.getName().equals("prePath")) {
+                prePath = c.getValue();
             }
             ;
         }
 
-        log.info("preUrl ===> " +  preUrl);
+        log.info("preUrl ===> " +  prePath);
 
-        if (preUrl != null){
-            response.sendRedirect("" + preUrl + "");
+        if (prePath != null){
+            response.sendRedirect("" + prePath + "");
         } else {
             response.sendRedirect("/");
         }
