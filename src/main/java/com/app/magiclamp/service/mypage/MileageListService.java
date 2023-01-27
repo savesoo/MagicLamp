@@ -1,7 +1,7 @@
 package com.app.magiclamp.service.mypage;
 
 import com.app.magiclamp.entity.Mileage;
-import com.app.magiclamp.mapper.MypageMapper;
+import com.app.magiclamp.mapper.MyPageReviewMapper;
 import com.app.magiclamp.model.mypage.MileageListPage;
 import com.app.magiclamp.model.mypage.MileageSpecification;
 import com.app.magiclamp.repository.MileageRepository;
@@ -25,7 +25,7 @@ public class MileageListService {
     private MileageRepository mileageRepository;
 
     @Autowired
-    private MypageMapper mypageMapper;
+    private MyPageReviewMapper mypageMapper;
 
     public MileageListPage getMileagePage(int userindex, int pageNum, int keyword){
 
@@ -50,6 +50,9 @@ public class MileageListService {
             int totalUse = Integer.parseInt(String.valueOf(totalMile.get("totalUse")));
             int totalSave = Integer.parseInt(String.valueOf(totalMile.get("totalSave")));
             int totalExpired = mypageMapper.expiredMileage(userindex);
+
+            log.info("###################" + totalUse);
+            log.info("###################" + totalSave);
 
             MileageListPage mileageListPage = new MileageListPage(10, pageNum, list, totalCount, totalUse, totalSave, totalExpired);
 

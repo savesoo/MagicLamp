@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>주문내역</title>
+</head>
+<body>
+<div>
+    <form action="/mypage/orderhistory" method="get" id="searchForm">
+        <select id ="searchOption" name="searchOption">
+            <option value="0" th:selected="${option.getSearchOption()}=='0'">전체</option>
+            <option value="1" th:selected="${option.getSearchOption()}=='1'">주문상품</option>
+            <option value="2" th:selected="${option.getSearchOption()}=='2'">주문번호</option>
+            <option value="3" th:selected="${option.getSearchOption()}=='3'">구매자</option>
+        </select>
+        <input type="text" name="searchText" id="searchText" th:value="${option.getSearchText()}">
+        <input type="date" name="sDate" id="sDate" th:value="${option.getSDate()}">
+        <input type="date" name="eDate" id="eDate" th:value="${option.getEDate()}">
+        <input type="button" id="searchBtn" name="searchBtn" value="검색">
+        <input type="button" id="initBtn" name="initBtn" value="초기화">
+    </form>
+</div>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>주문일</th>
+            <th>주문번호</th>
+            <th>수령인</th>
+            <th>주문상품명</th>
+            <th>실결제금액</th>
+            <th>상태</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:if="${orderList.list.size() == 0 || orderList.list.isEmpty()}">
+            <tr>
+                <td colspan="6">검색하신 결과가 없습니다.</td>
+            </tr>
+        </th:block>
+        <th:block th:unless="${orderList.list.size() ==0 || orderList.list.isEmpty()}">
+            <tr th:each="order : ${orderList.list}">
+                <td>
+                    <span id="orderdate" th:text="${order.orderdate}"></span>
+                </td>
+                <td>
+                    <a href="#">
+<!--                    <a th:href="@{/view/book/bookView(isbn=${review.isbn}, p=1)}" th:value="${review.isbn}">-->
+<!--                        <div style="float: left; height: 100%; width: 30%">-->
+<!--                            <img th:if="${review.bookimg.length() > 0}" th:src="@{/photo/{name}(name=${review.bookimg})}" height="200px">-->
+<!--                            <img th:unless="${review.bookimg.length() > 0}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII=" height="100px">-->
+<!--                        </div>-->
+<!--                        <div style="float: right; height: 100%; width: 70%">-->
+                            <span id="orderindex" th:text="${order.orderindex}"></span>
+<!--                        </div>-->
+                    </a>
+                </td>
+                <td>
+                    <span th:text="${order.name}"></span>
+                </td>
+                <td>
+                    <span th:text="${order.title}"></span>
+                </td>
+                <td>
+                    <span th:text="${order.realprice}"></span>
+                </td>
+                <td>
+                    <span th:if="${order.purchasestate == 0}" th:text="구매"></span>
+                    <span th:if="${order.purchasestate == 1}" th:text="취소"></span>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+    <nav aria-label="">
+        <ul class="pagination">
+            <input type="hidden" id="pagenum" th:value="${orderList.pageNum}">
+            <th:block th:if="${orderList.prev}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/mypage/orderhistory(page=${orderList.startNum-1}, searchOption=${option.searchOption}, searchText=${option.searchText}, sDate=${option.sDate}, eDate=${option.eDate})}">&laquo;</a>
+                </li>
+            </th:block>
+            <th:block th:each="num : ${#numbers.sequence(orderList.startNum, orderList.endNum)}" th:with="active=${orderList.pageNum==num?'active':''}">
+                <li class="page-item" th:classappend="${active}">
+                    <a class="page-link" th:href="@{/mypage/orderhistory(page=${num}, searchOption=${option.searchOption}, searchText=${option.searchText}, sDate=${option.sDate}, eDate=${option.eDate})}" th:text="${num}"></a>
+                </li>
+            </th:block>
+            <th:block th:if="${orderList.next}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/mypage/orderhistory(page=${orderList.endNum+1}, searchOption=${option.searchOption}, searchText=${option.searchText}, sDate=${option.sDate}, eDate=${option.eDate})}">&raquo;</a>
+                </li>
+            </th:block>
+        </ul>
+    </nav>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
+<script text="javascript">
+    document.getElementById('searchBtn').onclick = function(){
+        let sdata = document.getElementById('sDate').value;
+        let edata = document.getElementById('eDate').value;
+        let text = document.getElementById('searchText').value;
+
+        let sdate = new Date(sdata);
+        let edate = new Date(edata);
+
+        console.log(sdate);
+        console.log(edate);
+        console.log(text);
+
+        if(sdata.length ==0 && edata.length==0){
+            document.getElementById('searchForm').submit();
+        }
+
+        else if(sdate <= edate){
+            document.getElementById('searchForm').submit();
+        }
+        else {
+            alert("시작일자 또는 종료일자를 확인해주세요");
+            return;
+        }
+    }
+
+    document.getElementById('searchOption').onchange = function(){
+        let keyword = this.value;
+
+        console.log(this.value);
+    }
+
+    document.getElementById('initBtn').onclick = function (){
+        document.getElementById('sDate').value = "";
+        document.getElementById('eDate').value = "";
+        document.getElementById('searchText').value = "";
+        document.getElementById('searchOption').value = "0";
+    }
+</script>
+</body>
+</html>

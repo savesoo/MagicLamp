@@ -1,32 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>장바구니</title>
 </head>
 <body>
-  <div>
-  <table>
-    <tr>
-      <th><input type="checkbox" name="cartAllSelect" id="cartAllSelect"></th>
-      <th>상품명</th>
-      <th>가격</th>
-      <th>수량</th>
-      <th>삭제</th>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </table>
-  </div>
-  <div>
-    <a>전체 선택</a>
-    <a>선택한 상품 삭제</a>
-    <a>선택한 상품 주문하기</a>
-  </div>
+<div>
+    <form action="/mypage/myreview" method="get" id="searchForm">
+        <input type="text" name="searchTitle" id="searchTitle" th:value="${option.getSearchTitle()}">
+        <input type="date" name="sDate" id="sDate" th:value="${option.getSDate()}">
+        <input type="date" name="eDate" id="eDate" th:value="${option.getEDate()}">
+        <input type="button" id="searchBtn" name="searchBtn" value="검색">
+        <input type="button" id="initBtn" name="initBtn" value="초기화">
+    </form>
+</div>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>작성일</th>
+            <th>도서명</th>
+            <th>내용</th>
+            <th>별점</th>
+            <th>관리</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:if="${reviewList.list.size() == 0 || reviewList.list.isEmpty()}">
+            <tr>
+                <td colspan="5">검색하신 결과가 없습니다.</td>
+            </tr>
+        </th:block>
+        <th:block th:unless="${reviewList.list.size() ==0 || reviewList.list.isEmpty()}">
+            <tr th:each="review : ${reviewList.list}">
+                <td>
+                    <span id="regdate" th:text="${review.regdate}"></span>
+                </td>
+                <td>
+                    <a th:href="@{/view/book/bookView(isbn=${review.isbn}, p=1)}" th:value="${review.isbn}">
+                        <div style="float: left; height: 100%; width: 30%">
+
+                            <img th:if="${review.bookimg.length() > 0}" th:src="@{/photo/{name}(name=${review.bookimg})}" height="200px">
+                            <img th:unless="${review.bookimg.length() > 0}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII=" height="100px">
+                        </div>
+                        <div style="float: right; height: 100%; width: 70%">
+                            <span id="title" th:text="${review.title}"></span>
+                        </div>
+                    </a>
+                </td>
+                <td>
+                    <span th:text="${review.reviewcontent}"></span>
+                </td>
+                <td>
+                    <span th:if="${review.star == 5}">★★★★★</span>
+                    <span th:if="${review.star == 4}">★★★★</span>
+                    <span th:if="${review.star == 3}">★★★</span>
+                    <span th:if="${review.star == 2}">★★</span>
+                    <span th:if="${review.star == 1}">★</span>
+                </td>
+                <td>
+                    <button id="reviewUptBtn" th:onclick="updateBtnClick([[${review}]])">수정</button>
+                    <button id="reviewDelBtn" th:onclick="reviewDelBtnClick([[${review}]])">삭제</button>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+    <nav aria-label="">
+        <ul class="pagination">
+            <input type="hidden" id="pagenum" th:value="${reviewList.pageNum}">
+            <th:block th:if="${reviewList.prev}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/mypage/myreview(page=${reviewList.startNum-1}, searchTitle=${option.searchTitle}, sDate=${option.sDate}, eDate=${option.eDate})}">&laquo;</a>
+                </li>
+            </th:block>
+            <th:block th:each="num : ${#numbers.sequence(reviewList.startNum, reviewList.endNum)}" th:with="active=${reviewList.pageNum==num?'active':''}">
+                <li class="page-item" th:classappend="${active}">
+                    <a class="page-link" th:href="@{/mypage/myreview(page=${num}, searchTitle=${option.searchTitle}, sDate=${option.sDate}, eDate=${option.eDate})}" th:text="${num}"></a>
+                </li>
+            </th:block>
+            <th:block th:if="${reviewList.next}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/mypage/myreview(page=${reviewList.endNum+1}, searchTitle=${option.searchTitle}, sDate=${option.sDate}, eDate=${option.eDate})}">&raquo;</a>
+                </li>
+            </th:block>
+        </ul>
+    </nav>
+</div>
+
+<script src="/js/mypage/mycart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
 </body>
 </html>

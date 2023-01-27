@@ -1,0 +1,67 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.magiclamp.mapper.OrderHistoryMapper">
+
+    <select id="selectOrderHistoryList" resultType="com.app.magiclamp.model.mypage.OrderHistoryListDTO">
+
+        SELECT o.*, b.title
+        FROM tbl_order o
+        INNER JOIN tbl_book b
+        ON o.isbn = b.isbn
+        WHERE userindex = #{userindex}
+
+        <if test="option.searchOption == 1 and option.searchText != null">
+            <include refid="likeTitle"></include>
+        </if>
+        <if test="option.searchOption == 2 and option.searchText != null">
+            <include refid="equalOrderindex"></include>
+        </if>
+        <if test="option.searchOption == 3 and option.searchText != null">
+            <include refid="likeName"></include>
+        </if>
+        <if test="option.sDate != null and option.eDate != null">
+            <include refid="betweenDate"></include>
+        </if>
+
+        ORDER BY o.orderdate DESC
+        limit #{page} , 10
+    </select>
+
+    <sql id="likeTitle">
+        and b.title like concat('%', #{option.searchText}, '%')
+    </sql>
+    <sql id="equalOrderindex">
+        AND o.orderindex = #{option.searchText}
+    </sql>
+    <sql id="likeName">
+        AND o.name like concat('%', #{option.searchText}, '%')
+    </sql>
+    <sql id="betweenDate">
+        and DATE(o.orderdate) BETWEEN #{option.sDate} AND #{option.eDate}
+    </sql>
+
+    <select id="selectOrderHistoryListTotalCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM tbl_order o
+        INNER JOIN tbl_book b
+        ON o.isbn = b.isbn
+        WHERE userindex = #{userindex}
+
+        <if test="option.searchOption == 1 and option.searchText != null">
+            <include refid="likeTitle"></include>
+        </if>
+        <if test="option.searchOption == 2 and option.searchText != null">
+            <include refid="equalOrderindex"></include>
+        </if>
+        <if test="option.searchOption == 3 and option.searchText != null">
+            <include refid="likeName"></include>
+        </if>
+        <if test="option.sDate != null and option.eDate != null">
+            <include refid="betweenDate"></include>
+        </if>
+
+    </select>
+
+</mapper>

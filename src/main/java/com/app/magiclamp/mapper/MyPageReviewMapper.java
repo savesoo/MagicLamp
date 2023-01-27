@@ -6,14 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface MypageMapper {
+public interface MyPageReviewMapper {
 
-    @Select("SELECT SUM(mileage) AS totalSave, SUM(usemileage) AS totalUse FROM tbl_mileage WHERE userindex =#{userindex}")
+    @Select("SELECT IFNULL(SUM(mileage),0) AS totalSave, IFNULL(SUM(usemileage),0) AS totalUse FROM tbl_mileage WHERE userindex =#{userindex}")
     Map<String, Integer> selectTotalMileage(@Param("userindex") int userindex);
 
     @Select("SELECT IFNULL(SUM(mileage)-SUM(usemileage), 0) AS expiredmileage " +
@@ -33,4 +32,5 @@ public interface MypageMapper {
 
     int selectMyPageReviewListTotalCount(@Param("userindex") int userindex,
                                          @Param("option")MyReviewSearchOption option);
+
 }
