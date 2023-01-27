@@ -293,9 +293,9 @@
                 <li class="tab_list">구매자 <span class="num" th:text="${people}"></span></li>
             </ul>
             <ul class="review_filter">
-                <li class="filter_list"><a>최신순</a></li>
-                <li class="filter_list"><a>별점 높은순</a></li>
-                <li class="filter_list"><a>별점 낮은순</a></li>
+                <li class="filter_list"><a class="latest active">최신순</a></li>
+                <li class="filter_list"><a class="like">공감순</a></li>
+                <li class="filter_list"><a class="star">별점순</a></li>
             </ul>
         </div>
         <div class="review_list_wrapper">
@@ -306,7 +306,7 @@
             </th:block>
             <ul>
             </ul>
-            <div class="more_review_button_wrapper" id="example">
+            <div class="more_review_button_wrapper">
                 <button type="button" class="more_review_button">더보기</button>
             </div>
         </div>
