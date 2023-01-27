@@ -37,34 +37,31 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         log.info("password Matches : " + passResult);
 
-        if(passResult) {
+        if (passResult) {
             response.sendRedirect("/login?error");
             return;
         }
 
         List<String> roleNames = new ArrayList<>();
-        for(GrantedAuthority authority : authUserDTO.getAuthorities()) {
+        for (GrantedAuthority authority : authUserDTO.getAuthorities()) {
             roleNames.add(authority.getAuthority());
         }
 
         Cookie[] cookies = request.getCookies();
 
         log.info("###################cookie " + cookies);
+
         String prePath = null;
 
-        for(Cookie c : cookies) {
+        for (Cookie c : cookies) {
             if (c.getName().equals("prePath")) {
                 prePath = c.getValue();
             }
             ;
         }
 
-        log.info("preUrl ===> " +  prePath);
+        log.info("preUrl ===> " + prePath);
 
-        if (prePath != null){
-            response.sendRedirect("" + prePath + "");
-        } else {
-            response.sendRedirect("/");
-        }
+        response.sendRedirect(prePath);
     }
 }
