@@ -70,17 +70,7 @@
         </ul>
     </nav>
 </div>
-<script text="javascript">
-    document.getElementById('keyword').onchange = function (){
-        let page = document.getElementById('pagenum').value;
-        let keyword = this.value;
-
-        console.log(page);
-        console.log(this.value);
-
-        location.href='/mypage/mileage?keyword='+keyword;
-        // location.href='/mypage/mileage?page='+page+'&keyword='+keyword;
-    };
-</script>
+<script src="/js/mypage/mymileage.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
 </body>
 </html>

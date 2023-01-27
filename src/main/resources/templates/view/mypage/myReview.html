@@ -95,7 +95,7 @@
                 </td>
                 <td>
                     <button id="reviewUptBtn" th:onclick="updateBtnClick([[${review}]])">수정</button>
-                    <button id="reviewDelBtn" th:value="${review.reviewindex}">삭제</button>
+                    <button id="reviewDelBtn" th:onclick="reviewDelBtnClick([[${review}]])">삭제</button>
                 </td>
             </tr>
         </th:block>
@@ -131,79 +131,20 @@
         <input type="hidden" id="mreviewindex">
         <input type="hidden" id="misbn">
         <input type="hidden" id="mreviewer">
-        <input type="hidden" id="mstar">
+        <input type="radio" name="mstar" value="1" th:text="1">
+        <input type="radio" name="mstar" value="2" th:text="2">
+        <input type="radio" name="mstar" value="3" th:text="3">
+        <input type="radio" name="mstar" value="4" th:text="4">
+        <input type="radio" name="mstar" value="5" th:text="5">
+
+
         <input type="hidden" id="mregdate">
         <input type="button" id="reviewUpt" value="수정">
         <input type="button" id="reviewDel" value="삭제">
     </div>
 </div>
 
-<script text="javascript">
-
-    document.getElementById('searchBtn').onclick = function(){
-        let sdata = document.getElementById('sDate').value;
-        let edata = document.getElementById('eDate').value;
-
-        let sdate = new Date(sdata);
-        let edate = new Date(edata);
-
-        if(sdata.length ==0 && edata.length==0){
-            document.getElementById('searchForm').submit();
-        }
-
-        else if(sdate <= edate){
-            document.getElementById('searchForm').submit();
-        }
-        else {
-            alert("시작일자 또는 종료일자를 확인해주세요");
-            return;
-        }
-    }
-
-    document.getElementById('initBtn').onclick = function (){
-        document.getElementById('sDate').value = "";
-        document.getElementById('eDate').value = "";
-        document.getElementById('searchTitle').value = "";
-    }
-
-    document.getElementById('modalclosebtn').onclick = function() {
-        document.getElementById("reviewModal").style.display="none";
-    }
-
-    function updateBtnClick(data){
-        document.getElementById('mreviewcontent').innerText = data.reviewcontent;
-        document.getElementById('mreviewindex').value = data.reviewindex;
-        document.getElementById('misbn').value = data.isbn;
-        document.getElementById('mreviewer').value = data.reviewer;
-        document.getElementById('mstar').value = data.star;
-        document.getElementById('mregdate').value = data.regdate;
-
-        let modal = document.getElementById("reviewModal");
-
-        modal.style.display='block';
-    }
-
-    document.getElementById('reviewUpt').onclick = function (){
-        const payload = {
-            reviewindex : document.getElementById('mreviewindex').value,
-            isbn : document.getElementById('misbn').value,
-            reviewer : document.getElementById('mreviewer').value,
-            star : document.getElementById('mstar').value,
-            reviewcontent : document.getElementById('mreviewcontent').textContent,
-            regdate : document.getElementById('mregdate').value
-        }
-
-        axios.put('/review/' + payload.reviewindex, payload)
-            .then(res => {
-                location.reload()
-            }).catch()
-    }
-
-    document.getElementById('reviewDel').onclick = function () {
-
-    }
-
-</script>
+<script src="/js/mypage/myreview.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
 </body>
