@@ -222,7 +222,7 @@
 <!--내비게이션 끝-->
 
 <!--도서 검색바 시작-->
-<table style="margin-left:auto; margin-right:auto;" class="table table-striped">
+<table class="table">
     <tr>
         <td>
             <div style="text-align: center" class="bd-example-snippet bd-code-snippet">
@@ -242,7 +242,7 @@
 <!--도서 검색바 끝-->
 
 <!--페이징(상부) 시작-->
-<table style="margin-left:auto; margin-right:auto;" class="table table-striped">
+<table class="table">
     <Tr>
         <Td>
             <nav class="pg_wrap">
@@ -272,26 +272,23 @@
 <!--페이징(상부) 끝-->
 
 <!-- 도서 리스트 시작-->
-<table class="table table-striped">
+<table class="table">
     <tr>
-        <td>
-            <div style="display: inline; text-align: center">
+        <td width="5%">
+            <div style="text-align: center">
                 <b>전체선택</b><br>
                 <input type="checkbox" name="checkBook" onclick="selectAll(this)"/>
             </div>
         </td>
-        <td>
+        <td width="10%">
             <div style="display: inline">
                 <button style="display: inline" onclick="insertAllCart()" class="btn btn-primary">장바구니 담기</button>
             </div>
         </td>
+        <td width="65%"></td>
+        <td width="20%"></td>
     </tr>
     <th:block th:each="book, bookStat : ${BookMainListPage.list}">
-        <tr>
-            <td colspan="4">
-<!--                <hr/>-->
-            </td>
-        </tr>
         <tr>
             <td width="5%" style="text-align: center">
                 <div th:text="${bookStat.count} + '.'"></div>
@@ -335,34 +332,38 @@
             <td width="20%" style="text-align: center">
                 <div>
                     <!--                    <button onclick="insertOneCart()">장바구니 담기</button>-->
-                    <button onclick="insertOneCart(this)" th:value="${book.isbn}" class="btn btn-primary">장바구니 담기</button>
+                    <button onclick="insertOneCart(this)" th:value="${book.isbn}" class="btn btn-primary mt-5">장바구니 담기
+                    </button>
                     <input type="hidden" th:value="${book.isbn}">
                 </div>
                 <div>
                     <a class="btn_buy"
-                       th:href="@{/order(isbn=${book.isbn}, bookcount=${1})}" > 바로 구매 </a>
+                       th:href="@{/order(isbn=${book.isbn}, bookcount=${1})}"><button class="btn btn-primary mt-2">바로 구매</button></a>
                 </div>
             </td>
         </tr>
     </th:block>
     <tr>
-        <td>
-            <div style="display: inline">
-                <input type="checkbox" name="checkBook" onclick="selectAll(this)"/><b>전체선택</b>
+        <td width="5%">
+            <div style="text-align: center">
+                <input type="checkbox" name="checkBook" onclick="selectAll(this)"/><br>
+                <b>전체선택</b>
             </div>
         </td>
-        <td>
+        <td width="10%">
             <div style="display: inline">
-                <button style="display: inline" onclick="insertAllCart()">장바구니 담기</button>
+                <button style="display: inline" onclick="insertAllCart()" class="btn btn-primary mt-1">장바구니 담기</button>
             </div>
         </td>
+        <td width="65%"></td>
+        <td width="20%"></td>
     </tr>
 </table>
 <div id='result'></div>
 <!-- 도서 리스트 끝-->
 
 <!--페이징(하부) 시작-->
-<table style="margin-left:auto; margin-right:auto;" class="table table-striped">
+<table style="margin-left:auto; margin-right:auto;" class="table">
     <Tr>
         <Td>
             <nav class="pg_wrap">
@@ -422,7 +423,7 @@
         console.log('window.location.href ===> ', window.location.href.substring(21));
 
         let date = new Date();
-        date.setTime(date.getTime() + 24*60*60*1000);
+        date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
 
         loginCheck();
 
@@ -480,7 +481,7 @@
         console.log('window.location.href ===> ', window.location.href.substring(21));
 
         let date = new Date();
-        date.setTime(date.getTime() + 24*60*60*1000);
+        date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
 
         loginCheck();
 
