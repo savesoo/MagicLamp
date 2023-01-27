@@ -34,11 +34,6 @@ public class BookViewController {
             @AuthenticationPrincipal AuthUserDTO authUserDTO
             ) {
 
-//        HttpSession session = request.getSession();
-
-        /*String isbn = "9788925578415";
-        int pageNum = 1;*/
-
         model.addAttribute("pageNum", pageNum);
         model.addAttribute("bookView", bookViewService.selectBook(isbn));
         model.addAttribute("bookViewAlpha", bookViewService.selectBookAlpha(isbn));
