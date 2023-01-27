@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -17,12 +16,12 @@ import java.util.Map;
 
 @Controller
 @Log4j2
-@RequestMapping("/view/api")
+@RequestMapping("/view/api/naverBlog")
 public class ApiNaverBookController {
 
-    @GetMapping("/naverBlog")
+    @GetMapping
     public void getNaverBlog(
-            @RequestParam("keyword") String keyword,
+            String keyword,
             Model model
     ){
 
@@ -40,7 +39,7 @@ public class ApiNaverBookController {
         }
 
         String apiURL = "https://openapi.naver.com/v1/search/book?query=" + text;    // JSON 결과(book)
-        //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // XML 결과
+//        String apiURL = "https://openapi.naver.com/v1/search/book.xml?query="+ text; // XML 결과
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
