@@ -213,24 +213,26 @@
     </style>
 
     <link href="/css/review.css" rel="stylesheet">
+    <!-- 부트스트랩 css 사용 -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
 <!--내비게이션 시작-->
 <!--내비게이션 끝-->
 
 <!--도서 검색바 시작-->
-<table style="margin-left:auto; margin-right:auto;">
+<table style="margin-left:auto; margin-right:auto;" class="table table-striped">
     <tr>
         <td>
-            <div style="text-align: center">
-                <form>
-                    검색:
-                    <select name="searchType">
+            <div style="text-align: center" class="bd-example-snippet bd-code-snippet">
+                <form class="d-flex" role="search">
+                    <select name="searchType" class="form-control me-2">
                         <option value="isbn">ISBN</option>
                         <option value="title">도서명</option>
                     </select>
-                    <input type="text" name="keyword">
-                    <input type="submit" value="검색">
+                    <input type="text" name="keyword" class="form-control me-2">
+                    <input type="submit" value="검색" class="btn btn-outline-success">
                 </form>
             </div>
         </td>
@@ -240,7 +242,7 @@
 <!--도서 검색바 끝-->
 
 <!--페이징(상부) 시작-->
-<table style="margin-left:auto; margin-right:auto;">
+<table style="margin-left:auto; margin-right:auto;" class="table table-striped">
     <Tr>
         <Td>
             <nav class="pg_wrap">
@@ -270,23 +272,24 @@
 <!--페이징(상부) 끝-->
 
 <!-- 도서 리스트 시작-->
-<table style="margin-left:auto; margin-right:auto;">
+<table class="table table-striped">
     <tr>
         <td>
-            <div style="display: inline">
-                <input type="checkbox" name="checkBook" onclick="selectAll(this)"/><b>전체선택</b>
+            <div style="display: inline; text-align: center">
+                <b>전체선택</b><br>
+                <input type="checkbox" name="checkBook" onclick="selectAll(this)"/>
             </div>
         </td>
         <td>
             <div style="display: inline">
-                <button style="display: inline" onclick="insertAllCart()">장바구니 담기</button>
+                <button style="display: inline" onclick="insertAllCart()" class="btn btn-primary">장바구니 담기</button>
             </div>
         </td>
     </tr>
     <th:block th:each="book, bookStat : ${BookMainListPage.list}">
         <tr>
             <td colspan="4">
-                <hr/>
+<!--                <hr/>-->
             </td>
         </tr>
         <tr>
@@ -332,12 +335,12 @@
             <td width="20%" style="text-align: center">
                 <div>
                     <!--                    <button onclick="insertOneCart()">장바구니 담기</button>-->
-                    <button onclick="insertOneCart(this)" th:value="${book.isbn}">장바구니 담기</button>
+                    <button onclick="insertOneCart(this)" th:value="${book.isbn}" class="btn btn-primary">장바구니 담기</button>
                     <input type="hidden" th:value="${book.isbn}">
                 </div>
                 <div>
                     <a class="btn_buy"
-                       th:href="@{/order(isbn=${book.isbn}, bookcount=${1})}"> 바로 구매 </a>
+                       th:href="@{/order(isbn=${book.isbn}, bookcount=${1})}" > 바로 구매 </a>
                 </div>
             </td>
         </tr>
@@ -359,7 +362,7 @@
 <!-- 도서 리스트 끝-->
 
 <!--페이징(하부) 시작-->
-<table style="margin-left:auto; margin-right:auto;">
+<table style="margin-left:auto; margin-right:auto;" class="table table-striped">
     <Tr>
         <Td>
             <nav class="pg_wrap">
@@ -533,7 +536,8 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
 
 </body>
 </html>
