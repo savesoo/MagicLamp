@@ -5,6 +5,17 @@
     <title>NaverAPI Blog 테스트</title>
 </head>
 <body>
+<script th:inline="javascript">
+
+    let api = [[${naverBlog}]]
+
+    let obj = JSON.parse(api);
+
+    console.log('obj => ', obj);
+    console.log('obj => ', obj.items);
+
+    const objs = obj.items;
+</script>
 <form>
     검색: <input type="text" name="keyword">
     <input type="submit">
@@ -17,6 +28,7 @@
         <td>title</td>
         <td>도서이미지</td>
     </tr>
+
     <div id="result">
 
     </div>
@@ -26,18 +38,29 @@
 <div>[[${naverBlog}]]</div>
 <script th:inline="javascript">
 
-    let api = [[${naverBlog}]]
 
-    let obj = JSON.parse(api);
+    let isb = '';
+    let tit = '';
+    let img = '';
 
-    console.log('obj => ', obj);
-
-    for(let prop in obj){
-        console.log('obj를 하나씩 반복 ----> ', prop);
-        for (let p in prop){
-            console.log('prop을 하나씩 반복 ', p);
-        }
+    for (let i = 0; i < obj.items.length; i++) {
+        console.log('isbn ==> ', obj.items[i].isbn);
+        isb += obj.items[i].isbn + '\n';
+        console.log('title ==> ', obj.items[i].title);
+        tit += obj.items[i].title + '\n';
+        console.log('image link ==> ', obj.items[i].image);
+        img += obj.items[i].image + '\n';
     }
+
+    const main = document.getElementById('result');
+    const isbn = document.getElementById('isbn');
+    const title = document.getElementById('title');
+    const image = document.getElementById('image');
+
+    // main.innerHTML = isb;
+    // isbn.innerHTML = isb;
+    // title.innerHTML = tit;
+    // image.innerHTML = img;
 
 </script>
 </body>
