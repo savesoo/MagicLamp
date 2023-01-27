@@ -12,4 +12,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("select o from Order o where o.isbn = :isbn")
     RequestOrderBook findByIsbn(String isbn);
 
+    // 구매한 사람만 리뷰 등록할 수 있도록
+    @Query("select count(o) from Order o where o.userindex = ?1 and o.isbn = ?2")
+    long countByUserindexAndIsbn(Integer userindex, String isbn);
 }

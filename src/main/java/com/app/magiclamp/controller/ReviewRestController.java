@@ -31,6 +31,11 @@ public class ReviewRestController {
     @Autowired
     private ReviewModifyService reviewModifyService;
 
+    private final UserOrderChkService userOrderChkService;
+
+    public ReviewRestController(UserOrderChkService userOrderChkService) {
+        this.userOrderChkService = userOrderChkService;
+    }
 
 
     @PostMapping
@@ -85,5 +90,10 @@ public class ReviewRestController {
     public ResponseEntity<Integer> modifyReview(@PathVariable("reviewindex") int reviewindex, @RequestBody ReviewDTO reviewDTO){
         reviewDTO.setReviewindex(reviewindex);
         return new ResponseEntity<>(reviewModifyService.modifyReview(reviewDTO), HttpStatus.OK);
+    }
+
+    @GetMapping("/register/check/{isbn}/{userindex}")
+    public ResponseEntity<Long> checkOrder(@PathVariable("isbn") String isbn, @PathVariable("userindex") int userindex){
+        return new ResponseEntity<>(userOrderChkService.checkOrder(userindex, isbn), HttpStatus.OK);
     }
 }

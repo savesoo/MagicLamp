@@ -4,6 +4,7 @@ let starpage = 1
 
 const reviewtext = document.querySelector('.review_input_textarea')
 const starFieldset = document.querySelector('.star_rate_touch_area > fieldset')
+const promise = orderCheck();
 
 reviewtext.addEventListener("click", loginCheck)
 starFieldset.addEventListener("click", starCheck)
@@ -15,7 +16,15 @@ function loginCheck() {
         if (answer == true) {
             location.href = "/login";
         }
+    } else {
+        promise.then(result => {
+            if(result == 0) alert('책을 구매한 회원만 리뷰 등록이 가능합니다.')
+        })
     }
+}
+
+function orderCheck(){
+    return axios.get('/review/register/check/' + isbn + '/' + loginInfo).then(response => response.data)
 }
 
 function starCheck() {
