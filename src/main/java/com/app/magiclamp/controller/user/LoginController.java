@@ -15,12 +15,35 @@ public class LoginController {
     @GetMapping("/login")
     public String getLogin(HttpServletRequest request, HttpServletResponse response) {
 
+        Cookie[] cks = request.getCookies();
+        String pre = null;
+
+        if (cks != null) {
+            for (Cookie c : cks) {
+                if (c.getName().equals("prePath") && c.getValue() != null) {
+                    pre = c.getValue();
+                }
+            }
+        }
+
         String referer = request.getHeader("Referer");
 
-        referer = referer.replaceAll("http://localhost:8080", "");
+        if (referer == null) {
+
+            if (pre != null) {
+                referer = pre;
+            } else {
+                referer = "/";
+            }
+
+        } else {
+
+            referer = referer.replaceAll("http://localhost:8080", "");
+
+        }
 
         Cookie setCookie = new Cookie("prePath", referer); // 쿠키 이름을 name으로 생성
-        setCookie.setMaxAge(60*60*24); // 기간을 하루로 지정(60초 * 60분 * 24시간)
+        setCookie.setMaxAge(60 * 60 * 24); // 기간을 하루로 지정(60초 * 60분 * 24시간)
         response.addCookie(setCookie);
 
         return "view/user/login";
