@@ -21,18 +21,19 @@ public class BookMainListPage {
     private int endnum;     // 페이징의 끝 번호
     private boolean prev;   // 이전 버튼
     private boolean next;   // 다음 버튼
-
     private String searchType;  // 검색 타입
-
     private String keyword; // 검색 키워드
 
-    public BookMainListPage(int conuntperpage, int pagenum, List<BookRequest> list, int totalcount, String searchType, String keyword) {
+    private String category; // 카테고리
+
+    public BookMainListPage(int conuntperpage, int pagenum, List<BookRequest> list, int totalcount, String searchType, String keyword, String category) {
         this.conuntperpage = conuntperpage;
         this.pagenum = pagenum;
         this.list = list;
         this.totalcount = totalcount;
         this.searchType = searchType;
         this.keyword = keyword;
+        this.category = category;
         calPageInfo();
     }
 

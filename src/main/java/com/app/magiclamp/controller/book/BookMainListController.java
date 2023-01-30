@@ -27,19 +27,23 @@ public class BookMainListController {
     @GetMapping
     public void getBookMainList(
             @RequestParam(value = "p", defaultValue = "1") int pagenum,
+            @RequestParam(value = "category", defaultValue = "") String category,
             BookSearchOption searchOption,
             HttpServletRequest request,
             @AuthenticationPrincipal AuthUserDTO authUserDTO,
             Model model
     ) {
 
-        model.addAttribute("loginInfo", authUserDTO == null? -1 : authUserDTO.getUserindex());
+        model.addAttribute("loginInfo", authUserDTO == null ? -1 : authUserDTO.getUserindex());
 
         String searchType = searchOption.getSearchType();
         String keyword = searchOption.getKeyword();
 
-        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageSearchList(pagenum, searchOption));
+        model.addAttribute("BookMainListPage", bookMainListService.getBookMainPageSearchList(pagenum, searchOption, category));
         log.info("getKeyword() 값 있음. pagenum, searchType, keyword................... ===> " + pagenum, searchType, keyword);
+
+        model.addAttribute("category", bookMainListService.getCategory());
+
 
     }
 }

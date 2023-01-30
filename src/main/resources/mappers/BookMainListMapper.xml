@@ -9,13 +9,16 @@
         select c.cnt, r.star, b.* from tbl_book b left outer join (SELECT isbn, round(avg(star)) as star FROM project_lamp.tbl_review group by isbn order by isbn) r on b.isbn=r.isbn left outer join (select isbn, count(isbn) as cnt from tbl_review group by isbn) c on b.isbn=c.isbn
 
         <where>
-            <if test="p2.searchType != null and p2.keyword != null">
-                <if test="p2.searchType == 'isbn'">
+            <if test="searchOption.searchType != null and searchOption.keyword != null">
+                <if test="searchOption.searchType == 'isbn'">
                     <include refid="searchIsbn"/>
                 </if>
-                <if test="p2.searchType == 'title'">
+                <if test="searchOption.searchType == 'title'">
                     <include refid="searchTitle"/>
                 </if>
+            </if>
+            <if test="category != null and category != ''">
+                <include refid="searchCategory"/>
             </if>
         </where>
 
@@ -24,36 +27,49 @@
     </select>
 
     <sql id="searchIsbn">
-        b.isbn like concat('%', #{p2.keyword}, '%')
+<!--        b.isbn like concat('%', #{p2.keyword}, '%')-->
+        b.isbn like concat('%', #{searchOption.keyword}, '%')
     </sql>
 
     <sql id="searchTitle">
-        title like concat('%', #{p2.keyword}, '%')
+<!--        title like concat('%', #{p2.keyword}, '%')-->
+        title like concat('%', #{searchOption.keyword}, '%')
     </sql>
 
-    <select id="selectByOptionTotalCount" parameterType="com.app.magiclamp.model.bookMain.BookSearchOption" resultType="Integer">
+    <sql id="searchCategory">
+        category like concat('%', #{category}, '%')
+    </sql>
+
+    <select id="selectByOptionTotalCount" resultType="Integer">
 
         select count(isbn) from tbl_book
 
         <where>
-            <if test="searchType != null and keyword != null">
-                <if test="searchType == 'isbn'">
+            <if test="searchOption.searchType != null and searchOption.keyword != null">
+                <if test="searchOption.searchType == 'isbn'">
                     <include refid="searchIsbn2"/>
                 </if>
-                <if test="searchType == 'title'">
+                <if test="searchOption.searchType == 'title'">
                     <include refid="searchTitle2"/>
                 </if>
+            </if>
+            <if test="category != null and category != ''">
+                <include refid="searchCategory"/>
             </if>
         </where>
 
     </select>
 
     <sql id="searchIsbn2">
-        isbn like concat('%', #{keyword}, '%')
+        isbn like concat('%', #{searchOption.keyword}, '%')
     </sql>
 
     <sql id="searchTitle2">
-        title like concat('%', #{keyword}, '%')
+        title like concat('%', #{searchOption.keyword}, '%')
+    </sql>
+
+    <sql id="searchCategory3">
+        b.category like concat('%', #{category}, '%')
     </sql>
 
 </mapper>

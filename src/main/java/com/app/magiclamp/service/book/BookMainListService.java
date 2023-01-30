@@ -25,7 +25,7 @@ public class BookMainListService {
     @Autowired
     private BookMainListMapper bookMainListMapper;
 
-    public BookMainListPage getBookMainPageSearchList(int pagenum, BookSearchOption searchOption) {
+    public BookMainListPage getBookMainPageSearchList(int pagenum, BookSearchOption searchOption, String category) {
 
         BookMainListPage bookMainListPage = null;
 
@@ -33,15 +33,23 @@ public class BookMainListService {
 
         // 도서 리스트
 //        List<Book> list = bookMainListMapper.selectByOption(stnum, searchOption);
-        List<BookRequest> list = bookMainListMapper.selectByOption(stnum, searchOption);
+        List<BookRequest> list = bookMainListMapper.selectByOption(stnum, searchOption, category);
 
         // 전체 도서의 개수
-        log.info("전체 도서의 개수 =================>" + bookMainListMapper.selectByOptionTotalCount(searchOption));
-        int totalCount = bookMainListMapper.selectByOptionTotalCount(searchOption);
+        log.info("전체 도서의 개수 =================>" + bookMainListMapper.selectByOptionTotalCount(searchOption, category));
+        int totalCount = bookMainListMapper.selectByOptionTotalCount(searchOption, category);
 
-        bookMainListPage = new BookMainListPage(10, pagenum, list, totalCount, searchOption.getSearchType(), searchOption.getKeyword());
+        bookMainListPage = new BookMainListPage(10, pagenum, list, totalCount, searchOption.getSearchType(), searchOption.getKeyword(), category);
 
         return bookMainListPage;
+    }
+
+
+    public List<String> getCategory() {
+
+        List<String> categoryList = bookMainListMapper.selectByCategory();
+
+        return categoryList;
     }
 
 }
