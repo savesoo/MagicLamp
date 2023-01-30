@@ -241,16 +241,23 @@
 
 <!--도서 검색바 끝-->
 
+<!-- 카테고리 표시 시작 -->
 <div style="display: inline-block; width: 10%">
-    <table class="table table-light">
-        <th:block th:each="cat : ${category}">
-            <tr>
-                <td><a th:href="@{/view/book/bookMainList(category=${cat})}" th:text="${cat}"></a></td>
-            </tr>
-        </th:block>
+    <table>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
     </table>
+    <th:block th:each="cat : ${category}">
+        <ul style="list-style: none;">
+            <li><a th:href="@{/view/book/bookMainList(category=${cat})}" th:text="${cat}"></a></li>
+        </ul>
+    </th:block>
 </div>
-
+<!-- 카테고리 표시 끝 -->
 
 <!-- 페이징 + 도서 리스트 시작 -->
 <div id="pagign_list" style="display: inline-block; width: 85%; float: right">
