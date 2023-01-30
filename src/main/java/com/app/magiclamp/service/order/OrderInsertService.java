@@ -3,6 +3,7 @@ package com.app.magiclamp.service.order;
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.entity.Mileage;
 import com.app.magiclamp.entity.Order;
+import com.app.magiclamp.mapper.MileageMapper;
 import com.app.magiclamp.model.BookInfoDTO;
 import com.app.magiclamp.model.order.OrderBookPageDTO;
 import com.app.magiclamp.model.order.RequestPaymentBook;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @Service
@@ -72,19 +74,17 @@ public class OrderInsertService {
 
         log.info(" result >>> " + result);
 
+        // 사용한 마일리지 insert
+        Mileage userMil = Mileage.builder().userindex(userindex).usemileage(paymentBook.getUsemileage()).build();
+        mileageRepository.save(userMil);
 
-        // 차감된 마일리지 계산, 반영
-        //(현재-사용)+적립
-        int resultMileagy = (paymentBook.getMileage() - paymentBook.getUsemileage()) + paymentBook.getTotalSaveMileage();
+        log.info(" used mileage >>> " + userMil);
 
-        Mileage mileage = mileageRepository.findByUserindex(userindex);
-        mileage.setUsemileage(paymentBook.getUsemileage()); // 사용한 마일리지 set
-        mileage.setMileage(resultMileagy);
-        mileage.setUpdatedate(LocalDate.now());
+        // 적립 마일리지 insert
+        Mileage saveMil = Mileage.builder().userindex(userindex).mileage(paymentBook.getTotalSaveMileage()).build();
+        mileageRepository.save(saveMil);
 
-        mileageRepository.save(mileage);
-
-        log.info(" save mileage >>> " + mileage);
+        log.info(" save mileage >>> " + saveMil);
 
         return result;
 

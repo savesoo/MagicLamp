@@ -4,6 +4,7 @@ import com.app.magiclamp.entity.AddrBook;
 import com.app.magiclamp.entity.Mileage;
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.entity.User;
+import com.app.magiclamp.mapper.MileageMapper;
 import com.app.magiclamp.model.BookInfoDTO;
 import com.app.magiclamp.model.order.RequestOrderBook;
 import com.app.magiclamp.model.order.OrderBookPageDTO;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Log4j2
@@ -27,9 +29,8 @@ public class OrderPageViewService {
 
     @Autowired
     private AddrBookRepository addrBookRepository;
-
     @Autowired
-    private MileageRepository mileageRepository;
+    private MileageMapper mileageMapper;
 
     // 바로구매 클릭시 한 권 정보 get
     @Transactional
@@ -65,10 +66,11 @@ public class OrderPageViewService {
 
         // 반환할 객체에 data 넣어주기
         //마일리지
-        Mileage m = getCurrentMileage(userindex);
-        orderBookPageDTO.setMileage(m.getMileage());
 
-        log.info("Mileage >>> " + m.getMileage());
+        int m = getCurrentMileage(userindex);
+        orderBookPageDTO.setMileage(m);
+
+        log.info("Mileage >>> " + m);
 
         //주소지
         AddrBook add = getUserAddress(userindex);
@@ -117,22 +119,15 @@ public class OrderPageViewService {
 
     }
 
-    public Mileage getCurrentMileage(int userindex){
+    public int getCurrentMileage(int userindex){
 
         // 현재 마일리지
         // userindex로 마일리지 select
 
-        Mileage mileage = mileageRepository.findByUserindex(userindex);
+        Map<String,Integer> currMileage  = mileageMapper.selectCurrentMileage(userindex);
+        int totalMileage = Integer.parseInt(String.valueOf(currMileage.get("currMileage")));
 
-        // null일 때 data 생성해서 반환
-        if(mileage==null){
-
-            Mileage m = Mileage.builder().userindex(userindex).mileage(0).build();
-            mileage = mileageRepository.save(m);
-
-        }
-
-        return mileage;
+        return totalMileage;
 
     }
 
