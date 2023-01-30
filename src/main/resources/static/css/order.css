@@ -102,3 +102,8 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.button_middle {
+    outline: 0; color: #333!important; font-size: 12px; line-height: 25px; white-space: nowrap; background-color: transparent;
+    border-color: #195fa5; margin: 0; padding: 3px 10px 0 10px;
+}
