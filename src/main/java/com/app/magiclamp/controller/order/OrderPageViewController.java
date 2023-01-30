@@ -19,7 +19,6 @@ public class OrderPageViewController {
     @Autowired
     private OrderPageViewService orderPageViewService;
 
-    // 어떻게 list로 받을지 고민하기
     @GetMapping
     public String getOrderPage(@AuthenticationPrincipal AuthUserDTO userDTO,
                                RequestOrderBook orders,
@@ -30,10 +29,11 @@ public class OrderPageViewController {
 
         // 임시 null 처리
         if(orders==null || userDTO == null){
+
             return "redirect:/view/book/bookMainList";
         }
 
-        model.addAttribute("loginInfo", userDTO == null? -1 : userDTO.getUserindex()); // 로그인 확인용, 추후 삭제
+        model.addAttribute("loginInfo", userDTO == null? -1 : userDTO.getUserindex()); // user 정보
         model.addAttribute("ordersInfo", orderPageViewService.getOrderBook(orders, userDTO.getUserindex()));
 
 

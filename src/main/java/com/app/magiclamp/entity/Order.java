@@ -1,10 +1,12 @@
 package com.app.magiclamp.entity;
 
+import com.app.magiclamp.model.order.OrderDTO;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,7 +36,7 @@ public class Order {
 
 
     @Column(nullable = false)
-    private Integer realprice; // 실구매가(판매가-마일리지)
+    private Integer realprice; // 실구매가(판매가-사용 마일리지)
     @Column(nullable = false)
     private Integer mileage; // 적립되는 마일리지
 

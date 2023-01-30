@@ -32,8 +32,9 @@
                           <a th:href="@{view/book/bookView(isbn=${book.isbn},p=${1})}" th:text="${book.title}"/>
                       </td>
                       <td> [[${#numbers.formatInteger(book.saleprice, 0, 'COMMA')}]] 원 / [[${#numbers.formatInteger(book.saveMileage, 0, 'COMMA')}]] 원 </td>
-                      <td th:text="${book.bookcount}"/>
+                      <td id="bookcount" th:text="${book.bookcount}"/>
                       <td th:text="${#numbers.formatInteger(book.totalPrice, 0, 'COMMA')}"> 원 </td>
+                      <input type="hidden" id="isbn">
                   </tr>
               </table>
           </div>
@@ -49,7 +50,7 @@
                       <tr>
                         <th class="popup"> 주문인 </th>
                         <td class="data_td">
-                          <input th:value="${user.recipient}">
+                          <input id="recipient" th:value="${user.recipient}">
                         </td>
                       </tr>
                       <!-------------------------->
@@ -58,20 +59,20 @@
                         <td class="data_td">
                           <div>
                           <span>
-                            <input type="text" th:value="${user.postnum}">
+                            <input type="text" id="postnum" th:value="${user.postnum}">
                             <button> 주소 검색 </button>
                           </span>
                           </div>
                           <div>
-                            <input type="text" th:value="${user.address1}">
-                            <input type="text" th:value="${user.address2}">
+                            <input type="text" id="address1" th:value="${user.address1}">
+                            <input type="text" id="address2" th:value="${user.address2}">
                           </div>
                         </td>
                       </tr>
                       <!-------------------------->
                       <tr>
                         <th class="popup"> 연락처 </th>
-                        <td class="data_td"> <input type="text" th:value="${user.phone}"> </td>
+                        <td class="data_td"> <input type="text" id="phone" th:value="${user.phone}"> </td>
                       </tr>
                   </th:block>
               </table>
@@ -113,6 +114,7 @@
                           <th class="popup">수량</th>
                           <td class="data_td">
                               <p> 총 [[${b.totalBookCnt}]] 권 </p>
+                              <input type="hidden" id="totalBookCnt" th:value="${b.totalBookCnt}">
                           </td>
                       </tr>
                       <!-------------------------->
@@ -126,7 +128,8 @@
                       <tr>
                           <th class="popup">적립 예정 마일리지</th>
                           <td class="data_td">
-                              <strong name="saveMileage" th:text="${#numbers.formatInteger(b.totalSaveMileage, '0', 'COMMA')}"/> 점
+                              <strong th:text="${#numbers.formatInteger(b.totalSaveMileage, '0', 'COMMA')}"/> 점
+                              <input type="hidden" id="saveMileage" th:value="${b.totalSaveMileage}">
                           </td>
                       </tr>
                       <!-------------------------->
@@ -164,43 +167,17 @@
 
   </div>
 
-
-  <!--order 요청시 보낼 form-->
-  <form class="order_form" action="/order/payment" method="post">
-
-      <th:block th:each="order, stat : ${ordersInfo.bookInfos}" >
-          <input th:name="'bookInfos['+${stat.index}+'].isbn'" th:value="${order.isbn}" type="hidden">
-          <input th:name="'bookInfos['+${stat.index}+'].bookcount'" th:value="${order.bookcount}" type="hidden">
-          <input th:name="'bookInfos['+${stat.index}+'].saleprice'" th:value="${order.saleprice}" type="hidden">
-          <input th:name="'bookInfos['+${stat.index}+'].totalPrice'" th:value="${order.totalPrice}" type="hidden">
-          <input th:name="'bookInfos['+${stat.index}+'].saveMileage'" th:value="${order.saveMileage}" type="hidden">
-          <input th:name="'bookInfos['+${stat.index}+'].totalMileage'" th:value="${order.totalMileage}" type="hidden">
-      </th:block>
-
-      <input name="usemileage" type="hidden">
-
-      <input name="mileage" th:value="${ordersInfo.mileage}" type="hidden">
-      <input name="recipient" th:value="${ordersInfo.recipient}" type="hidden">
-      <input name="postnum" th:value="${ordersInfo.postnum}" type="hidden">
-      <input name="address1" th:value="${ordersInfo.address1}" type="hidden">
-      <input name="address2" th:value="${ordersInfo.address2}" type="hidden">
-      <input name="phone" th:value="${ordersInfo.phone}" type="hidden">
-
-      <input name="totalBookCnt" th:value="${ordersInfo.totalBookCnt}" type="hidden">
-      <input name="totalSaveMileage" th:value="${ordersInfo.totalSaveMileage}" type="hidden">
-      <input name="orderTotalPrice" th:value="${ordersInfo.orderTotalPrice}" type="hidden">
-
-      <input name="userindex" th:value="${loginInfo}" type="hidden">
-
-
-  </form>
-
-  <script src="/js/order.js"></script>
   <script th:inline="javascript">
       var loginInfo = [[${loginInfo}]]
-      let totalPrice = [[${ordersInfo.orderTotalPrice}]]
+      var ordersInfo = [[${ordersInfo.bookInfos}]]
+      let viewPriceSum = [[${ordersInfo.orderTotalPrice}]]
       let myMileage = [[${ordersInfo.mileage}]]
   </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/js/order.js"></script>
 
 </body>
 </html>

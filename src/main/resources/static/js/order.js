@@ -9,11 +9,11 @@ function checkNumberAndPrice(element) {
 
     if(!check.test(element)) {
         alert('정수 단위의 숫자만 입력 가능합니다.');
-        return false;
+        return null;
 
     } else if(element>myMileage){
-        alert('소지하신 마일리지보다 많이 사용할 수 없습니다.');
-        return false;
+        alert('보유하신 마일리지보다 많이 사용할 수 없습니다.');
+        return myMileage;
     }
 
     return element;
@@ -27,27 +27,27 @@ function  useMileage() {
     // 입력된 사용금액(m)만큼 차감
     document.querySelector("#used_mileage").innerText = m.toLocaleString();
     document.querySelector("#my_mileage").innerText = (myMileage - m).toLocaleString();
-    document.querySelector("#calPrice").innerText = (totalPrice - m).toLocaleString();
-    document.querySelector("#resultPrice").innerText = (totalPrice - m).toLocaleString();
-    document.getElementsByName("usemil")[0].value = (myMileage - m);
+    document.querySelector("#calPrice").innerText = (viewPriceSum - m).toLocaleString();
+    document.querySelector("#resultPrice").innerText = (viewPriceSum - m).toLocaleString();
+    document.getElementsByName("usemil")[0].value = m;
 
     if (myMileage === 0) {
         // 마일리지 없음 -> 계산 X
         alert("적립된 마일리지가 없습니다.");
         document.querySelector("#used_mileage").innerText = myMileage.toLocaleString(); // 사용한 마일리지
         document.querySelector("#my_mileage").innerText = myMileage.toLocaleString(); // 남은 마일리지 계산
-        document.querySelector("#calPrice").innerText = totalPrice.toLocaleString(); // 총 금액에 반영
+        document.querySelector("#calPrice").innerText = viewPriceSum.toLocaleString(); // 총 금액에 반영
         document.querySelector("#resultPrice").innerText = myMileage;
         return;
 
-    } else if(totalPrice < m){
+    } else if(viewPriceSum < m){
         // 사용하려는 마일리지보다 결제금액이 더 적은 경우 -> 결제 금액만큼만 차감
         alert("결제 금액을 초과하였습니다. \n마일리지가 자동으로 차감 적용됩니다.");
-        document.querySelector("#used_mileage").innerText = totalPrice.toLocaleString();
-        document.querySelector("#my_mileage").innerText = (myMileage - totalPrice).toLocaleString();
-        document.querySelector("#calPrice").innerText = (totalPrice - totalPrice).toLocaleString();
-        document.querySelector("#resultPrice").innerText = (totalPrice - totalPrice).toLocaleString();
-        document.getElementsByName("usemil")[0].value = totalPrice;
+        document.querySelector("#used_mileage").innerText = viewPriceSum.toLocaleString();
+        document.querySelector("#my_mileage").innerText = (myMileage - viewPriceSum).toLocaleString();
+        document.querySelector("#calPrice").innerText = (viewPriceSum - viewPriceSum).toLocaleString();
+        document.querySelector("#resultPrice").innerText = (viewPriceSum - viewPriceSum).toLocaleString();
+        document.getElementsByName("usemil")[0].value = viewPriceSum;
         return;
 
     }
@@ -56,12 +56,40 @@ function  useMileage() {
 
 
 <!--주문 버튼-->
-function moveToPayment() {
+function moveToPayment(){
 
-    // 보낼 form select
-    const form = document.querySelector('.order_form');
-    // 사용한 마일리지 select -> post
-    document.getElementsByName("usemileage")[0].value = parseInt(document.getElementsByName("usemil")[0].value);
-    form.submit();
+    const payload = {
+
+        userindex : loginInfo,
+
+        bookInfos : ordersInfo,
+
+        recipient: document.querySelector("#recipient").value,
+        postnum: document.querySelector("#postnum").value,
+        address1: document.querySelector("#address1").value,
+        address2: document.querySelector("#address2").value,
+        phone: document.querySelector("#phone").value,
+
+        mileage: myMileage,
+        usemileage : parseInt(document.getElementsByName("usemil")[0].value),
+
+        totalBookCnt: document.querySelector("#totalBookCnt").value,
+        totalSaveMileage: document.querySelector('#saveMileage').value,
+        orderTotalPrice: viewPriceSum
+    }
+
+
+    axios.post('/order/payment', payload)
+        .then(res => {
+            console.log('post -> response', res.data);
+            alert("결제가 완료되었습니다.");
+            location.href = '/view/book/bookMainList';
+        })
+        .catch(err => {
+            console.log(err);
+            alert("결제 과정에서 문제가 발생하였습니다.");
+            location.reload();
+        });
+
 
 }

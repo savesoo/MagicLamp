@@ -3,12 +3,9 @@ package com.app.magiclamp.service.order;
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.entity.Mileage;
 import com.app.magiclamp.entity.Order;
-import com.app.magiclamp.mapper.MileageMapper;
 import com.app.magiclamp.model.BookInfoDTO;
-import com.app.magiclamp.model.order.OrderBookPageDTO;
 import com.app.magiclamp.model.order.RequestPaymentBook;
 import com.app.magiclamp.repository.BookRepository;
-import com.app.magiclamp.repository.CartRepository;
 import com.app.magiclamp.repository.MileageRepository;
 import com.app.magiclamp.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
@@ -16,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Log4j2
 @Service
