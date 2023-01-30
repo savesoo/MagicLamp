@@ -11,6 +11,11 @@
 
   <div id="order_div">
 
+      [[${loginInfo}]]
+      <br>
+      [[${ordersInfo}]]
+      <br>
+
     <!------------ 주문서 테이블 영역 시작 -------------->
 
     <table>
@@ -29,7 +34,7 @@
                   </tr>
                   <tr class="infobody" th:each=" book : ${ordersInfo.bookInfos}">
                       <td class="data_td">
-                          <p th:href="@{#}" th:text="${book.title}"/> <!--fake 링크-->
+                          <a th:href="@{view/book/bookView(isbn=${book.isbn},p=${1})}" th:text="${book.title}"/>
                       </td>
                       <td> [[${#numbers.formatInteger(book.saleprice, 0, 'COMMA')}]] 원 / [[${#numbers.formatInteger(book.saveMileage, 0, 'COMMA')}]] 원 </td>
                       <td th:text="${book.bookcount}"/>
