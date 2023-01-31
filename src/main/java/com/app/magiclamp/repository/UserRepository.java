@@ -39,6 +39,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("update User u set u.deleted = 1 where u.username = ?1 and u.userindex = ?2")
     int updateUserWithdraw(String username, int userindex);
 
+    long countByUsername(String username);
+
 
 
 

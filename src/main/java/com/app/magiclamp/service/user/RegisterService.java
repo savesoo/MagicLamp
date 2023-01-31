@@ -45,4 +45,9 @@ public class RegisterService {
                     .priority(1)
                 .build());
     }
+
+    public long idCheck(String userid){
+        long cnt = userRepository.countByUsername(userid);
+        return cnt;
+    }
 }
