@@ -46,8 +46,10 @@ if (myReview != null) {
     inputBtn.style.display = 'none'
     inputArea.style.display = 'none'
     const myReviewContent = document.querySelector('.my_review_content')
+    myReviewContent.textContent = myReviewContent.textContent.replaceAll('<br/>', '\r\n')
     const myReviewContent_text = myReviewContent.textContent
-    const myReviewContent_text_short = myReviewContent_text.substring(0, 140) + "..."
+    const myReviewContent_text_short = myReviewContent_text.substring(0, 145) + "..."
+
     const myReview_more = document.createElement('button')
     myReview_more.setAttribute('class', 'more_review')
     myReview_more.textContent = '계속 읽기'
@@ -60,7 +62,7 @@ if (myReview != null) {
     hidden_mycontent.setAttribute('class', 'hidden')
     hidden_mycontent.textContent = myReviewContent_text
 
-    if (myReviewContent_text.length >= 140) {
+    if (myReviewContent_text.length >= 145) {
         myReviewContent.innerHTML = ''
         myReviewContent.appendChild(visible_mycontent)
         visible_mycontent.appendChild(myReview_more)
@@ -152,11 +154,14 @@ function makeList(respond, page) {
     let html = ''
 
     const more_review_wrapper = document.querySelector('.more_review_button_wrapper')
+    const more_num = document.querySelector('.more_num')
 
     if (page * 5 >= respond.data.total) {
         more_review_wrapper.style.display = 'none'
     } else {
         more_review_wrapper.style.display = 'block'
+        if (respond.data.total - (page * 5) < 5) more_num.textContent = respond.data.total - (page * 5)
+        else more_num.textContent = 5
     }
 
     list.forEach((review, index) => {
@@ -191,9 +196,16 @@ function makeList(respond, page) {
         html += '</div><div class="reviewer_info">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span>' + review.username + '</span></div></div>'
         html += '<div class="review_date">' + review.regdate[0] + '.' + review.regdate[1] + '.' + review.regdate[2] + '</div></div>'
 
-        if (review.reviewcontent.length >= 140) {
-            html += '<div class="list_right"><p class="review_content"><span class="visible">' + review.reviewcontent.substring(0, 140) + "..." + '</span><button class="more_review" onclick="toggle_content()">계속 읽기</button><span class="hidden">' + review.reviewcontent + '</span></p>'
-        } else html += '<div class="list_right"><p class="review_content">' + review.reviewcontent + '</p>'
+        if (review.reviewcontent.split('<br/>').length - 1 > 5) {
+            var indexOfBr = []
+            var idx = review.reviewcontent.indexOf('<br/>')
+            while (idx != -1) {
+                indexOfBr.push(idx)
+                idx = review.reviewcontent.indexOf('<br/>', idx + 1)
+            }
+            html += '<div class="list_right"><p class="review_content"><span class="visible">' + review.reviewcontent.substring(0, indexOfBr[5]) + "..." + '</span><button class="more_review" onclick="toggle_content()">계속 읽기</button><span class="hidden">' + review.reviewcontent + '</span></p>'
+        } else if (review.reviewcontent.length >= 145) html += '<div class="list_right"><p class="review_content"><span class="visible">' + review.reviewcontent.substring(0, 145) + "..." + '</span><button class="more_review" onclick="toggle_content()">계속 읽기</button><span class="hidden">' + review.reviewcontent + '</span></p>'
+        else html += '<div class="list_right"><p class="review_content">' + review.reviewcontent + '</p>'
 
         html += '<div class="review_status"><button type="button" class="like_button" onclick="likeButton()">'
         html += '<span class="button_icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">\n' + '  <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>\n' + '</svg></span><span class="like_text">' + review.cnt + '</span></button></div></div>'
@@ -272,6 +284,10 @@ function insertReview() {
             alert('별점을 먼저 남겨주세요.')
         }
 
+        var str = document.querySelector('.review_input_textarea').value
+        str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>')
+        document.querySelector('.review_input_textarea').value = str
+
         const payload = {
             isbn: isbn,
             reviewer: document.querySelector('#reviewer').value,
@@ -313,8 +329,7 @@ function deleteReview(reviewindex) {
 function modifyReview() {
     const inputArea = document.querySelector('.review_input_textarea')
     inputArea.style.display = 'block'
-    const myReviewContent = document.querySelector('.my_review_content')
-    inputArea.textContent = myReview.reviewcontent
+    inputArea.value = myReview.reviewcontent.replaceAll('<br/>', '\r\n')
     const my_review = document.querySelector('.my_review')
     my_review.style.display = 'none'
     const modifyButton = document.querySelector('.modify_btn')
@@ -327,6 +342,11 @@ function modifyReview() {
 }
 
 function modifyComplete() {
+
+    var str = document.querySelector('.review_input_textarea').value
+    str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>')
+    document.querySelector('.review_input_textarea').value = str
+
     const payload = {
         reviewindex: myReview.reviewindex,
         isbn: isbn,

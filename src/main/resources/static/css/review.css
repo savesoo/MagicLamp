@@ -238,14 +238,14 @@ article {
 }
 
 
-#review_list_section .review_list_wrapper .more_review_button_wrapper.hidden {
-    display: none;
-}
-
-
 #review_list_section .review_list_wrapper .more_review_button {
     display: block; background: #fff; margin-top: -1px; border: 2px solid #d1d5d9; border-radius: 3px; text-align: center; width: 100%;
     font-size: 13px; font-weight: 700; padding: 13px 0; cursor: pointer;
+}
+
+
+#review_list_section .review_list_wrapper .more_review_button .more_num {
+    color: #EF3B96FC;
 }
 
 

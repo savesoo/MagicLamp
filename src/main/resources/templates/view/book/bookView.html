@@ -308,7 +308,7 @@
             <ul>
             </ul>
             <div class="more_review_button_wrapper">
-                <button type="button" class="more_review_button">더보기</button>
+                <button type="button" class="more_review_button"><span class="more_num"></span>개 더보기</button>
             </div>
         </div>
     </div>
@@ -364,18 +364,18 @@
 
     function insertOneCart(dat) {
 
-/*        쿠키 생성 loging 컨트롤러에서 처리함
-        console.log('window.location.href ===> ', window.location.href.substring(21));
+        /*        쿠키 생성 loging 컨트롤러에서 처리함
+                console.log('window.location.href ===> ', window.location.href.substring(21));
 
-        let date = new Date();
-        date.setTime(date.getTime() + 24*60*60*1000);
-        document.cookie = 'preUrl' + '=' + window.location.href.substring(21) + ';expires=' + date.toUTCString() + ';path=/';
+                let date = new Date();
+                date.setTime(date.getTime() + 24*60*60*1000);
+                document.cookie = 'preUrl' + '=' + window.location.href.substring(21) + ';expires=' + date.toUTCString() + ';path=/';
 
-        console.log('preUrl ===> ', document.cookie);*/
+                console.log('preUrl ===> ', document.cookie);*/
 
         loginCheckCh();
 
-        if (loginInfo > 0){
+        if (loginInfo > 0) {
 
             let payload = {
                 userindex: loginInfo,
