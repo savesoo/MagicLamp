@@ -2,27 +2,39 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/login.css" rel="stylesheet">
+
+        <title>Welcome to Genie BookStore</title>
     </head>
-    <body>
-    <form method="post">
-        <div>
-            <input type="text" id="floatingInput" name="username" placeholder="ID 입력">
-            <label for="floatingInput">아이디</label>
-        </div>
-        <div>
-            <input type="password" id="floatingPassword" name="password" placeholder="Password">
-            <label for="floatingPassword">비밀번호</label>
-        </div>
 
-        <div>
-            <label>
-                <input type="checkbox" name="remember-me"> 다음부터 자동로그인
-            </label>
-        </div>
+    <body class="text-center">
+    <main class="form-login w-100 m-auto" >
+        <form method="post">
+            <div class="form-floating">
+                <input type="text" class="form-control"  id="floatingInput" name="username" placeholder="ID 입력">
+                <label for="floatingInput">아이디</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control"  id="floatingPassword" name="password" placeholder="Password">
+                <label for="floatingPassword">비밀번호</label>
+            </div>
 
-        <button type="submit">로그인</button>
-        <a href="/register">회원 가입</a>
-    </form>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="remember-me" style="font-size: 12px"> 다음부터 자동로그인
+                </label>
+            </div>
+
+            <div>
+                <button class="w-100 btn_login btn p-1" type="submit" style="margin: 2px">로그인</button>
+                <a href="/register" class="w-100 btn btn-register p-1" style="margin: 2px">회원 가입</a>
+            </div>
+
+
+        </form>
+    </main>
+
     </body>
 </html>
