@@ -88,7 +88,7 @@
     <table width="905" border="0" align="center" cellpadding="0" cellspacing="0">
         <tbody>
         <tr>
-            <td style="width: 193px; font: 20px 'Malgun Gothic'; vert-align: top; letter-spacing: -1px; padding: 25px 0 0 10px">
+            <td style="width: 193px; font: 20px 'Malgun Gothic'; vertical-align: top; letter-spacing: -1px; padding: 25px 0 0 10px">
                 기본 정보 입력
             </td>
             <td style="padding: 25px 0 0 0">
@@ -146,7 +146,7 @@
                                 <tbody>
                                 <tr>
                                     <td width="210">
-                                        <input type="password" name="password" id="userPw"
+                                        <input type="password" name="password" id="userPw" maxlength="20"
                                                style="width: 200px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;"
                                                onkeyup="PWCheck()">
                                     </td>
@@ -162,7 +162,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td background="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/join2007_layer02_bg.gif"
-                                                        style="padding-left: 30px; padding-right: 10px">
+                                                        style="padding-left: 30px; padding-right: 10px; line-height: 18px">
                                                         <img src="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/20070910_bullet_03.jpg"
                                                              align="absmiddle">
                                                         <span id="password_result"
@@ -193,10 +193,11 @@
                                     <td width="210">
                                         <input type="password" name="password-check" id="rePw"
                                                style="width: 200px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;"
-                                        onkeyup="PWDoubleCheck()">
+                                               onkeyup="PWDoubleCheck()">
                                     </td>
                                     <td width="*">
-                                        <div id="passwordVerify_helplyaer" style="position: absolute; display: none; margin-top: -1px; z-index: 1">
+                                        <div id="passwordVerify_helplyaer"
+                                             style="position: absolute; display: none; margin-top: -1px; z-index: 1">
                                             <table width="100" border="0" cellspacing="0" cellpadding="0">
                                                 <tbody>
                                                 <tr>
@@ -205,9 +206,12 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td background="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/join2007_layer02_bg.gif" style="padding-left: 30px; padding-right: 10px;">
-                                                        <img src="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/20070910_bullet_03.jpg" align="absmiddle">
-                                                        <span id="PasswordVerify_result" style="padding: 6px 0 0 6px; margin: 0"></span>
+                                                    <td background="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/join2007_layer02_bg.gif"
+                                                        style="padding-left: 30px; padding-right: 10px;">
+                                                        <img src="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/20070910_bullet_03.jpg"
+                                                             align="absmiddle">
+                                                        <span id="PasswordVerify_result"
+                                                              style="padding: 6px 0 0 6px; margin: 0"></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -249,10 +253,11 @@
                                     <td width="210">
                                         <input type="text" name="phone" id="phone"
                                                style="width: 200px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;"
-                                        onkeyup="phoneNumberCheck()">
+                                               onkeyup="phoneNumberCheck()">
                                     </td>
                                     <td width="*">
-                                        <div id="phoneNumber_helplyaer" style="position: absolute; display: none; margin-top: -1px; z-index: 1">
+                                        <div id="phoneNumber_helplyaer"
+                                             style="position: absolute; display: none; margin-top: -1px; z-index: 1">
                                             <table width="100" border="0" cellspacing="0" cellpadding="0">
                                                 <tbody>
                                                 <tr>
@@ -261,9 +266,12 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td background="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/join2007_layer02_bg.gif" style="padding-left: 30px; padding-right: 10px;">
-                                                        <img src="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/20070910_bullet_03.jpg" align="absmiddle">
-                                                        <span id="phoneNumber_result" style="padding: 6px 0 0 6px; margin: 0"></span>
+                                                    <td background="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/join2007_layer02_bg.gif"
+                                                        style="padding-left: 30px; padding-right: 10px;">
+                                                        <img src="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/20070910_bullet_03.jpg"
+                                                             align="absmiddle">
+                                                        <span id="phoneNumber_result"
+                                                              style="padding: 6px 0 0 6px; margin: 0"></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -383,8 +391,7 @@
     <input type="text" id="address2" name="address2" value="test">
   </div>
   <button type="button" id="signup">가입하기</button>
-</form>
--->
+</form>-->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -468,7 +475,28 @@
     }
 
     function PWCheck() {
+        const pw = document.querySelector('#userPw').value
+        const ballon = document.querySelector('#password_helplayer')
+        const ballontxt = document.querySelector('#password_result')
+        if (pw.length < 8) {
+            ballon.style.display = 'block'
+            ballontxt.innerHTML = '비밀번호 안전성 : 취약' + '<br>' + '- 비밀번호는 영문, 숫자, 특수문자 중 2가지 조합하여 8자 이상으로 설정해주세요.'
+        } else {
+            const checkNumber = pw.search(/[0-9]/g)
+            const checkEnglish = pw.search(/[a-zA-Z]/g)
+            const checkSpecial = pw.search(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g)
+            if (checkNumber < 0 && checkSpecial < 0 || checkNumber < 0 && checkEnglish < 0 || checkSpecial < 0 && checkEnglish < 0) {
+                ballon.style.display = 'block'
+                ballontxt.innerHTML = '비밀번호 안전성 : 취약' + '<br>' + '- 영문대소문자/숫자/특수문자 중 2가지 이상 조합이어야 합니다.'
+            } else if (pw.length < 10){
+                ballon.style.display = 'block'
+                ballontxt.innerHTML = '비밀번호 안전성 : 낮음' + '<br>' + '- 영문대소문자/숫자/특수문자 중 2가지 이상 조합인 경우 10자 이상을 권장하고 있습니다.'
+            } else {
+                ballon.style.display = 'block'
+                ballontxt.textContent = '비밀번호 안전성 : 보통'
+            }
 
+        }
     }
 
     function PWDoubleCheck() {
@@ -482,12 +510,12 @@
         } else ballon.style.display = 'none'
     }
 
-    function phoneNumberCheck(){
+    function phoneNumberCheck() {
         const phoneNumber = document.querySelector('#phone').value
         const ballon = document.querySelector('#phoneNumber_helplyaer')
         const ballontxt = document.querySelector('#phoneNumber_result')
         const pattern = new RegExp("^01([0|1|6|7|8|9])([0-9]{4})([0-9]{4})$")
-        if(!pattern.test(phoneNumber)){
+        if (!pattern.test(phoneNumber)) {
             ballon.style.display = 'block'
             ballontxt.textContent = '휴대전화 번호를 정확하게 입력해주세요'
         } else ballon.style.display = 'none'

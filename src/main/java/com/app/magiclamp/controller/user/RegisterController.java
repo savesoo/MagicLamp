@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Log4j2
 @Controller
 @RequestMapping("/register")
@@ -24,7 +26,7 @@ public class RegisterController {
 
     @PostMapping
     public ResponseEntity<String> signup(
-            @RequestBody UserRequest userRequest
+            @Valid @RequestBody UserRequest userRequest
     ){
         // TODO: 보안코드 들어가야 합니다
         registerService.registerUser(userRequest);

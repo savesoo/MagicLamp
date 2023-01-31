@@ -4,6 +4,7 @@ import com.app.magiclamp.entity.User;
 import com.app.magiclamp.entity.UserRole;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,14 +15,21 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 public class UserRequest {
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 
+    @NotBlank
     private String name;
+    @NotBlank
     private String phone;
 
+    @NotBlank
     private String postnum;
+    @NotBlank
     private String address1;
+    @NotBlank
     private String address2;
 
     private Set<UserRole> userRoleSet;
