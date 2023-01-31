@@ -99,7 +99,8 @@
                             </button>
                         </div>
                         <div style="display: inline">
-                            <a class="btn_buy" th:href="@{/order(isbn=${bookView.isbn}, bookcount=${1})}" id="dirQty">
+                            <button th:if="${bookView.stock} == 0" class="btn-secondary mt-1 btn soldout_btn"> 품절 </button>
+                            <a th:if="${bookView.stock} > 0" class="btn_buy" th:href="@{/order(isbn=${bookView.isbn}, bookcount=${1})}" id="dirQty">
                                 <button class="btn btn-primary mt-1">바로구매</button>
                             </a>
                         </div>

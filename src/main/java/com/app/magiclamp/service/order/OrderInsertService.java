@@ -17,7 +17,7 @@ import java.util.List;
 
 @Log4j2
 @Service
-public class OrderInsertService {
+public class OrderInsertService{
 
     @Autowired
     private BookRepository bookRepository;
@@ -28,7 +28,7 @@ public class OrderInsertService {
     private MileageRepository mileageRepository;
 
     @Transactional
-    public int Order(RequestPaymentBook paymentBook, int userindex){
+    public int Order(RequestPaymentBook paymentBook, int userindex) throws Exception{
 
         log.info(" order insert service ... ");
         int result = 0;
@@ -49,6 +49,12 @@ public class OrderInsertService {
 
             // 최신 재고에 반영
             Book book = bookRepository.findById(paymentBook.getIsbn()).get();
+
+            // DB의 재고 < 요청 들어온 수량일 때
+            if(book.getStock()-paymentBook.getBookcount() <= 0){
+                throw new Exception();
+            }
+
             book.setStock(book.getStock()-paymentBook.getBookcount());
             bookRepository.updateStockByIsbn(book.getStock(), paymentBook.getIsbn());
 
@@ -64,6 +70,7 @@ public class OrderInsertService {
         Order order = paymentBook.toOrderEntity();
 
         // DB에 주문 등록
+
         result = orderRepository.save(order) !=null ? 1 : 0;
 
         log.info(" result >>> " + result);

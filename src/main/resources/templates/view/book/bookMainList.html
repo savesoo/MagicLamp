@@ -150,7 +150,8 @@
                         <input type="hidden" th:value="${book.isbn}">
                     </div>
                     <div>
-                        <a class="btn_buy"
+                        <button th:if="${book.stock} == 0" class="btn-secondary mt-2 btn soldout_btn"> 품절 </button>
+                        <a class="btn_buy"  th:if="${book.stock} > 0"
                            th:href="@{/order(isbn=${book.isbn}, bookcount=${1})}">
                             <button class="btn btn-primary mt-2">바로 구매</button>
                         </a>
@@ -239,7 +240,7 @@
         let date = new Date();
         date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
 
-        loginCheck();
+        //loginCheck();
 
         if (loginInfo > 0) {
 

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @RestController
 @RequestMapping("/order")
-public class OrderInsertController {
+public class OrderInsertController{
 
     @Autowired
     private OrderInsertService orderInsertService;
@@ -37,7 +37,19 @@ public class OrderInsertController {
 
         log.info(" >>>>> insert 후 order >>>>>> " + paymentBook);
 
-        return new ResponseEntity<>(orderInsertService.Order(paymentBook, userDTO.getUserindex()), new HttpHeaders(), HttpStatus.OK);
+        int result = 0;
+
+        try {
+            result = orderInsertService.Order(paymentBook, userDTO.getUserindex());
+        } catch (Exception e){
+            log.error(e.getMessage());
+            log.error(e.getStackTrace());
+            return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
+        }
+
+        log.info("result  >>> " + result);
+
+        return new ResponseEntity<>(result, new HttpHeaders(), HttpStatus.OK);
 
     }
 

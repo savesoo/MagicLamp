@@ -81,9 +81,19 @@ function moveToPayment(){
 
     axios.post('/order/payment', payload)
         .then(res => {
-            console.log('post -> response', res.data);
+
+            console.log("post > response", res.data);
+
+            if(res.data==='' || res.data===null){
+                console.log(res.data);
+                alert("재고 부족으로 현재는 주문할 수 없습니다.");
+                location.href = '/';
+                return;
+            }
+
             alert("결제가 완료되었습니다.");
             location.href = '/view/book/bookMainList';
+
         })
         .catch(err => {
             console.log(err);
