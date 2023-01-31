@@ -237,7 +237,36 @@
                                 <tr>
                                     <td width="210">
                                         <input type="text" name="name" id="name"
-                                               style="width: 200px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;">
+                                               style="width: 200px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;"
+                                        onkeyup="nameCheck()">
+                                    </td>
+                                    <td width="*">
+                                        <div id="Name_helplyaer"
+                                             style="position: absolute; display: none; margin-top: -1px; z-index: 1">
+                                            <table width="100" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/join2007_layer02_top.gif">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td background="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/join2007_layer02_bg.gif"
+                                                        style="padding-left: 30px; padding-right: 10px;">
+                                                        <img src="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/20070910_bullet_03.jpg"
+                                                             align="absmiddle">
+                                                        <span id="Name_result"
+                                                              style="padding: 6px 0 0 6px; margin: 0"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="https://www.aladin.co.kr/ucl_editor/img_secur/account/makeAccount/join2007_layer01_foot.gif">
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -464,10 +493,10 @@
                     ballontxt.textContent = '이미 사용중인 아이디입니다.'
                 } else {
                     ballon.style.display = 'none'
-                    const pattern = new RegExp("^[a-z][0-9a-z]{3,11}$")
+                    const pattern = new RegExp("^[0-9a-z]{3,11}$")
                     if (!pattern.test(username)) {
                         ballon.style.display = 'block'
-                        ballontxt.textContent = '아이디는 영문자와 숫자로만 입력해주세요'
+                        ballontxt.textContent = '아이디는 영문 소문자와 숫자로만 입력해주세요'
                     }
                 }
             })
@@ -510,6 +539,15 @@
         } else ballon.style.display = 'none'
     }
 
+    function nameCheck(){
+        const username = document.querySelector('#name').value
+        const ballon = document.querySelector('#Name_helplyaer')
+        if(username == '') {
+            ballon.style.display = 'block'
+            document.querySelector('#Name_result').textContent = '이름을 입력해주세요.'
+        } else ballon.style.display = 'none'
+    }
+
     function phoneNumberCheck() {
         const phoneNumber = document.querySelector('#phone').value
         const ballon = document.querySelector('#phoneNumber_helplyaer')
@@ -520,6 +558,8 @@
             ballontxt.textContent = '휴대전화 번호를 정확하게 입력해주세요'
         } else ballon.style.display = 'none'
     }
+
+
 
 </script>
 </body>

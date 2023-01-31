@@ -5,6 +5,7 @@ import com.app.magiclamp.entity.UserRole;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @ToString
 public class UserRequest {
     @NotBlank
+    @Pattern(regexp = "^[0-9a-z]{3,11}$")
     private String username;
     @NotBlank
     private String password;
@@ -23,6 +25,7 @@ public class UserRequest {
     @NotBlank
     private String name;
     @NotBlank
+    @Pattern(regexp = "^01([0|1|6|7|8|9])([0-9]{4})([0-9]{4})$")
     private String phone;
 
     @NotBlank
