@@ -31,10 +31,10 @@ public class OrderInsertService{
     public int Order(RequestPaymentBook paymentBook, int userindex) throws Exception{
 
         log.info(" order insert service ... ");
+
         int result = 0;
 
         // 주문할 책 정보
-
         List<BookInfoDTO> bookInfoDTO = paymentBook.getBookInfos();
 
         for(int i=0; i<bookInfoDTO.size(); i++) {
@@ -51,7 +51,7 @@ public class OrderInsertService{
             Book book = bookRepository.findById(paymentBook.getIsbn()).get();
 
             // DB의 재고 < 요청 들어온 수량일 때
-            if(book.getStock()-paymentBook.getBookcount() <= 0){
+            if(book.getStock()-paymentBook.getBookcount() < 0){
                 throw new Exception();
             }
 
@@ -70,7 +70,6 @@ public class OrderInsertService{
         Order order = paymentBook.toOrderEntity();
 
         // DB에 주문 등록
-
         result = orderRepository.save(order) !=null ? 1 : 0;
 
         log.info(" result >>> " + result);
