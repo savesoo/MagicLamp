@@ -1,5 +1,6 @@
 body {
     color: #3E3E3E;
+    background-color: #FFFFFF;
     font-family: Malgun Gothic,'돋움','굴림',Gulim,dotum,'Segoe WPC','Segoe UI','Apple SD Gothic Neo',Helvetica,AppleGothic,Sans-serif!important;
     font-size: 12px;
     line-height: 18px;
@@ -12,7 +13,6 @@ table {
     webkit-border-horizontal-spacing: 1px;
     webkit-border-vertical-spacing: 1px;
     width: 670px;
-    background-color: rgb(131, 184, 194);
     border-top-width: 0px;
     border-right-width: 0px;
     border-bottom-width: 0px;
@@ -53,7 +53,7 @@ td {
     border-collapse: collapse;
     width: 670px;
     margin: 0 auto;
-    padding: 10px;
+    padding: 20px;
 }
 
 
@@ -104,6 +104,33 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .button_middle {
-    outline: 0; color: #333!important; font-size: 12px; line-height: 25px; white-space: nowrap; background-color: transparent;
-    border-color: #195fa5; margin: 0; padding: 3px 10px 0 10px;
+    border-radius: 3px;
+    outline: 0;
+    color: #333!important;
+    font-size: 12px;
+    line-height: 25px;
+    white-space: nowrap;
+    background-color: transparent;
+    border-color: #195fa5;
+    margin: 0;
+    padding: 3px 10px 0 10px;
+}
+
+.title{
+    font-family: 'Apple SD Gothic Neo',Malgun Gothic, "굴림";
+    font-size: 1.17em;
+    font-weight: bold;
+    color: #000000;
+    text-decoration: none;
+}
+
+.container{
+
+}
+
+img{
+    width: 17px;
+    aspect-ratio: auto 17 / 18;
+    height: 18px;
+    vertical-align: middle;
 }

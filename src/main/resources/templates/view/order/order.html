@@ -7,19 +7,26 @@
 </head>
 <body>
 
+<!--내비게이션 시작-->
+<div th:replace="fragment/nav"></div>
+<!--내비게이션 끝-->
+
   <h1>주문 페이지</h1>
 
   <div id="order_div">
 
     <!------------ 주문서 테이블 영역 시작 -------------->
 
-    <table>
+    <div>
 
       <!------------상품 정보 확인 영역 -------------->
 
-      <div>
+      <div class="container">
           <div class="bookinfo_div">
-              <h3> 주문 상품 정보 </h3>
+              <div>
+                  <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
+                  <span class="title"> 주문 상품 정보 </span>
+              </div>
               <table style="background-color: #a2a2a2">
                   <tr class="infohead">
                       <td> 제목 </td>
@@ -42,10 +49,13 @@
 
       <!------------배송지 정보 영역 -------------->
 
-      <div>
+      <div class="container">
           <div class="addinfo_div">
-              <h3> 배송 정보 확인 </h3>
-              <table>
+              <div>
+                  <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
+                  <span class="title"> 배송 정보 확인 </span>
+              </div>
+              <table style="background-color: rgb(131, 184, 194)">
                   <th:block th:each="user : ${ordersInfo}">
                       <tr>
                         <th class="popup"> 주문인 </th>
@@ -81,10 +91,13 @@
 
       <!------------마일리지 정보 영역 -------------->
 
-      <div>
+      <div class="container">
           <div class="miluse_div">
-              <h3> 마일리지 사용하기 </h3>
-              <table>
+              <div>
+                  <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
+                  <span class="title"> 마일리지 사용하기 </span>
+              </div>
+              <table style="background-color: rgb(131, 184, 194)">
                   <th:block th:each="mm : ${ordersInfo}">
                       <tr>
                           <th class="popup">
@@ -105,10 +118,13 @@
 
       <!------------결제 금액 확인 영역 -------------->
 
-      <div>
+      <div class="container">
           <div class="payinfo_div">
-              <h3> 결제 정보 </h3>
-              <table>
+              <div>
+                  <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
+                  <span class="title"> 결제 정보 </span>
+              </div>
+              <table style="background-color: rgb(131, 184, 194)">
                   <th:block th:each=" b : ${ordersInfo}">
                       <tr>
                           <th class="popup">수량</th>
@@ -156,7 +172,7 @@
           </div>
       </div>
 
-    </table>
+    </div>
 
     <!------------버튼 영역 -------------->
 
