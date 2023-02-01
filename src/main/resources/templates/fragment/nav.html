@@ -114,7 +114,22 @@
             </a>
         </td>
         <td width="546" valign="top">
-
+            <form id="QuickSearch" name="QuickSearch" action="http://localhost:8080/view/book/bookMainList" method="get" style="display: inline" autocomplete="off">
+                <div id="search">
+                    <dl>
+                        <dt id="searchTarget" style="cursor: pointer">
+                            <select name="searchType">
+                                <option value="title">도서명</option>
+                                <option value="isbn">ISBN</option>
+                            </select>
+                        </dt>
+                    </dl>
+                    <div id="keyword_form" style="padding-left: 10px">
+                        <input type="search" name="keyword" id="searchWord" class="inputbox_new" style="border: 0px solid white; background-repeat: no-repeat">
+                    </div>
+                    <input type="image" src="https://image.aladin.co.kr/img/header/b_search.gif" alt="검색" title="검색" class="searchBtn">
+                </div>
+            </form>
         </td>
         <td width="192" style="text-align: right !important;"></td>
     </tr>
