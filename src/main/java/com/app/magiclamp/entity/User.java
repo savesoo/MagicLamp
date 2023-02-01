@@ -47,5 +47,8 @@ public class User {
     @Column(columnDefinition = "tinyint default 0")
     private Boolean deleted;
 
+    public void addUserRole(UserRole r){
+        role.add(r);
+    }
 
 }
