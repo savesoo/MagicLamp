@@ -1,0 +1,48 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.magiclamp.mapper.CartMapper">
+
+    <select id="selectCartList" resultType="com.app.magiclamp.model.mypage.CartListDTO">
+
+        SELECT c.cartindex, c.isbn, b.bookimg, b.title, b.price, b.saleprice, CEIL(((b.price*b.mileagerate)/100)) as saveMileage, b.mileagerate, c.bookcount
+        FROM tbl_cart c
+        INNER JOIN tbl_book b
+        ON c.isbn = b.isbn
+        WHERE c.userindex = #{userindex}
+        <if test="option == 1">
+            <include refid="cartindex"></include>
+        </if>
+        <if test="option == 2">
+            <include refid="title"></include>
+        </if>
+        <if test="option == 3">
+            <include refid="lowprice"></include>
+        </if>
+        <if test="option == 4">
+            <include refid="highprice"></include>
+        </if>
+        <if test="option == 5">
+            <include refid="pubdate"></include>
+        </if>
+
+    </select>
+
+    <sql id="cartindex">
+        ORDER BY c.cartindex DESC
+    </sql>
+    <sql id="title">
+        ORDER BY b.title
+    </sql>
+    <sql id="lowprice">
+        ORDER BY b.price
+    </sql>
+    <sql id="highprice">
+        ORDER BY b.price DESC
+    </sql>
+    <sql id="pubdate">
+        ORDER BY b.pubdate DESC
+    </sql>
+
+</mapper>

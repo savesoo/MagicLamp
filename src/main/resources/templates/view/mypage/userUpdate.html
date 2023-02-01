@@ -35,7 +35,7 @@
     <div id="uaddr">
         <label>우편번호 </label>
         <span id="spanPost" th:text="|(${userInfo.postnum})|"></span>
-        <input type="text" id="postnum" name="postnum" style="display: none">
+        <input type="text" id="postnum" name="postnum" style="display: none"><input type="button" id="postSearch" value="주소 검색" onclick="postSearch()" style="display: none">
         <label>주소 </label>
         <span id="spanAddr1" th:text="${userInfo.address1}"></span>
         <input type="text" id="address1" name="address1" style="display: none">
@@ -49,5 +49,6 @@
     <script src="/js/mypage/myuserinfo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

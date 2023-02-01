@@ -95,7 +95,7 @@
       <input type="hidden" id="muserindex">
       <label for="maddrname">배송지</label><input type="text" id="maddrname">
       <label for="mrecipient">수령인</label><input type="text" id="mrecipient">
-      <label for="mpostnum">우편번호</label><input type="text" id="mpostnum">
+      <label for="mpostnum">우편번호</label><input type="text" id="mpostnum"><input type="button" value="주소 검색" onclick="postSearch()">
       <label for="maddress1">주소</label><input type="text" id="maddress1">
       <label for="maddress2">상세주소</label><input type="text" id="maddress2">
       <label for="mphone">전화번호</label><input type="text" id="mphone">
@@ -108,6 +108,7 @@
   <script src="/js/mypage/myaddrbook.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>
 

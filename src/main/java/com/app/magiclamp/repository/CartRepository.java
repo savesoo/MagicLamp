@@ -21,11 +21,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
     // 장바구니 삭제
     @Transactional
     @Modifying
-    @Query("delete from Cart c where c.cartindex = ?1")
-    int deleteByCartindex(int cartindex);
-
-    // 장바구니 리스트
-    @Query("select c from Cart c where c.userindex = ?1 order by c.cartindex DESC")
-    List<Cart> findByUserindexOrderByCartindexDesc(Integer userindex);
+    @Query("delete from Cart c where c.cartindex = ?1 and c.userindex = ?2")
+    int deleteByCartindex(int cartindex, int userindex);
 
 }
