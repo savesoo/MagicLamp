@@ -113,11 +113,65 @@ body {
 td > a {
     color: #333;
     text-decoration: none !important;
-    line-height: 18px;
+    line-height: 15px;
 }
 
 td > a:hover {
     color: #0d6efd;
+}
+
+#search {
+    background: url("https://image.aladin.co.kr/img/header/bg_search.png") no-repeat !important;
+    width: 535px;
+    position: relative;
+    top: 28px;
+    height: 41px;
+}
+
+#search > dl {
+    float: left;
+    width: 78px;
+    margin: 8px 0 0 20px;
+}
+
+#searchTarget > select {
+    color: #2f9ddc;
+    font-weight: bold;
+    border-width: 0;
+}
+
+#keyword_form {
+    float: left;
+    width: 282px;
+    margin-top: 7px;
+}
+
+.inputbox_new {
+    background-color: transparent;
+    width: 275px;
+    color: #006699;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 1px 0 0 4px !important;
+    display: inline;
+    outline-style: none;
+}
+
+#search input {
+    margin: 9px 0 0 12px;
+    border: none;
+    font: bold 16px 돋움;
+    background: transparent;
+    color: #006699;
+}
+
+#search input.searchBtn {
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    right: 72px;
+    top: 1px;
 }
 
 #bottom_wrap {
