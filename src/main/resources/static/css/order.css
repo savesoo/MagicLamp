@@ -1,15 +1,15 @@
 body {
     color: #3E3E3E;
     background-color: #FFFFFF;
-    font-family: Malgun Gothic,'돋움','굴림',Gulim,dotum,'Segoe WPC','Segoe UI','Apple SD Gothic Neo',Helvetica,AppleGothic,Sans-serif!important;
+    font-family: Malgun Gothic, '돋움', '굴림', Gulim, dotum, 'Segoe WPC', 'Segoe UI', 'Apple SD Gothic Neo', Helvetica, AppleGothic, Sans-serif !important;
     font-size: 12px;
     line-height: 18px;
-    padding: 3px;
     margin-top: 30px;
+    margin: auto;
 }
 
 
-table {
+.bookinfo_div > table, .addinfo_div > table, .miluse_div > table, .payinfo_div > table {
     webkit-border-horizontal-spacing: 1px;
     webkit-border-vertical-spacing: 1px;
     width: 670px;
@@ -21,9 +21,10 @@ table {
     margin-inline-end: auto;
 }
 
+
 tr {
     color: #3E3E3E;
-    font-family: Malgun Gothic,'돋움','굴림',Gulim,dotum,'Segoe WPC','Segoe UI','Apple SD Gothic Neo',Helvetica,AppleGothic,Sans-serif!important;
+    font-family: Malgun Gothic, '돋움', '굴림', Gulim, dotum, 'Segoe WPC', 'Segoe UI', 'Apple SD Gothic Neo', Helvetica, AppleGothic, Sans-serif !important;
     font-size: 12px;
     line-height: 18px;
     padding: 3px;
@@ -31,7 +32,7 @@ tr {
 
 td {
     color: #3E3E3E;
-    font-family: Malgun Gothic,'돋움','굴림',Gulim,dotum,'Segoe WPC','Segoe UI','Apple SD Gothic Neo',Helvetica,AppleGothic,Sans-serif!important;
+    font-family: Malgun Gothic, '돋움', '굴림', Gulim, dotum, 'Segoe WPC', 'Segoe UI', 'Apple SD Gothic Neo', Helvetica, AppleGothic, Sans-serif !important;
     font-size: 12px;
     line-height: 18px;
     padding: 3px;
@@ -39,13 +40,13 @@ td {
 
 
 .popup {
-    font-family: 'Apple SD Gothic Neo',Malgun Gothic, "굴림";
+    font-family: 'Apple SD Gothic Neo', Malgun Gothic, "굴림";
     font-weight: bold;
     color: #5A5A5A;
     background-color: #edf5fc;
     text-decoration: none;
     width: 23%;
-    padding-left:14px;
+    padding-left: 14px;
     text-align: left;
 }
 
@@ -58,8 +59,8 @@ td {
 
 
 .data_td {
-    padding-left:14px;
-    background-color : #FFFFFF;
+    padding-left: 14px;
+    background-color: #FFFFFF;
     display: table-cell;
     vertical-align: inherit;
 }
@@ -71,7 +72,7 @@ td {
     padding: 30px;
 }
 
-table> th {
+table > th {
     font-size: 10pt;
     line-height: 19px;
 }
@@ -81,7 +82,7 @@ div > p {
 }
 
 .infohead {
-    font-family: 'Apple SD Gothic Neo',Malgun Gothic, "굴림";
+    font-family: 'Apple SD Gothic Neo', Malgun Gothic, "굴림";
     font-weight: bold;
     color: #5A5A5A;
     background-color: #f4f4f4;
@@ -92,8 +93,8 @@ div > p {
 }
 
 .infobody {
-    padding-left:14px;
-    background-color : #FFFFFF;
+    padding-left: 14px;
+    background-color: #FFFFFF;
     text-align: center;
 }
 
@@ -105,30 +106,28 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .button_middle {
     border-radius: 3px;
-    outline: 0;
-    color: #333!important;
     font-size: 12px;
     line-height: 25px;
-    white-space: nowrap;
-    background-color: transparent;
-    border-color: #195fa5;
-    margin: 0;
+    background-color: #FFFFFF;
+    border: 1px solid;
+    border-color: #9e9e9e;
     padding: 3px 10px 0 10px;
+    display: inline-block;
 }
 
-.title{
-    font-family: 'Apple SD Gothic Neo',Malgun Gothic, "굴림";
+.title {
+    font-family: 'Apple SD Gothic Neo', Malgun Gothic, "굴림";
     font-size: 1.17em;
     font-weight: bold;
     color: #000000;
     text-decoration: none;
 }
 
-.container{
+.container {
 
 }
 
-img{
+.bookinfo_div > div > img, .addinfo_div > div > img, .miluse_div > div > img, .payinfo_div > div > img {
     width: 17px;
     aspect-ratio: auto 17 / 18;
     height: 18px;

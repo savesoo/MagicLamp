@@ -7,11 +7,12 @@
             integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
     <link href="/css/review.css" rel="stylesheet">
     <!-- 부트스트랩 css 사용 -->
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">-->
 </head>
 <body>
 <!--내비게이션 시작-->
+<div th:replace="fragment/nav"></div>
 <!--내비게이션 끝-->
 
 <!-- 도서 상세 보기 시작-->
@@ -401,7 +402,7 @@
                 success: function (res) {
                     console.log('카트 등록 성공!!!');
                     if (confirm("장바구니로 이동하시겠니까?")) {
-                        location.href = '/view/book/bookMainList'; /*임시 링크*/
+                        location.href = '/mypage/cart';
                     }
                 },
                 error: function (error) {
