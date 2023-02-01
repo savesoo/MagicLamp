@@ -46,7 +46,10 @@ if (myReview != null) {
     inputBtn.style.display = 'none'
     inputArea.style.display = 'none'
     const myReviewContent = document.querySelector('.my_review_content')
-    myReviewContent.textContent = myReviewContent.textContent.replaceAll('<br/>', '\r\n')
+    const myReviewSplitByBr = myReview.reviewcontent.split('<br/>')
+    for (i = 0; i < myReviewSplitByBr.length; i++) {
+        myReviewContent.innerHTML += myReviewSplitByBr[i] + '<br/>'
+    }
     const myReviewContent_text = myReviewContent.textContent
     const myReviewContent_text_short = myReviewContent_text.substring(0, 145) + "..."
 
@@ -62,7 +65,15 @@ if (myReview != null) {
     hidden_mycontent.setAttribute('class', 'hidden')
     hidden_mycontent.textContent = myReviewContent_text
 
-    if (myReviewContent_text.length >= 145) {
+    if (myReview.reviewcontent.split('<br/>').length - 1 > 5) {
+        var indexOfBr = []
+        var idx = myReview.reviewcontent.indexOf('<br/>')
+        while (idx != -1) {
+            indexOfBr.push(idx)
+            idx = myReview.reviewcontent.indexOf('<br/>', idx + 1)
+        }
+        myReviewContent.innerHTML = '<span class="visible">' + myReview.reviewcontent.substring(0, indexOfBr[5]) + "..." + '<button class="more_review" onclick="toggle_mycontent()">계속 읽기</button></span><span class="hidden">' + myReview.reviewcontent + '</span>'
+    } else if (myReviewContent_text.length >= 145) {
         myReviewContent.innerHTML = ''
         myReviewContent.appendChild(visible_mycontent)
         visible_mycontent.appendChild(myReview_more)
