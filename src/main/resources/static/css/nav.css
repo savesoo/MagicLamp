@@ -115,3 +115,12 @@ td > a {
     text-decoration: none !important;
     line-height: 18px;
 }
+
+td > a:hover {
+    color: #0d6efd;
+}
+
+#bottom_wrap {
+    background: url("https://image.aladin.co.kr/img/header/2011/header_menu_bg_new.gif") repeat-x;
+    height: 31px;
+}
