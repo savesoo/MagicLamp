@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="card" style="width: 18rem;" th:each="book : ${administratorPage.list}">
+            <th:block th:if="${bookimg != null}">
+                <img th:src="@{/upload/photo/{name}(name=${book.bookimg})}" width="300" class="card-img-top">
+            </th:block>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${book.title}"></h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">ISBN: <a th:text="${book.isbn}"/></li>
+                <li class="list-group-item">저자: <a th:text="${book.author}"/></li>
+                <li class="list-group-item">출판사: <a th:text="${book.publisher}"/></li>
+                <li class="list-group-item">출간일자: <a th:text="${book.pubdate}"/></li>
+                <li class="list-group-item">도서 상태: <a th:text="${book.status}"/></li>
+                <li class="list-group-item">정가: <a th:text="${book.price}"/></li>
+                <li class="list-group-item">판매가: <a th:text="${book.saleprice}"/></li>
+                <li class="list-group-item">마일리지적립률: <a th:text="${book.mileagerate}"/></li>
+                <li class="list-group-item">재고 수량: <a th:text="${book.stock}"/></li>
+                <li class="list-group-item">도서 형태: <a th:text="${book.binding}"/></li>
+                <li class="list-group-item">쪽수: <a th:text="${book.pages}"/></li>
+                <li class="list-group-item">사이즈 : <a th:text="${book.size}"/></li>
+                <li class="list-group-item">무게: <a th:text="${book.weight}"/></li>
+                <li class="list-group-item">카테고리: <a th:text="${book.category}"/></li>
+                <li class="list-group-item">도서 소개: <a th:text="${book.description}"/></li>
+                <li class="list-group-item">도서 목차: <a th:text="${book.contents}"/></li>
+                <li class="list-group-item">도서 이미지: <a th:text="${book.bookimg}"/></li>
+                <li class="list-group-item">등록일자: <a th:text="${book.regdate}"/></li>
+                <li class="list-group-item">수정일자: <a th:text="${book.updatedate}"/></li>
+
+            </ul>
+
+            <div class="card-body">
+                <a th:href="@{/view/administrator/read(isbn=${book.isbn})}" class="card-link">상세보기</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--    페이징 구간-->
+
+<div class="container" style="margin-top:5px;">
+
+    <nav aria-label="">
+
+        <ul class="pagination" >
+
+            <th:block th:if="${administratorPage.prev}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/view/administrator/list(p=${administratorPage.startnum-1})}">&laquo;</a>
+                </li>
+            </th:block>
+
+            <th:block th:each="num : ${#numbers.sequence(administratorPage.startnum, administratorPage.endnum)}" th:with="active=${administratorPage.pagenum==num?'active':''}">
+                <li class="page-item" th:classappend="${active}">
+                    <a class="page-link" th:href="@{/view/administrator/list(searchoption=${administratorSearchType.searchoption}, keyword=${administratorSearchType.keyword},p=${num})}" th:text="${num}"></a>
+                </li>
+            </th:block>
+
+            <th:block th:if="${administratorPage.next}">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/view/administrator/list(p=${administratorPage.endnum+1})}">&raquo;</a>
+                </li>
+            </th:block>
+
+        </ul>
+    </nav>
+</div>
+
+<div class="container">
+    <a href="/view/administrator/insert" class="btn btn-outline-warning">등록</a>
+</div>
+
+
+<!-- 검색 기능 -->
+<form action="/view/administrator/list" method="get" class="d-flex" role="search">
+    <select class="form-select" name="searchoption">
+        <option value="isbn">ISBN</option>
+        <option value="title">제목</option>
+        <option value="author">저자</option>
+        <option value="publisher">출판사</option>
+    </select>
+    <input class="form-control" type="text" name="keyword" placeholder="search" aria-label="search">
+    <button class="btn btn-outline-success" type="submit">search</button>
+</form>
+
+</body>
+</html>
