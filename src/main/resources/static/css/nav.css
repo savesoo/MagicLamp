@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+}
+
+#navigation_wrap {
+    background: url("https://www.aladin.co.kr/ucl_editor/img_secur/header/2011/global_bg.gif") repeat-x;
+    height: 28px;
+    font-size: 12px;
+    text-align: center;
+    margin: auto;
+}
+
+#setwrap {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#set2 {
+    float: left;
+    text-align: center;
+}
+
+#set2 ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#set3 ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#set2 li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    display: inline;
+    list-style: none;
+    font-size: 0;
+    height: 28px;
+}
+
+#set3 {
+    float: right
+}
+
+#set3 ul {
+    float: right;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#set3 li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    display: inline;
+    list-style: none;
+    font-size: 0;
+    height: 28px;
+}
+
+#set3 li.set3mf {
+    padding-top: 4px;
+    margin-top: 4px;
+    height: 20px;
+}
+
+#set3 li.set3se {
+    width: 1px;
+    background: url("https://www.aladin.co.kr/ucl_editor/img_secur/header/2011/global_set3_se.gif") right no-repeat;
+    margin-left: 5px;
+}
+
+#set3 li.set3m {
+    padding-top: 4px;
+    margin-top: 4px;
+    margin-left: 5px;
+    height: 20px;
+}
+
+#set3 li.set3end {
+    font-size: 0;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-family: Verdana;
+    letter-spacing: -1px;
+    background: url("https://www.aladin.co.kr/ucl_editor/img_secur/header/2011/global_set3_m03.gif") no-repeat 0 4px;
+    margin-left: 5px;
+    padding-top: 3px;
+    margin-top: 4px;
+    height: 20px;
+}
+
+#head_myaccount_layer > table {
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.hdr {
+    position: absolute;
+    border: 1px solid #5397d0;
+    background-color: White;
+    z-index: 10000;
+    opacity: 0.97;
+    margin: -5px 0 0 -1px;
+    box-shadow: 4px 4px 15px #aaa;
+}
+
+td > a {
+    color: #333;
+    text-decoration: none !important;
+    line-height: 18px;
+}
