@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/view/administrator/modify")
+@RequestMapping("/administrator/modify")
 public class AdministratorModifyController {
 
     @Autowired
@@ -25,9 +25,11 @@ public class AdministratorModifyController {
 
 
     @GetMapping
-    public void getModify(@RequestParam("isbn") String isbn, Model model) {
+    public String getModify(@RequestParam("isbn") String isbn, Model model) {
 
         model.addAttribute("administratorModify", administratorReadService.readBook(isbn));
+
+        return "/view/administrator/modify";
     }
 
     @PostMapping
@@ -36,6 +38,6 @@ public class AdministratorModifyController {
         redirectAttributes.addAttribute("isbn", bookModifyRequest.getIsbn());
         administratorModifyService.modify(bookModifyRequest);
 
-        return "redirect:/view/administrator/list";
+        return "redirect:/administrator/list";
     }
 }

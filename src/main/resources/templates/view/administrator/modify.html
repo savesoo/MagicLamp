@@ -16,7 +16,7 @@
   </div>
   <div class="card-body">
 
-    <form method="post" action="/view/administrator/modify" enctype="multipart/form-data">
+    <form method="post" action="/administrator/modify" enctype="multipart/form-data">
 
       <div class="mb-3">
         <label for="isbn" class="form-label">도서 ISBN</label>
@@ -111,7 +111,7 @@
 
       <div class="mb-3">
         <input type="reset"  class="btn btn-outline-secondary" value="재입력"> <input type="submit" class="btn btn-outline-warning" value="수정">
-        <a class="btn btn-outline-danger" th:href="@{/view/administrator/list}">돌아가기</a>
+        <a class="btn btn-outline-danger" th:href="@{/administrator/list}">돌아가기</a>
       </div>
 
     </form>
