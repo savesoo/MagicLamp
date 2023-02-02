@@ -54,9 +54,21 @@ function  useMileage() {
 
 }
 
-
 <!--주문 버튼-->
 function moveToPayment(){
+
+    const recipient = document.querySelector("#recipient");
+    const postnum = document.querySelector("#postnum");
+    const address1 = document.querySelector("#address1");
+    const address2 = document.querySelector("#address2");
+    const phone = document.querySelector("#phone");
+
+    if(!formTextCheck(recipient)
+        || !formCheck(address2)
+        || !formNumCheck(phone)
+    ){
+        return;
+    }
 
     const payload = {
 
@@ -64,11 +76,11 @@ function moveToPayment(){
 
         bookInfos : ordersInfo,
 
-        recipient: document.querySelector("#recipient").value,
-        postnum: document.querySelector("#postnum").value,
-        address1: document.querySelector("#address1").value,
-        address2: document.querySelector("#address2").value,
-        phone: document.querySelector("#phone").value,
+        recipient: recipient.value,
+        postnum: postnum.value,
+        address1: address1.value,
+        address2: address2.value,
+        phone: phone.value,
 
         mileage: myMileage,
         usemileage : parseInt(document.getElementsByName("usemil")[0].value),

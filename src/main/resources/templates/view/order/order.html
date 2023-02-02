@@ -69,12 +69,12 @@
                         <td class="data_td">
                           <div>
                           <span>
-                            <input type="text" id="postnum" th:value="${user.postnum}">
+                            <input type="text" id="postnum" th:value="${user.postnum}" readonly="readonly">
                             <button class="button_middle" onclick="sample6_execDaumPostcode()"> 주소 검색 </button>
                           </span>
                           </div>
                           <div>
-                            <input type="text" id="address1" th:value="${user.address1}">
+                            <input type="text" id="address1" th:value="${user.address1}" readonly="readonly">
                             <input type="text" id="address2" th:value="${user.address2}">
                           </div>
                         </td>
@@ -82,7 +82,7 @@
                       <!-------------------------->
                       <tr>
                         <th class="popup"> 연락처 </th>
-                        <td class="data_td"> <input type="text" id="phone" th:value="${user.phone}"> </td>
+                        <td class="data_td"> <input type="text" id="phone" th:value="${user.phone}" maxlength="11"> </td>
                       </tr>
                   </th:block>
               </table>
@@ -221,6 +221,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/js/order.js"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/js/formCheck.js"></script>
 
 </body>
 </html>
