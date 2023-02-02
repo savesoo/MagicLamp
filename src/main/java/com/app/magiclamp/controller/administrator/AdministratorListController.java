@@ -15,14 +15,15 @@ public class AdministratorListController {
     @Autowired
     private AdministratorListService administratorListService;
 
-    @GetMapping("/view/administrator/list")
-    public void administratorList(AdministratorSearchType administratorSearchType,
+    @GetMapping("/administrator/list")
+    public String administratorList(AdministratorSearchType administratorSearchType,
                                   @RequestParam(value = "p", defaultValue = "1") int pagenum,
                                   Model model
     ) {
 
         model.addAttribute("administratorPage", administratorListService.getPage(pagenum, administratorSearchType));
 
+        return "/view/administrator/list";
     }
 
 }

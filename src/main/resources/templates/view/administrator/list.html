@@ -41,7 +41,7 @@
             </ul>
 
             <div class="card-body">
-                <a th:href="@{/view/administrator/read(isbn=${book.isbn})}" class="card-link">상세보기</a>
+                <a th:href="@{/administrator/read(isbn=${book.isbn})}" class="card-link">상세보기</a>
             </div>
         </div>
 
@@ -59,19 +59,19 @@
 
             <th:block th:if="${administratorPage.prev}">
                 <li class="page-item">
-                    <a class="page-link" th:href="@{/view/administrator/list(p=${administratorPage.startnum-1})}">&laquo;</a>
+                    <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.startnum-1})}">&laquo;</a>
                 </li>
             </th:block>
 
             <th:block th:each="num : ${#numbers.sequence(administratorPage.startnum, administratorPage.endnum)}" th:with="active=${administratorPage.pagenum==num?'active':''}">
                 <li class="page-item" th:classappend="${active}">
-                    <a class="page-link" th:href="@{/view/administrator/list(searchoption=${administratorSearchType.searchoption}, keyword=${administratorSearchType.keyword},p=${num})}" th:text="${num}"></a>
+                    <a class="page-link" th:href="@{/administrator/list(searchoption=${administratorSearchType.searchoption}, keyword=${administratorSearchType.keyword},p=${num})}" th:text="${num}"></a>
                 </li>
             </th:block>
 
             <th:block th:if="${administratorPage.next}">
                 <li class="page-item">
-                    <a class="page-link" th:href="@{/view/administrator/list(p=${administratorPage.endnum+1})}">&raquo;</a>
+                    <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.endnum+1})}">&raquo;</a>
                 </li>
             </th:block>
 
@@ -80,12 +80,12 @@
 </div>
 
 <div class="container">
-    <a href="/view/administrator/insert" class="btn btn-outline-warning">등록</a>
+    <a href="/administrator/insert" class="btn btn-outline-warning">등록</a>
 </div>
 
 
 <!-- 검색 기능 -->
-<form action="/view/administrator/list" method="get" class="d-flex" role="search">
+<form action="/administrator/list" method="get" class="d-flex" role="search">
     <select class="form-select" name="searchoption">
         <option value="isbn">ISBN</option>
         <option value="title">제목</option>
