@@ -11,15 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/view/administrator/insert")
+@RequestMapping("/administrator/insert")
 public class AdministratorInsertController {
 
     @Autowired
     private AdministratorInsertService administratorInsertService;
 
     @GetMapping
-    public void getBookInsert() {
+    public String getBookInsert() {
 
+        return "/view/administrator/insert";
     }
 
     @PostMapping
@@ -28,6 +29,6 @@ public class AdministratorInsertController {
         administratorInsertService.checkIsbnDuplication(bookInsertRequest);
         administratorInsertService.bookInsert(bookInsertRequest);
 
-        return "redirect:/view/administrator/list";
+        return "redirect:/administrator/list";
     }
 }
