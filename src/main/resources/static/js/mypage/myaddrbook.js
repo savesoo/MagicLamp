@@ -40,14 +40,20 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#mpriority').value = priority;
 
         document.getElementById("add").style.display='none';
+        document.getElementById("modify").style.display='block';
         modal.style.display="block";
 
     });
 
-    let modalCloseBtn = document.querySelector('.modal-close');
+    let modalCloseBtn = document.querySelector('.btn-close');
     modalCloseBtn.addEventListener('click', (event) =>{
         document.getElementById("addrModal").style.display="none";
     });
+
+    let modalCloseBtn2 = document.querySelector('#modalClose');
+    modalCloseBtn2.addEventListener('click', () => {
+        document.getElementById("addrModal").style.display="none";
+    })
 
     $("button[name=addrDeleteBtn]").click(function () {
 
@@ -159,6 +165,7 @@ function newAddr(){
     let modal = document.getElementById("addrModal");
 
     document.getElementById("modify").style.display='none';
+    document.getElementById("add").style.display='block';
     modal.style.display="block";
 
     document.querySelector('#maddrname').value = null;

@@ -3,51 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>배송 주소록</title>
-    <link href="/css/addrbook.css" rel="stylesheet">
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
 </head>
-<body>
-<div>
+<body class="bg-light">
+<div th:replace="fragment/nav"></div>
+<div style="width: 95%; display: inline-block; margin: 2% 2.5% 0 2.5%">
   <form action="/mypage/addrbook" method="get">
-  <input type="text" name="keyword" id="keyword" th:value="${keyword}">
-  <input type="submit" value="주소검색">
-<!--  <button id="keywordSearchBtn" name="keywordSearchBtn" onclick="searchRecipient()">주소검색</button>-->
-  <a onclick="addrChkDelete()">선택 삭제</a>
-  <a onclick="newAddr()">새 주소 추가</a>
+    <div>
+      <div style="width: 25%; display: inline; float: left; margin: 0 1% 0 0">
+        <input class="form-control" type="text" placeholder="'수령인'을 입력해주세요." name="keyword" id="keyword" th:value="${keyword}">
+      </div>
+      <div style="width: 25%; display: inline; float: left">
+        <input class="btn btn-primary" type="submit" value="검색">
+      </div>
+      <div style="display: inline; float: right; text-align: right; margin: 0 0 0 1%">
+        <a class="btn btn-primary" onclick="newAddr()">새 주소 추가</a>
+      </div>
+      <div style="width: 20%; display: inline; float: right; text-align: right">
+        <a class="btn btn-outline-primary" onclick="addrChkDelete()">선택 삭제</a>
+      </div>
+    </div>
   </form>
 </div>
-<div>
-  <table>
+<div style="width: 95%; display: inline-block; margin: 2% 2.5% 0 2.5%">
+  <table class="table table-hover">
     <thead>
-    <tr>
-      <th><input type="checkbox" name="addrAllSelect" id="addrAllSelect"></th>
-      <th>배송지</th>
-      <th>수령인</th>
-      <th>주소</th>
-      <th>삭제</th>
+    <tr class="table-secondary">
+      <th style="text-align: center"><input class="form-check-input" type="checkbox" name="addrAllSelect" id="addrAllSelect"></th>
+      <th style="text-align: center">배송지</th>
+      <th style="text-align: center">수령인</th>
+      <th style="text-align: center">주소</th>
+      <th style="text-align: center">삭제</th>
     </tr>
     </thead>
     <tbody>
       <th:block th:if="${addrList.list.size() ==0 || addrList.list.isEmpty()}">
-        <tr>
-          <td colspan="5">검색하신 결과가 없습니다.</td>
+        <tr class="table-secondary">
+          <td style="text-align: center" colspan="5">검색하신 결과가 없습니다.</td>
         </tr>
       </th:block>
       <th:block th:unless="${addrList.list.size() ==0 || addrList.list.isEmpty()}">
-      <tr th:each="addr : ${addrList.list}">
+      <tr class="table-secondary" th:each="addr : ${addrList.list}">
         <th:block th:if="${addr.priority == 1}">
-          <td>
-            <input type="text" name="addrchk" th:value="${addr.addrindex}" style="display: none">
+          <td style="text-align: center; vertical-align: middle">
+            <input class="form-check-input" type="text" name="addrchk" th:value="${addr.addrindex}" style="display: none">
             <input type="hidden" name="priority" id="priority" th:value="${addr.priority}">
             <input type="hidden" name="userindex" id="userindex" th:value="${addr.userindex}">
           </td>
         </th:block>
-        <th:block th:unless="${addr.priority == 1}"><td><input type="checkbox" name="addrchk" th:value="${addr.addrindex}"></td></th:block>
-        <td><label><th:block th:text="${addr.addrname}"></th:block></label></td>
-        <td>
+        <th:block th:unless="${addr.priority == 1}">
+          <td style="text-align: center; vertical-align: middle">
+            <input class="form-check-input" type="checkbox" name="addrchk" th:value="${addr.addrindex}">
+          </td>
+        </th:block>
+        <td style="text-align: center; vertical-align: middle"><label><th:block th:text="${addr.addrname}"></th:block></label></td>
+        <td style="text-align: center; vertical-align: middle">
           <label><th:block th:text="${addr.recipient}"></th:block></label>
           <th:block th:if="${addr.priority} == 1"><br><span style="color: red">(기본 정보 주소)</span></th:block>
         </td>
-        <td>
+        <td style="text-align: center; vertical-align: middle">
           <label>(<th:block th:text="${addr.postnum}"></th:block>)</label>
           <br>
           <label><th:block th:text="${addr.address1}"></th:block></label>
@@ -55,16 +69,18 @@
           <br>
           <label><th:block th:text="${addr.phone}"></th:block></label>
         </td>
-        <td>
-          <button name="addrModifyBtn">수정</button>
-          <th:block th:if="${addr.priority} != 1"><button name="addrDeleteBtn">삭제</button></th:block>
+        <td style="text-align: center; vertical-align: middle">
+          <button class="btn btn-primary btn-sm" name="addrModifyBtn">수정</button>
+          <th:block th:if="${addr.priority} != 1"><button class="btn btn-outline-primary btn-sm" name="addrDeleteBtn">삭제</button></th:block>
         </td>
       </tr>
       </th:block>
     </tbody>
   </table>
-  <nav aria-label="">
-    <ul class="pagination">
+</div>
+<div style="text-align: center">
+<nav aria-label="" style="display: inline-block">
+    <ul class="pagination pagination-sm">
       <input type="hidden" id="pagenum" th:value="${addrList.pageNum}">
       <th:block th:if="${addrList.prev}">
         <li class="page-item">
@@ -86,25 +102,57 @@
 </div>
 
 <div id="addrModal" class="modal">
-  <form>
-    <div class="modal-content">
-      <span class="modal-close">&times;</span>
-
-      <input type="hidden" id="maddrindex">
-      <input type="hidden" id="mpriority">
-      <input type="hidden" id="muserindex">
-      <label for="maddrname">배송지</label><input type="text" id="maddrname">
-      <label for="mrecipient">수령인</label><input type="text" id="mrecipient">
-      <label for="mpostnum">우편번호</label><input type="text" id="mpostnum"><input type="button" value="주소 검색" onclick="postSearch()">
-      <label for="maddress1">주소</label><input type="text" id="maddress1">
-      <label for="maddress2">상세주소</label><input type="text" id="maddress2">
-      <label for="mphone">전화번호</label><input type="text" id="mphone">
-
-      <input type="button" id="add" value="추가" onclick="addrAdd()">
-      <input type="button" id="modify" value="수정" onclick="addrModify()">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-light">
+        <div class="modal-header">
+          <h5 class="modal-title">주소 정보</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="maddrindex">
+          <input type="hidden" id="mpriority">
+          <input type="hidden" id="muserindex">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="maddrname">
+            <label for="maddrname">배송지</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="mrecipient">
+            <label for="mrecipient">수령인</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="mpostnum">
+            <label for="mpostnum">우편번호</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="maddress1">
+            <label for="maddress1">주소</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="maddress2">
+            <label for="maddress2">상세주소</label>
+          </div>
+          <div class="form-floating mb-3">
+            <div class="d-grid gap-2">
+            <input class="btn btn-lg btn-primary" type="button" value="주소 검색" onclick="postSearch()">
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="mphone">
+            <label for="mphone">전화번호</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input class="btn btn-primary" type="button" id="add" value="추가" onclick="addrAdd()">
+          <input class="btn btn-primary" type="button" id="modify" value="수정" onclick="addrModify()">
+          <button type="button" class="btn btn-outline-primary" id="modalClose">Close</button>
+        </div>
+      </div>
     </div>
-  </form>
 </div>
+
   <script src="/js/mypage/myaddrbook.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
