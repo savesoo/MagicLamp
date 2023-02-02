@@ -381,9 +381,9 @@ function cancelModification() {
     const my_review = document.querySelector('.my_review')
     my_review.style.display = 'block'
     const modifyButton = document.querySelector('.modify_btn')
-    modifyButton.setAttribute('class', 'modify_btn hidden')
+    modifyButton.setAttribute('class', 'modify_btn btn btn-primary hidden')
     const modifyCancelButton = document.querySelector('.modify_cancel_btn')
-    modifyCancelButton.setAttribute('class', 'modify_cancel_btn hidden')
+    modifyCancelButton.setAttribute('class', 'modify_cancel_btn btn btn-secondary hidden')
 }
 
 

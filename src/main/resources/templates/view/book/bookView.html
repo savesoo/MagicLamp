@@ -7,10 +7,11 @@
             integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
     <link href="/css/review.css" rel="stylesheet">
     <!-- 부트스트랩 css 사용 -->
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
     <!--<link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">-->
 </head>
-<body>
+<body class="bg-light">
 <!--내비게이션 시작-->
 <div th:replace="fragment/nav"></div>
 <!--내비게이션 끝-->
@@ -18,7 +19,7 @@
 <!-- 도서 상세 보기 시작-->
 
 <table style="margin-left:auto; margin-right:auto; width: 890px" class="table">
-    <tr>
+    <tr class="table-secondary">
         <td>
             <!--상단 타이틀 (&저자,출판사,출간일) 시작-->
             <div>
@@ -71,22 +72,31 @@
                     </li>
                     <li style="padding-bottom: 10px">
                         <th:block th:if="${bookViewAlpha.star > 0}">
-                            <th:block th:if="${bookViewAlpha.star == 5}">★★★★★</th:block>
+
+                            <div class="StarRate_Icon" style="margin-top: 0">
+                                <p class="StarRate_IconFill" th:styleappend="'width:'+${avg*20}+'%'" style="margin-top: 0;"></p>
+                            </div>
+                            <!--<th:block th:if="${bookViewAlpha.star == 5}">★★★★★</th:block>
                             <th:block th:if="${bookViewAlpha.star == 4}">★★★★☆</th:block>
                             <th:block th:if="${bookViewAlpha.star == 3}">★★★☆☆</th:block>
                             <th:block th:if="${bookViewAlpha.star == 2}">★★☆☆☆</th:block>
-                            <th:block th:if="${bookViewAlpha.star == 1}">★☆☆☆☆</th:block>
-                            <span th:text="${'(' + bookViewAlpha.cnt + ')'}"></span>
+                            <th:block th:if="${bookViewAlpha.star == 1}">★☆☆☆☆</th:block>-->
+                            <span th:text="${avg}" style="margin-left: 5px; font-weight: bold; color: #EF3B96FC; font-size: 16px;"></span>
+                            <span th:text="'리뷰'+${'(' + bookViewAlpha.cnt + ')'}" style="margin-left: 10px"></span>
                         </th:block>
                     </li>
                     <li style="padding-bottom: 10px">
                         <div style="display: inline">수량</div>
                         <div style="display: inline">
-                            <input type="text" name="qty" id="result" min="1" value="1">
-                            <input type="button" onclick="count('plus')" value="+"/>
-                            <input type="button" onclick="count('minus')" value="-"/>
+                            <input type="button" class="btn btn-secondary btn-sm" style="float: right; margin-right: 63px; margin-top: 3px"
+                                   onclick="count('minus')" value="-"/>
+                            <input type="button" class="btn btn-secondary btn-sm" style="float: right; margin-right: 3px; margin-top: 3px"
+                                   onclick="count('plus')" value="+"/>
+                            <input type="text" class="form-control" name="qty" id="result" min="1" value="1"
+                                   style="width: 100px; float: right; margin-right: 6px">
                         </div>
                     </li>
+                    <br>
                     <li style="padding-bottom: 10px">
                         <div style="display: inline">총 상품금액</div>
                         <div style="display: inline">
@@ -98,7 +108,7 @@
                     <li>
                         <div style="display: inline">
                             <button onclick="insertOneCart(this)" id="bookIsbn" th:value="${bookView.isbn}"
-                                    class="btn btn-primary mt-1">장바구니 담기
+                                    class="btn btn-info mt-1">장바구니 담기
                             </button>
                         </div>
                         <div style="display: inline">
@@ -129,13 +139,191 @@
                 <div th:text="${bookView.contents}"></div>
             </div>
             <!--도서 상품정보 끝-->
+            <br>
+            <br>
+            <article>
+                <div class="review_title">
+                    <h3 class="title_text">리뷰</h3>
+                </div>
+                <div id="review_info_section">
+                    <div class="review_input_left">
+                        <h4 class="buyer_score_title">구매자 별점</h4>
+                        <p class="buyer_score">
+                            <span class="score" th:text="${avg}" th:if="${avg != null}"></span>
+                            <span class="score" th:text="0.0" th:unless="${avg != null}"></span>
+                        </p>
+                        <div class="StarRate_Icon">
+                            <p class="StarRate_IconFill" th:styleappend="'width:'+${avg*20}+'%'" th:if="${avg != null}"></p>
+                            <p class="StarRate_IconFill" th:styleappend="'width:0%'" th:unless="${avg != null}"></p>
+                        </div>
+                        <div class="score_graph">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        ★ 5
+                                    </td>
+                                    <td>
+                                        <div class="bar-container">
+                                            <div class="bar-5" th:styleappend="'width:'+${(star5 * 100) / people}+'%'"
+                                                 th:if="${star5 != 0}"></div>
+                                            <div class="bar-5" th:styleappend="'width:0%'" th:unless="${star5 != 0}"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ★ 4
+                                    </td>
+                                    <td>
+                                        <div class="bar-container">
+                                            <div class="bar-4" th:styleappend="'width:'+${(star4 * 100) / people} + '%'"
+                                                 th:if="${star4 != 0}"></div>
+                                            <div class="bar-4" th:styleappend="'width:0%'" th:unless="${star4 != 0}"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ★ 3
+                                    </td>
+                                    <td>
+                                        <div class="bar-container">
+                                            <div class="bar-3" th:styleappend="'width:'+${(star3 * 100) / people} + '%'"
+                                                 th:if="${star3 != 0}"></div>
+                                            <div class="bar-3" th:styleappend="'width:0%'" th:unless="${star3 != 0}"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ★ 2
+                                    </td>
+                                    <td>
+                                        <div class="bar-container">
+                                            <div class="bar-2" th:styleappend="'width:'+${(star2 * 100) / people} + '%'"
+                                                 th:if="${star2 != 0}"></div>
+                                            <div class="bar-2" th:styleappend="'width:0%'" th:unless="${star2 != 0}"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ★ 1
+                                    </td>
+                                    <td>
+                                        <div class="bar-container">
+                                            <div class="bar-1" th:styleappend="'width:'+${(star1 * 100) / people} + '%'"
+                                                 th:if="${star1 != 0}"></div>
+                                            <div class="bar-1" th:styleappend="'width:0%'" th:unless="${star1 != 0}"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="score_people_num">
+                            <strong th:text="${people}"></strong>명이 평가함
+                        </p>
+                    </div>
+                    <div class="review_input_right">
+                        <div class="star_tip_wrapper">
+                            <th:block th:if="${myReview == null}">
+                                <p class="tip_title">이 책을 평가해주세요!</p>
+                                <div class="star_rate_touch_area">
+                                    <fieldset>
+                                        <input type="radio" name="star" value="5" id="rate1"><label for="rate1">★</label>
+                                        <input type="radio" name="star" value="4" id="rate2"><label for="rate2">★</label>
+                                        <input type="radio" name="star" value="3" id="rate3"><label for="rate3">★</label>
+                                        <input type="radio" name="star" value="2" id="rate4"><label for="rate4">★</label>
+                                        <input type="radio" name="star" value="1" id="rate5"><label for="rate5">★</label>
+                                    </fieldset>
+                                </div>
+                            </th:block>
+                            <th:block th:if="${myReview != null}">
+                                <p class="tip_title">내가 남긴 별점
+                                    <span class="rate_num" th:text="|${myReview.star}.0|"></span></p>
+                                <div class="star_rate_touch_area">
+                                    <fieldset>
+                                        <input type="radio" name="star" value="5" id="star1"
+                                               th:checked="${myReview.star eq 5}"><label for="star1">★</label>
+                                        <input type="radio" name="star" value="4" id="star2"
+                                               th:checked="${myReview.star eq 4}"><label for="star2">★</label>
+                                        <input type="radio" name="star" value="3" id="star3"
+                                               th:checked="${myReview.star eq 3}"><label for="star3">★</label>
+                                        <input type="radio" name="star" value="2" id="star4"
+                                               th:checked="${myReview.star eq 2}"><label for="star4">★</label>
+                                        <input type="radio" name="star" value="1" id="star5"
+                                               th:checked="${myReview.star eq 1}"><label for="star5">★</label>
+                                    </fieldset>
+                                </div>
+                            </th:block>
+                        </div>
+                        <textarea class="review_input_textarea"
+                                  placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개될 수 있습니다."></textarea>
+                        <th:block sec:authorize="isAuthenticated()">
+                            <input type="hidden" id="reviewer" th:value="${#authentication.principal.userindex}">
+                        </th:block>
+                        <div class="button_wrapper">
+                            <button type="submit" class="review_btn btn btn-primary">리뷰 남기기</button>
+                        </div>
+                        <div class="modify_button_wrapper">
+                            <button type="submit" class="modify_btn btn btn-primary hidden">수정완료</button>
+                            <button type="submit" class="modify_cancel_btn btn btn-secondary hidden">취소</button>
+                        </div>
+                        <th:block th:if="${myReview} != null">
+                            <div class="my_review">
+                                <div class="review_content_wrapper">
+                                    <div class="my_review_date">
+                                        <p class="left_column"><span class="review_date" th:text="${myReview.regdate}"></span></p>
+                                        <div class="right_column">
+                                            <a th:onclick="'javascript:modifyReview()'">
+                                                <button class="btn btn-outline-secondary btn-sm">수정</button>
+                                            </a>
+                                            <a th:onclick="|javascript:deleteReview('${myReview.reviewindex}')|">
+                                                <button class="btn btn-outline-secondary btn-sm">삭제</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <p class="my_review_content"></p>
+                                </div>
+                            </div>
+                        </th:block>
+
+                    </div>
+                </div>
+                <div id="review_list_section">
+                    <div class="review_tab">
+                        <ul class="review_tab_2">
+                            <li class="tab_list">구매자 <span class="num" th:text="${people}"></span></li>
+                        </ul>
+                        <ul class="review_filter">
+                            <li class="filter_list"><a class="latest active">최신순</a></li>
+                            <li class="filter_list"><a class="like">공감순</a></li>
+                            <li class="filter_list"><a class="star">별점순</a></li>
+                        </ul>
+                    </div>
+                    <div class="review_list_wrapper">
+                        <th:block th:if="${people}==0">
+                            <div class="review_list_empty">
+                                <p>아직 등록된 리뷰가 없습니다.<br>첫 번째 리뷰를 남겨주세요!</p>
+                            </div>
+                        </th:block>
+                        <ul>
+                        </ul>
+                        <div class="more_review_button_wrapper">
+                            <button type="button" class="more_review_button"><span class="more_num"></span>개 더보기</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
         </td>
     </tr>
 </table>
 <!-- 도서 상세 보기 끝-->
 
 <!-- 리뷰 영역 -->
-<article>
+<!--<article>
     <div class="review_title">
         <h3 class="title_text">리뷰</h3>
     </div>
@@ -259,11 +447,11 @@
                 <input type="hidden" id="reviewer" th:value="${#authentication.principal.userindex}">
             </th:block>
             <div class="button_wrapper">
-                <button type="submit" class="review_btn">리뷰 남기기</button>
+                <button type="submit" class="review_btn btn btn-primary">리뷰 남기기</button>
             </div>
             <div class="modify_button_wrapper">
-                <button type="submit" class="modify_btn hidden">수정완료</button>
-                <button type="submit" class="modify_cancel_btn hidden">취소</button>
+                <button type="submit" class="modify_btn btn btn-primary hidden">수정완료</button>
+                <button type="submit" class="modify_cancel_btn btn btn-secondary hidden">취소</button>
             </div>
             <th:block th:if="${myReview} != null">
                 <div class="my_review">
@@ -272,18 +460,10 @@
                             <p class="left_column"><span class="review_date" th:text="${myReview.regdate}"></span></p>
                             <div class="right_column">
                                 <a th:onclick="'javascript:modifyReview()'">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-pencil" viewBox="0 0 16 16">
-                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                    </svg>
+                                    <button class="btn btn-outline-secondary btn-sm">수정</button>
                                 </a>
                                 <a th:onclick="|javascript:deleteReview('${myReview.reviewindex}')|">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                        <path fill-rule="evenodd"
-                                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                    </svg>
+                                    <button class="btn btn-outline-secondary btn-sm">삭제</button>
                                 </a>
                             </div>
                         </div>
@@ -318,7 +498,7 @@
             </div>
         </div>
     </div>
-</article>
+</article>-->
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script th:inline="javascript">

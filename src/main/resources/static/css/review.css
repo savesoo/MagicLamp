@@ -1,5 +1,5 @@
 article {
-    width: 800px;
+    width: 890px;
     margin: auto;
 }
 
@@ -134,21 +134,21 @@ article {
 }
 
 #review_info_section .review_input_right .review_btn {
-    padding: 6px 18px; font-size: 12px; box-shadow: 0 1px 1px 0 rgb(31 140 230 / 30%); border: 1px solid #0077d9; border-radius: 4px; color: #fff;
+    /*padding: 6px 18px; font-size: 12px; box-shadow: 0 1px 1px 0 rgb(31 140 230 / 30%); border: 1px solid #0077d9; border-radius: 4px; color: #fff;
     transition: background .2s,color .2s; vertical-align: baseline; text-align: center; display: inline-block; font-weight: 700; box-sizing: border-box;
-    text-decoration: none; appearance: none; background: #1f8ce6; float: right; cursor: pointer;
+    text-decoration: none; appearance: none; background: #1f8ce6; */float: right; cursor: pointer;
 }
 
 #review_info_section .review_input_right .modify_btn {
-    padding: 8px 18px; font-size: 12px; box-shadow: 0 1px 1px 0 rgb(31 140 230 / 30%); border: 1px solid #0077d9; border-radius: 4px; color: #fff;
+    /*padding: 8px 18px; font-size: 12px; box-shadow: 0 1px 1px 0 rgb(31 140 230 / 30%); border: 1px solid #0077d9; border-radius: 4px; color: #fff;
     transition: background .2s,color .2s; vertical-align: baseline; text-align: center; display: inline-block; font-weight: 700; box-sizing: border-box;
-    text-decoration: none; appearance: none; background: #1f8ce6; float: right; cursor: pointer; margin-top: 8px; margin-left: 4px;
+    text-decoration: none; appearance: none; background: #1f8ce6; */float: right; cursor: pointer; margin-top: 8px; margin-left: 4px;
 }
 
 #review_info_section .review_input_right .modify_cancel_btn {
-    padding: 8px 18px; font-size: 12px; box-shadow: 0 1px 1px 0 rgb(125 142 158 / 30%); border: 1px solid #636c73; border-radius: 4px; color: #fff;
+    /*padding: 8px 18px; font-size: 12px; box-shadow: 0 1px 1px 0 rgb(125 142 158 / 30%); border: 1px solid #636c73; border-radius: 4px; color: #fff;
     transition: background .2s,color .2s; vertical-align: baseline; text-align: center; display: inline-block; font-weight: 700; box-sizing: border-box;
-    text-decoration: none; appearance: none; background: #7d8e9e; float: right; cursor: pointer; margin-top: 8px;
+    text-decoration: none; appearance: none; background: #7d8e9e; */float: right; cursor: pointer; margin-top: 8px;
 }
 
 #review_info_section .review_input_right .hidden {
@@ -225,7 +225,7 @@ article {
 }
 
 #review_list_section .review_list_wrapper .review_list .list_right .review_content {
-    padding-bottom: 10px; font-size: 13px; color: #212529; line-height: 1.7em; word-break: break-all;
+    padding-bottom: 10px; font-size: 13px; color: #212529; line-height: 1.7em; word-break: break-all; margin-top: 11px;
 }
 
 .more_review {
