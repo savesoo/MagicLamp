@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/view/book/bookView")
+@RequestMapping("/main/product")
 @Log4j2
 public class BookViewController {
 
@@ -26,7 +26,7 @@ public class BookViewController {
     private ReviewReadService reviewReadService;
 
     @GetMapping
-    public void getBookView(
+    public String getBookView(
             @RequestParam("isbn") String isbn,
             @RequestParam("p") int pageNum,
             Model model,
@@ -51,5 +51,6 @@ public class BookViewController {
 
         log.info("bookViewService.selectBook(isbn) >>>>>>>>>>>>>>>>> " + bookViewService.selectBook(isbn));
 
+        return "/view/book/bookView";
     }
 }

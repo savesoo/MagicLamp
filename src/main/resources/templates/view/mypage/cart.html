@@ -50,7 +50,7 @@
                     <input type="hidden" name="isbn" id="isbn" th:value="${cart.isbn}">
                 </td>
                 <td>
-                    <a th:href="@{/view/book/bookView(isbn=${cart.isbn}, p=1)}" th:value="${cart.isbn}">
+                    <a th:href="@{/main/product(isbn=${cart.isbn}, p=1)}" th:value="${cart.isbn}">
                         <div style="float: left; height: 100%; width: 30%">
 
                             <img th:if="${cart.bookimg.length() > 0}" th:src="@{/photo/{name}(name=${cart.bookimg})}" height="200px">

@@ -10,17 +10,17 @@
         <div id="set2">
             <ul>
                 <li>
-                    <a href="http://localhost:8080" title="HOME">
+                    <a href="/" title="HOME">
                         <img alt="HOME" src="https://image.aladin.co.kr/img/header/2011/global/global_set1_m01_on.gif">
                     </a>
                 </li>
                 <li>
-                    <a href="http://localhost:8080/view/book/bookMainList" title="국내도서">
+                    <a href="/main" title="국내도서">
                         <img alt="국내도서" src="https://image.aladin.co.kr/img/header/2011/global/global_set2_m01.gif">
                     </a>
                 </li>
                 <li>
-                    <a href="http://localhost:8080/view/book/bookMainList" title="해외도서">
+                    <a href="/main" title="해외도서">
                         <img alt="해외도서" src="https://image.aladin.co.kr/img/header/2011/global/global_set2_m02.gif">
                     </a>
                 </li>
@@ -29,18 +29,18 @@
         <div id="set3" style="width: 300px">
             <ul>
                 <li class="set3mf" sec:authorize="!isAuthenticated()">
-                    <a href="http://localhost:8080/login" title="로그인">
+                    <a href="/login" title="로그인">
                         <img src="https://image.aladin.co.kr/img/header/2011/global_set3_login.gif">
                     </a>
                 </li>
                 <li class="set3se" sec:authorize="!isAuthenticated()"></li>
                 <li class="set3m" sec:authorize="!isAuthenticated()">
-                    <a href="http://localhost:8080/register" title="회원가입">
+                    <a href="/register" title="회원가입">
                         <img src="https://image.aladin.co.kr/img/header/2011/global_set3_join.gif">
                     </a>
                 </li>
                 <li class="set3mf" sec:authorize="isAuthenticated()">
-                    <a href="http://localhost:8080/logout" title="로그아웃">
+                    <a href="/logout" title="로그아웃">
                         <img src="https://image.aladin.co.kr/img/header/2011/global_set3_logout.gif">
                     </a>
                 </li>
@@ -108,13 +108,13 @@
     <tbody>
     <tr>
         <td width="192">
-            <a href="" id="logoBtn" title="첫화면으로 가기">
+            <a href="/main" id="logoBtn" title="첫화면으로 가기">
                 <img id="logoImg" src="https://image.aladin.co.kr/img/header/2011/aladin_logo_new.gif" alt="첫화면으로 가기"
                      title="첫화면으로 가기" border="0">
             </a>
         </td>
         <td width="546" valign="top">
-            <form id="QuickSearch" name="QuickSearch" action="http://localhost:8080/view/book/bookMainList" method="get" style="display: inline" autocomplete="off">
+            <form id="QuickSearch" name="QuickSearch" action="/main" method="get" style="display: inline" autocomplete="off">
                 <div id="search">
                     <dl>
                         <dt id="searchTarget" style="cursor: pointer">

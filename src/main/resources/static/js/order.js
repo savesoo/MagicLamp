@@ -92,7 +92,7 @@ function moveToPayment(){
             }
 
             alert("결제가 완료되었습니다.");
-            location.href = '/view/book/bookMainList';
+            location.href = '/main';
 
         })
         .catch(err => {

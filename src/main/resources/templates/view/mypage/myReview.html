@@ -72,7 +72,7 @@
                     <span id="regdate" th:text="${review.regdate}"></span>
                 </td>
                 <td>
-                    <a th:href="@{/view/book/bookView(isbn=${review.isbn}, p=1)}" th:value="${review.isbn}">
+                    <a th:href="@{/main(isbn=${review.isbn}, p=1)}" th:value="${review.isbn}">
                         <div style="float: left; height: 100%; width: 30%">
 
                             <img th:if="${review.bookimg.length() > 0}" th:src="@{/photo/{name}(name=${review.bookimg})}" height="200px">

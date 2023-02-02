@@ -36,7 +36,7 @@
                   </tr>
                   <tr class="infobody" th:each=" book : ${ordersInfo.bookInfos}">
                       <td class="data_td">
-                          <a th:href="@{view/book/bookView(isbn=${book.isbn},p=${1})}" th:text="${book.title}"/>
+                          <a th:href="@{/main/product(isbn=${book.isbn},p=${1})}" th:text="${book.title}"/>
                       </td>
                       <td> [[${#numbers.formatInteger(book.saleprice, 0, 'COMMA')}]] 원 / [[${#numbers.formatInteger(book.saveMileage, 0, 'COMMA')}]] 원 </td>
                       <td id="bookcount" th:text="${book.bookcount}"/>

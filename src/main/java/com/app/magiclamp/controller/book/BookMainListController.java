@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/view/book/bookMainList")
+@RequestMapping("/main")
 @Log4j2
 public class BookMainListController {
 
@@ -25,7 +25,7 @@ public class BookMainListController {
     private BookMainListService bookMainListService;
 
     @GetMapping
-    public void getBookMainList(
+    public String getBookMainList(
             @RequestParam(value = "p", defaultValue = "1") int pagenum,
             @RequestParam(value = "category", defaultValue = "") String category,
             BookSearchOption searchOption,
@@ -44,6 +44,7 @@ public class BookMainListController {
 
         model.addAttribute("category", bookMainListService.getCategory());
 
+        return "/view/book/bookMainList";
 
     }
 }

@@ -48,7 +48,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <th:block th:each="cat : ${category}">
-                <li class="list-group-item"><a th:href="@{/view/book/bookMainList(category=${cat})}"
+                <li class="list-group-item"><a th:href="@{/main(category=${cat})}"
                                                th:text="${cat}"></a></li>
             </th:block>
         </ul>
@@ -64,20 +64,20 @@
             <th:block th:if="${BookMainListPage.prev}">
                 <li class="page-item">
                     <a class="page-link"
-                       th:href="@{/view/book/bookMainList(p=${BookMainListPage.startnum-1})}">Previous</a>
+                       th:href="@{/main(p=${BookMainListPage.startnum-1})}">Previous</a>
                 </li>
             </th:block>
             <th:block th:each="num : ${#numbers.sequence(BookMainListPage.startnum, BookMainListPage.endnum)}"
                       th:with="active=${BookMainListPage.pagenum == num ? 'active' : ''}">
                 <li th:classappend="${active}" class="page-item">
                     <a class="page-link"
-                       th:href="@{/view/book/bookMainList(p=${num},searchType=${BookMainListPage.searchType},keyword=${BookMainListPage.keyword},category=${BookMainListPage.category})}"
+                       th:href="@{/main(p=${num},searchType=${BookMainListPage.searchType},keyword=${BookMainListPage.keyword},category=${BookMainListPage.category})}"
                        th:text="${num}"></a>
                 </li>
             </th:block>
             <th:block th:if="${BookMainListPage.next}">
                 <li class="page-item">
-                    <a class="page-link" th:href="@{/view/book/bookMainList(p=${BookMainListPage.endnum+1})}">NEXT</a>
+                    <a class="page-link" th:href="@{/main(p=${BookMainListPage.endnum+1})}">NEXT</a>
                 </li>
             </th:block>
         </ul>
@@ -108,7 +108,7 @@
                     <input type="checkbox" name="checkBook" th:value="${book.isbn}" id="checkBK">
                 </td>
                 <td width="10%">
-                    <a th:href="@{/view/book/bookView(isbn=${book.isbn},p=${BookMainListPage.pagenum})}">
+                    <a th:href="@{/main/product(isbn=${book.isbn},p=${BookMainListPage.pagenum})}">
                         <div th:if="${book.bookimg.length() > 0}">
                             <img th:src="@{/photo/{name}(name=${book.bookimg})}" height="200px">
                         </div>
@@ -121,7 +121,7 @@
                 <td width="65%">
                     <div>
                         <a th:text="${book.title}"
-                           th:href="@{/view/book/bookView(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
+                           th:href="@{/main/product(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
                     </div>
                     <div th:text="${book.author + ' | ' + book.publisher + ' | ' + book.pubdate}"></div>
                     <div th:text="${#numbers.formatInteger(book.price, 0, 'COMMA')}" style="display: inline"></div>
@@ -138,7 +138,7 @@
                             <th:block th:if="${book.star == 2}">★★☆☆☆</th:block>
                             <th:block th:if="${book.star == 1}">★☆☆☆☆</th:block>
                             <a th:text="${'(' + book.cnt + ')'}"
-                               th:href="@{/view/book/bookView(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
+                               th:href="@{/main/product(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
                         </th:block>
                     </div>
                 </td>
@@ -186,20 +186,20 @@
             <th:block th:if="${BookMainListPage.prev}">
                 <li class="page-item">
                     <a class="page-link"
-                       th:href="@{/view/book/bookMainList(p=${BookMainListPage.startnum-1})}">Previous</a>
+                       th:href="@{/main(p=${BookMainListPage.startnum-1})}">Previous</a>
                 </li>
             </th:block>
             <th:block th:each="num : ${#numbers.sequence(BookMainListPage.startnum, BookMainListPage.endnum)}"
                       th:with="active=${BookMainListPage.pagenum == num ? 'active' : ''}">
                 <li th:classappend="${active}" class="page-item">
                     <a class="page-link"
-                       th:href="@{/view/book/bookMainList(p=${num},searchType=${BookMainListPage.searchType},keyword=${BookMainListPage.keyword},category=${BookMainListPage.category})}"
+                       th:href="@{/main(p=${num},searchType=${BookMainListPage.searchType},keyword=${BookMainListPage.keyword},category=${BookMainListPage.category})}"
                        th:text="${num}"></a>
                 </li>
             </th:block>
             <th:block th:if="${BookMainListPage.next}">
                 <li class="page-item">
-                    <a class="page-link" th:href="@{/view/book/bookMainList(p=${BookMainListPage.endnum+1})}">NEXT</a>
+                    <a class="page-link" th:href="@{/main(p=${BookMainListPage.endnum+1})}">NEXT</a>
                 </li>
             </th:block>
         </ul>
@@ -281,7 +281,7 @@
                 success: function (res) {
                     console.log('카트 등록 성공!!!');
                     if (confirm("장바구니로 이동하시겠니까?")) {
-                        location.href = '/view/book/bookMainList'; /*임시 링크*/
+                        location.href = '/mypage/cart'; /*임시 링크*/
                     }
                 },
                 error: function (error) {
@@ -322,7 +322,7 @@
                 success: function (res) {
                     console.log('카트 등록 성공!!!');
                     if (confirm("장바구니로 이동하시겠니까?")) {
-                        location.href = '/view/book/bookMainList'; /*임시 링크*/
+                        location.href = '/mypage/cart'; /*임시 링크*/
                     }
                 },
                 error: function (error) {
