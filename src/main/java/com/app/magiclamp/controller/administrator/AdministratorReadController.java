@@ -13,10 +13,12 @@ public class AdministratorReadController {
     @Autowired
     private AdministratorReadService administratorReadService;
 
-    @GetMapping("/view/administrator/read")
-    public void getRead(@RequestParam("isbn") String isbn, Model model) {
+    @GetMapping("/administrator/read")
+    public String getRead(@RequestParam("isbn") String isbn, Model model) {
 
         model.addAttribute("administratorRead", administratorReadService.readBook(isbn));
+
+        return "/view/administrator/read";
     }
 
 }
