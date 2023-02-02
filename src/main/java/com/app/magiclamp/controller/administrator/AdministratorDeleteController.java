@@ -12,11 +12,11 @@ public class AdministratorDeleteController {
     @Autowired
     private AdministratorDeleteService administratorDeleteService;
 
-    @GetMapping("/view/administrator/delete")
+    @GetMapping("/administrator/delete")
     public String deleteBook(@Param("isbn") String isbn) {
 
         administratorDeleteService.deleteBook(isbn);
 
-        return "redirect:/view/administrator/list";
+        return "redirect:/administrator/list";
     }
 }
