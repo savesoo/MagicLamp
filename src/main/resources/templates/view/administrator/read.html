@@ -1,55 +1,314 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>상품 상세</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>Board View</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"
+          integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+  <link href="/css/review.css" rel="stylesheet">
+  <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
 </head>
 
+<body class="bg-light">
 
-<body>
+<!--내비게이션 시작-->
+<div th:replace="fragment/nav"></div>
+<!--내비게이션 끝-->
 
-<div class="container">
-  <table class="table  table-bordered text-center">
-
-    <tr>
-      <td class="col-2 text-center bg-light">도서ISBN</td>
-      <td th:text="${administratorRead.isbn}"></td>
-    </tr>
-
-    <tr>
-      <td class="col-2 text-center bg-light">도서명</td>
-      <td th:text="${administratorRead.title}"></td>
-    </tr>
-
-    <tr>
-      <td class="col-2 text-center bg-light">저자</td>
-      <td th:text="${administratorRead.author}"></td>
-    </tr>
-
-    <tr>
-      <td class="col-2 text-center bg-light">도서 이미지</td>
+  <!-- 도서 상세 보기 시작-->
+  <table style="margin-left:auto; margin-right:auto; width: 890px" class="table">
+    <tr class="table-secondary">
       <td>
-        <th:block th:if="${administratorRead.bookimg != null}">
-          <img th:src="@{/upload/photo/{name}(name=${administratorRead.bookimg})}" width="300">
-        </th:block>
+
+        <!--상단 타이틀 (저자,출판사,출간일) 시작-->
+        <div>
+          <ul style="list-style: none; padding-left: 0">
+            <li>
+              <div>
+                <h2><span th:text="${administratorRead.title}"></span></h2>
+              </div>
+            </li>
+            <li>
+              <div>
+                <span th:text="${administratorRead.author + ' | ' + administratorRead.publisher + ' | ' + administratorRead.pubdate }"></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <hr/>
+        <!--상단 타이틀 (저자,출판사,출간일) 끝-->
+
+        <!--도서이미지 시작-->
+        <div style="display: inline; width: 300px">
+
+          <div th:if="${administratorRead.bookimg.length() > 0}" style="display: inline; width: 300px">
+            <img th:src="@{/photo/{name}(name=${administratorRead.bookimg})}" width="300px">
+          </div>
+          <div th:unless="${administratorRead.bookimg.length() > 0}" style="display: inline; width: 300px">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII="
+                 width="300px">
+          </div>
+        </div>
+        <!--도서이미지 끝-->
+
+        <!--도서 상품정보 시작-->
+        <div style="display: inline-block; vertical-align: top">
+          <ul style="list-style: none;">
+            <li style="padding-bottom: 10px">
+              <div>정가 [[${#numbers.formatInteger(administratorRead.price, 0, 'COMMA')}]]원</div>
+            </li>
+            <li style="padding-bottom: 10px">
+              <div>판매가 <h4 style="display: inline">[[${#numbers.formatInteger(administratorRead.saleprice, 0,
+                'COMMA')}]]</h4>원
+                (10%, [[${#numbers.formatInteger(administratorRead.price-administratorRead.saleprice, 0, 'COMMA')}]]원 할인)
+              </div>
+            </li>
+            <li style="padding-bottom: 10px">
+              <div style="display: inline">마일리지</div>
+              <div style="display: inline">[[${#numbers.formatInteger(administratorRead.price*administratorRead.mileagerate/100,
+                0, 'COMMA')}]]원 (5%)
+              </div>
+            </li>
+
+            <!--<li style="padding-bottom: 10px">
+              <th:block th:if="${bookViewAlpha.star > 0}">
+
+                <div class="StarRate_Icon" style="margin-top: 0">
+                  <p class="StarRate_IconFill" th:styleappend="'width:'+${avg*20}+'%'" style="margin-top: 0;"></p>
+                </div>
+                <th:block th:if="${bookViewAlpha.star == 5}">★★★★★</th:block>
+                <th:block th:if="${bookViewAlpha.star == 4}">★★★★☆</th:block>
+                <th:block th:if="${bookViewAlpha.star == 3}">★★★☆☆</th:block>
+                <th:block th:if="${bookViewAlpha.star == 2}">★★☆☆☆</th:block>
+                <th:block th:if="${bookViewAlpha.star == 1}">★☆☆☆☆</th:block>
+                <span th:text="${avg}" style="margin-left: 5px; font-weight: bold; color: #EF3B96FC; font-size: 16px;"></span>
+                <span th:text="'리뷰'+${'(' + bookViewAlpha.cnt + ')'}" style="margin-left: 10px"></span>
+              </th:block>
+            </li>-->
+
+            <li style="padding-bottom: 10px">
+              <div style="display: inline">재고수량</div>
+              <div style="display: inline">
+                <span th:text="${administratorRead.stock}"></span>
+              </div>
+            </li>
+            <br>
+            <li>
+              <div style="display: inline">
+                <button class="btn btn-primary" th:href="@{/administrator/modify(isbn=${administratorRead.isbn})}">수정</button>
+              </div>
+              <div style="display: inline">
+                <button class="btn btn-outline-primary" th:href="@{/administrator/delete(isbn=${administratorRead.isbn})}">삭제</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <hr/>
+        <div>
+          <h3>기본 정보</h3>
+          <div th:text="${administratorRead.pages + '쪽 | ' + administratorRead.size + ' | ' + administratorRead.weight + 'g | ISBN: ' + administratorRead.isbn + ' | 도서형태: ' + administratorRead.binding}"></div>
+          <div th:text="${'주제 분류: ' + administratorRead.category}"></div>
+        </div>
+        <hr/>
+        <div>
+          <h3>책 소개</h3>
+          <div th:text="${administratorRead.description}"></div>
+        </div>
+        <hr/>
+        <div>
+          <h3>목차</h3>
+          <div th:text="${administratorRead.contents}"></div>
+        </div>
+        <!--도서 상품정보 끝-->
+
+        <br>
+        <br>
+        <!--<article>
+          <div class="review_title">
+            <h3 class="title_text">리뷰</h3>
+          </div>
+          <div id="review_info_section">
+            <div class="review_input_left">
+              <h4 class="buyer_score_title">구매자 별점</h4>
+              <p class="buyer_score">
+                <span class="score" th:text="${avg}" th:if="${avg != null}"></span>
+                <span class="score" th:text="0.0" th:unless="${avg != null}"></span>
+              </p>
+              <div class="StarRate_Icon">
+                <p class="StarRate_IconFill" th:styleappend="'width:'+${avg*20}+'%'" th:if="${avg != null}"></p>
+                <p class="StarRate_IconFill" th:styleappend="'width:0%'" th:unless="${avg != null}"></p>
+              </div>
+              <div class="score_graph">
+                <table>
+                  <tbody>
+                  <tr>
+                    <td>
+                      ★ 5
+                    </td>
+                    <td>
+                      <div class="bar-container">
+                        <div class="bar-5" th:styleappend="'width:'+${(star5 * 100) / people}+'%'"
+                             th:if="${star5 != 0}"></div>
+                        <div class="bar-5" th:styleappend="'width:0%'" th:unless="${star5 != 0}"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      ★ 4
+                    </td>
+                    <td>
+                      <div class="bar-container">
+                        <div class="bar-4" th:styleappend="'width:'+${(star4 * 100) / people} + '%'"
+                             th:if="${star4 != 0}"></div>
+                        <div class="bar-4" th:styleappend="'width:0%'" th:unless="${star4 != 0}"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      ★ 3
+                    </td>
+                    <td>
+                      <div class="bar-container">
+                        <div class="bar-3" th:styleappend="'width:'+${(star3 * 100) / people} + '%'"
+                             th:if="${star3 != 0}"></div>
+                        <div class="bar-3" th:styleappend="'width:0%'" th:unless="${star3 != 0}"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      ★ 2
+                    </td>
+                    <td>
+                      <div class="bar-container">
+                        <div class="bar-2" th:styleappend="'width:'+${(star2 * 100) / people} + '%'"
+                             th:if="${star2 != 0}"></div>
+                        <div class="bar-2" th:styleappend="'width:0%'" th:unless="${star2 != 0}"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      ★ 1
+                    </td>
+                    <td>
+                      <div class="bar-container">
+                        <div class="bar-1" th:styleappend="'width:'+${(star1 * 100) / people} + '%'"
+                             th:if="${star1 != 0}"></div>
+                        <div class="bar-1" th:styleappend="'width:0%'" th:unless="${star1 != 0}"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="score_people_num">
+                <strong th:text="${people}"></strong>명이 평가함
+              </p>
+            </div>
+            <div class="review_input_right">
+              <div class="star_tip_wrapper">
+                <th:block th:if="${myReview == null}">
+                  <p class="tip_title">이 책을 평가해주세요!</p>
+                  <div class="star_rate_touch_area">
+                    <fieldset>
+                      <input type="radio" name="star" value="5" id="rate1"><label for="rate1">★</label>
+                      <input type="radio" name="star" value="4" id="rate2"><label for="rate2">★</label>
+                      <input type="radio" name="star" value="3" id="rate3"><label for="rate3">★</label>
+                      <input type="radio" name="star" value="2" id="rate4"><label for="rate4">★</label>
+                      <input type="radio" name="star" value="1" id="rate5"><label for="rate5">★</label>
+                    </fieldset>
+                  </div>
+                </th:block>
+                <th:block th:if="${myReview != null}">
+                  <p class="tip_title">내가 남긴 별점
+                    <span class="rate_num" th:text="|${myReview.star}.0|"></span></p>
+                  <div class="star_rate_touch_area">
+                    <fieldset>
+                      <input type="radio" name="star" value="5" id="star1"
+                             th:checked="${myReview.star eq 5}"><label for="star1">★</label>
+                      <input type="radio" name="star" value="4" id="star2"
+                             th:checked="${myReview.star eq 4}"><label for="star2">★</label>
+                      <input type="radio" name="star" value="3" id="star3"
+                             th:checked="${myReview.star eq 3}"><label for="star3">★</label>
+                      <input type="radio" name="star" value="2" id="star4"
+                             th:checked="${myReview.star eq 2}"><label for="star4">★</label>
+                      <input type="radio" name="star" value="1" id="star5"
+                             th:checked="${myReview.star eq 1}"><label for="star5">★</label>
+                    </fieldset>
+                  </div>
+                </th:block>
+              </div>
+              <textarea class="review_input_textarea"
+                        placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개될 수 있습니다."></textarea>
+              <th:block sec:authorize="isAuthenticated()">
+                <input type="hidden" id="reviewer" th:value="${#authentication.principal.userindex}">
+              </th:block>
+              <div class="button_wrapper">
+                <button type="submit" class="review_btn btn btn-primary">리뷰 남기기</button>
+              </div>
+              <div class="modify_button_wrapper">
+                <button type="submit" class="modify_btn btn btn-primary hidden">수정완료</button>
+                <button type="submit" class="modify_cancel_btn btn btn-secondary hidden">취소</button>
+              </div>
+              <th:block th:if="${myReview} != null">
+                <div class="my_review">
+                  <div class="review_content_wrapper">
+                    <div class="my_review_date">
+                      <p class="left_column"><span class="review_date" th:text="${myReview.regdate}"></span></p>
+                      <div class="right_column">
+                        <a th:onclick="'javascript:modifyReview()'">
+                          <button class="btn btn-outline-secondary btn-sm">수정</button>
+                        </a>
+                        <a th:onclick="|javascript:deleteReview('${myReview.reviewindex}')|">
+                          <button class="btn btn-outline-secondary btn-sm">삭제</button>
+                        </a>
+                      </div>
+                    </div>
+                    <p class="my_review_content"></p>
+                  </div>
+                </div>
+              </th:block>
+
+            </div>
+          </div>
+          <div id="review_list_section">
+            <div class="review_tab">
+              <ul class="review_tab_2">
+                <li class="tab_list">구매자 <span class="num" th:text="${people}"></span></li>
+              </ul>
+              <ul class="review_filter">
+                <li class="filter_list"><a class="latest active">최신순</a></li>
+                <li class="filter_list"><a class="like">공감순</a></li>
+                <li class="filter_list"><a class="star">별점순</a></li>
+              </ul>
+            </div>
+            <div class="review_list_wrapper">
+              <th:block th:if="${people}==0">
+                <div class="review_list_empty">
+                  <p>아직 등록된 리뷰가 없습니다.<br>첫 번째 리뷰를 남겨주세요!</p>
+                </div>
+              </th:block>
+              <ul>
+              </ul>
+              <div class="more_review_button_wrapper">
+                <button type="button" class="more_review_button"><span class="more_num"></span>개 더보기</button>
+              </div>
+            </div>
+          </div>
+        </article>-->
       </td>
     </tr>
-
   </table>
-</div>
+  <!-- 도서 상세 보기 끝-->
 
-<div class="container">
-  <a class="btn btn-outline-warning" th:href="@{/administrator/modify(isbn=${administratorRead.isbn})}"> 수정</a>
-  <a class="btn btn-outline-danger" th:href="@{/administrator/delete(isbn=${administratorRead.isbn})}">삭제</a>
-  <a class="btn btn-outline-secondary" th:href="@{/administrator/list}">돌아가기</a>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+
+
+
+
 
 </body>
 </html>
