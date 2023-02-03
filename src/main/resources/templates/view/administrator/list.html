@@ -1,100 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>List</title>
+    <title>도서 목록</title>
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.css">
 </head>
+
 <body>
 
-<div class="container">
+    <!--내비게이션 시작-->
+    <div th:replace="fragment/nav"></div>
+    <!--내비게이션 끝-->
 
-    <div class="row">
+    <!-- 도서 검색바 시작 -->
+    <div style="width: 95%; display: inline-block; margin: 2% 2.5% 0 2.5%">
+        <form action="/administrator/list" method="get">
+            <div style="width: 6%; display: inline; float: left; margin: 0 0 0 0">
+                <select class="form-select" name="searchoption">
+                    <option value="isbn">ISBN</option>
+                    <option value="title">도서명</option>
+                    <option value="author">저자</option>
+                    <option value="publisher">출판사</option>
+                </select>
+            </div>
+            <div>
+                <div style="width: 15%; display: inline; float: left; margin: 0 1% 0 0">
+                    <input class="form-control" type="text" placeholder="Search" name="keyword" id="keyword" th:value="${keyword}">
+                </div>
+                <div style="width: 25%; display: inline; float: left">
+                    <input class="btn btn-primary" type="submit" value="검색">
+                </div>
+                <div style="width: 20%; display: inline; float: right; text-align: right">
+                    <a href="/administrator/list" class="btn btn-outline-primary">전체 리스트</a>
+                    <a href="/administrator/insert" class="btn btn-primary">도서 등록</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 도서 검색바 끝 -->
 
-        <div class="card" style="width: 18rem;" th:each="book : ${administratorPage.list}">
-            <th:block th:if="${bookimg != null}">
-                <img th:src="@{/upload/photo/{name}(name=${book.bookimg})}" width="300" class="card-img-top">
+
+    <!-- 도서 리스트 시작 -->
+    <div id="pagign_list" style="width: 95%; display: inline-block; margin: 2% 2.5% 0 2.5%">
+
+        <table class="table table-hover">
+            <tr>
+                <td width="5%">
+                    <div style="text-align: center">
+                        <b>도서 리스트</b><br>
+                    </div>
+                </td>
+            </tr>
+            <th:block th:if="${administratorPage.list.size() ==0 || administratorPage.list.isEmpty()}">
+                <tr class="table-secondary">
+                    <td style="text-align: center" colspan="5">검색하신 결과가 없습니다.</td>
+                </tr>
             </th:block>
-            <div class="card-body">
-                <h5 class="card-title" th:text="${book.title}"></h5>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ISBN: <a th:text="${book.isbn}"/></li>
-                <li class="list-group-item">저자: <a th:text="${book.author}"/></li>
-                <li class="list-group-item">출판사: <a th:text="${book.publisher}"/></li>
-                <li class="list-group-item">출간일자: <a th:text="${book.pubdate}"/></li>
-                <li class="list-group-item">도서 상태: <a th:text="${book.status}"/></li>
-                <li class="list-group-item">정가: <a th:text="${book.price}"/></li>
-                <li class="list-group-item">판매가: <a th:text="${book.saleprice}"/></li>
-                <li class="list-group-item">마일리지적립률: <a th:text="${book.mileagerate}"/></li>
-                <li class="list-group-item">재고 수량: <a th:text="${book.stock}"/></li>
-                <li class="list-group-item">도서 형태: <a th:text="${book.binding}"/></li>
-                <li class="list-group-item">쪽수: <a th:text="${book.pages}"/></li>
-                <li class="list-group-item">사이즈 : <a th:text="${book.size}"/></li>
-                <li class="list-group-item">무게: <a th:text="${book.weight}"/></li>
-                <li class="list-group-item">카테고리: <a th:text="${book.category}"/></li>
-                <li class="list-group-item">도서 소개: <a th:text="${book.description}"/></li>
-                <li class="list-group-item">도서 목차: <a th:text="${book.contents}"/></li>
-                <li class="list-group-item">도서 이미지: <a th:text="${book.bookimg}"/></li>
-                <li class="list-group-item">등록일자: <a th:text="${book.regdate}"/></li>
-                <li class="list-group-item">수정일자: <a th:text="${book.updatedate}"/></li>
+            <th:block th:each="book : ${administratorPage.list}">
+                <tr>
+                    <td width="10%">
+                        <a th:href="@{/administrator/read(isbn=${book.isbn})}">
+                            <div th:if="${book.bookimg.length() > 0}">
+                                <img th:src="@{/photo/{name}(name=${book.bookimg})}" height="200px">
+                            </div>
+                            <div th:unless="${book.bookimg.length() > 0}">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII="
+                                     height="200px">
+                            </div>
+                        </a>
+                    </td>
+                    <td width="65%">
+                        <div>
+                            <a th:text="${book.title}"
+                               th:href="@{/administrator/read(isbn=${book.isbn})}"></a>
+                        </div>
+                        <div th:text="${book.author + ' | ' + book.publisher + ' | ' + book.pubdate}"></div>
+                        <div th:text="${#numbers.formatInteger(book.price, 0, 'COMMA')}" style="display: inline"></div>
+                        ->
+                        <div th:text="${#numbers.formatInteger(book.saleprice, 0, 'COMMA')} + ' (10% 할인)'"
+                             style="display: inline"></div>
+                        <div th:text="${', 마일리지: ' + #numbers.formatInteger((book.price*book.mileagerate/100), 0, 'COMMA') + '원 (' + book.mileagerate + '% 적립)'}"
+                             style="display: inline"></div>
+                    </td>
+                    <td width="20%" style="text-align: center">
+                        <div style="">
+                            <button class="btn btn-primary" th:href="@{/administrator/modify(isbn=${book.isbn})}">수정</button>
+                            <button class="btn btn-outline-primary" th:href="@{/administrator/delete(isbn=${book.isbn})}">삭제</button>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+            <div id='result'></div>
+        </table>
 
-            </ul>
-
-            <div class="card-body">
-                <a th:href="@{/administrator/read(isbn=${book.isbn})}" class="card-link">상세보기</a>
-            </div>
+        <!-- 페이징 시작 -->
+        <div style="text-align: center">
+            <nav aria-label="" style="display: inline-block">
+                <ul class="pagination pagination-sm">
+                    <th:block th:if="${administratorPage.prev}">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.startnum-1}, keyword=${keyword})}">&laquo;</a>
+                        </li>
+                    </th:block>
+                    <th:block th:each="num : ${#numbers.sequence(administratorPage.startnum, administratorPage.endnum)}" th:with="active=${administratorPage.pagenum==num?'active':''}">
+                        <li class="page-item" th:classappend="${active}">
+                            <a class="page-link" th:href="@{/administrator/list(searchoption=${administratorSearchType.searchoption}, keyword=${administratorSearchType.keyword},p=${num})}" th:text="${num}"></a>
+                        </li>
+                    </th:block>
+                    <th:block th:if="${administratorPage.next}">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.endnum+1}, keyword=${keyword})}">&raquo;</a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
         </div>
+        <!-- 페이징 끝 -->
 
     </div>
+    <!-- 도서 리스트 끝 -->
 
-</div>
-
-<!--    페이징 구간-->
-
-<div class="container" style="margin-top:5px;">
-
-    <nav aria-label="">
-
-        <ul class="pagination" >
-
-            <th:block th:if="${administratorPage.prev}">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.startnum-1})}">&laquo;</a>
-                </li>
-            </th:block>
-
-            <th:block th:each="num : ${#numbers.sequence(administratorPage.startnum, administratorPage.endnum)}" th:with="active=${administratorPage.pagenum==num?'active':''}">
-                <li class="page-item" th:classappend="${active}">
-                    <a class="page-link" th:href="@{/administrator/list(searchoption=${administratorSearchType.searchoption}, keyword=${administratorSearchType.keyword},p=${num})}" th:text="${num}"></a>
-                </li>
-            </th:block>
-
-            <th:block th:if="${administratorPage.next}">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.endnum+1})}">&raquo;</a>
-                </li>
-            </th:block>
-
-        </ul>
-    </nav>
-</div>
-
-<div class="container">
-    <a href="/administrator/insert" class="btn btn-outline-warning">등록</a>
-</div>
-
-
-<!-- 검색 기능 -->
-<form action="/administrator/list" method="get" class="d-flex" role="search">
-    <select class="form-select" name="searchoption">
-        <option value="isbn">ISBN</option>
-        <option value="title">제목</option>
-        <option value="author">저자</option>
-        <option value="publisher">출판사</option>
-    </select>
-    <input class="form-control" type="text" name="keyword" placeholder="search" aria-label="search">
-    <button class="btn btn-outline-success" type="submit">search</button>
-</form>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
 
 </body>
 </html>
