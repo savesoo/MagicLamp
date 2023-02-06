@@ -2,48 +2,55 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>주문내역</title>
+    <title>주문내역 : Genie</title>
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
 </head>
-<body>
-<div>
+<body style="margin:0 auto; padding:0 0 10px 0; width:1100px;">
+<div style="width: 95%; display: inline-block; margin: 2% 2.5% 0 2.5%" class="table-secondary">
     <form action="/mypage/orderhistory" method="get" id="searchForm">
-        <select id ="searchOption" name="searchOption">
-            <option value="0" th:selected="${option.getSearchOption()}=='0'">전체</option>
-            <option value="1" th:selected="${option.getSearchOption()}=='1'">주문상품</option>
-            <option value="2" th:selected="${option.getSearchOption()}=='2'">주문번호</option>
-            <option value="3" th:selected="${option.getSearchOption()}=='3'">구매자</option>
-        </select>
-        <input type="text" name="searchText" id="searchText" th:value="${option.getSearchText()}">
-        <input type="date" name="sDate" id="sDate" th:value="${option.getSDate()}">
-        <input type="date" name="eDate" id="eDate" th:value="${option.getEDate()}">
-        <input type="button" id="searchBtn" name="searchBtn" value="검색">
-        <input type="button" id="initBtn" name="initBtn" value="초기화">
+        <div>
+            <input type="date" name="sDate" id="sDate" th:value="${option.getSDate()}">
+            <input type="date" name="eDate" id="eDate" th:value="${option.getEDate()}">
+        </div>
+        <div>
+            <select id ="searchOption" name="searchOption">
+                <option value="0" th:selected="${option.getSearchOption()}=='0'">전체</option>
+                <option value="1" th:selected="${option.getSearchOption()}=='1'">주문상품</option>
+                <option value="2" th:selected="${option.getSearchOption()}=='2'">주문번호</option>
+                <option value="3" th:selected="${option.getSearchOption()}=='3'">구매자</option>
+            </select>
+            <input type="text" name="searchText" id="searchText" th:value="${option.getSearchText()}">
+        </div>
+        <div style="float: left">
+            <input type="button" id="searchBtn" name="searchBtn" class="btn btn-primary" value="검색">
+            <input type="button" id="initBtn" name="initBtn" class="btn btn-dark" value="초기화">
+        </div>
     </form>
 </div>
-<div>
-    <table>
+<div style="width: 95%; display: inline-block; margin: 2% 2.5% 0 2.5%">
+    <table class="table table-hover">
         <thead>
-        <tr>
-            <th>주문일</th>
-            <th>주문번호</th>
-            <th>수령인</th>
-            <th>주문상품명</th>
-            <th>실결제금액</th>
-            <th>상태</th>
+        <tr class="table-secondary col-md-12" style="text-align: center">
+            <th class="col-md-2">주문일</th>
+            <th class="col-md-2">주문번호</th>
+            <th class="col-md-1">수령인</th>
+            <th class="col-md-auto">주문상품</th>
+            <th class="col-md-2">주문금액</th>
+            <th class="col-md-1">상태</th>
         </tr>
         </thead>
         <tbody>
         <th:block th:if="${orderList.list.size() == 0 || orderList.list.isEmpty()}">
-            <tr>
+            <tr class="table-secondary">
                 <td colspan="6">검색하신 결과가 없습니다.</td>
             </tr>
         </th:block>
         <th:block th:unless="${orderList.list.size() ==0 || orderList.list.isEmpty()}">
-            <tr th:each="order : ${orderList.list}">
-                <td>
+            <tr th:each="order : ${orderList.list}" class="table-secondary">
+                <td style="text-align: center">
                     <span id="orderdate" th:text="${order.orderdate}"></span>
                 </td>
-                <td>
+                <td style="text-align: center">
                     <a href="#">
 <!--                    <a th:href="@{/view/book/bookView(isbn=${review.isbn}, p=1)}" th:value="${review.isbn}">-->
 <!--                        <div style="float: left; height: 100%; width: 30%">-->
@@ -55,44 +62,47 @@
 <!--                        </div>-->
                     </a>
                 </td>
-                <td>
+                <td style="text-align: center">
                     <span th:text="${order.name}"></span>
                 </td>
                 <td>
                     <span th:text="${order.title}"></span>
                 </td>
-                <td>
-                    <span th:text="${order.realprice}"></span>
+                <td style="text-align: center">
+                    <span th:text="${#numbers.formatInteger(order.realprice, '0', 'COMMA')}"></span>
                 </td>
-                <td>
+                <td style="text-align: center">
                     <span th:if="${order.purchasestate == 0}" th:text="구매"></span>
-                    <span th:if="${order.purchasestate == 1}" th:text="취소"></span>
+                    <span th:if="${order.purchasestate == 1}" th:text="취소" style="color: #f2291f"></span>
                 </td>
             </tr>
         </th:block>
         </tbody>
     </table>
 
-    <nav aria-label="">
-        <ul class="pagination">
-            <input type="hidden" id="pagenum" th:value="${orderList.pageNum}">
-            <th:block th:if="${orderList.prev}">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/mypage/orderhistory(page=${orderList.startNum-1}, searchOption=${option.searchOption}, searchText=${option.searchText}, sDate=${option.sDate}, eDate=${option.eDate})}">&laquo;</a>
-                </li>
-            </th:block>
-            <th:block th:each="num : ${#numbers.sequence(orderList.startNum, orderList.endNum)}" th:with="active=${orderList.pageNum==num?'active':''}">
-                <li class="page-item" th:classappend="${active}">
-                    <a class="page-link" th:href="@{/mypage/orderhistory(page=${num}, searchOption=${option.searchOption}, searchText=${option.searchText}, sDate=${option.sDate}, eDate=${option.eDate})}" th:text="${num}"></a>
-                </li>
-            </th:block>
-            <th:block th:if="${orderList.next}">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/mypage/orderhistory(page=${orderList.endNum+1}, searchOption=${option.searchOption}, searchText=${option.searchText}, sDate=${option.sDate}, eDate=${option.eDate})}">&raquo;</a>
-                </li>
-            </th:block>
-        </ul>
-    </nav>
+    <div style="text-align: center">
+        <nav aria-label="" style="display: inline-block;">
+            <ul class="pagination pagination-sm">
+                <input type="hidden" id="pagenum" th:value="${orderList.pageNum}">
+                <th:block th:if="${orderList.prev}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/mypage/orderhistory(page=${orderList.startNum-1}, searchOption=${option.searchOption}, searchText=${option.searchText}, sDate=${option.sDate}, eDate=${option.eDate})}">&laquo;</a>
+                    </li>
+                </th:block>
+                <th:block th:each="num : ${#numbers.sequence(orderList.startNum, orderList.endNum)}" th:with="active=${orderList.pageNum==num?'active':''}">
+                    <li class="page-item" th:classappend="${active}">
+                        <a class="page-link" th:href="@{/mypage/orderhistory(page=${num}, searchOption=${option.searchOption}, searchText=${option.searchText}, sDate=${option.sDate}, eDate=${option.eDate})}" th:text="${num}"></a>
+                    </li>
+                </th:block>
+                <th:block th:if="${orderList.next}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/mypage/orderhistory(page=${orderList.endNum+1}, searchOption=${option.searchOption}, searchText=${option.searchText}, sDate=${option.sDate}, eDate=${option.eDate})}">&raquo;</a>
+                    </li>
+                </th:block>
+            </ul>
+        </nav>
+    </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
