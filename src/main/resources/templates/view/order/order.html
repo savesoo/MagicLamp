@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="/css/order.css" rel="stylesheet">
-    <title>주문 페이지</title>
+    <title>주문 페이지 : Genie</title>
 </head>
 <body>
 
@@ -27,7 +27,7 @@
                   <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
                   <span class="title"> 주문 상품 정보 </span>
               </div>
-              <table style="background-color: #a2a2a2">
+              <table class="table1">
                   <tr class="infohead">
                       <td> 제목 </td>
                       <td> 가격 / 적립금 </td>
@@ -55,25 +55,25 @@
                   <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
                   <span class="title"> 배송 정보 확인 </span>
               </div>
-              <table style="background-color: rgb(131, 184, 194)">
+              <table class="table2">
                   <th:block th:each="user : ${ordersInfo}">
                       <tr>
                         <th class="popup"> 주문인 </th>
                         <td class="data_td">
-                          <input id="recipient" th:value="${user.recipient}">
+                          <input type="text" id="recipient" th:value="${user.recipient}">
                         </td>
                       </tr>
                       <!-------------------------->
                       <tr>
                         <th class="popup"> 주소 </th>
                         <td class="data_td">
-                          <div>
+                          <div style="padding: 3px 0">
                           <span>
                             <input type="text" id="postnum" th:value="${user.postnum}" readonly="readonly">
                             <button class="button_middle" onclick="sample6_execDaumPostcode()"> 주소 검색 </button>
                           </span>
                           </div>
-                          <div>
+                          <div style="padding: 3px 0">
                             <input type="text" id="address1" th:value="${user.address1}" readonly="readonly">
                             <input type="text" id="address2" th:value="${user.address2}">
                           </div>
@@ -97,7 +97,7 @@
                   <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
                   <span class="title"> 마일리지 사용하기 </span>
               </div>
-              <table style="background-color: rgb(131, 184, 194)">
+              <table class="table3">
                   <th:block th:each="mm : ${ordersInfo}">
                       <tr>
                           <th class="popup">
@@ -108,7 +108,7 @@
                           </td>
                           <td class="data_td">
                               <span> <input type="text" name="usemil" th:value="${0}" placeholder="사용할 금액"> </span>
-                              <button class="usemil_btn"> 사용하기 </button>
+                              <button class="usemil_btn button_middle"> 사용하기 </button>
                           </td>
                       </tr>
                   </th:block>
@@ -124,7 +124,7 @@
                   <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
                   <span class="title"> 결제 정보 </span>
               </div>
-              <table style="background-color: rgb(131, 184, 194)">
+              <table class="table4">
                   <th:block th:each=" b : ${ordersInfo}">
                       <tr>
                           <th class="popup">수량</th>
@@ -177,8 +177,8 @@
     <!------------버튼 영역 -------------->
 
     <div class="orderbtn_div">
-      <button class="btn order_btn" type="submit"> 결제하기 </button>
-      <button th:onclick="|location.href='@{/}'|">주문 취소</button>
+      <button class="btn order_btn btn-primary" type="submit"> 결제하기 </button>
+      <button class="btn btn-secondary" th:onclick="|location.href='@{/}'|">주문 취소</button>
     </div>
 
   </div>
