@@ -39,7 +39,7 @@ public class Book {
     @Column
     private String pubdate; // 출간일자
 
-    @Column(columnDefinition = "varchar(10) not null")
+    @Column(columnDefinition = "varchar(10) not null default '정상'")
     private String status; // 도서 상태 (정상, 절판, 품절)
 
     @Column(columnDefinition = "int not null")
