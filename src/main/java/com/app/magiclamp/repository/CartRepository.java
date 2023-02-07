@@ -1,5 +1,6 @@
 package com.app.magiclamp.repository;
 
+import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.entity.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,5 +24,11 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
     @Modifying
     @Query("delete from Cart c where c.cartindex = ?1 and c.userindex = ?2")
     int deleteByCartindex(int cartindex, int userindex);
+
+    // 구매 후 장바구에서 삭제
+    @Transactional
+    @Modifying
+    @Query("delete from Cart c where c.userindex = :userindex and c.isbn = :isbn")
+    int deleteByUserindexAndIsbn(Integer userindex, Book isbn);
 
 }

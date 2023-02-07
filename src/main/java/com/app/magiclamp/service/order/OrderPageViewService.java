@@ -1,7 +1,6 @@
 package com.app.magiclamp.service.order;
 
 import com.app.magiclamp.entity.AddrBook;
-import com.app.magiclamp.entity.Mileage;
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.entity.User;
 import com.app.magiclamp.mapper.MileageMapper;
@@ -64,10 +63,8 @@ public class OrderPageViewService {
 
         log.info("책 정보 >>>>>>>>>>>>> " + bookInfo);
 
-
         // 반환할 객체에 data 넣어주기
         //마일리지
-
         int m = getCurrentMileage(userindex);
         orderBookPageDTO.setMileage(m);
 
@@ -142,11 +139,6 @@ public class OrderPageViewService {
         log.info("view order >>> " + orderBookPageDTO);
 
         return orderBookPageDTO;
-    }
-
-    public List<Book> getbooks(List<String> isbns){
-
-        return  bookRepository.findByIsbnIn(isbns);
     }
 
     public AddrBook getUserAddress(int userindex){
