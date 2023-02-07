@@ -226,6 +226,8 @@
                 list.forEach((newbook, index) => {
                     const newDIV = document.createElement('div')
                     let html = '<a href="/main/product?isbn=' + newbook.isbn + '&p=1">'
+                    let bookimg = newbook.bookimg
+                    newbook.bookimg = bookimg.replace('coversum', 'cover500')
                     html += '<div class="cover"><div class="cover_img"><img src="' + newbook.bookimg + '" width="170px" height="250px"></div></div></a>'
                     html += '<div class="tit">' + newbook.title + '</div>'
                     html += '<div class="author">' + newbook.author + '</div>'

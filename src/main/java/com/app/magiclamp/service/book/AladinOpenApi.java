@@ -42,7 +42,7 @@ public class AladinOpenApi {
             );
 
             String[] array = data.get("categoryName").toString().split(">");
-            String imgUrl = data.get("cover").toString().replace("coversum", "cover");
+            String imgUrl = data.get("cover").toString().replace("coversum", "cover500");
             String imgName = data.get("isbn13").toString();
             String extension = imgUrl.substring(imgUrl.lastIndexOf('.') + 1);
 
