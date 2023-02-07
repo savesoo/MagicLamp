@@ -45,7 +45,7 @@
           </a>
         </li>
         <li class="set3se"></li>
-        <li id="myaccount_layer" class="set3m">
+        <li id="myaccount_layer" class="set3m" sec:authorize="isAuthenticated()">
           <div style="height: 20px; width: 58px">
             <a href="" title="마이페이지">
               <img src="https://image.aladin.co.kr/img/header/2011/global_set3_m01.gif">
@@ -60,12 +60,12 @@
                     <tbody>
                     <tr>
                       <td>
-                        <a href="">현석님 링크 1</a>
+                        <a href="/mypage/addrbook">배송지 관리</a>
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <a href="">현석님 링크 2</a>
+                        <a href="/mypage/orderhistory">주문 내역</a>
                       </td>
                     </tr>
                     <tr>
