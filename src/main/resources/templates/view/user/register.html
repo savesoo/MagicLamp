@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Please join with Genie!</title>
     <style>
-        #postnum, #address1 {
+        /*#postnum, #address1 {
             height: 30px;
             background: #ebebeb;
             border-top: 1px solid #999;
@@ -16,7 +16,7 @@
             font-size: 15px;
             padding: 0 7px;
             outline-style: none;
-        }
+        }*/
 
         .button {
             display: inline-block;
@@ -49,12 +49,12 @@
             padding: 0;
             vertical-align: middle;
             border: 1px solid;
-            border-color: #c82370;
+            border-color: #3459e6;
             text-align: center;
             text-decoration: none !important;
             cursor: pointer;
             border-radius: 3px;
-            background: #df307f;
+            background: #3459e6;
         }
 
         #signup a {
@@ -66,7 +66,7 @@
             display: block;
             white-space: nowrap;
             background-color: transparent;
-            border-color: #c82370;
+            border-color: #3459e6;
             margin: 0;
             border: 0;
             width: 180px;
@@ -86,6 +86,7 @@
             text-decoration: none;
         }
     </style>
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="fragment/nav"></div>
@@ -107,8 +108,8 @@
                                 <tbody>
                                 <tr>
                                     <td width="210">
-                                        <input type="text" name="username" id="userId"
-                                               style="width: 200px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;"
+                                        <input type="text" class="form-control" name="username" id="userId"
+                                               style="width: 200px; vertical-align: middle; height: 39px; padding: 0px 7px;"
                                                onkeyup="IDCheck()">
                                     </td>
                                     <td width="*">
@@ -152,8 +153,8 @@
                                 <tbody>
                                 <tr>
                                     <td width="210">
-                                        <input type="password" name="password" id="userPw" maxlength="20"
-                                               style="width: 200px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;"
+                                        <input type="password" class="form-control" name="password" id="userPw" maxlength="20"
+                                               style="width: 200px; vertical-align: middle; height: 39px; padding: 0px 7px;"
                                                onkeyup="PWCheck()">
                                     </td>
                                     <td width="*">
@@ -197,8 +198,8 @@
                                 <tbody>
                                 <tr>
                                     <td width="210">
-                                        <input type="password" name="password-check" id="rePw"
-                                               style="width: 200px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;"
+                                        <input type="password" class="form-control" name="password-check" id="rePw"
+                                               style="width: 200px; vertical-align: middle; height: 39px; padding: 0px 7px;"
                                                onkeyup="PWDoubleCheck()">
                                     </td>
                                     <td width="*">
@@ -242,8 +243,8 @@
                                 <tbody>
                                 <tr>
                                     <td width="210">
-                                        <input type="text" name="name" id="name"
-                                               style="width: 200px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;"
+                                        <input type="text" class="form-control" name="name" id="name"
+                                               style="width: 200px; vertical-align: middle; height: 39px; padding: 0px 7px;"
                                                onkeyup="nameCheck()">
                                     </td>
                                     <td width="*">
@@ -286,8 +287,8 @@
                                 <tbody>
                                 <tr>
                                     <td width="210">
-                                        <input type="text" name="phone" id="phone"
-                                               style="width: 200px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;"
+                                        <input type="text" name="phone" id="phone" class="form-control"
+                                               style="width: 200px; vertical-align: middle; height: 39px; padding: 0px 7px;"
                                                onkeyup="phoneNumberCheck()">
                                     </td>
                                     <td width="*">
@@ -349,9 +350,9 @@
                                 <tr>
                                     <td width="110" style="padding: 0 0 5px 0">
                                         <input type="text" id="postnum" name="postnum" placeholder="우편번호" readonly
-                                               style="width: 100%; vertical-align: middle;">
+                                               style="width: 100%; vertical-align: middle;" class="form-control">
                                     </td>
-                                    <td valign="top" style="padding-left: 26px">
+                                    <td valign="top" style="padding-left: 10px; padding-top: 3px">
                                         <div class="button">
                                             <a class="button_middle" onclick="sample6_execDaumPostcode()">주소검색</a>
                                         </div>
@@ -363,7 +364,7 @@
                                 <tbody>
                                 <tr>
                                     <td width="210" style="padding: 0 0 5px 0">
-                                        <input type="text" id="address1" placeholder="주소" readonly
+                                        <input type="text" id="address1" placeholder="주소" class="form-control" readonly
                                                style="width:450px;vertical-align:middle;">
                                     </td>
                                 </tr>
@@ -373,8 +374,8 @@
                                 <tbody>
                                 <tr>
                                     <td width="210" style="padding: 0 0 5px 0">
-                                        <input type="text" id="address2" placeholder="상세주소"
-                                               style="width: 350px; vertical-align: middle; border-width: 1px; border-color: rgb(153, 153, 153) rgb(223, 223, 223) rgb(223, 223, 223) rgb(153, 153, 153); background-color: rgb(235, 235, 235); color: rgb(51, 51, 51); height: 30px; padding: 0px 7px;"
+                                        <input type="text" id="address2" placeholder="상세주소" class="form-control"
+                                               style="width: 350px; vertical-align: middle; height: 39px; padding: 0px 7px;"
                                         onfocus="detailAddressCheck()">
                                     </td>
                                     <td width="*">
@@ -424,37 +425,39 @@
     </div>
 </form>
 <!--<form method="post">
-  <div class="form-group mb-2">
-    <label for="userId" >아이디</label>
-    <input type="text" id="userId" name="username" value="test">
-  </div>
+    <div style="width: 905px; padding: 10px">
+        <div class="form-group mb-2">
+            <label class="col-form-label mt-4" for="userId">아이디</label>
+            <input type="text" class="form-control" id="userId" name="username">
+        </div>
 
-  <div>
-    <label for="userPw">비밀번호</label>
-    <input type="password" id="userPw" name="password" required value="1111">
-  </div>
-  <div>
-    <label class="form-label mt-4" for="rePw">비밀번호 재확인</label>
-    <input type="password" id="rePw" name="password-check" required value="1111">
-  </div>
+        <div>
+            <label class="col-form-label mt-4" for="userPw">비밀번호</label>
+            <input type="password" class="form-control" id="userPw" name="password">
+        </div>
+        <div>
+            <label class="col-form-label mt-4" for="rePw">비밀번호 재확인</label>
+            <input type="password" class="form-control" id="rePw" name="password-check">
+        </div>
 
-  <div class="form-group mb-2">
-    <label for="name">이름</label>
-    <input type="text" id="name" name="name" required value="test">
-  </div>
-  <div class="form-group mb-2">
-    <label for="phone" class="form-label mt-4">연락처 </label>
-    <input type="text" class="form-control" id="phone" name="phone" placeholder="-를 제외한 11자리" value="01012345678">
-  </div>
-  <div class="form-group mb-2">
-    <label for="postnum" class="form-label mt-4">우편번호 </label>
-    <input type="text" id="postnum" name="postnum" value="12345">
-    <label for="address1" class="form-label mt-4">주소 </label>
-    <input type="text" id="address1" name="address1" value="Seoul">
-    <label for="address2" class="form-label mt-4">상세주소 </label>
-    <input type="text" id="address2" name="address2" value="test">
-  </div>
-  <button type="button" id="signup">가입하기</button>
+        <div class="form-group mb-2">
+            <label class="col-form-label mt-4" for="name">이름</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group mb-2">
+            <label class="col-form-label mt-4" for="phone">연락처 </label>
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="-를 제외한 11자리">
+        </div>
+        <div class="form-group mb-2">
+            <label for="postnum" class="col-form-label mt-4">우편번호 </label>
+            <input type="text" class="form-control" id="postnum" name="postnum" value="12345">
+            <label for="address1" class="col-form-label mt-4">주소 </label>
+            <input type="text" class="form-control" id="address1" name="address1" value="Seoul">
+            <label for="address2" class="col-form-label mt-4">상세주소 </label>
+            <input type="text" class="form-control" id="address2" name="address2" value="test">
+        </div>
+        <button type="button" id="signup">가입하기</button>
+    </div>
 </form>-->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -478,7 +481,7 @@
                 address2: document.querySelector('#address2').value
             };
 
-            if(password.value != repw.value) {
+            if (password.value != repw.value) {
                 alert('위에서 입력한 비밀번호와 동일하게 입력해주세요.')
                 repw.focus()
                 return
@@ -565,7 +568,7 @@
             } else {
                 ballon.style.display = 'block'
                 ballontxt.textContent = '비밀번호 안전성 : 보통'
-                setTimeout(()=>{
+                setTimeout(() => {
                     ballon.style.display = 'none'
                 }, 5000)
             }
@@ -604,13 +607,13 @@
         } else ballon.style.display = 'none'
     }
 
-    function detailAddressCheck(){
+    function detailAddressCheck() {
         const ballon = document.querySelector('#address_helplyaer')
         const ballontxt = document.querySelector('#address_result')
 
         ballon.style.display = 'block'
         ballontxt.textContent = '상세주소를 입력해주세요'
-        setTimeout(()=>{
+        setTimeout(() => {
             ballon.style.display = 'none'
         }, 3000)
     }
