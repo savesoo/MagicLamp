@@ -30,7 +30,7 @@ public class AdministratorInsertService {
             // 저장경로
             String absolutePath = new File("").getAbsolutePath();
 
-            String path = "bookimg";
+            String path = "photo";
             saveDir = new File(absolutePath, path);
 
             // 폴더가 없으면 생성
@@ -39,9 +39,8 @@ public class AdministratorInsertService {
             }
 
             // 파일이름 중복확인
-            String uuid = UUID.randomUUID().toString();
 
-            newFileName = uuid + file.getOriginalFilename();
+            newFileName = bookInsertRequest.getIsbn()+".jpg";
 
             File newFile = new File(saveDir, newFileName);
 
