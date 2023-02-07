@@ -2,6 +2,7 @@ package com.app.magiclamp.model.order;
 
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.model.BookInfoDTO;
+import com.app.magiclamp.model.mypage.OrderDetailAddress;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class OrderBookPageDTO {
     private int orderTotalPrice; // 주문시 총 결제금액
     private int totalSaveMileage; // 주문시 총 적립 마일리지
 
+    private int orderTotalSalePrice;
+
 
     // 주문페이지에 출력될 책 list에 추가
     public void addToBookInfoList(BookInfoDTO bookInfo){
@@ -60,6 +63,25 @@ public class OrderBookPageDTO {
             orderTotalPrice += order.getTotalPrice();
             totalSaveMileage += order.getTotalMileage();
         }
+    }
+
+    public void calOrderDetailPrice(){
+
+        for(BookInfoDTO order : bookInfos){
+            totalBookCnt += order.getBookcount();
+            orderTotalPrice += order.getPrice();
+            orderTotalSalePrice += order.getSaleprice();
+            totalSaveMileage += order.getSaveMileage();
+        }
+
+    }
+
+    public void setOrderDetailAddr(OrderDetailAddress addr){
+        postnum = addr.getPostnum();
+        address1 = addr.getAddress1();
+        address2 = addr.getAddress2();
+        phone = addr.getPhone();
+        recipient = addr.getName();
     }
 
 

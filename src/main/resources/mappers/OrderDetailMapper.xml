@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.magiclamp.mapper.OrderDetailMapper">
+
+    <select id="orderDetailBookInfo" resultType="com.app.magiclamp.model.BookInfoDTO">
+
+        select i.isbn, b.title, i.bookcount, b.price, b.saleprice, ROUND((b.price*b.mileagerate/100)) as saveMileage
+        from tbl_orderitem i
+        INNER JOIN tbl_order o
+        ON i.orderindex = o.orderindex
+        INNER JOIN tbl_book b
+        ON i.isbn = b.isbn
+        where i.orderindex = #{orderindex}
+
+    </select>
+
+    <select id="orderDetailAddr" resultType="com.app.magiclamp.model.mypage.OrderDetailAddress">
+
+        SELECT postnum, address1, address2, phone, (SELECT name FROM tbl_user WHERE userindex=#{userindex}) AS name
+        FROM tbl_order
+        WHERE userindex = #{userindex}
+        AND orderindex = #{orderindex}
+
+    </select>
+
+    <select id="orderDetailPayment">
+
+    </select>
+
+</mapper>

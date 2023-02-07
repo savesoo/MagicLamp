@@ -2,45 +2,81 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원 탈퇴  : Genie</title>
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
 </head>
-<body>
-<!--  <label>탈퇴 사유</label>-->
-<!--  <input type="checkbox" name="comment1">-->
-<!--  중복 가입 계정 정리-->
-<!--  <input type="checkbox" name="comment2">-->
-<!--  로그인 용 이메일 주소 변경-->
-<!--  <input type="checkbox" name="comment3">-->
-<!--  상품 가격 불만-->
-<!--  <input type="checkbox" name="comment4">-->
-<!--  찾는 상품 없음-->
-<!--  <input type="checkbox" name="comment5">-->
-<!--  고객 응대 불만족-->
-<!--  <input type="checkbox" name="comment6">-->
-<!--  서비스 이용-->
-<!--  <input type="checkbox" name="comment7">-->
-<!--  개인 정보 삭제-->
-<!--  <input type="checkbox" name="comment8">-->
-<!--  상품 품질 불만-->
-<!--  <input type="checkbox" name="comment9">-->
-<!--  회원 혜택 부족-->
-<!--  <input type="checkbox" name="comment10">-->
-<!--  배송 품질-->
-<!--  <input type="checkbox" name="comment11">-->
-<!--  시스템 안정성-->
-<!--  <input type="checkbox" name="comment12">-->
-<!--  선택지에 없음-->
+<body style="height: 100%">
+<div th:replace="fragment/nav"></div>
+<div style="width: 65%; display: inline-block; margin: 2.5% 15% 2.5% 15%">
+  <div class="card border-light mb-auto" style="padding: 3% 3% 3% 3%">
+    <h1 class="h5 mb-5 fw-normal">- 탈퇴 사유</h1>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment1" class="form-check-input">
+        <label for="comment1">중복 가입 계정 정리</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment2" class="form-check-input">
+        <label for="comment2">로그인 용 이메일 주소 변경</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment3" class="form-check-input">
+        <label for="comment3">상품 가격 불만</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment4" class="form-check-input">
+        <label for="comment4">찾는 상품 없음</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment5" class="form-check-input">
+        <label for="comment5">고객 응대 불만족</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment6" class="form-check-input">
+        <label for="comment6">서비스 이용</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment7" class="form-check-input">
+        <label for="comment7">개인 정보 삭제</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment8" class="form-check-input">
+        <label for="comment8">상품 품질 불만</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment9" class="form-check-input">
+        <label for="comment9">회원 혜택 부족</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment10" class="form-check-input">
+        <label for="comment10">배송 품질</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment11" class="form-check-input">
+        <label for="comment11">시스템 안정성</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="comment" id="comment12" class="form-check-input">
+        <label for="comment12">선택지에 없음 (기타 의견)</label>
+      </div>
+  <!--  <label>기타 의견</label>-->
+    <div style="display: none" id="otherdiv">
+      <label>기타 의견</label>
+      <textarea class="form-control" name="otherComments" id="otherComments" cols="30" rows="10"></textarea>
+    </div>
 
-<!--  <label>기타 의견</label>-->
-  <label>탈퇴 사유</label>
-  <textarea name="otherComments" id="otherComments" cols="30" rows="10"></textarea>
+    <div id="dname" class="form-floating" style="margin-bottom: 1%; margin-top: 3%">
+      <input class="form-control" type="text" id="name" name="name" th:value="${name}" readonly>
+      <label for="name">아이디</label>
+    </div>
+    <div id="dpassword" class="form-floating" style="margin-bottom: 1%">
+      <input class="form-control" type="text" id="password" name="password">
+      <label for="name">비밀번호</label>
+    </div>
+  <input type="button" name="userWithdraw" id="userWithdraw" value="회원 탈퇴" class="btn btn-primary">
 
-    <label>ID</label>
-    <span id="username" th:text="${name}"></span>
-  <label>패스워드 입력</label>
-  <label for="password">패스워드 :</label>
-  <input type="password" name="password" id="password">
-  <input type="button" name="userWithdraw" id="userWithdraw" value="회원 탈퇴">
+  </div>
+</div>
+
     <script text="javascript">
       document.getElementById('userWithdraw').onclick = function (){
 
@@ -58,6 +94,15 @@
                 .catch(err => console.log(err))
 
       };
+
+      document.getElementById("comment12").onclick = function(){
+        if(document.getElementById("comment12").checked) {
+          document.getElementById("otherdiv").style.display = "block";
+        }
+        else{
+          document.getElementById("otherdiv").style.display = "none";
+        }
+      }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>

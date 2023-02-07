@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/order.css" rel="stylesheet">
+    <title>주문 상세 정보 : Genie</title>
+</head>
+<body>
+
+<div th:replace="fragment/nav"></div>
+
+  <h1>주문 상세 정보</h1>
+
+  <div id="order_div">
+    <div>
+
+        <div class="container">
+            <div class="addinfo_div">
+                <div>
+                    <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
+                    <span class="title"> 배송 정보 확인 </span>
+                </div>
+                <table class="table2">
+                        <tr>
+                            <th class="popup"> 주문인 </th>
+                            <td class="data_td">
+                                <input type="text" id="recipient" th:value="${orderDetail.recipient}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="popup"> 주소 </th>
+                            <td class="data_td">
+                                <div style="padding: 3px 0">
+                          <span>
+                            <input type="text" id="postnum" th:value="${orderDetail.postnum}" readonly="readonly">
+                          </span>
+                                </div>
+                                <div style="padding: 3px 0">
+                                    <input type="text" id="address1" th:value="${orderDetail.address1}" readonly>
+                                    <input type="text" id="address2" th:value="${orderDetail.address2}" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="popup"> 연락처 </th>
+                            <td class="data_td"> <input type="text" id="phone" th:value="${orderDetail.phone}" readonly> </td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+
+      <div class="container">
+          <div class="bookinfo_div">
+              <div>
+                  <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
+                  <span class="title"> 주문 상품 정보 </span>
+              </div>
+              <table class="table1">
+                  <tr class="infohead">
+                      <td> 제목 </td>
+                      <td> 가격 / 할인가 / 적립금 </td>
+                      <td> 수량 </td>
+                      <td> 합계 </td>
+                  </tr>
+                  <tr class="infobody" th:each=" book : ${orderDetail.bookInfos}">
+                      <td class="data_td">
+                          <a th:href="@{/main/product(isbn=${book.isbn},p=${1})}" th:text="${book.title}"/>
+                      </td>
+                      <td> [[${#numbers.formatInteger(book.price, 0, 'COMMA')}]] 원 / [[${#numbers.formatInteger(book.saleprice, 0, 'COMMA')}]] 원 / [[${#numbers.formatInteger(book.saveMileage, 0, 'COMMA')}]] 원</td>
+                      <td id="bookcount" th:text="${book.bookcount}"/>
+                      <td> [[${#numbers.formatInteger(book.saleprice*book.bookcount, 0, 'COMMA')}]] 원</td>
+                      <input type="hidden" id="isbn">
+                  </tr>
+              </table>
+          </div>
+      </div>
+
+      <div class="container">
+          <div class="payinfo_div">
+              <div>
+                  <img src="https://www.aladin.co.kr/ucl_editor/img_secur/order/2010/dot_star.gif">
+                  <span class="title"> 결제 정보 </span>
+              </div>
+              <table class="table4">
+                      <tr>
+                          <th class="popup">수량</th>
+                          <td class="data_td">
+                              <p> 총 [[${orderDetail.totalBookCnt}]] 권 </p>
+                              <input type="hidden" id="totalBookCnt" th:value="${orderDetail.totalBookCnt}">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th class="popup"> 결제 예상 금액 </th>
+                          <td class="data_td">
+                              <strong th:text="${#numbers.formatInteger(orderDetail.orderTotalPrice, '0', 'COMMA')}"/> 원
+                          </td>
+                      </tr>
+                      <tr>
+                          <th class="popup">적립 예정 마일리지</th>
+                          <td class="data_td">
+                              <strong th:text="${#numbers.formatInteger(orderDetail.totalSaveMileage, '0', 'COMMA')}"/> 점
+                              <input type="hidden" id="saveMileage" th:value="${orderDetail.totalSaveMileage}">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th class="popup">할인 금액</th>
+                          <td class="data_td">
+                              <strong id="used_mileage" th:text="${#numbers.formatInteger(orderDetail.orderTotalPrice - orderDetail.orderTotalSalePrice, '0', 'COMMA')}"/> 원
+                          </td>
+                      </tr>
+                      <tr>
+                          <th class="popup"> 결제 금액 </th>
+                          <td class="data_td">
+                              <strong id="calPrice" th:text="${#numbers.formatInteger(orderDetail.orderTotalSalePrice, '0', 'COMMA')}"/> 원
+                          </td>
+                      </tr>
+
+              </table>
+          </div>
+      </div>
+
+    </div>
+
+
+    <div class="orderbtn_div">
+      <button class="btn order_btn btn-primary" th:url="${preUrl}" th:onclick="preBtnClick(this.getAttribute('url'))"> 목록으로 </button>
+    </div>
+
+  </div>
+
+    <script text="javascript">
+        function preBtnClick(url){
+            location.href = url;
+        }
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</body>
+</html>
+
+
