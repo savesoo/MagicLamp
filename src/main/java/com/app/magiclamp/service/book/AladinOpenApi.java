@@ -42,14 +42,12 @@ public class AladinOpenApi {
             );
 
             String[] array = data.get("categoryName").toString().split(">");
-            String imgUrl = data.get("cover").toString();
+            String imgUrl = data.get("cover").toString().replace("coversum", "cover");
             String imgName = data.get("isbn13").toString();
             String extension = imgUrl.substring(imgUrl.lastIndexOf('.') + 1);
 
             try {
                 URL url = new URL(imgUrl);
-
-                log.info(extension);
                 BufferedImage image = ImageIO.read(url);
 
                 /*File file = new File(new File("").getAbsolutePath(), "\\photo\\" );*/
