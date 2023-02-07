@@ -85,6 +85,18 @@ public class Book {
     @Column(columnDefinition = "timestamp not null default current_timestamp on update current_timestamp", updatable = false)
     private LocalDate updatedate; // 수정일자
 
+    public Book(String bookimg, String title, String description, String author) {
+        this.bookimg = bookimg;
+        this.title = title;
+        this.description = description;
+        this.author = author;
+    }
+
+    public Book(String title, String bookimg){
+        this.title = title;
+        this.bookimg = bookimg;
+    }
+
     public BookInfoDTO toBookInfo(){
 
         return BookInfoDTO.builder()
