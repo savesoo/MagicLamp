@@ -5,14 +5,15 @@
     <title>Board Main List</title>
     <script src="https://code.jquery.com/jquery-1.12.4.js"
             integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
-    <link href="/css/review.css" rel="stylesheet">
+    <!--<link href="/css/review.css" rel="stylesheet">-->
     <!-- 부트스트랩 css 사용 -->
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
 </head>
 <body>
 <!--내비게이션 시작-->
-<div th:replace="fragment/nav"></div>
+<div th:replace="fragment/nav2"></div>
 <!--내비게이션 끝-->
 
 <!--도서 검색바 시작-->
@@ -59,7 +60,7 @@
 <!-- 페이징 + 도서 리스트 시작 -->
 <div id="pagign_list" style="display: inline-block; width: 85%; float: right">
     <!--페이징(상부) 시작-->
-    <nav aria-label="Page navigation example">
+   <!-- <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <th:block th:if="${BookMainListPage.prev}">
                 <li class="page-item">
@@ -81,12 +82,12 @@
                 </li>
             </th:block>
         </ul>
-    </nav>
+    </nav>-->
     <!--페이징(상부) 끝-->
 
     <!-- 도서 리스트 시작-->
-    <table class="table">
-        <tr>
+    <table class="table table-hover">
+        <tr class="table-secondary">
             <td width="5%">
                 <div style="text-align: center">
                     <b>전체선택</b><br>
@@ -102,7 +103,7 @@
             <td width="20%"></td>
         </tr>
         <th:block th:each="book, bookStat : ${BookMainListPage.list}">
-            <tr>
+            <tr class="table-secondary">
                 <td width="5%" style="text-align: center">
                     <div th:text="${bookStat.count} + '.'"></div>
                     <input type="checkbox" name="checkBook" th:value="${book.isbn}" id="checkBK">

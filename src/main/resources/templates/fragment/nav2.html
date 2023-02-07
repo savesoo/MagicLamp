@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link href="/css/nav.css" rel="stylesheet">
+</head>
+<body>
+<div id="navigation_wrap">
+  <div id="setwrap">
+    <div id="set2">
+      <ul>
+        <li>
+          <a href="/" title="HOME">
+            <img alt="HOME" src="https://image.aladin.co.kr/img/header/2011/global/global_set1_m01.gif">
+          </a>
+        </li>
+        <li>
+          <a href="/main" title="국내도서">
+            <img alt="국내도서" src="https://image.aladin.co.kr/img/header/2011/global/global_set2_m01_on.gif">
+          </a>
+        </li>
+        <!--<li>
+            <a href="/main" title="해외도서">
+                <img alt="해외도서" src="https://image.aladin.co.kr/img/header/2011/global/global_set2_m02.gif">
+            </a>
+        </li>-->
+      </ul>
+    </div>
+    <div id="set3" style="width: 300px">
+      <ul>
+        <li class="set3mf" sec:authorize="!isAuthenticated()">
+          <a href="/login" title="로그인">
+            <img src="https://image.aladin.co.kr/img/header/2011/global_set3_login.gif">
+          </a>
+        </li>
+        <li class="set3se" sec:authorize="!isAuthenticated()"></li>
+        <li class="set3m" sec:authorize="!isAuthenticated()">
+          <a href="/register" title="회원가입">
+            <img src="https://image.aladin.co.kr/img/header/2011/global_set3_join.gif">
+          </a>
+        </li>
+        <li class="set3mf" sec:authorize="isAuthenticated()">
+          <a href="/logout" title="로그아웃">
+            <img src="https://image.aladin.co.kr/img/header/2011/global_set3_logout.gif">
+          </a>
+        </li>
+        <li class="set3se"></li>
+        <li id="myaccount_layer" class="set3m">
+          <div style="height: 20px; width: 58px">
+            <a href="" title="마이페이지">
+              <img src="https://image.aladin.co.kr/img/header/2011/global_set3_m01.gif">
+            </a>
+          </div>
+          <div id="head_myaccount_layer" style="width: 100px; display: none" class="hdr">
+            <table border="0" cellspacing="4" cellpadding="3">
+              <tbody>
+              <tr>
+                <td valign="top">
+                  <table>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <a href="">현석님 링크 1</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="">현석님 링크 2</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="">현석님 링크 3</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="">현석님 링크 4</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="">현석님 링크 5</a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li class="set3se"></li>
+        <li class="set3end" id="basketBtn">
+          <a href="/mypage/cart" title="장바구니">
+            <div class="basketDiv">
+              <img src="https://image.aladin.co.kr/img/header/2011/space.gif" width="39" height="8">
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<table width="930" border="0" align="center" cellpadding="0" cellspacing="0"
+       style="margin-left: auto; margin-right: auto">
+  <tbody>
+  <tr>
+    <td width="192">
+      <a href="/main" id="logoBtn" title="첫화면으로 가기">
+        <img id="logoImg" src="https://image.aladin.co.kr/img/header/2011/aladin_logo_new.gif" alt="첫화면으로 가기"
+             title="첫화면으로 가기" border="0">
+      </a>
+    </td>
+    <td width="546" valign="top">
+      <form id="QuickSearch" name="QuickSearch" action="/main" method="get" style="display: inline"
+            autocomplete="off">
+        <div id="search">
+          <dl>
+            <dt id="searchTarget" style="cursor: pointer">
+              <select name="searchType">
+                <option value="title">도서명</option>
+                <option value="isbn">ISBN</option>
+              </select>
+            </dt>
+          </dl>
+          <div id="keyword_form" style="padding-left: 10px">
+            <input type="search" name="keyword" id="searchWord" class="inputbox_new"
+                   style="border: 0px solid white; background-repeat: no-repeat">
+          </div>
+          <input type="image" src="https://image.aladin.co.kr/img/header/b_search.gif" alt="검색" title="검색"
+                 class="searchBtn">
+        </div>
+      </form>
+    </td>
+    <td width="192" style="text-align: right !important;"></td>
+  </tr>
+  </tbody>
+</table>
+<div id="bottom_wrap"></div>
+</body>
+<script th:inline="javascript">
+  const myaccount = document.querySelector('#myaccount_layer')
+  const dropdown = document.querySelector('#head_myaccount_layer')
+  myaccount.addEventListener('mouseover', () => dropdown.style.display = 'block')
+  myaccount.addEventListener('mouseout', () => dropdown.style.display = 'none')
+
+</script>
+</html>

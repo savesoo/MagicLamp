@@ -19,11 +19,11 @@
                         <img alt="국내도서" src="https://image.aladin.co.kr/img/header/2011/global/global_set2_m01.gif">
                     </a>
                 </li>
-                <li>
+                <!--<li>
                     <a href="/main" title="해외도서">
                         <img alt="해외도서" src="https://image.aladin.co.kr/img/header/2011/global/global_set2_m02.gif">
                     </a>
-                </li>
+                </li>-->
             </ul>
         </div>
         <div id="set3" style="width: 300px">
@@ -114,7 +114,8 @@
             </a>
         </td>
         <td width="546" valign="top">
-            <form id="QuickSearch" name="QuickSearch" action="/main" method="get" style="display: inline" autocomplete="off">
+            <form id="QuickSearch" name="QuickSearch" action="/main" method="get" style="display: inline"
+                  autocomplete="off">
                 <div id="search">
                     <dl>
                         <dt id="searchTarget" style="cursor: pointer">
@@ -125,9 +126,11 @@
                         </dt>
                     </dl>
                     <div id="keyword_form" style="padding-left: 10px">
-                        <input type="search" name="keyword" id="searchWord" class="inputbox_new" style="border: 0px solid white; background-repeat: no-repeat">
+                        <input type="search" name="keyword" id="searchWord" class="inputbox_new"
+                               style="border: 0px solid white; background-repeat: no-repeat">
                     </div>
-                    <input type="image" src="https://image.aladin.co.kr/img/header/b_search.gif" alt="검색" title="검색" class="searchBtn">
+                    <input type="image" src="https://image.aladin.co.kr/img/header/b_search.gif" alt="검색" title="검색"
+                           class="searchBtn">
                 </div>
             </form>
         </td>
@@ -142,5 +145,6 @@
     const dropdown = document.querySelector('#head_myaccount_layer')
     myaccount.addEventListener('mouseover', () => dropdown.style.display = 'block')
     myaccount.addEventListener('mouseout', () => dropdown.style.display = 'none')
+
 </script>
 </html>
