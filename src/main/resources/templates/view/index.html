@@ -32,12 +32,26 @@
             padding-top: 30px;
         }
 
-        .welcome_top_bn > div > .cover {
-            width: 170px; height: 260px; position: relative; overflow: hidden; margin: 0 auto 5px auto;
+        .welcome_top_bn > div > a:link {
+            text-decoration: none;
+            color: #333;
         }
 
-        .welcome_top_bn > div > .cover .cover_img {
-            position: absolute; left: 0; bottom: 10px; width: 170px; max-height: 250px; overflow: hidden;
+        .welcome_top_bn > div > a > .cover {
+            width: 170px;
+            height: 260px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto 5px auto;
+        }
+
+        .welcome_top_bn > div > a > .cover .cover_img {
+            position: absolute;
+            left: 0;
+            bottom: 10px;
+            width: 170px;
+            max-height: 250px;
+            overflow: hidden;
         }
 
         .welcome_top_bn > div > .tit {
@@ -48,7 +62,7 @@
             margin-bottom: 4px;
         }
 
-        .welcome_top_bn > div> .author {
+        .welcome_top_bn > div > .author {
             font-size: 13px;
             color: #999999;
             text-align: center;
@@ -211,9 +225,9 @@
                 let list = res.data
                 list.forEach((newbook, index) => {
                     const newDIV = document.createElement('div')
-                    let html = '<div class="cover"><div class="cover_img"><img src="' + newbook.bookimg + '" width="170px" height="250px"></div></div>'
+                    let html = '<a href="/main/product?isbn=' + newbook.isbn + '&p=1">'
+                    html += '<div class="cover"><div class="cover_img"><img src="' + newbook.bookimg + '" width="170px" height="250px"></div></div></a>'
                     html += '<div class="tit">' + newbook.title + '</div>'
-                    /*html += '<div class="sub">' + newbook.description + '</div>'*/
                     html += '<div class="author">' + newbook.author + '</div>'
 
                     newDIV.innerHTML = html

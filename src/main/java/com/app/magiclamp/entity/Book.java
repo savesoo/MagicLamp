@@ -85,10 +85,10 @@ public class Book {
     @Column(columnDefinition = "timestamp not null default current_timestamp on update current_timestamp", updatable = false)
     private LocalDate updatedate; // 수정일자
 
-    public Book(String bookimg, String title, String description, String author) {
+    public Book(String isbn, String bookimg, String title, String author) {
+        this.isbn = isbn;
         this.bookimg = bookimg;
         this.title = title;
-        this.description = description;
         this.author = author;
     }
 

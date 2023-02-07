@@ -1,14 +1,16 @@
 package com.app.magiclamp.service.book;
 
 import com.app.magiclamp.entity.Book;
+import com.app.magiclamp.repository.BookRepository;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
 import org.json.simple.JSONArray;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,7 +19,13 @@ import java.util.ArrayList;
 @Log4j2
 public class AladinOpenApi {
 
+    private final BookRepository bookRepository;
+
     String strurl;
+
+    public AladinOpenApi(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     public ArrayList<Book> mainNewBook() {
         ArrayList<Book> arrayList = new ArrayList<>();
@@ -27,12 +35,52 @@ public class AladinOpenApi {
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject data = (JSONObject) jsonArray.get(i);
             Book book = new Book(
+                    data.get("isbn13").toString(),
                     data.get("cover").toString(),
                     data.get("title").toString(),
-                    data.get("description").toString(),
                     data.get("author").toString()
             );
+
+            String[] array = data.get("categoryName").toString().split(">");
+            String imgUrl = data.get("cover").toString();
+            String imgName = data.get("isbn13").toString();
+            String extension = imgUrl.substring(imgUrl.lastIndexOf('.') + 1);
+
+            try {
+                URL url = new URL(imgUrl);
+
+                log.info(extension);
+                BufferedImage image = ImageIO.read(url);
+
+                /*File file = new File(new File("").getAbsolutePath(), "\\photo\\" );*/
+                File file = new File("photo/" + imgName + "." + extension);
+                /*if(!file.exists()) file.mkdirs();*/
+                ImageIO.write(image, extension, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            Book bookDB = new Book(
+                    data.get("isbn13").toString(),
+                    data.get("title").toString(),
+                    data.get("author").toString(),
+                    data.get("publisher").toString(),
+                    data.get("pubDate").toString(),
+                    "정상",
+                    Integer.parseInt(data.get("priceStandard").toString()),
+                    Integer.parseInt(data.get("priceSales").toString()),
+                    5,
+                    10,
+                    "PB",
+                    0, "12mm * 21mm", 500,
+                    array[1],
+                    data.get("description").toString(),
+                    "", imgName + "." + extension, null, null
+            );
+
             arrayList.add(book);
+            bookRepository.save(bookDB);
         }
         return arrayList;
     }
@@ -42,12 +90,13 @@ public class AladinOpenApi {
         strurl = "https://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmoonlovereve331034001&QueryType=Bestseller&MaxResults=10&start=1&SearchTarget=Book&output=js&Version=20131101";
         JSONArray jsonArray;
         jsonArray = JSONParsing(strurl);
-        for (int i = 0; i < jsonArray.size(); i++){
+        for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject data = (JSONObject) jsonArray.get(i);
-            Book book = new Book (
+            Book book = new Book(
                     data.get("title").toString(),
                     data.get("cover").toString()
             );
+
             arrayList.add(book);
         }
         return arrayList;
