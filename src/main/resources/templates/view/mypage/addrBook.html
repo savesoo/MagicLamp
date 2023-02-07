@@ -5,9 +5,9 @@
     <title>배송 주소록  : Genie</title>
     <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body style="height: 100%" class="bg-light">
 <div th:replace="fragment/nav"></div>
-<div style="width: 95%; display: inline-block; margin: 2% 2.5% 0 2.5%">
+<div style="width: 95%; display: inline-block; margin: 2% 2.5% 1% 2.5%">
   <form action="/mypage/addrbook" method="get">
     <div>
       <div style="width: 25%; display: inline; float: left; margin: 0 1% 0 0">
@@ -25,43 +25,44 @@
     </div>
   </form>
 </div>
-<div style="width: 95%; display: inline-block; margin: 2% 2.5% 0 2.5%">
+
+<div style="width: 95%; display: inline-block; margin: 0 2.5% 0 2.5%">
   <table class="table table-hover">
     <thead>
-    <tr class="table-secondary">
-      <th style="text-align: center"><input class="form-check-input" type="checkbox" name="addrAllSelect" id="addrAllSelect"></th>
-      <th style="text-align: center">배송지</th>
-      <th style="text-align: center">수령인</th>
-      <th style="text-align: center">주소</th>
-      <th style="text-align: center">삭제</th>
+    <tr class="table-secondary" style="text-align: center">
+      <th><input class="form-check-input" type="checkbox" name="addrAllSelect" id="addrAllSelect"></th>
+      <th>배송지</th>
+      <th>수령인</th>
+      <th>주소</th>
+      <th>삭제</th>
     </tr>
     </thead>
     <tbody>
       <th:block th:if="${addrList.list.size() ==0 || addrList.list.isEmpty()}">
-        <tr class="table-secondary">
-          <td style="text-align: center" colspan="5">검색하신 결과가 없습니다.</td>
+        <tr class="table-secondary" style="text-align: center">
+          <td colspan="5">검색하신 결과가 없습니다.</td>
         </tr>
       </th:block>
       <th:block th:unless="${addrList.list.size() ==0 || addrList.list.isEmpty()}">
-      <tr class="table-secondary" th:each="addr : ${addrList.list}">
+      <tr class="table-secondary" style="text-align: center" th:each="addr : ${addrList.list}">
         <th:block th:if="${addr.priority == 1}">
-          <td style="text-align: center; vertical-align: middle">
+          <td style="vertical-align: middle">
             <input class="form-check-input" type="text" name="addrchk" th:value="${addr.addrindex}" style="display: none">
             <input type="hidden" name="priority" id="priority" th:value="${addr.priority}">
             <input type="hidden" name="userindex" id="userindex" th:value="${addr.userindex}">
           </td>
         </th:block>
         <th:block th:unless="${addr.priority == 1}">
-          <td style="text-align: center; vertical-align: middle">
+          <td style="vertical-align: middle">
             <input class="form-check-input" type="checkbox" name="addrchk" th:value="${addr.addrindex}">
           </td>
         </th:block>
-        <td style="text-align: center; vertical-align: middle"><label><th:block th:text="${addr.addrname}"></th:block></label></td>
-        <td style="text-align: center; vertical-align: middle">
+        <td style="vertical-align: middle"><label><th:block th:text="${addr.addrname}"></th:block></label></td>
+        <td style="vertical-align: middle">
           <label><th:block th:text="${addr.recipient}"></th:block></label>
           <th:block th:if="${addr.priority} == 1"><br><span style="color: red">(기본 정보 주소)</span></th:block>
         </td>
-        <td style="text-align: center; vertical-align: middle">
+        <td style="vertical-align: middle">
           <label>(<th:block th:text="${addr.postnum}"></th:block>)</label>
           <br>
           <label><th:block th:text="${addr.address1}"></th:block></label>
@@ -69,7 +70,7 @@
           <br>
           <label><th:block th:text="${addr.phone}"></th:block></label>
         </td>
-        <td style="text-align: center; vertical-align: middle">
+        <td style="vertical-align: middle">
           <button class="btn btn-primary btn-sm" name="addrModifyBtn">수정</button>
           <th:block th:if="${addr.priority} != 1"><button class="btn btn-outline-primary btn-sm" name="addrDeleteBtn">삭제</button></th:block>
         </td>
@@ -100,7 +101,7 @@
     </ul>
   </nav>
 </div>
-
+</div>
 <div id="addrModal" class="modal">
     <div class="modal-dialog" role="document">
       <div class="modal-content bg-light">
@@ -150,7 +151,6 @@
           <button type="button" class="btn btn-outline-primary" id="modalClose">Close</button>
         </div>
       </div>
-    </div>
 </div>
 
   <script src="/js/mypage/myaddrbook.js"></script>

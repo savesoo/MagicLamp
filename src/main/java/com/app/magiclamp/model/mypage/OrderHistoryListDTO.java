@@ -27,5 +27,6 @@ public class OrderHistoryListDTO {
     private String address2;
     private String phone;
     private String title;
+    private int cnt;
 
 }

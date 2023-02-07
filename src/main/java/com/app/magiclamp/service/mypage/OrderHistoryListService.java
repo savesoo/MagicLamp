@@ -26,6 +26,7 @@ public class OrderHistoryListService {
 
             log.info("################ service List >> " + list);
 
+
             int totalCount = orderMapper.selectOrderHistoryListTotalCount(userindex, option);
 
             OrderHistoryListPage orderHistoryListPage = new OrderHistoryListPage(10, pageNum, list, totalCount, option);

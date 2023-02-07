@@ -6,7 +6,7 @@
 
     <select id="selectOrderHistoryList" resultType="com.app.magiclamp.model.mypage.OrderHistoryListDTO">
 
-        SELECT o.*, b.title
+        SELECT o.*, b.title, (select COUNT(*) from tbl_orderitem where o.orderindex = orderindex and userindex = #{userindex}) AS cnt
         FROM tbl_order o
         INNER JOIN tbl_book b
         ON o.isbn = b.isbn

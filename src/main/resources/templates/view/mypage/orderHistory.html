@@ -66,7 +66,12 @@
                     <span th:text="${order.name}"></span>
                 </td>
                 <td>
-                    <span th:text="${order.title}"></span>
+                    <th:block th:if="${order.cnt-1 > 0}">
+                        <span th:text="|${order.title} 외 ${order.cnt-1}건|"></span>
+                    </th:block>
+                    <th:block th:unless="${order.cnt-1 > 0}">
+                        <span th:text="${order.title}"></span>
+                    </th:block>
                 </td>
                 <td style="text-align: center">
                     <span th:text="${#numbers.formatInteger(order.realprice, '0', 'COMMA')}"></span>

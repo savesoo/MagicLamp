@@ -3,118 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <title>장바구니</title>
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
 </head>
-<body>
-<form id="hidden_form" method="post" action="/order">
-    <input type="hidden" id="postisbn" name="postisbn">
-    <input type="hidden" id="postbookcount" name="postbookcount">
-</form>
-<div>
-    <label>
-        <input type="checkbox" name="cartAllBtn" id="cartAllBtn">
-        <span>전체 선택</span>
-    </label>
-<!--    <input type="button" id="cartAllCheckBtn" value="전체 선택">-->
-    <input type="button" id="choiceDelBtn" value="선택 삭제" onclick="cartChkDel()">
-    <input type="button" id="choiceOrderBtn" value="선택 구매" onclick="cartChkOrder()">
-<!--    <input type="button" id="choiceOrderBtn" value="선택 구매" onclick="cartListOrder()">-->
-    <select id="sortOption">
-        <option value="1"  th:selected="${option}=='1'">최근담은순</option>
-        <option value="2"  th:selected="${option}=='2'">상품명순</option>
-        <option value="3"  th:selected="${option}=='3'">저가격순</option>
-        <option value="4"  th:selected="${option}=='4'">고가격순</option>
-        <option value="5"  th:selected="${option}=='5'">출간일순</option>
-    </select>
+<body class="bg-light" style="height: 100%">
+<div th:replace="fragment/nav"></div>
+
+    <div style="width: 95%; display: inline-block; margin: 2% 2.5% 1% 2.5%">
+        <form id="hidden_form" method="post" action="/order">
+            <input type="hidden" id="postisbn" name="postisbn">
+            <input type="hidden" id="postbookcount" name="postbookcount">
+        </form>
+        <div style="width: 25%; display: inline; float: left; margin: 0 1% 0 0">
+            <label>
+                <input type="checkbox" name="cartAllBtn" id="cartAllBtn">
+                <span>전체 선택</span>
+            </label>
+        <!--    <input type="button" id="cartAllCheckBtn" value="전체 선택">-->
+            <input class="btn btn-outline-primary" type="button" id="choiceDelBtn" value="선택 삭제" onclick="cartChkDel()" style="margin: 0 3% 0 3%">
+<!--            <input class="btn btn-primary" type="button" id="choiceOrderBtn" value="선택 구매" onclick="cartChkOrder()">-->
+            <input class="btn btn-primary" type="button" id="choiceOrderBtn" value="선택 구매" onclick="cartListOrder()">
+    </div>
+
+    <div style="display: inline; float: right; text-align: right; margin: 0 0 0 1%">
+        <select class="form-select" id="sortOption">
+            <option value="1"  th:selected="${option}=='1'">최근담은순</option>
+            <option value="2"  th:selected="${option}=='2'">상품명순</option>
+            <option value="3"  th:selected="${option}=='3'">저가격순</option>
+            <option value="4"  th:selected="${option}=='4'">고가격순</option>
+            <option value="5"  th:selected="${option}=='5'">출간일순</option>
+        </select>
+    </div>
 </div>
-<div>
-    <table>
-        <thead>
-        <tr>
-            <th><input type="checkbox" name="cartAllSelect" id="cartAllSelect"></th>
-            <th>상품명</th>
-            <th>가격</th>
-            <th>수량</th>
-            <th>삭제</th>
-        </tr>
-        </thead>
-        <tbody>
-        <th:block th:if="${cartList.size() == 0 || cartList.isEmpty()}">
-            <tr>
-                <td colspan="5">검색하신 결과가 없습니다.</td>
-            </tr>
-        </th:block>
-        <th:block th:unless="${cartList.size() ==0 || cartList.isEmpty()}">
-            <tr th:each="cart : ${cartList}">
-                <td>
-                    <input type="checkbox" name="cartchk" th:value="${cart.cartindex}">
-                    <input type="hidden" name="isbn" id="isbn" th:value="${cart.isbn}">
-                </td>
-                <td>
-                    <a th:href="@{/main/product(isbn=${cart.isbn}, p=1)}" th:value="${cart.isbn}">
-                        <div style="float: left; height: 100%; width: 30%">
 
-                            <img th:if="${cart.bookimg.length() > 0}" th:src="@{/photo/{name}(name=${cart.bookimg})}" height="200px">
-                            <img th:unless="${cart.bookimg.length() > 0}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII=" height="200px">
-                        </div>
-                        <div style="float: right; height: 100%; width: 70%">
-                            <span id="title" th:text="${cart.title}"></span>
-                        </div>
-                    </a>
-                </td>
-                <td>
-                    <label>정가</label>
-                    <span th:text="${cart.price}"></span>
-                    <label>판매가</label>
-                    <span th:text="${cart.saleprice}"></span>
-                    <label>마일리지</label>
-                    <span th:if="${cart.mileagerate ==0}" th:text="'적립 제외'"></span>
-                    <span th:unless="${cart.mileagerate ==0}" th:text="|${cart.saveMileage}(${cart.mileagerate}% 적립)|"></span>
-                </td>
-                <td>
-                    <select name="bookcount">
-                        <option value="1" th:selected="${cart.bookcount} == '1'">1</option>
-                        <option value="2" th:selected="${cart.bookcount} == '2'">2</option>
-                        <option value="3" th:selected="${cart.bookcount} == '3'">3</option>
-                        <option value="4" th:selected="${cart.bookcount} == '4'">4</option>
-                        <option value="5" th:selected="${cart.bookcount} == '5'">5</option>
-                        <option value="6" th:selected="${cart.bookcount} == '6'">6</option>
-                        <option value="7" th:selected="${cart.bookcount} == '7'">7</option>
-                        <option value="8" th:selected="${cart.bookcount} == '8'">8</option>
-                        <option value="9" th:selected="${cart.bookcount} == '9'">9</option>
-                        <option value="10" th:selected="${cart.bookcount} == '10'">10</option>
-                    </select>
-                </td>
-                <td>
-                    <button id="cartDelBtn" th:cartindex="${cart.cartindex}" th:onclick="cartDelBtnClick(this.getAttribute('cartindex'))">삭제</button>
-                </td>
+<div style="width: 95%; display: inline-block; margin: 0 2.5% 2.5% 2.5%">
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-secondary" style="text-align: center; vertical-align: middle">
+                <th style="width: 5%"><input class="form-check-input" type="checkbox" name="cartAllSelect" id="cartAllSelect"></th>
+                <th style="width: 55%">상품명</th>
+                <th style="width: 20%">가격</th>
+                <th style="width: 10%">수량</th>
+                <th style="width: 10%">삭제</th>
             </tr>
-        </th:block>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <th:block th:if="${cartList.size() == 0 || cartList.isEmpty()}">
+                <tr class="table-secondary" style="text-align: center">
+                    <td colspan="5">검색하신 결과가 없습니다.</td>
+                </tr>
+            </th:block>
+            <th:block th:unless="${cartList.size() ==0 || cartList.isEmpty()}">
+                <tr th:each="cart : ${cartList}" class="table-secondary" style="text-align: center; vertical-align: middle">
+                    <td>
+                        <input type="checkbox" name="cartchk" th:value="${cart.cartindex}">
+                        <input type="hidden" name="isbn" id="isbn" th:value="${cart.isbn}">
+                    </td>
+                    <td style="vertical-align: middle">
+                        <a th:href="@{/main/product(isbn=${cart.isbn}, p=1)}" th:value="${cart.isbn}">
+                            <div style="float: left; height: 100%; width: 30%">
 
+                                <img th:if="${cart.bookimg.length() > 0}" th:src="@{/photo/{name}(name=${cart.bookimg})}" height="200px">
+                                <img th:unless="${cart.bookimg.length() > 0}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII=" height="200px">
+                            </div>
+                            <div style="float: right; height: 100%; width: 70%; text-align: left">
+                                <span id="title" th:text="${cart.title}"></span>
+                            </div>
+                        </a>
+                    </td>
+                    <td style="text-align: left">
+                        <label>정가</label>
+                        <span th:text="${cart.price}"></span>
+                        <label>판매가</label>
+                        <span th:text="${cart.saleprice}"></span>
+                        <label>마일리지</label>
+                        <span th:if="${cart.mileagerate ==0}" th:text="'적립 제외'"></span>
+                        <span th:unless="${cart.mileagerate ==0}" th:text="|${cart.saveMileage}(${cart.mileagerate}% 적립)|"></span>
+                    </td>
+                    <td>
+                        <select name="bookcount" class="form-select">
+                            <option value="1" th:selected="${cart.bookcount} == '1'">1</option>
+                            <option value="2" th:selected="${cart.bookcount} == '2'">2</option>
+                            <option value="3" th:selected="${cart.bookcount} == '3'">3</option>
+                            <option value="4" th:selected="${cart.bookcount} == '4'">4</option>
+                            <option value="5" th:selected="${cart.bookcount} == '5'">5</option>
+                            <option value="6" th:selected="${cart.bookcount} == '6'">6</option>
+                            <option value="7" th:selected="${cart.bookcount} == '7'">7</option>
+                            <option value="8" th:selected="${cart.bookcount} == '8'">8</option>
+                            <option value="9" th:selected="${cart.bookcount} == '9'">9</option>
+                            <option value="10" th:selected="${cart.bookcount} == '10'">10</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" id="cartDelBtn" th:cartindex="${cart.cartindex}" th:onclick="cartDelBtnClick(this.getAttribute('cartindex'))">삭제</button>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script text="javascript">
     document.getElementById('sortOption').onchange = function(){
         location.href = '/mypage/cart?sortOption=' + this.value;
     }
-
-    // function cartChkDelete(){
-    //
-    //     let chkcart = document.getElementsByName('cartchk');
-    //     const sortOption = document.getElementById("sortOption").value;
-    //     let cartList = [];
-    //
-    //     chkcart.forEach( (checkbox) => {
-    //         if(checkbox.checked) {
-    //             if($(checkbox).attr('type') != 'text'){
-    //                 cartList.push(checkbox.value);
-    //             }
-    //         }
-    //     })
-    //
-    //     cartDelBtnClick(cartList, sortOption);
-    // }
 
     function cartChkDel(){
 
@@ -135,6 +127,8 @@
 
     function cartDelBtnClick(cartindex, sortOption){
 
+        let sort = sortOption;
+
         if(cartindex.length == 0){
             alert("선택된 데이터가 없습니다");
             return;
@@ -143,9 +137,9 @@
         if(confirm("삭제하시겠습니까?")) {
             axios.delete('cart/' + cartindex)
                 .then(res => {
-                    if (res.data == 1) {
+                    if (res.data > 0) {
                         alert('삭제 되었습니다.')
-                        location.href = '/mypage/cart?sortOption=' + sortOption;
+                        location.href = '/mypage/cart?sortOption=' + document.getElementById("sortOption").value;
                     } else {
                         alert('삭제 되지 않았습니다.')
                     }
@@ -154,31 +148,32 @@
         }
     }
 
-    function cartChkOrder(){
-
-        let chkcart = document.getElementsByName('cartchk');
-        // let infoList = [];
-        let bookinfo = {};
-        chkcart.forEach( (checkbox) => {
-            if(checkbox.checked) {
-                if($(checkbox).attr('type') != 'text'){
-
-                    bookinfo = {
-                        isbn : checkbox.parentNode.childNodes[3].value,
-                        bookcount : checkbox.parentNode.parentNode.childNodes[7].childNodes[1].value
-                    }
-                    // infoList.push(bookinfo);
-                }
-            }
-        })
-
-        if(isEmptyObj(bookinfo)){
-            alert("선택된 데이터가 없습니다");
-            return;
-        }
-
-        location.href="/order?isbn="+bookinfo.isbn+"&bookcount="+bookinfo.bookcount;
-    }
+    // 단건결제
+    // function cartChkOrder(){
+    //
+    //     let chkcart = document.getElementsByName('cartchk');
+    //     // let infoList = [];
+    //     let bookinfo = {};
+    //     chkcart.forEach( (checkbox) => {
+    //         if(checkbox.checked) {
+    //             if($(checkbox).attr('type') != 'text'){
+    //
+    //                 bookinfo = {
+    //                     isbn : checkbox.parentNode.childNodes[3].value,
+    //                     bookcount : checkbox.parentNode.parentNode.childNodes[7].childNodes[1].value
+    //                 }
+    //                 // infoList.push(bookinfo);
+    //             }
+    //         }
+    //     })
+    //
+    //     if(isEmptyObj(bookinfo)){
+    //         alert("선택된 데이터가 없습니다");
+    //         return;
+    //     }
+    //
+    //     location.href="/order?isbn="+bookinfo.isbn+"&bookcount="+bookinfo.bookcount;
+    // }
 
     function cartListOrder(){
         let chkcart = document.getElementsByName('cartchk');
@@ -202,11 +197,11 @@
             return;
         }
 
-        console.log(bookinfo);
+        console.log(infoList);
 
-        axios.post('order/', infoList)
+        axios.post('/order', infoList)
             .then(res => {
-                console.log(res)
+                location.href="/order/order2";
             })
             .catch(err => console.log(err))
 
@@ -259,6 +254,7 @@
         }
         return false;
     }
+
 </script>
 <!--<script src="/js/mypage/mycart.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

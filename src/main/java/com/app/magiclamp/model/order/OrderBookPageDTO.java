@@ -46,6 +46,12 @@ public class OrderBookPageDTO {
 
     }
 
+    public void addToBookInfos(List<BookInfoDTO> list){
+
+        this.setBookInfos(list);
+
+    }
+
     // 총 합산금액, 최종 적립 마일리지 계산 메서드
     public void calTotalprice(){
 

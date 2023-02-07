@@ -3,49 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>회원 정보 수정</title>
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
 </head>
-<body>
-    <div id="uid">
-        <label>아이디</label>
-        <span id="s_username" th:text="${userInfo.username}"></span>
-<!--        <input type="text" id="usernameUpt" name="usernameUpt" th:value="${userInfo.username}" readonly>-->
-    </div>
+<body style="height: 100%" class="bg-light">
+<div th:replace="fragment/nav"></div>
+<div style="width: 95%; display: inline-block; margin: 2.5% 2.5% 2.5% 2.5%">
+    <div class="card border-light mb-auto" style="padding: 3% 10% 3% 10%">
 
-    <div id="pwd">
-        <label>비밀번호</label>
-        <input type="password" id="passwordUpt" name="passwordUpt" style="display: none">
-        <input type="button" id="pwdChange" name="pwdChange" value="변경하기">
-        <input type="button" id="pwdUpdate" name="pwdUpdate" value="저장" style="display: none">
-        <input type="button" id="pwdUpdateCancel" name="pwdUpdateCancel" value="취소" style="display: none">
-    </div>
+        <div id="uid" class="form-floating" style="margin-bottom: 1%">
+            <input type="text" id="userId" class="form-control" th:value="${userInfo.username}" readonly>
+            <label for="userid">아이디</label>
+<!--            <span id="s_username" th:text="${userInfo.username}"></span>-->
+    <!--        <input type="text" id="usernameUpt" name="usernameUpt" th:value="${userInfo.username}" readonly>-->
+        </div>
 
-    <div id="uname">
-        <label for="name">이름</label>
-        <input type="text" id="name" name="name" th:value="${userInfo.name}" readonly>
-    </div>
-    <div id="uphone">
-        <label>연락처 </label>
-        <span id="phoneSpan" name="phoneSpan" th:text="${userInfo.phone}"></span>
-        <input type="button" id="phoneUptBtn" name="phoneUptBtn" value="변경하기">
-        <input type="text" id="phone" name="phone" placeholder="-를 제외한 11자리" style="display: none">
-        <input type="button" id="phoneUptSave" name="phoneUptBtn" value="저장" style="display: none">
-        <input type="button" id="phoneUptCancel" name="phoneUptCancel" value="취소" style="display: none">
+        <div id="pwd" class="form-floating" style="margin-bottom: 1%">
+            <input class="form-control" type="password" id="passwordUpt" name="passwordUpt" style="display: none">
+            <label for="passwordUpt" style="display: none" id="labelpwd">비밀번호</label>
+            <input class="w-100 btn btn-lg btn-primary" type="button" id="pwdChange" name="pwdChange" value="비밀번호 변경하기">
+            <div style="text-align: center; margin-top: 1%">
+                <input class="w-25 btn btn-lg btn-primary" type="button" id="pwdUpdate" name="pwdUpdate" value="저장" style="display: none; margin-right: 1%">
+                <input class="w-25 btn btn-lg btn-outline-primary" type="button" id="pwdUpdateCancel" name="pwdUpdateCancel" value="취소" style="display: none">
+            </div>
+        </div>
 
+        <div id="uname" class="form-floating" style="margin-bottom: 1%">
+            <input class="form-control" type="text" id="name" name="name" th:value="${userInfo.name}" readonly>
+            <label for="name">이름</label>
+        </div>
+
+        <div id="uphone" class="form-floating" style="margin-bottom: 1%">
+            <input class="form-control" type="text" id="phoneSpan" name="phoneSpan" style="margin-bottom: 1%" th:value="${userInfo.phone}" readonly>
+            <label for="phoneSpan" id="phoneSpanlabel">연락처</label>
+            <input class="w-100 btn btn-lg btn-primary" type="button" id="phoneUptBtn" name="phoneUptBtn" value="연락처 변경하기">
+            <input class="form-control" type="text" id="phone" name="phone" placeholder="-를 제외한 11자리" style="display: none">
+            <label for="phone" id="phonelabel" style="display: none">연락처 -를 제외한 11자리</label>
+            <div style="text-align: center; margin-top: 1%">
+                <input class="w-25 btn btn-lg btn-primary" type="button" id="phoneUptSave" name="phoneUptBtn" value="저장" style="display: none; margin-right: 1%">
+                <input class="w-25 btn btn-lg btn-outline-primary" type="button" id="phoneUptCancel" name="phoneUptCancel" value="취소" style="display: none">
+            </div>
+        </div>
+
+        <div id="uaddr" class="form-floating" style="margin-bottom: 1%">
+            <input class="form-control" type="text" id="spanPost" name="spanPost" th:value="|(${userInfo.postnum})|" readonly>
+            <label for="spanPost">우편번호 </label>
+            <input class="form-control" type="text" id="postnum" name="postnum" style="display: none">
+        </div>
+
+        <div id="uaddr2" class="form-floating" style="margin-bottom: 1%">
+            <input class="form-control" type="text" id="spanAddr1" name="spanAddr1" th:value="${userInfo.address1}" readonly>
+            <label for="spanAddr1">주소 </label>
+            <input class="form-control" type="text" id="address1" name="address1" style="display: none">
+        </div>
+
+        <div id="uaddr3" class="form-floating" style="margin-bottom: 1%">
+            <input class="form-control" type="text" id="spanAddr2" name="spanAddr2" th:value="${userInfo.address2}" readonly>
+            <label for="spanAddr2">상세주소 </label>
+            <input class="form-control" type="text" id="address2" name="address2" style="display: none">
+        </div>
+        <div>
+            <input class="w-100 btn btn-lg btn-primary" type="button" id="addressUptBtn" name="addressUptBtn" value="주소 변경하기">
+            <input class="w-100 btn btn-lg btn-primary" type="button" id="postSearch" value="주소 검색" onclick="postSearch()" style="display: none">
+            <div style="text-align: center; margin-top: 1%">
+                <input class="w-25 btn btn-lg btn-primary" type="button" id="addressUptSave" name="addressUptBtn" value="저장" style="display: none">
+                <input class="w-25 btn btn-lg btn-outline-primary" type="button" id="addressUptCancel" name="addressUptCancel" value="취소" style="display: none">
+            </div>
+        </div>
     </div>
-    <div id="uaddr">
-        <label>우편번호 </label>
-        <span id="spanPost" th:text="|(${userInfo.postnum})|"></span>
-        <input type="text" id="postnum" name="postnum" style="display: none"><input type="button" id="postSearch" value="주소 검색" onclick="postSearch()" style="display: none">
-        <label>주소 </label>
-        <span id="spanAddr1" th:text="${userInfo.address1}"></span>
-        <input type="text" id="address1" name="address1" style="display: none">
-        <label>상세주소 </label>
-        <span id="spanAddr2" th:text="${userInfo.address2}"></span>
-        <input type="text" id="address2" name="address2" style="display: none">
-        <input type="button" id="addressUptBtn" name="addressUptBtn" value="변경하기">
-        <input type="button" id="addressUptSave" name="addressUptBtn" value="저장" style="display: none">
-        <input type="button" id="addressUptCancel" name="addressUptCancel" value="취소" style="display: none">
-    </div>
+</div>
     <script src="/js/mypage/myuserinfo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>

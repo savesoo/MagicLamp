@@ -3,10 +3,12 @@ package com.app.magiclamp.service.order;
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.entity.Mileage;
 import com.app.magiclamp.entity.Order;
+import com.app.magiclamp.entity.OrderItem;
 import com.app.magiclamp.model.BookInfoDTO;
 import com.app.magiclamp.model.order.RequestPaymentBook;
 import com.app.magiclamp.repository.BookRepository;
 import com.app.magiclamp.repository.MileageRepository;
+import com.app.magiclamp.repository.OrderItemRepository;
 import com.app.magiclamp.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import java.util.List;
 @Log4j2
 @Service
 public class OrderInsertService{
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Autowired
     private BookRepository bookRepository;
@@ -70,9 +74,29 @@ public class OrderInsertService{
         Order order = paymentBook.toOrderEntity();
 
         // DB에 주문 등록
-        result = orderRepository.save(order) !=null ? 1 : 0;
+//        result = orderRepository.save(order) !=null ? 1 : 0;
 
-        log.info(" result >>> " + result);
+        order = orderRepository.save(order);
+
+        for(int i=0; i<bookInfoDTO.size(); i++) {
+
+            OrderItem.builder()
+                    .orderindex(order.getOrderindex())
+                    .isbn(bookInfoDTO.get(i).getIsbn())
+                    .bookcount(bookInfoDTO.get(i).getBookcount())
+                    .build();
+
+            // DB에 주문한 아이템 등록
+                result = orderItemRepository.save(
+                        OrderItem.builder()
+                        .orderindex(order.getOrderindex())
+                        .isbn(bookInfoDTO.get(i).getIsbn())
+                        .bookcount(bookInfoDTO.get(i).getBookcount())
+                        .build()
+                ) != null ? 1 : 0;
+
+            log.info(" result >>> " + result);
+        }
 
         // 사용한 마일리지 insert
         Mileage userMil = Mileage.builder().userindex(userindex).usemileage(paymentBook.getUsemileage()).build();

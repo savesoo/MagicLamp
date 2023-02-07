@@ -1,6 +1,7 @@
 package com.app.magiclamp.model.order;
 
 import com.app.magiclamp.entity.Order;
+import com.app.magiclamp.entity.OrderItem;
 import com.app.magiclamp.model.AuthUserDTO;
 import com.app.magiclamp.model.BookInfoDTO;
 import lombok.*;
@@ -58,6 +59,14 @@ public class RequestPaymentBook {
                 .address1(address1)
                 .address2(address2)
                 .userindex(userindex)
+                .build();
+    }
+
+    public OrderItem toOrderItemEntity(int orderindex){
+        return OrderItem.builder()
+                .orderindex(orderindex)
+                .bookcount(bookcount)
+                .isbn(isbn)
                 .build();
     }
 

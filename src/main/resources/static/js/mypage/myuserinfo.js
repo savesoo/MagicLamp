@@ -4,11 +4,13 @@ document.getElementById('pwdChange').onclick = function(){
     let pwdUpdate = document.getElementById('pwdUpdate');
     let pwdUpdateCancel = document.getElementById('pwdUpdateCancel');
     let pwdChange = document.getElementById('pwdChange');
+    let label = document.getElementById('labelpwd');
 
     pwdChange.style.display='none';
+    label.style.display='block';
     password.style.display='block';
-    pwdUpdate.style.display='block';
-    pwdUpdateCancel.style.display='block';
+    pwdUpdate.style.display='inline';
+    pwdUpdateCancel.style.display='inline';
 
 };
 
@@ -31,6 +33,7 @@ document.getElementById('pwdUpdate').onclick = function(){
                 document.getElementById('passwordUpt').style.display='none';
                 document.getElementById('pwdUpdate').style.display='none';
                 document.getElementById('pwdUpdateCancel').style.display='none';
+                document.getElementById('labelpwd').style.display='none';
                 document.getElementById('pwdChange').style.display='block';
             }
         })
@@ -42,23 +45,28 @@ document.getElementById('pwdUpdateCancel').onclick = function() {
     document.getElementById('passwordUpt').style.display='none';
     document.getElementById('pwdUpdate').style.display='none';
     document.getElementById('pwdUpdateCancel').style.display='none';
+    document.getElementById('labelpwd').style.display='none';
     document.getElementById('pwdChange').style.display='block';
 };
 
 document.getElementById('phoneUptBtn').onclick = function () {
     document.getElementById('phoneSpan').style.display='none';
+    document.getElementById('phoneSpanlabel').style.display='none';
     document.getElementById('phoneUptBtn').style.display='none';
     document.getElementById('phone').style.display='block';
-    document.getElementById('phoneUptSave').style.display='block';
-    document.getElementById('phoneUptCancel').style.display='block';
+    document.getElementById('phonelabel').style.display='block';
+    document.getElementById('phoneUptSave').style.display='inline';
+    document.getElementById('phoneUptCancel').style.display='inline';
 };
 
 document.getElementById('phoneUptCancel').onclick = function() {
     document.getElementById('phone').value='';
     document.getElementById('phone').style.display='none';
+    document.getElementById('phonelabel').style.display='none';
     document.getElementById('phoneUptSave').style.display='none';
     document.getElementById('phoneUptCancel').style.display='none';
     document.getElementById('phoneSpan').style.display='block';
+    document.getElementById('phoneSpanlabel').style.display='block';
     document.getElementById('phoneUptBtn').style.display='block';
 };
 
@@ -78,10 +86,12 @@ document.getElementById('phoneUptSave').onclick = function() {
                 alert("전화번호 변경이 완료 되었습니다.");
                 document.getElementById('phone').value='';
                 document.getElementById('phone').style.display='none';
+                document.getElementById('phonelabel').style.display='none';
                 document.getElementById('phoneUptSave').style.display='none';
                 document.getElementById('phoneUptCancel').style.display='none';
-                document.getElementById('phoneSpan').innerHTML = payload.phone;
+                document.getElementById('phoneSpan').value = payload.phone;
                 document.getElementById('phoneSpan').style.display='block';
+                document.getElementById('phoneSpanlabel').style.display='block';
                 document.getElementById('phoneUptBtn').style.display='block';
             }
         })
@@ -98,8 +108,8 @@ document.getElementById('addressUptBtn').onclick = function () {
     document.getElementById('postSearch').style.display='block';
     document.getElementById('address1').style.display='block';
     document.getElementById('address2').style.display='block';
-    document.getElementById('addressUptSave').style.display='block';
-    document.getElementById('addressUptCancel').style.display='block';
+    document.getElementById('addressUptSave').style.display='inline';
+    document.getElementById('addressUptCancel').style.display='inline';
 };
 
 document.getElementById('addressUptCancel').onclick = function() {
@@ -153,9 +163,9 @@ document.getElementById('addressUptSave').onclick = function() {
                 document.getElementById('addressUptSave').style.display='none';
                 document.getElementById('addressUptCancel').style.display='none';
 
-                document.getElementById('spanPost').innerHTML="("+payload.postnum+")";
-                document.getElementById('spanAddr1').innerHTML=payload.address1;
-                document.getElementById('spanAddr2').innerHTML=payload.address2;
+                document.getElementById('spanPost').value="("+payload.postnum+")";
+                document.getElementById('spanAddr1').value=payload.address1;
+                document.getElementById('spanAddr2').value=payload.address2;
                 document.getElementById('spanPost').style.display='block';
                 document.getElementById('spanAddr1').style.display='block';
                 document.getElementById('spanAddr2').style.display='block';

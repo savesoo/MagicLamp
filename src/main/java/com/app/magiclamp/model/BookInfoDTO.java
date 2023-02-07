@@ -1,5 +1,6 @@
 package com.app.magiclamp.model;
 
+import com.app.magiclamp.entity.OrderItem;
 import lombok.*;
 
 @AllArgsConstructor
@@ -42,6 +43,14 @@ public class BookInfoDTO {
         this.saveMileage = (int)(this.price*this.mileagerate/100); // 권당 적립되는 마일리지(정가*적립률)
         this.totalMileage = this.saveMileage*this.bookcount; // 총 적립 마일리지
 
+    }
+
+    public OrderItem toOrderItemEntity(int orderindex){
+        return OrderItem.builder()
+                .orderindex(orderindex)
+                .bookcount(bookcount)
+                .isbn(isbn)
+                .build();
     }
 
 }

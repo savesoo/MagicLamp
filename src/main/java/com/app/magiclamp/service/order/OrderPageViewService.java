@@ -43,6 +43,7 @@ public class OrderPageViewService {
         log.info(" isbn >>> " + orders.getIsbn());
 
         Book book = bookRepository.findById(orders.getIsbn()).get();
+        log.info("Test !!!!!!!!!!!!!!!!!!!!!!!!!! " + book);
         BookInfoDTO bookInfo = book.toBookInfo(); // DB에서 책 정보 불러오기
 
         if( book==null || bookInfo==null){
@@ -63,6 +64,62 @@ public class OrderPageViewService {
 
         log.info("책 정보 >>>>>>>>>>>>> " + bookInfo);
 
+
+        // 반환할 객체에 data 넣어주기
+        //마일리지
+
+        int m = getCurrentMileage(userindex);
+        orderBookPageDTO.setMileage(m);
+
+        log.info("Mileage >>> " + m);
+
+        //주소지
+        AddrBook add = getUserAddress(userindex);
+        orderBookPageDTO.setRecipient(add.getRecipient());
+        orderBookPageDTO.setPhone(add.getPhone());
+        orderBookPageDTO.setPostnum(add.getPostnum());
+        orderBookPageDTO.setAddress1(add.getAddress1());
+        orderBookPageDTO.setAddress2(add.getAddress2());
+
+        log.info("AddrBook >>> " + add);
+
+        log.info("view order >>> " + orderBookPageDTO);
+
+        return orderBookPageDTO;
+    }
+
+    @Transactional
+    public OrderBookPageDTO getOrderBookPost(List<RequestOrderBook> orders, int userindex) {
+
+        OrderBookPageDTO orderBookPageDTO = new OrderBookPageDTO();
+        List<BookInfoDTO> bookinfos = new ArrayList<>();
+        for (RequestOrderBook order : orders){
+            log.info("###############service isbn >> " + order.getIsbn());
+            Book book = bookRepository.findById(order.getIsbn()).get();
+            BookInfoDTO bookInfo = book.toBookInfo();
+
+            log.info("###############service book  >> " + book);
+
+            if(order.getIsbn() == book.getIsbn()){
+                // select해온 책 정보에 구매수량 set
+                bookInfo.setBookcount(order.getBookcount());
+                bookInfo.calPriceInfo();
+            }
+
+            if(bookInfo == null || book == null){
+                return null;
+            }
+
+            log.info("###############service bookinfo  >> " + bookInfo);
+
+            bookinfos.add(bookInfo);
+            log.info("###############service bookinfos >>>>>>>>>>>>> " + bookinfos);
+        }
+
+        orderBookPageDTO.addToBookInfos(bookinfos);
+
+        // 총액 합산
+        orderBookPageDTO.calTotalprice();
 
         // 반환할 객체에 data 넣어주기
         //마일리지

@@ -1,11 +1,11 @@
 package com.app.magiclamp.model.mypage;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -19,6 +19,8 @@ public class OrderHistoryListPage {
 
     // 게시물의 리스트
     private List<OrderHistoryListDTO> list;
+
+    private List<OrderItemListDTO> itemList;
 
     // 전체 게시물의 개수
     private int totalCount;
