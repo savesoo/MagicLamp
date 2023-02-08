@@ -19,9 +19,19 @@ public class AdministratorDeleteService {
 
         int result = bookAdministratorRepository.deleteByIsbn(isbn);
 
+        String absolutePath = new File("").getAbsolutePath();
+        String path = "photo";
+        File delDir = new File(absolutePath, path);
+
         if(result>0 && book.getBookimg() != null) {
 
-            File delFile = new File(new File("").getAbsoluteFile(), "bookimg"+File.separator+book.getBookimg());
+
+            File delFile = new File(delDir, File.separator+book.getBookimg());
+
+            if (delFile.exists()) {
+
+                delFile.delete();
+            }
         }
 
         return result;
