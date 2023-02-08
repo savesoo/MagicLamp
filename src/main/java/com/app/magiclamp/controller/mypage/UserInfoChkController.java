@@ -47,6 +47,7 @@ public class UserInfoChkController {
 
         User userInfo = userInfoChkService.chkUserInfo(user, password);
         model.addAttribute("division", division);
+        model.addAttribute("name", user.getUsername());
 
         if(userInfo != null) {
             model.addAttribute("userInfo", userInfo);

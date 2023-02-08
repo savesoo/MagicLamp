@@ -87,7 +87,7 @@
                         </label>
                     </td>
                     <td>
-                        <select name="bookcount" id="bookcount" class="form-select">
+                        <select name="bookcount" id="bookcount" class="form-select" style="font-size: 100%">
                             <th:block th:if="${cart.stock > 0}">
                                 <option value="1" th:selected="${cart.bookcount} == '1'">1</option>
                                 <option value="2" th:selected="${cart.bookcount} == '2'">2</option>
@@ -251,6 +251,7 @@
             .then(res => {
                 if(res.data.result == 0){
                     alert("현재 선택하신 수량보다 재고 수량이 부족 합니다 (재고 수량 :" + res.data.stock +")")
+                    document.getElementById('bookcount').value = res.data.stock;
                 }
             })
             .catch(err => console.log(err))

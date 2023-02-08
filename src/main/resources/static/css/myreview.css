@@ -1,0 +1,35 @@
+.StarRate_Icon {
+    clear: both; padding-right: 0px; padding-left: 0px; background: url(https://image.aladin.co.kr/img/shop/2018/icon_star_off.png) 0px 0px;
+    float: left; padding-bottom: 0px; margin: 0px; width: 90px; padding-top: 0px; height: 18px;
+    margin-top: 0;
+}
+
+.StarRate_Icon .StarRate_IconFill {
+    padding-right: 0px; padding-left: 0px; background: url(https://image.aladin.co.kr/img/shop/2018/icon_star_on.png) 0px 0px;
+    padding-bottom: 0px; margin: 0px; padding-top: 0px; height: 18px;
+    margin-top: 0;
+}
+
+.star_rate_touch_area fieldset {
+    display: inline-block; direction: rtl; border: 0;
+}
+
+.star_rate_touch_area input[type=radio]{
+    display: none;
+}
+
+.star_rate_touch_area label {
+    font-size: 3em; color: transparent; text-shadow: 0 0 0 #f0f0f0;
+}
+
+.star_rate_touch_area label:hover {
+    text-shadow: 0 0 0 rgba(239, 59, 150, 0.99); cursor: pointer;
+}
+
+.star_rate_touch_area label:hover ~ label {
+    text-shadow: 0 0 0 rgba(239, 59, 150, 0.99);
+}
+
+.star_rate_touch_area input[type=radio]:checked ~ label {
+    text-shadow: 0 0 0 rgba(239, 59, 150, 0.99);
+}

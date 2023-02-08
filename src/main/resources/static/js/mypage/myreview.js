@@ -75,6 +75,14 @@ document.getElementById('reviewUpt').onclick = function (){
         }).catch(err => console.log(err))
 }
 
+// document.getElementById('reviewDel').onclick = function () {
+//     const payload ={
+//         reviewindex : document.getElementById('mreviewindex').value
+//     }
+//
+//     reviewDelBtnClick(payload);
+// }
+
 function reviewDelBtnClick(data){
     let reviewindex = data.reviewindex;
 
