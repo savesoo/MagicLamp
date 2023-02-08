@@ -14,8 +14,8 @@ import java.util.List;
 @Log4j2
 @Service
 public class OrderInsertService{
-    @Autowired
-    private PaymentRepository paymentRepository;
+//    @Autowired
+//    private PaymentRepository paymentRepository;
 
     @Autowired
     private CartRepository cartRepository;
@@ -100,16 +100,20 @@ public class OrderInsertService{
 
 
         // 사용한 마일리지 insert
-        Mileage userMil = Mileage.builder().userindex(userindex).usemileage(paymentBook.getUsemileage()).build();
-        mileageRepository.save(userMil);
+        if(paymentBook.getUsemileage() > 0) {
+            Mileage userMil = Mileage.builder().userindex(userindex).usemileage(paymentBook.getUsemileage()).build();
+            mileageRepository.save(userMil);
 
-        log.info(" used mileage >>> " + userMil);
+            log.info(" used mileage >>> " + userMil);
+        }
 
         // 적립 마일리지 insert
-        Mileage saveMil = Mileage.builder().userindex(userindex).mileage(paymentBook.getTotalSaveMileage()).build();
-        mileageRepository.save(saveMil);
+        if(paymentBook.getTotalSaveMileage() > 0) {
+            Mileage saveMil = Mileage.builder().userindex(userindex).mileage(paymentBook.getTotalSaveMileage()).build();
+            mileageRepository.save(saveMil);
 
-        log.info(" save mileage >>> " + saveMil);
+            log.info(" save mileage >>> " + saveMil);
+        }
 
         return result;
 
