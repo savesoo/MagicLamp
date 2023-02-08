@@ -54,7 +54,7 @@
             <label for="bookimg" class="form-label">
               <img id="preview-image" th:src="@{/photo/{name}(name=${administratorModify.bookimg})}" width="500px">
               <input type="file" class="form-control" id="bookimg" name="bookimg" th:value="${administratorModify.bookimg}">
-              <input type="hidden" id="oldimg" name="oldimg" th:value="${administratorModify.bookimg}">
+              <input type="hidden" id="oldimg" name="oldimg">
             </label>
 
           </div>
@@ -125,6 +125,11 @@
 
             <div style="margin-top: 10px">
               주제분류: <input class="form-control" type="text" id="category" name="category" th:value="${administratorModify.category}" style="width: 150px; display: inline;"/>
+              도서형태: <select class="form-control" type="text" id="status" name="status" th:value="${administratorModify.status}" style="width: 150px; display: inline; text-align: center">
+                        <option value="정상" th:selected="${administratorModify.status}=='정상'">정상</option>
+                        <option value="절판" th:selected="${administratorModify.status}=='절판'">절판</option>
+                        <option value="품절" th:selected="${administratorModify.status}=='품절'">품절</option>
+                      </select>
             </div>
 
           </div>
