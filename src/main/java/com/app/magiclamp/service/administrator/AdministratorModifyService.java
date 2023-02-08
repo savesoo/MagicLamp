@@ -37,13 +37,13 @@ public class AdministratorModifyService {
             }
 
             newFileName = bookModifyRequest.getIsbn()+".jpg";
-            File newFile = new File(saveDir, newFileName);
+//            File newFile = new File(saveDir, newFileName);
 
-            try {
-                multipartFile.transferTo(newFile);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                multipartFile.transferTo(newFile);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
 
         }
 
