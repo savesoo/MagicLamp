@@ -37,9 +37,9 @@
 
                             <li>
                                 <div style="display: inline;">
-                                    <input class="form-control" type="text" placeholder="저 자" id="author" name="author" style="width: 100px; display: inline; text-align: center"> | </input>
-                                    <input class="form-control" type="text" placeholder="출 판 사" id="publisher" name="publisher" style="width: 100px; display: inline; text-align: center"> | </input>
-                                    <input class="form-control" type="text" placeholder="출간일자" id="pubdate" name="pubdate" style="width: 100px; display: inline; text-align: center">
+                                    <input class="form-control" type="text" placeholder="저 자" id="author" name="author" style="width: 150px; display: inline; text-align: center"> | </input>
+                                    <input class="form-control" type="text" placeholder="출 판 사" id="publisher" name="publisher" style="width: 150px; display: inline; text-align: center"> | </input>
+                                    <input class="form-control" type="text" placeholder="출간일자" id="pubdate" name="pubdate" style="width: 150px; display: inline; text-align: center">
                                 </div>
                             </li>
 
@@ -66,15 +66,15 @@
 
                             <li style="padding-bottom: 20px">
                                 <div style="display: inline;">
-                                    <h7 style="display: inline; margin-right: 56px">정가</h7>
-                                    <input class="form-control" type="text" id="price" name="price" style="display: inline; width: 100px;">원</input>
+                                    <h7 for="price" style="display: inline; margin-right: 56px">정가</h7>
+                                    <input class="form-control" type="text" id="price" name="price" style="display: inline; width: 100px;" onkeyup="avg();">원</input>
                                 </div>
                             </li>
 
                             <li style="padding-bottom: 20px">
                                 <div style="display: inline;">
-                                    <h7 style="display: inline; margin-right: 42px">판매가</h7>
-                                    <input class="form-control" type="text" id="saleprice" name="saleprice" style="display: inline; width: 100px;">원</input>
+                                    <h7 for="saleprice" style="display: inline; margin-right: 42px">판매가</h7>
+                                    <input class="form-control" type="text" id="saleprice" name="saleprice" style="display: inline; width: 100px;" readonly>원</input>
                                 </div>
                             </li>
 
@@ -117,25 +117,25 @@
                             ISBN: <input class="form-control" type="text" MAXLENGTH=13 placeholder="ISBN" id="isbn" name="isbn" style="width: 150px; display: inline; text-align: center"> | </input>
                             도서형태: <select class="form-control" type="text" id="binding" name="binding" style="width: 150px; display: inline; text-align: center">
                                         <option style="text-align: center;">--도서형태--</option>
-                                        <option style="text-align: center;">HB</option>
-                                        <option style="text-align: center;">PB</option>
+                                        <option value="HB" style="text-align: center;">HB</option>
+                                        <option value="PB" style="text-align: center;">PB</option>
                                     </select>
                         </div>
                         <div style="margin-top: 10px">
                             주제분류: <select class="form-control" type="text" id="category" name="category" style="width: 150px; display: inline;">
                                         <option style="text-align: center;">--카테고리--</option>
-                                        <option style="text-align: center;">과학</option>
-                                        <option style="text-align: center;">종교</option>
-                                        <option style="text-align: center;">건강</option>
-                                        <option style="text-align: center;">인문학</option>
-                                        <option style="text-align: center;">사회과학</option>
-                                        <option style="text-align: center;">자기계발</option>
-                                        <option style="text-align: center;">고전</option>
-                                        <option style="text-align: center;">경제경영</option>
-                                        <option style="text-align: center;">대학교재</option>
-                                        <option style="text-align: center;">여행</option>
-                                        <option style="text-align: center;">에세이</option>
-                                        <option style="text-align: center;">만화</option>
+                                        <option value="과학" style="text-align: center;">과학</option>
+                                        <option value="종교" style="text-align: center;">종교</option>
+                                        <option value="건강" style="text-align: center;">건강</option>
+                                        <option value="인문학" style="text-align: center;">인문학</option>
+                                        <option value="사회과학" style="text-align: center;">사회과학</option>
+                                        <option value="자기계발" style="text-align: center;">자기계발</option>
+                                        <option value="고전" style="text-align: center;">고전</option>
+                                        <option value="경제경영" style="text-align: center;">경제경영</option>
+                                        <option value="대학교재" style="text-align: center;">대학교재</option>
+                                        <option value="여행" style="text-align: center;">여행</option>
+                                        <option value="에세이" style="text-align: center;">에세이</option>
+                                        <option value="만화" style="text-align: center;">만화</option>
                                     </select>
                         </div>
                     </div>
@@ -162,5 +162,26 @@
     </table>
     <!-- 도서 등록 끝-->
 
+    <!-- 판매가(10%할인) 스크립트 시작 -->
+    <script>
+
+        function avg() {
+
+            var price = $("#price").val(); //정상가
+            var avg = 10; // 할인율
+
+            if ($("#price").val().trim() == "") {
+                result = 0;
+
+            } else {
+                result = price - ((price * avg) / 100);
+            }
+
+            $("#saleprice").val(Math.round(result));
+
+        }
+
+    </script>
+    <!-- 판매가(10%할인) 스크립트 끝 -->
 </body>
 </html>
