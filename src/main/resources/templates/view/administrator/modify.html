@@ -19,8 +19,8 @@
   <!-- 도서 등록 시작-->
   <table style="margin: 0 15% 0 15%; width: 65%;" class="table">
 
-    <form method="post" enctype="multipart/form-data">
-
+<!--    <form method="post" enctype="multipart/form-data">-->
+      <form method="post" enctype="multipart/form-data" action="/administrator/modify">
       <tr class="table-secondary">
 
         <td>
@@ -53,7 +53,8 @@
 
             <label for="bookimg" class="form-label">
               <img id="preview-image" th:src="@{/photo/{name}(name=${administratorModify.bookimg})}" width="500px">
-              <input type="file" class="form-control" id="bookimg" name="bookimg" th:value="${administratorModify.bookimg}" >
+              <input type="file" class="form-control" id="bookimg" name="bookimg" th:value="${administratorModify.bookimg}">
+              <input type="hidden" id="oldimg" name="oldimg" th:value="${administratorModify.bookimg}">
             </label>
 
           </div>
@@ -117,8 +118,8 @@
               ISBN: <input class="form-control" type="text" MAXLENGTH=13 id="isbn" name="isbn" th:value="${administratorModify.isbn}" style="width: 150px; display: inline; text-align: center"> | </input>
               도서형태: <select class="form-control" type="text" id="binding" name="binding" th:value="${administratorModify.binding}" style="width: 150px; display: inline; text-align: center">
                         <option style="text-align: center;">--도서형태--</option>
-                        <option value="HB" style="text-align: center;">HB</option>
-                        <option value="PB" style="text-align: center;">PB</option>
+                        <option value="HB" th:selected="${administratorModify.binding}=='HB'" style="text-align: center;">HB</option>
+                        <option value="PB" th:selected="${administratorModify.binding}=='PB'" style="text-align: center;">PB</option>
                       </select>
             </div>
 
