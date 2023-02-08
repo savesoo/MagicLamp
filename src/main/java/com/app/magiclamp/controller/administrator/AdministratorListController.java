@@ -23,7 +23,7 @@ public class AdministratorListController {
 
         model.addAttribute("administratorPage", administratorListService.getPage(pagenum, administratorSearchType));
 
-        return "/view/administrator/list";
+        return "view/administrator/list";
     }
 
 }
