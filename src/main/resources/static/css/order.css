@@ -8,10 +8,15 @@ body {
     margin: auto;
 }
 
+.order_div {
+    width: 80%;
+    margin: 0 10%;
+}
+
 .table1, .table2, .table3, .table4 {
     webkit-border-horizontal-spacing: 1px;
     webkit-border-vertical-spacing: 1px;
-    width: 670px;
+    width: 96%;
     border-top-width: 0px;
     border-right-width: 0px;
     border-bottom-width: 0px;
@@ -117,6 +122,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="text"] {
     padding: 2px;
+}
+
+#address1 {
+    width: 55%;
 }
 
 .button_middle {
