@@ -24,7 +24,7 @@ import java.time.LocalDate;
 public class Book {
 
     @Id
-    @Column(columnDefinition = "char(13) not null")
+    @Column(columnDefinition = "char(13) not null", updatable = false)
     private String isbn; // 도서ISBN
 
     @Column(columnDefinition = "varchar(200) not null")
@@ -39,7 +39,7 @@ public class Book {
     @Column
     private String pubdate; // 출간일자
 
-    @Column(columnDefinition = "varchar(10) not null default '정상'")
+    @Column(columnDefinition = "varchar(10) not null default '정상'", updatable = false)
     private String status; // 도서 상태 (정상, 절판, 품절)
 
     @Column(columnDefinition = "int not null")
