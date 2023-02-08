@@ -6,7 +6,7 @@
 
     <select id="selectCartList" resultType="com.app.magiclamp.model.mypage.CartListDTO">
 
-        SELECT c.cartindex, c.isbn, b.bookimg, b.title, b.price, b.saleprice, CEIL(((b.price*b.mileagerate)/100)) as saveMileage, b.mileagerate, c.bookcount
+        SELECT c.cartindex, c.isbn, b.bookimg, b.title, b.price, b.saleprice, CEIL(((b.price*b.mileagerate)/100)) as saveMileage, b.mileagerate, c.bookcount, b.stock
         FROM tbl_cart c
         INNER JOIN tbl_book b
         ON c.isbn = b.isbn

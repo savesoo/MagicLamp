@@ -6,7 +6,7 @@
 
     <select id="orderDetailBookInfo" resultType="com.app.magiclamp.model.BookInfoDTO">
 
-        select i.isbn, b.title, i.bookcount, b.price, b.saleprice, ROUND((b.price*b.mileagerate/100)) as saveMileage
+        select i.isbn, b.title, i.bookcount, b.price, b.saleprice, CEIL((b.price*b.mileagerate/100)) as saveMileage
         from tbl_orderitem i
         INNER JOIN tbl_order o
         ON i.orderindex = o.orderindex

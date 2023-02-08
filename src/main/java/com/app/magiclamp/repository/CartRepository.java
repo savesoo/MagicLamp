@@ -8,16 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 
     // 장바구니 책 수량 변경
     @Transactional
     @Modifying
-    @Query("update Cart c set c.bookcount = ?1 where c.cartindex = ?2")
-    int updateBookcountByCartindex(int bookcount, int cartindex);
+    @Query("update Cart c set c.bookcount = ?1 where c.cartindex = ?2 and c.userindex = ?3")
+    int updateBookcountByCartindex(int bookcount, int cartindex, int userindex);
 
     // 장바구니 삭제
     @Transactional

@@ -22,4 +22,7 @@ public interface BookRepository extends JpaRepository<Book, String> {
     @Query("update Book b set b.stock = :stock where b.isbn = :isbn")
     int updateStockByIsbn(Integer stock, String isbn);
 
+    @Query("select b.stock from Book b where b.isbn = :isbn")
+    int selectStockByIsbn(String isbn);
+
 }
