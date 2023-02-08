@@ -2,73 +2,100 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>마일리지 내역</title>
+    <title>마일리지 내역  : Genie</title>
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
 </head>
-<body>
-<div>
-    <select id="keyword" th:value="keyword">
-        <option value="0" th:selected="${keyword}=='0'">전체</option>
-        <option value="1" th:selected="${keyword}=='1'">적립</option>
-        <option value="2" th:selected="${keyword}=='2'">사용</option>
-    </select>
-    <label>총 적립</label>
-    <span th:text="${mileList.totalSave}"></span>
-    <label>총 사용</label>
-    <span th:text="${mileList.totalUse}"></span>
-    <label>잔여</label>
-    <span th:text="${mileList.totalSave}-${mileList.totalUse}"></span>
-    <label>소멸 예정(1달 이내)</label>
-    <span th:text="${mileList.totalExpired}"></span>
+<body style="height: 100%">
 
-    <table>
-        <thead>
-        <tr>
-            <th>일자</th>
-            <th>적립</th>
-            <th>사용</th>
-        </tr>
-        </thead>
-        <tbody>
-        <th:block th:if="${mileList.list.size() ==0 || mileList.list.isEmpty()}">
-            <tr>
-                <td colspan="3">검색하신 결과가 없습니다.</td>
+<div th:replace="fragment/nav"></div>
+
+<div>
+
+    <div style="width: 65%; display: inline-block; margin: 2% 15% 1% 15%">
+        <div style="width: 15%; display: inline; float: left; margin: 0 1% 0 0">
+            <select class="form-select" id="keyword" th:value="keyword">
+                <option value="0" th:selected="${keyword}=='0'">전체</option>
+                <option value="1" th:selected="${keyword}=='1'">적립</option>
+                <option value="2" th:selected="${keyword}=='2'">사용</option>
+            </select>
+        </div>
+        <div style="width: 50%; height: 100%; display: inline; float: right; margin: 0 0 0 1%">
+            <div style="text-align: right">
+<!--                <label class="form-check-label" style="vertical-align: middle">총 적립-->
+<!--                    <span th:text="${mileList.totalSave}"></span>-->
+<!--                </label>-->
+<!--                <label class="form-check-label" style="vertical-align: middle">총 사용-->
+<!--                    <span th:text="${mileList.totalUse}"></span>-->
+<!--                </label>-->
+                <label>마일리지 (
+                    <label class="form-check-label" style="vertical-align: middle">잔여 :
+                        <span style="color: blue" th:text="${#numbers.formatInteger((mileList.totalSave-mileList.totalUse), 0, 'COMMA')}"></span>
+                    </label>
+                    <label>/</label>
+                    <label class="form-check-label" style="vertical-align: middle">소멸 예정(1달 이내) :
+                        <span style="color: red" th:text="${#numbers.formatInteger(mileList.totalExpired, 0, 'COMMA')}"></span>
+                    </label>
+                     )
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 65%; display: inline-block; margin: 0 15% 0 15%">
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-secondary" style="text-align: center">
+                <th>일자</th>
+                <th>적립</th>
+                <th>사용</th>
             </tr>
-        </th:block>
-        <th:block th:unless="${mileList.list.size() ==0 || mileList.list.isEmpty()}">
-            <tr th:each="mile : ${mileList.list}">
-                <td>
-                    <span th:text="${mile.getUpdatedate()}"></span>
-                </td>
-                <td>
-                    <span th:text="${mile.getMileage()}"></span>
-                </td>
-                <td>
-                    <span th:text="${mile.getUsemileage()}"></span>
-                </td>
-            </tr>
-        </th:block>
-        </tbody>
-    </table>
-    <nav aria-label="">
-        <ul class="pagination">
-            <input type="hidden" id="pagenum" th:value="${mileList.pageNum}">
-            <th:block th:if="${mileList.prev}">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/mypage/mileage(page=${mileList.startNum-1}, keyword=${keyword})}">&laquo;</a>
-                </li>
+            </thead>
+            <tbody>
+            <th:block th:if="${mileList.list.size() ==0 || mileList.list.isEmpty()}">
+                <tr class="table-secondary" style="text-align: center">
+                    <td colspan="3">검색하신 결과가 없습니다.</td>
+                </tr>
             </th:block>
-            <th:block th:each="num : ${#numbers.sequence(mileList.startNum, mileList.endNum)}" th:with="active=${mileList.pageNum==num?'active':''}">
-                <li class="page-item" th:classappend="${active}">
-                    <a class="page-link" th:href="@{/mypage/mileage(page=${num}, keyword=${keyword})}" th:text="${num}"></a>
-                </li>
+            <th:block th:unless="${mileList.list.size() ==0 || mileList.list.isEmpty()}">
+                <tr class="table-secondary" style="text-align: center" th:each="mile : ${mileList.list}">
+                    <td>
+                        <span th:text="${mile.getUpdatedate()}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${#numbers.formatInteger(mile.getMileage(), 0, 'COMMA')}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${#numbers.formatInteger(mile.getUsemileage(), 0, 'COMMA')}"></span>
+                    </td>
+                </tr>
             </th:block>
-            <th:block th:if="${mileList.next}">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/mypage/mileage(page=${mileList.endNum+1}, keyword=${keyword})}">&raquo;</a>
-                </li>
-            </th:block>
-        </ul>
-    </nav>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="text-align: center">
+        <nav aria-label="" style="display: inline-block">
+            <ul class="pagination pagination-sm">
+                <input type="hidden" id="pagenum" th:value="${mileList.pageNum}">
+                <th:block th:if="${mileList.prev}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/mypage/mileage(page=${mileList.startNum-1}, keyword=${keyword})}">&laquo;</a>
+                    </li>
+                </th:block>
+                <th:block th:each="num : ${#numbers.sequence(mileList.startNum, mileList.endNum)}" th:with="active=${mileList.pageNum==num?'active':''}">
+                    <li class="page-item" th:classappend="${active}">
+                        <a class="page-link" th:href="@{/mypage/mileage(page=${num}, keyword=${keyword})}" th:text="${num}"></a>
+                    </li>
+                </th:block>
+                <th:block th:if="${mileList.next}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/mypage/mileage(page=${mileList.endNum+1}, keyword=${keyword})}">&raquo;</a>
+                    </li>
+                </th:block>
+            </ul>
+        </nav>
+    </div>
+
 </div>
 <script src="/js/mypage/mymileage.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
