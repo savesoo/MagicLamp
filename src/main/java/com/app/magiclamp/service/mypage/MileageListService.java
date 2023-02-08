@@ -37,7 +37,7 @@ public class MileageListService {
         else if(keyword == 2){
             spec = spec.and(MileageSpecification.equalUseMileage());
         }
-            Pageable pageable = PageRequest.of(pageNum-1, 10, Sort.by("userindex").descending().and(Sort.by("mileageindex")));
+            Pageable pageable = PageRequest.of(pageNum-1, 10, Sort.by("userindex").descending().and(Sort.by("mileageindex").descending()));
             Page<Mileage> page = mileageRepository.findAll(spec, pageable);
             List<Mileage> list = page.getContent();
 
