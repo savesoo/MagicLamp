@@ -28,15 +28,14 @@ public class AdministratorModifyService {
 
             String absolutePath = new File("").getAbsolutePath();
 
-            String path = "bookimg";
+            String path = "photo";
             saveDir = new File(absolutePath, path);
 
             if(!saveDir.exists()) {
                 saveDir.mkdirs();
             }
 
-            String uuid = UUID.randomUUID().toString();
-            newFileName = uuid + multipartFile.getOriginalFilename();
+            newFileName = bookModifyRequest.getIsbn()+".jpg";
             File newFile = new File(saveDir, newFileName);
 
             try {
