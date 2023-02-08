@@ -50,7 +50,7 @@ public class BookModifyRequest {
 
     private String oldimg; // 이전 등록된 이미지
 
-    private MultipartFile newimg; // 새로 등록할 이미지
+    private MultipartFile bookimg; // 새로 등록할 이미지
 
     public Book toBookEntity() {
         return Book.builder()
