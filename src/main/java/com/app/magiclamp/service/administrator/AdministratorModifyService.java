@@ -3,6 +3,7 @@ package com.app.magiclamp.service.administrator;
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.model.administrator.BookModifyRequest;
 import com.app.magiclamp.repository.BookAdministratorRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +20,7 @@ public class AdministratorModifyService {
 
     public int modify(BookModifyRequest bookModifyRequest) {
 
-        MultipartFile multipartFile = bookModifyRequest.getNewimg();
+        MultipartFile multipartFile = bookModifyRequest.getBookimg();
 
         File saveDir = null;
         String newFileName = null;
@@ -51,15 +52,16 @@ public class AdministratorModifyService {
         if(newFileName != null) {
             book.setBookimg(newFileName);
 
-        } else {
-            book.setBookimg(null);
+        }
+        else {
+            book.setBookimg("");
         }
 
         int result = 0;
 
         try {
 
-            bookAdministratorRepository.save(book);
+            result = bookAdministratorRepository.save(book) != null ? 1 : 0;
 
             String oldFileName = bookModifyRequest.getOldimg();
 
