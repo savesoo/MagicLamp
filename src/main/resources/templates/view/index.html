@@ -214,12 +214,46 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         newBookList = document.querySelector('.welcome_top_bn')
-        newBook()
+        /*newBook()*/
         bestSellerList = document.querySelector('ol')
-        bestSeller()
+        /*bestSeller()*/
+        mainPage()
     })
 
-    function newBook() {
+    function mainPage() {
+        axios.all([
+            axios.get('/search/newBook'), axios.get('/search/bestseller')
+        ]).then(
+            axios.spread((newly, best) => {
+                let newList = newly.data
+                newList.forEach((newbook, index) => {
+                    const newDIV = document.createElement('div')
+                    let html = '<a href="/main/product?isbn=' + newbook.isbn + '&p=1">'
+                    let bookimg = newbook.bookimg
+                    newbook.bookimg = bookimg.replace('coversum', 'cover500')
+                    html += '<div class="cover"><div class="cover_img"><img src="' + newbook.bookimg + '" width="170px" height="250px"></div></div></a>'
+                    html += '<div class="tit">' + newbook.title + '</div>'
+                    html += '<div class="author">' + newbook.author + '</div>'
+
+                    newDIV.innerHTML = html
+                    newBookList.appendChild(newDIV)
+                })
+
+                let bestList = best.data
+                let rank = 1
+                bestList.forEach((best, index) => {
+                    const newLI = document.createElement('li')
+                    let html = '<div class="cover"><img src="' + best.bookimg + '"></div><span class="rank">' + rank++ + '</span>'
+                    html += '<p>' + best.title + '</p>'
+
+                    newLI.innerHTML = html
+                    bestSellerList.appendChild(newLI)
+                })
+            })
+        ).catch()
+    }
+
+    /*function newBook() {
         axios.get('/search/newBook')
             .then(res => {
                 let list = res.data
@@ -256,7 +290,7 @@
             .catch(err => {
                 console.log(err)
             })
-    }
+    }*/
 </script>
 </body>
 </html>
