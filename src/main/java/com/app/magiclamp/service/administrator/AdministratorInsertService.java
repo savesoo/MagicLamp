@@ -58,6 +58,9 @@ public class AdministratorInsertService {
         if (newFileName != null) {
             book.setBookimg(newFileName);
         }
+        else {
+            book.setBookimg("");
+        }
 
         int result = 0;
 
