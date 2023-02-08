@@ -1,6 +1,7 @@
 package com.app.magiclamp.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,15 +17,16 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "tbl_payment")
+@DynamicInsert
 public class Payment {
 
     // 결제 정보 table
 
     @Id
-    @Column(nullable = false)
+    @Column(columnDefinition = "not null")
     private Integer approvalnum; // 결제 승인번호
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "not null")
     private Integer orderindex; // 주문번호(결제 금액 등 join)
 
     @Column(columnDefinition = "char(13) not null")
