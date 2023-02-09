@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <title>도서 상세보기</title>
@@ -68,14 +68,14 @@
             <li style="padding-bottom: 20px">
               <div style="display: inline; margin-right: 30px">마일리지</div>
               <div style="display: inline;">[[${#numbers.formatInteger(administratorRead.price*administratorRead.mileagerate/100,
-                0, 'COMMA')}]]원 (5%)
+                0, 'COMMA')}]]원 (<span th:text="${administratorRead.mileagerate}"/>% 적립)
               </div>
             </li>
 
             <li style="padding-bottom: 20px">
               <div style="display: inline; margin-right: 30px">재고수량</div>
               <div style="display: inline">
-                <span th:text="${administratorRead.stock}"></span>
+                <span th:text="${administratorRead.stock}">권</span>
               </div>
             </li>
             <br>
