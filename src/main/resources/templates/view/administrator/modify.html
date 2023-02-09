@@ -53,8 +53,8 @@
 
             <label for="bookimg" class="form-label">
               <img id="preview-image" th:src="@{/photo/{name}(name=${administratorModify.bookimg})}" width="500px">
-              <input type="file" class="form-control" id="bookimg" name="bookimg" th:value="${administratorModify.bookimg}">
-              <input type="hidden" id="oldimg" name="oldimg">
+              <input type="file" class="form-control" id="bookimg" name="bookimg">
+              <input type="hidden" id="oldimg" name="oldimg" th:value="${administratorModify.bookimg}">
             </label>
 
           </div>
