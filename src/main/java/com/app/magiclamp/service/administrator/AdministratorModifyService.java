@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 
 @Service
-@Log4j2
 public class AdministratorModifyService {
 
     @Autowired
@@ -20,7 +19,6 @@ public class AdministratorModifyService {
 
     public int modify(BookModifyRequest bookModifyRequest) {
 
-        log.info(" >>>>>>>> modify service >>>>>>>> ");
 
         MultipartFile multipartFile = bookModifyRequest.getBookimg();
 
@@ -62,38 +60,7 @@ public class AdministratorModifyService {
 
         int result = 0;
 
-        try {
-
-            // DB에 넣어주기
-            result = bookAdministratorRepository.save(book) !=null ? 1 : 0;
-
-            log.info(" >>>>> modify result >>>>> " + result);
-
-            // 새 파일 저장하는데 이전 파일 존재시 삭제(=새 이미지로 바꿔서 저장)
-            String oldFileName = bookModifyRequest.getOldimg();
-            if(newFileName != null && !newFileName.isEmpty() && oldFileName != null && !oldFileName.isEmpty()) {
-
-                File delOldFile = new File(saveDir, oldFileName); // 삭제 경로
-
-                if(delOldFile.exists()) {
-                    delOldFile.delete(); // 삭제 처리
-                    log.info(" >>>>>>>> deleted oldfile >>>>>>>> " + delOldFile.exists());
-                }
-            }
-
-        } catch (Exception e) {
-
-            if(newFileName != null && !newFileName.isEmpty()) {
-
-                // 새 파일 삭제
-                File delFile = new File(saveDir, newFileName);
-
-                if(delFile.exists()) {
-                    delFile.delete();
-                }
-
-            }
-        }
+        bookAdministratorRepository.save(book);
 
         return result;
     }
