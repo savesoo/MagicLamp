@@ -195,12 +195,28 @@
         <div class="newBook">주목할 만한 신간</div>
     </div>
 </div>
-<div class="welcome_section">
+<!--<div class="welcome_section">
     <div class="best_top10">
         <h3>
             종합 주간 베스트 셀러 TOP 10
         </h3>
         <ol>
+        </ol>
+    </div>
+</div>-->
+<div class="welcome_section">
+    <div class="best_top10">
+        <h3> Genie 베스트 셀러 TOP 10 </h3>
+        <ol>
+            <th:block th:each=" best, stat : ${bestsellers}">
+                <li>
+                    <div class="cover">
+                        <img th:src="@{/photo/{name}(name=${best.bookimg})}" height="100%" width="100%">
+                    </div>
+                    <span class="rank" th:text="${stat.count}"></span>
+                    <p th:text="${best.title}"/>
+                </li>
+            </th:block>
         </ol>
     </div>
 </div>

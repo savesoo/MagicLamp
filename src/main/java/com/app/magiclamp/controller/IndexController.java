@@ -1,6 +1,8 @@
 package com.app.magiclamp.controller;
 
 import com.app.magiclamp.model.AuthUserDTO;
+import com.app.magiclamp.service.book.BestsellerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,10 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/")
 public class IndexController {
+
+    @Autowired
+    private BestsellerService bestsellerService;
+
     @GetMapping
     public String index(
             HttpServletRequest request,
@@ -35,6 +41,7 @@ public class IndexController {
         }
 
         model.addAttribute("loginInfo", authUserDTO == null ? -1 : authUserDTO.getUserindex());
+        model.addAttribute("bestsellers", bestsellerService.getBestTen());
 
         return "view/index";
     }
