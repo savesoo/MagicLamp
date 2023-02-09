@@ -21,7 +21,7 @@
 |Category|Detail|
 |:--:|:--:|
 |Frontend|HTML5, JS, CSS3, Bootstrap|
-|Backend|Java, SpringBoot 2.7.6, Mybatis|
+|Backend|Java, SpringBoot 2.7.6, JPA, Mybatis, Thymeleaf|
 |OS|Windows10|
 |Library&API|Spring Security, Validation, Lombok, j-son simple, 다음 우편번호, 알라딘|
 |IDE|IntelliJ IDEA|
