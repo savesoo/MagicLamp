@@ -100,6 +100,10 @@ body {
     line-height: 18px;
 }
 
+#head_myaccount_layer tr, #head_myaccount_layer td {
+    text-align: left;
+}
+
 .hdr {
     position: absolute;
     border: 1px solid #5397d0;

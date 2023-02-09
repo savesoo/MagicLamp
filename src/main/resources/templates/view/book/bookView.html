@@ -135,7 +135,7 @@
             <hr/>
             <div>
                 <h3>책 소개</h3>
-                <div th:text="${bookView.description}"></div>
+                <div th:text="${bookView.description}" id="book_description"></div>
             </div>
             <hr/>
             <div>
@@ -533,6 +533,11 @@
     let price = [[${bookView.saleprice}]]
     const isbnisbn = [[${bookView.isbn}]]
     let qty = 1
+
+    const desc = document.getElementById('book_description')
+    desc.textContent = desc.textContent.replaceAll('&lt;', '<')
+    desc.textContent = desc.textContent.replaceAll('&gt;', '>')
+    desc.textContent = desc.textContent.replaceAll('&#8212;', 'ㅡ')
 
     function count(type) {
         // 결과를 표시할 element
