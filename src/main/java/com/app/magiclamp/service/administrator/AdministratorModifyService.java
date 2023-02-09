@@ -37,19 +37,23 @@ public class AdministratorModifyService {
             }
 
             newFileName = bookModifyRequest.getIsbn()+".jpg";
-//            File newFile = new File(saveDir, newFileName);
+            File newFile = new File(saveDir, newFileName);
 
-//            try {
-//                multipartFile.transferTo(newFile);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                if(newFileName!=null && !newFileName.isEmpty()) {
+                    multipartFile.transferTo(newFile);
+                }
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
         }
 
         Book book = bookModifyRequest.toBookEntity();
 
-        if(newFileName != null) {
+
+        if(newFileName != null && !newFileName.isEmpty()) {
             book.setBookimg(newFileName);
 
         }
@@ -61,11 +65,11 @@ public class AdministratorModifyService {
 
         try {
 
-            result = bookAdministratorRepository.save(book) != null ? 1 : 0;
+            bookAdministratorRepository.save(book);
 
             String oldFileName = bookModifyRequest.getOldimg();
 
-            if(newFileName != null && oldFileName != null && !oldFileName.isEmpty()) {
+            if(newFileName != null && !newFileName.isEmpty() && oldFileName != null && !oldFileName.isEmpty()) {
                 File delOldFile = new File(saveDir, oldFileName);
 
                 if(delOldFile.exists()) {
@@ -75,7 +79,7 @@ public class AdministratorModifyService {
 
         } catch (Exception e) {
 
-            if(newFileName != null) {
+            if(newFileName != null && !newFileName.isEmpty()) {
                 File delFile = new File(saveDir, newFileName);
 
                 if(delFile.exists()) {
