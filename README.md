@@ -1,5 +1,5 @@
-# 매직램프 (MagicLamp_BookStore)
-**팀원 : 정성균(팀장), 전현석(팀장), 서아람, 서혜정, 이상민, 정수연**
+# Genie (도서 판매 사이트)
+**팀원 : @skjung1979(팀장), [@HS0430(팀장)](https://github.com/HS0430), @Seo-Aram, [@himediahj](https://github.com/himediahj), [@sangminby](https://github.com/sangminby), [@savesoo](https://github.com/savesoo)**
 ## Contents
 1. [개요](#개요)
 2. [설계의 주안점](#설계의-주안점)
@@ -21,48 +21,61 @@
 |Category|Detail|
 |:--:|:--:|
 |Frontend|HTML5, JS, CSS3, Bootstrap|
-|Backend|Java, SpringBoot 2.7.6, Mybatis|
+|Backend|Java, SpringBoot 2.7.6, JPA, Mybatis, Thymeleaf|
 |OS|Windows10|
-|Library&API|Spring Security, Validation, Lombok, j-son simple, |
+|Library&API|Spring Security, Validation, Lombok, j-son simple, 다음 우편번호, 알라딘|
 |IDE|IntelliJ IDEA|
-|Server||
+|Server|AWS, Tomcat|
 |Document||
 |CI|Github|
 |DataBase|MySQL 8.0|
 * * *
 ## 프로젝트 기능 구현
-- 서아람
+- @Seo-Aram
   - 환경 구축
   - 회원 관리
     - 로그인
     - 회원가입
-- 서혜정
+- [@himediahj](https://github.com/Seo-Aram/MagicLamp/commits?author=himediahj)
   - 리뷰 기능
-  - 알라딘 Open API 사용
-- 이상민
+    - 자신이 등록한 리뷰 수정 삭제
+    - 리뷰 공감 기능
+  - 메인 화면 신간 리스트
+    - 알라딘 Open API 사용
+  - 회원가입 유효성 검사
+- [@sangminby](https://github.com/Seo-Aram/MagicLamp/commits?author=sangminby)
   - 관리자 페이지
     - 관리자 권한을 가진 사람만 접근 가능하도록 구현
-    - 도서 등록, 삭제
+    - 도서 검색, 등록, 삭제
     - 도서 정보 수정
     - 도서 표지 이미지 파일 로컬에 저장
-- 정성균
+- [@skjung1979](https://github.com/Seo-Aram/MagicLamp/commits?author=skjung1979)
   - 도서 목록
     - 도서 검색
-    - 페이징 기능
+    - 도서 카테고리별 리스트 출력
   - 도서 상세페이지
-  - 선택한 도서 카트에 담기
-- 정수연
-  - 주문 페이지
-- 전현석
+  - 선택한 도서 장바구니에 담기
+- [@savesoo](https://github.com/Seo-Aram/MagicLamp/commits?author=savesoo)
+  - 결제하기
+    - 해당 회원 정보, 주문 도서 정보 불러옴
+    - 우편번호 api 사용
+    - 마일리지 사용 기능
+  - 메인 화면 베스트 셀러 TOP 10 
+- [@HS0430](https://github.com/Seo-Aram/MagicLamp/commits?author=HS0430)
   - 마이페이지
     - 회원정보
       - 로그인한 사용자의 정보 수정 ( 패스워드, 주소, 전화번호)
       - 회원 탈퇴
     - 배송 주소록
+      - 수령인으로 검색, 배송 주소 리스트 출력, 수정, 삭제
     - 마일리지
+      - 적립, 사용 내역 리스트
+      - 30일 이내 소멸 마일리지 표시
     - 마이 리뷰
+      - 리뷰 리스트 출력, 리뷰 수정 삭제
     - 주문 내역
     - 장바구니
+      - 선택 일괄 결제 가능
 * * *
 ## 주요기능
 * * *
