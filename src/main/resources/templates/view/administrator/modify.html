@@ -39,7 +39,7 @@
                 <div style="display: inline;">
                   <input class="form-control" type="text" id="author" name="author" th:value="${administratorModify.author}" style="width: 150px; display: inline; text-align: center"> | </input>
                   <input class="form-control" type="text" id="publisher" name="publisher" th:value="${administratorModify.publisher}" style="width: 150px; display: inline; text-align: center"> | </input>
-                  <input class="form-control" type="text" id="pubdate" name="pubdate" th:value="${administratorModify.pubdate}" style="width: 150px; display: inline; text-align: center">
+                  <input class="form-control" type="date" id="pubdate" name="pubdate" th:value="${administratorModify.pubdate}" style="width: 150px; display: inline; text-align: center">
                 </div>
               </li>
 
@@ -88,7 +88,7 @@
               <li style="padding-bottom: 20px">
                 <div style="display: inline;">
                   <h7 style="display: inline; margin-right: 30px">재고수량</h7>
-                  <input class="form-control" type="text" id="stock" name="stock" th:value="${administratorModify.stock}" style="display: inline; width: 100px;">
+                  <input class="form-control" type="text" id="stock" name="stock" th:value="${administratorModify.stock}" style="display: inline; width: 100px;"></input>
                 </div>
               </li>
               <br>
@@ -156,6 +156,119 @@
   </table>
   <!-- 도서 등록 끝-->
 
+
+  <!-- 숫자만 입력가능 스크립트 시작 -->
+  <script>
+
+    // 숫자가 아닌 정규식
+    var replaceNotInt = /[^0-9]/gi;
+
+    // 정가
+    $(document).ready(function(){
+
+      $("#price").on("focusout", function() {
+        var x = $(this).val();
+        if (x.length > 0) {
+          if (x.match(replaceNotInt)) {
+            x = x.replace(replaceNotInt, "");
+          }
+          $(this).val(x);
+        }
+      }).on("keyup", function() {
+        $(this).val($(this).val().replace(replaceNotInt, ""));
+      });
+
+    });
+
+    // 마일리지
+    $(document).ready(function(){
+
+      $("#mileagerate").on("focusout", function() {
+        var x = $(this).val();
+        if (x.length > 0) {
+          if (x.match(replaceNotInt)) {
+            x = x.replace(replaceNotInt, "");
+          }
+          $(this).val(x);
+        }
+      }).on("keyup", function() {
+        $(this).val($(this).val().replace(replaceNotInt, ""));
+      });
+
+    });
+
+    // 재고 수량
+    $(document).ready(function(){
+
+      $("#stock").on("focusout", function() {
+        var x = $(this).val();
+        if (x.length > 0) {
+          if (x.match(replaceNotInt)) {
+            x = x.replace(replaceNotInt, "");
+          }
+          $(this).val(x);
+        }
+      }).on("keyup", function() {
+        $(this).val($(this).val().replace(replaceNotInt, ""));
+      });
+
+    });
+
+    // 쪽수
+    $(document).ready(function(){
+
+      $("#pages").on("focusout", function() {
+        var x = $(this).val();
+        if (x.length > 0) {
+          if (x.match(replaceNotInt)) {
+            x = x.replace(replaceNotInt, "");
+          }
+          $(this).val(x);
+        }
+      }).on("keyup", function() {
+        $(this).val($(this).val().replace(replaceNotInt, ""));
+      });
+
+    });
+
+    // 무게
+    $(document).ready(function(){
+
+      $("#weight").on("focusout", function() {
+        var x = $(this).val();
+        if (x.length > 0) {
+          if (x.match(replaceNotInt)) {
+            x = x.replace(replaceNotInt, "");
+          }
+          $(this).val(x);
+        }
+      }).on("keyup", function() {
+        $(this).val($(this).val().replace(replaceNotInt, ""));
+      });
+
+    });
+
+    // ISBN
+    $(document).ready(function(){
+
+      $("#isbn").on("focusout", function() {
+        var x = $(this).val();
+        if (x.length > 0) {
+          if (x.match(replaceNotInt)) {
+            x = x.replace(replaceNotInt, "");
+          }
+          $(this).val(x);
+        }
+      }).on("keyup", function() {
+        $(this).val($(this).val().replace(replaceNotInt, ""));
+      });
+
+    });
+
+  </script>
+  <!-- 숫자만 입력가능 스크립트 끝 -->
+
+
   <!-- 이미지 미리보기 스크립트 시작 -->
   <script>
 
@@ -184,6 +297,7 @@
   </script>
   <!-- 이미지 미리보기 스크립트 끝 -->
 
+
   <!-- 판매가(10%할인) 스크립트 시작 -->
   <script>
 
@@ -205,6 +319,7 @@
 
   </script>
   <!-- 판매가(10%할인) 스크립트 끝 -->
+
 
 </body>
 </html>
