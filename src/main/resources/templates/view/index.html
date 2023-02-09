@@ -169,6 +169,11 @@
             font-weight: bold;
         }
 
+        .best_title {
+            text-decoration : none;
+            color: #333;
+        }
+
         .best_top10 > ol > li:nth-child(n+3):nth-child(-n+10) > .cover {
             display: none;
         }
@@ -211,10 +216,14 @@
             <th:block th:each=" best, stat : ${bestsellers}">
                 <li>
                     <div class="cover">
-                        <img th:src="@{/photo/{name}(name=${best.bookimg})}" height="100%" width="100%">
+                        <a th:href="@{/main/product(isbn=${best.isbn},p=${1})}">
+                            <img th:src="@{/photo/{name}(name=${best.bookimg})}" height="100%" width="100%">
+                        </a>
                     </div>
-                    <span class="rank" th:text="${stat.count}"></span>
-                    <p th:text="${best.title}"/>
+                    <span class="rank" th:text="${stat.count}"/>
+                    <p>
+                        <a class="best_title" th:href="@{/main/product(isbn=${best.isbn},p=${1})}" th:text="${best.title}"/>
+                    </p>
                 </li>
             </th:block>
         </ol>
