@@ -39,11 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#mphone').value = phone;
         document.querySelector('#mpriority').value = priority;
         document.getElementById('defaultChk').checked = false;
+        document.getElementById('defaultChk').disabled = false;
 
         if(priority == 1){
             document.getElementById('defaultChk').checked = true;
+            document.getElementById('defaultChk').disabled = true;
         }
-        
+
         document.getElementById("add").style.display='none';
         document.getElementById("modify").style.display='block';
         modal.style.display="block";
