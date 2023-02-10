@@ -25,7 +25,8 @@
                 <input class="form-control" type="date" name="sDate" id="sDate" th:value="${option.getSDate()}">
             </div>
             <div style="float: right; display: inline; margin-right: 1%">
-                    <input class="form-control" type="text" name="searchTitle" id="searchTitle" th:value="${option.getSearchTitle()}" placeholder="도서명">
+                <input class="form-control" type="text" name="searchTitle" id="searchTitle"
+                       th:value="${option.getSearchTitle()}" placeholder="도서명">
             </div>
         </div>
     </form>
@@ -36,7 +37,7 @@
         <thead>
         <tr class="table-secondary" style="text-align: center">
             <th style="width: 10%">작성일</th>
-            <th style="width: 30%"colspan="2" >도서명</th>
+            <th style="width: 30%" colspan="2">도서명</th>
             <th style="width: 40%">내용</th>
             <th style="width: 5%">별점</th>
             <th style="width: 15%">관리</th>
@@ -56,8 +57,12 @@
                 <td style="vertical-align: middle">
                     <a th:href="@{/main/product(isbn=${review.isbn}, p=1)}" th:value="${review.isbn}">
                         <div style="float: left; height: 100%; width: 100%">
-                            <img th:if="${review.bookimg.length() > 0}" th:src="@{/photo/{name}(name=${review.bookimg})}" width="100%" height="100%" style="border: 1px solid lightgray">
-                            <img th:unless="${review.bookimg.length() > 0}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII=" width="100%" height="100%" style="border: 1px solid lightgray">
+                            <img th:if="${review.bookimg.length() > 0}"
+                                 th:src="@{/photo/{name}(name=${review.bookimg})}" width="100%" height="100%"
+                                 style="border: 1px solid lightgray">
+                            <img th:unless="${review.bookimg.length() > 0}"
+                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII="
+                                 width="100%" height="100%" style="border: 1px solid lightgray">
                         </div>
                     </a>
                 </td>
@@ -67,109 +72,121 @@
                     </div>
                 </td>
                 <td style="text-align: center; vertical-align: middle">
-                    <span th:text="${review.reviewcontent}"></span>
+                    <span th:text="${review.reviewcontent}" id="myreview_text"></span>
                 </td>
                 <td style="text-align: center; vertical-align: middle">
-<!--                    <span th:if="${review.star == 5}">★★★★★</span>-->
-<!--                    <span th:if="${review.star == 4}">★★★★</span>-->
-<!--                    <span th:if="${review.star == 3}">★★★</span>-->
-<!--                    <span th:if="${review.star == 2}">★★</span>-->
-<!--                    <span th:if="${review.star == 1}">★</span>-->
+                    <!--                    <span th:if="${review.star == 5}">★★★★★</span>-->
+                    <!--                    <span th:if="${review.star == 4}">★★★★</span>-->
+                    <!--                    <span th:if="${review.star == 3}">★★★</span>-->
+                    <!--                    <span th:if="${review.star == 2}">★★</span>-->
+                    <!--                    <span th:if="${review.star == 1}">★</span>-->
 
                     <div class="StarRate_Icon">
                         <p class="StarRate_IconFill" th:styleappend="'width:'+${review.star*20}+'%'"></p>
                     </div>
                 </td>
                 <td style="text-align: center; vertical-align: middle">
-                    <button class="btn btn-primary btn-sm" id="reviewUptBtn" th:onclick="updateBtnClick([[${review}]])">수정</button>
-                    <button class="btn btn-outline-primary btn-sm" id="reviewDelBtn" th:onclick="reviewDelBtnClick([[${review}]])">삭제</button>
+                    <button class="btn btn-primary btn-sm" id="reviewUptBtn" th:onclick="updateBtnClick([[${review}]])">
+                        수정
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" id="reviewDelBtn"
+                            th:onclick="reviewDelBtnClick([[${review}]])">삭제
+                    </button>
                 </td>
             </tr>
         </th:block>
         </tbody>
     </table>
 
-<div style="text-align: center">
-    <nav aria-label="" style="display: inline-block">
-        <ul class="pagination pagination-sm">
-            <input type="hidden" id="pagenum" th:value="${reviewList.pageNum}">
-            <th:block th:if="${reviewList.prev}">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/mypage/myreview(page=${reviewList.startNum-1}, searchTitle=${option.searchTitle}, sDate=${option.sDate}, eDate=${option.eDate})}">&laquo;</a>
-                </li>
-            </th:block>
-            <th:block th:each="num : ${#numbers.sequence(reviewList.startNum, reviewList.endNum)}" th:with="active=${reviewList.pageNum==num?'active':''}">
-                <li class="page-item" th:classappend="${active}">
-                    <a class="page-link" th:href="@{/mypage/myreview(page=${num}, searchTitle=${option.searchTitle}, sDate=${option.sDate}, eDate=${option.eDate})}" th:text="${num}"></a>
-                </li>
-            </th:block>
-            <th:block th:if="${reviewList.next}">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{/mypage/myreview(page=${reviewList.endNum+1}, searchTitle=${option.searchTitle}, sDate=${option.sDate}, eDate=${option.eDate})}">&raquo;</a>
-                </li>
-            </th:block>
-        </ul>
-    </nav>
-</div>
+    <div style="text-align: center">
+        <nav aria-label="" style="display: inline-block">
+            <ul class="pagination pagination-sm">
+                <input type="hidden" id="pagenum" th:value="${reviewList.pageNum}">
+                <th:block th:if="${reviewList.prev}">
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{/mypage/myreview(page=${reviewList.startNum-1}, searchTitle=${option.searchTitle}, sDate=${option.sDate}, eDate=${option.eDate})}">&laquo;</a>
+                    </li>
+                </th:block>
+                <th:block th:each="num : ${#numbers.sequence(reviewList.startNum, reviewList.endNum)}"
+                          th:with="active=${reviewList.pageNum==num?'active':''}">
+                    <li class="page-item" th:classappend="${active}">
+                        <a class="page-link"
+                           th:href="@{/mypage/myreview(page=${num}, searchTitle=${option.searchTitle}, sDate=${option.sDate}, eDate=${option.eDate})}"
+                           th:text="${num}"></a>
+                    </li>
+                </th:block>
+                <th:block th:if="${reviewList.next}">
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{/mypage/myreview(page=${reviewList.endNum+1}, searchTitle=${option.searchTitle}, sDate=${option.sDate}, eDate=${option.eDate})}">&raquo;</a>
+                    </li>
+                </th:block>
+            </ul>
+        </nav>
+    </div>
 
-<div id="reviewModal" class="modal">
-    <div class="modal-dialog" role="document">
+    <div id="reviewModal" class="modal">
+        <div class="modal-dialog" role="document">
 
-        <div class="modal-content bg-light">
+            <div class="modal-content bg-light">
 
-            <div class="modal-header">
-                <h5 class="modal-title">리뷰 정보</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="modalclosebtn">
-                    <span aria-hidden="true"></span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <input type="hidden" id="mreviewindex">
-                <input type="hidden" id="misbn">
-                <input type="hidden" id="mreviewer">
-
-                <div>
-                    <label for="mreviewcontent">내용</label>
-                    <textarea class="form-control" id="mreviewcontent" name="mreviewcontent"></textarea>
+                <div class="modal-header">
+                    <h5 class="modal-title">리뷰 정보</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="modalclosebtn">
+                        <span aria-hidden="true"></span>
+                    </button>
                 </div>
 
-<!--                <div>-->
-<!--                    <input type="radio" name="mstar" value="1" th:text="1">-->
-<!--                    <input type="radio" name="mstar" value="2" th:text="2">-->
-<!--                    <input type="radio" name="mstar" value="3" th:text="3">-->
-<!--                    <input type="radio" name="mstar" value="4" th:text="4">-->
-<!--                    <input type="radio" name="mstar" value="5" th:text="5">-->
-<!--                </div>-->
+                <div class="modal-body">
+                    <input type="hidden" id="mreviewindex">
+                    <input type="hidden" id="misbn">
+                    <input type="hidden" id="mreviewer">
 
-                <div class="star_rate_touch_area">
-                    <fieldset>
-                        <input type="radio" name="mstar" value="5" id="rate1"><label
-                            for="rate1">★</label>
-                        <input type="radio" name="mstar" value="4" id="rate2"><label
-                            for="rate2">★</label>
-                        <input type="radio" name="mstar" value="3" id="rate3"><label
-                            for="rate3">★</label>
-                        <input type="radio" name="mstar" value="2" id="rate4"><label
-                            for="rate4">★</label>
-                        <input type="radio" name="mstar" value="1" id="rate5"><label
-                            for="rate5">★</label>
-                    </fieldset>
+                    <div>
+                        <label for="mreviewcontent">내용</label>
+                        <textarea class="form-control" id="mreviewcontent" name="mreviewcontent"></textarea>
+                    </div>
+
+                    <!--                <div>-->
+                    <!--                    <input type="radio" name="mstar" value="1" th:text="1">-->
+                    <!--                    <input type="radio" name="mstar" value="2" th:text="2">-->
+                    <!--                    <input type="radio" name="mstar" value="3" th:text="3">-->
+                    <!--                    <input type="radio" name="mstar" value="4" th:text="4">-->
+                    <!--                    <input type="radio" name="mstar" value="5" th:text="5">-->
+                    <!--                </div>-->
+
+                    <div class="star_rate_touch_area">
+                        <fieldset>
+                            <input type="radio" name="mstar" value="5" id="rate1"><label
+                                for="rate1">★</label>
+                            <input type="radio" name="mstar" value="4" id="rate2"><label
+                                for="rate2">★</label>
+                            <input type="radio" name="mstar" value="3" id="rate3"><label
+                                for="rate3">★</label>
+                            <input type="radio" name="mstar" value="2" id="rate4"><label
+                                for="rate4">★</label>
+                            <input type="radio" name="mstar" value="1" id="rate5"><label
+                                for="rate5">★</label>
+                        </fieldset>
+                    </div>
                 </div>
-            </div>
 
-            <div class="modal-footer">
-                <input type="hidden" id="mregdate">
-                <input type="button" id="reviewUpt" value="수정">
-<!--                <input type="button" id="reviewDel" value="삭제">-->
-            </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="mregdate">
+                    <input type="button" id="reviewUpt" value="수정">
+                    <!--                <input type="button" id="reviewDel" value="삭제">-->
+                </div>
 
+            </div>
         </div>
     </div>
 </div>
 
 <script src="/js/mypage/myreview.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossOrigin="anonymous"></script>
 </body>
 </html>
