@@ -51,7 +51,7 @@ public class BookRequest {
 
     private String bookimg; // 도서 이미지
 
-    private int star; // 도서 별점
+    private double star; // 도서 별점
     
     private int cnt; // 도서 리뷰수
 
