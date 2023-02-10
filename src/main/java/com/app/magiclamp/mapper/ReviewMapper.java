@@ -26,4 +26,10 @@ public interface ReviewMapper {
     List<ReviewDTO> findAllByHighRating(@Param("isbn") String isbn, @Param("start") int start, @Param("end") int end);
 
 
+    /*@Query("select count(o) from Order o where o.userindex = ?1 and o.isbn = ?2")
+   long countByUserindexAndIsbn(Integer userindex, String isbn);*/
+    @Select("select count(*) from tbl_orderitem i inner join tbl_order o on i.orderindex=o.orderindex where i.isbn=#{isbn} and o.userindex=#{userindex}")
+    Long countByUserindexAndIsbn(@Param("isbn") String isbn, @Param("userindex") int userindex);
+
+
 }

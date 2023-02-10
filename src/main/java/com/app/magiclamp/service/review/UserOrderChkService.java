@@ -1,17 +1,17 @@
 package com.app.magiclamp.service.review;
 
-import com.app.magiclamp.repository.OrderRepository;
+import com.app.magiclamp.mapper.ReviewMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserOrderChkService {
-    private final OrderRepository orderRepository;
+    private final ReviewMapper reviewMapper;
 
-    public UserOrderChkService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public UserOrderChkService(ReviewMapper reviewMapper) {
+        this.reviewMapper = reviewMapper;
     }
 
     public long checkOrder(int userindex, String isbn){
-        return orderRepository.countByUserindexAndIsbn(userindex, isbn);
+        return reviewMapper.countByUserindexAndIsbn(isbn, userindex);
     }
 }
