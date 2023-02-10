@@ -22,7 +22,7 @@ public class AddrBook {
     @Column(columnDefinition = "int not null", updatable = false)
     private int userindex;
 
-    @Column
+    @Column(columnDefinition = "varchar(20) unique not null")
     private String addrname;
 
     @Column(columnDefinition = "varchar(20) not null")

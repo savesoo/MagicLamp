@@ -37,6 +37,10 @@ public class RequestPaymentBook {
 
 
     // 배송정보
+    // 배송지 설정 타입 1: 기본, 0: 기타, 9: 신규
+    private int addrSelect;
+
+    private String addrname;
     private String recipient;
     private String phone;
     private String postnum;

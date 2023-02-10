@@ -1,5 +1,6 @@
 package com.app.magiclamp.model.order;
 
+import com.app.magiclamp.entity.AddrBook;
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.model.BookInfoDTO;
 import com.app.magiclamp.model.mypage.OrderDetailAddress;
@@ -21,12 +22,14 @@ public class OrderBookPageDTO {
     // 책 정보를 갖는 List
     private List<BookInfoDTO> bookInfos;
 
+    private List<AddrBook> Addrs;
     private int totalBookCnt;
 
     // 현재 마일리지(DB에서 가져오기)
     private int mileage;
 
     // 배송정보(DB에서 가져오기)
+    private String addrname;
     private String recipient;
     private String phone;
     private String postnum;

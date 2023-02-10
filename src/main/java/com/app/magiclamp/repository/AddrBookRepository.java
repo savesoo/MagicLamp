@@ -17,7 +17,13 @@ public interface AddrBookRepository extends JpaRepository<AddrBook, Integer>, Jp
     AddrBook findByUserindexAndPriority(int userindex, int priority);
 
     @Query("select a from AddrBook a where a.userindex = ?1 order by a.priority DESC, a.addrindex")
+    List<AddrBook> findListByUserIndex(int userindex);
+
+    @Query("select a from AddrBook a where a.userindex = ?1 order by a.priority DESC, a.addrindex")
     Page<AddrBook> findAllByUserIndex(int userindex, Pageable pageable);
+
+    @Query("select count(a) from AddrBook a where a.userindex = ?1 and a.addrname = ?2")
+    int findAddrBookByAddrInfo(int userindex, String addrname);
 
     // 배송 주소록 전체 리스트
 //    @Query("select a from AddrBook a where a.userindex = ?1 order by a.priority DESC, a.addrindex")

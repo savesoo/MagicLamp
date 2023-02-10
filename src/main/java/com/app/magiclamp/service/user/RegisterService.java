@@ -37,6 +37,7 @@ public class RegisterService {
         // 회원 가입 시 기본 주소 주소록에 추가
         addrBookRepository.save(AddrBook.builder()
                     .userindex(user.getUserindex())
+                    .addrname("기본 배송지")
                     .recipient(user.getName())
                     .postnum(user.getPostnum())
                     .address1(user.getAddress1())

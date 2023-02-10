@@ -56,11 +56,25 @@
                   <span class="title"> 배송 정보 확인 </span>
               </div>
               <table class="table2">
-                  <th:block th:each="user : ${ordersInfo}">
+                      <tr>
+                          <th class="popup">배송지명</th>
+                          <td class="data_td">
+                              <input type="radio" name="addrSelect" value="1" id="addrSelect1" checked="true"><label for="addrSelect1">기본 배송지</label>
+                              <input type="radio" name="addrSelect" value="0" id="addrSelect0"><label for="addrSelect0">기타 배송지</label>
+                              <select id="addridxOption" style="display: none">
+                                  <option th:each="addr : ${ordersInfo.addrs}" th:value="${addr.addrindex}" th:text="${addr.addrname}" th:selected="${addr.priority}=='1'">
+                                  </option>
+                              </select>
+                              <input type="radio" name="addrSelect" value="9" id="addrSelect9"><label for="addrSelect9">신규 배송지</label>
+<!--                              <input type="text" name="addrname" id="addrname" th:each="addr : ${ordersInfo.addrs}" th:if="${addr.priority} == '1'" th:value="${addr.addrname}">-->
+                              <input type="text" name="addrname" id="addrname" style="display: none">
+                          </td>
+                      </tr>
+                  <th:block th:each="addr : ${ordersInfo.addrs}" th:if="${addr.priority == 1}">
                       <tr>
                         <th class="popup"> 주문인 </th>
                         <td class="data_td">
-                          <input type="text" id="recipient" th:value="${user.recipient}">
+                          <input type="text" id="recipient" th:value="${addr.recipient}">
                         </td>
                       </tr>
                       <!-------------------------->
@@ -69,20 +83,20 @@
                         <td class="data_td">
                           <div style="padding: 3px 0">
                           <span>
-                            <input type="text" id="postnum" th:value="${user.postnum}" readonly>
-                            <button class="button_middle" onclick="sample6_execDaumPostcode()"> 주소 검색 </button>
+                            <input type="text" id="postnum" th:value="${addr.postnum}" readonly>
+                            <button class="button_middle" id="addrSearchBtn" onclick="sample6_execDaumPostcode()" style="display: none"> 주소 검색 </button>
                           </span>
                           </div>
                           <div style="padding: 3px 0">
-                            <input type="text" id="address1" th:value="${user.address1}" readonly>
-                            <input type="text" id="address2" th:value="${user.address2}">
+                            <input type="text" id="address1" th:value="${addr.address1}" readonly>
+                            <input type="text" id="address2" th:value="${addr.address2}">
                           </div>
                         </td>
                       </tr>
                       <!-------------------------->
                       <tr>
                         <th class="popup"> 연락처 </th>
-                        <td class="data_td"> <input type="text" id="phone" th:value="${user.phone}" maxlength="11"> </td>
+                        <td class="data_td"> <input type="text" id="phone" th:value="${addr.phone}" maxlength="11"> </td>
                       </tr>
                   </th:block>
               </table>
@@ -239,8 +253,9 @@
       }
 
   </script>
-
-
+<script text="javascript" th:inline="javascript">
+    const addrList = [[${ordersInfo.addrs}]];
+</script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/js/order.js"></script>

@@ -68,12 +68,14 @@ public class OrderPageViewService {
         log.info("Mileage >>> " + m);
 
         //주소지
-        AddrBook add = getUserAddress(userindex);
-        orderBookPageDTO.setRecipient(add.getRecipient());
-        orderBookPageDTO.setPhone(add.getPhone());
-        orderBookPageDTO.setPostnum(add.getPostnum());
-        orderBookPageDTO.setAddress1(add.getAddress1());
-        orderBookPageDTO.setAddress2(add.getAddress2());
+        List<AddrBook> add = getUserAddressList(userindex);
+        orderBookPageDTO.setAddrs(add);
+//        AddrBook add = getUserAddress(userindex);
+//        orderBookPageDTO.setRecipient(add.getRecipient());
+//        orderBookPageDTO.setPhone(add.getPhone());
+//        orderBookPageDTO.setPostnum(add.getPostnum());
+//        orderBookPageDTO.setAddress1(add.getAddress1());
+//        orderBookPageDTO.setAddress2(add.getAddress2());
 
         log.info("AddrBook >>> " + add);
 
@@ -125,12 +127,14 @@ public class OrderPageViewService {
         log.info("Mileage >>> " + m);
 
         //주소지
-        AddrBook add = getUserAddress(userindex);
-        orderBookPageDTO.setRecipient(add.getRecipient());
-        orderBookPageDTO.setPhone(add.getPhone());
-        orderBookPageDTO.setPostnum(add.getPostnum());
-        orderBookPageDTO.setAddress1(add.getAddress1());
-        orderBookPageDTO.setAddress2(add.getAddress2());
+        List<AddrBook> add = getUserAddressList(userindex);
+        orderBookPageDTO.setAddrs(add);
+//        orderBookPageDTO.setRecipient(add.getRecipient());
+//        orderBookPageDTO.setPhone(add.getPhone());
+//        orderBookPageDTO.setPostnum(add.getPostnum());
+//        orderBookPageDTO.setAddress1(add.getAddress1());
+//        orderBookPageDTO.setAddress2(add.getAddress2());
+
 
         log.info("AddrBook >>> " + add);
 
@@ -161,6 +165,34 @@ public class OrderPageViewService {
 
             add = addrBookRepository.save(registAdd);
         }
+
+        return add;
+
+    }
+
+    public List<AddrBook> getUserAddressList(int userindex){
+
+        // 저장된 배송정보
+        // userindex, priority=1로 AddrBook select
+//        AddrBook add = addrBookRepository.findByUserindexAndPriority(userindex, 1);
+        List<AddrBook> add = addrBookRepository.findListByUserIndex(userindex);
+        User user = userRepository.findById(userindex).get();
+
+//        // null일 때 회원가입시 입력받은 주소로 기본 배송지 생성
+//        if(add==null){
+//
+//            AddrBook registAdd = AddrBook.builder()
+//                    .userindex(userindex)
+//                    .recipient(user.getUsername())
+//                    .phone(user.getPhone())
+//                    .postnum(user.getPostnum())
+//                    .address1(user.getAddress1())
+//                    .address2(user.getAddress2())
+//                    .priority(1)
+//                    .build();
+//
+//            add = addrBookRepository.save(registAdd);
+//        }
 
         return add;
 

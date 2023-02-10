@@ -57,11 +57,16 @@ function  useMileage() {
 <!--주문 버튼-->
 function moveToPayment(){
 
+    const addrname = document.getElementById('addrname');
     const recipient = document.querySelector("#recipient");
     const postnum = document.querySelector("#postnum");
     const address1 = document.querySelector("#address1");
     const address2 = document.querySelector("#address2");
     const phone = document.querySelector("#phone");
+    const addrSelect = $("input[name='addrSelect']:checked").val();
+
+    console.log(addrSelect);
+    console.log(addrname.value);
 
     if(!formTextCheck(recipient)
         || !formNumCheck(postnum)
@@ -77,6 +82,9 @@ function moveToPayment(){
 
         bookInfos : ordersInfo,
 
+        addrSelect: addrSelect,
+
+        addrname : document.getElementById('addrname').value,
         recipient: recipient.value,
         postnum: postnum.value,
         address1: address1.value,
@@ -116,3 +124,79 @@ function moveToPayment(){
 
 
 }
+
+document.getElementById('addridxOption').onchange = function (){
+    const addrval = this.value;
+
+    addrList.forEach(function(addr){
+
+        if(addr.addrindex == addrval){
+            document.getElementById('recipient').value = addr.recipient;
+            document.getElementById('postnum').value = addr.postnum;
+            document.getElementById('address1').value = addr.address1;
+            document.getElementById('address2').value = addr.address2;
+            document.getElementById('phone').value = addr.phone;
+
+            // console.log(addr);
+            return false;
+        }
+    });
+}
+
+$("input[name='addrSelect']").change(function (){
+
+    let chkVal = $(this).val();
+    let recipient = document.getElementById('recipient');
+    let postnum = document.getElementById('postnum');
+    let address1 = document.getElementById('address1');
+    let address2 = document.getElementById('address2');
+    let phone = document.getElementById('phone');
+    let addrname = document.getElementById('addrname');
+
+    if(chkVal == 1){
+        document.getElementById('addridxOption').style.display = 'none';
+        document.getElementById('addrSearchBtn').style.display = 'none';
+        document.getElementById('addrname').style.display = 'none';
+        addrList.forEach(function(addr){
+            if(addr.priority == 1){
+                recipient.value = addr.recipient;
+                postnum.value = addr.postnum;
+                address1.value = addr.address1;
+                address2.value = addr.address2;
+                phone.value = addr.phone;
+                addrname.value = addr.addrname;
+                return false;
+            }
+        });
+    }
+    else if(chkVal == 0){
+        let addridxOption = document.getElementById('addridxOption');
+        let addrSelectVal = addridxOption.value;
+        document.getElementById('addrSearchBtn').style.display = 'none';
+        document.getElementById('addrname').style.display = 'none';
+        addridxOption.style.display = 'inline';
+        addrList.forEach(function(addr) {
+            if (addr.addrindex == addrSelectVal) {
+                recipient.value = addr.recipient;
+                postnum.value = addr.postnum;
+                address1.value = addr.address1;
+                address2.value = addr.address2;
+                phone.value = addr.phone;
+                addrname.value = addr.addrname;
+                return false;
+            }
+        });
+    }
+
+    else if(chkVal == 9){
+        document.getElementById('addridxOption').style.display = 'none';
+        document.getElementById('addrSearchBtn').style.display = 'inline';
+        document.getElementById('addrname').style.display = 'inline';
+        recipient.value = "";
+        postnum.value = "";
+        address1.value = "";
+        address2.value = "";
+        phone.value = "";
+        addrname.value="";
+    }
+});

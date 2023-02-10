@@ -26,6 +26,8 @@ public class OrderInsertService{
     private OrderRepository orderRepository;
     @Autowired
     private MileageRepository mileageRepository;
+    @Autowired
+    private AddrBookRepository addrBookRepository;
 
     @Transactional
     public int Order(RequestPaymentBook paymentBook, int userindex) throws Exception{
@@ -111,6 +113,21 @@ public class OrderInsertService{
             mileageRepository.save(saveMil);
 
             log.info(" save mileage >>> " + saveMil);
+        }
+
+        if(paymentBook.getAddrSelect() == 9){
+            AddrBook registAdd = AddrBook.builder()
+                    .userindex(userindex)
+                    .recipient(paymentBook.getRecipient())
+                    .phone(paymentBook.getPhone())
+                    .postnum(paymentBook.getPostnum())
+                    .address1(paymentBook.getAddress1())
+                    .address2(paymentBook.getAddress2())
+                    .addrname(paymentBook.getAddrname())
+                    .priority(0)
+                    .build();
+
+            addrBookRepository.save(registAdd);
         }
 
         return result;
