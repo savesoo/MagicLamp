@@ -64,6 +64,7 @@ function moveToPayment(){
     const phone = document.querySelector("#phone");
 
     if(!formTextCheck(recipient)
+        || !formNumCheck(postnum)
         || !formCheck(address2)
         || !formNumCheck(phone)
     ){

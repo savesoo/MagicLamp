@@ -95,7 +95,7 @@ function cartListOrder(){
 
     axios.post('/order', infoList)
         .then(res => {
-            location.href="/order/order2";
+            location.href="/order";
         })
         .catch(err => console.log(err))
 

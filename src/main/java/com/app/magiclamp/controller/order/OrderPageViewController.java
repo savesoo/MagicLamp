@@ -32,46 +32,38 @@ public class OrderPageViewController {
     @Autowired
     private OrderPageViewService orderPageViewService;
 
-    // 어떻게 list로 받을지 고민하기
     @GetMapping
-    public String getOrderPage(@AuthenticationPrincipal AuthUserDTO userDTO,
-                               RequestOrderBook orders,
-                               Model model){
-
-        log.info(" get order controller ... ");
-        log.info(" controller order >>> " + orders);
-
-        // 임시 null 처리
-        if(orders==null || userDTO == null){
-
-            return "redirect:/main";
-        }
-
-        model.addAttribute("loginInfo", userDTO == null? -1 : userDTO.getUserindex()); // user 정보
-        model.addAttribute("ordersInfo", orderPageViewService.getOrderBook(orders, userDTO.getUserindex()));
-
-
-        return "view/order/order";
-
-    }
-
-    @GetMapping("order2")
     public String getOrderPageView(HttpServletRequest req,
+                                   RequestOrderBook orders,
                                    @AuthenticationPrincipal AuthUserDTO user,
                                    Model model){
-
-        HttpSession session = req.getSession();
-
-        OrderBookPageDTO orderBookPageDTO = (OrderBookPageDTO)session.getAttribute(String.valueOf(user.getUserindex()));
 
         if(user == null){
             return "redirect:/main";
         }
 
-        model.addAttribute("loginInfo", user == null? -1 : user.getUserindex()); // user 정보
-        model.addAttribute("ordersInfo", orderBookPageDTO);
+        log.info(" orders >>>> " + orders);
 
-//        session.removeAttribute(String.valueOf(user.getUserindex()));
+        HttpSession session = req.getSession();
+        OrderBookPageDTO orderBookPageDTO = null;
+
+        if(session.getAttribute(String.valueOf(user.getUserindex())) != null && orders.getIsbn() == null){
+            orderBookPageDTO = (OrderBookPageDTO)session.getAttribute(String.valueOf(user.getUserindex()));
+        }
+        else {
+            // session 사라진 뒤 url 직접 접속하는 경우
+            if(orders.getIsbn()==null){
+                return "redirect:/main";
+            }
+            // 기존 session 남아있을시 제거
+            session.removeAttribute(String.valueOf(user.getUserindex()));
+            orderBookPageDTO = orderPageViewService.getOrderBook(orders, user.getUserindex());
+        }
+
+        log.info("order2" + orderBookPageDTO);
+
+        model.addAttribute("loginInfo", user.getUserindex()); // user 정보
+        model.addAttribute("ordersInfo", orderBookPageDTO);
 
         return "view/order/order";
 
