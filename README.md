@@ -23,7 +23,7 @@
 |Frontend|HTML5, JS, CSS3, Bootstrap|
 |Backend|Java, SpringBoot 2.7.6, JPA, Mybatis, Thymeleaf|
 |OS|Windows10|
-|Library&API|Spring Security, Validation, Lombok, j-son simple, 다음 우편번호, 알라딘|
+|Library&API|Spring Security, Validation, Lombok, axios, j-son simple, 다음 우편번호, 알라딘|
 |IDE|IntelliJ IDEA|
 |Server|AWS, Tomcat|
 |Document||
@@ -31,10 +31,10 @@
 |DataBase|MySQL 8.0|
 * * *
 ## 프로젝트 기능 구현
-- @Seo-Aram
+- [@Seo-Aram](https://github.com/Seo-Aram/MagicLamp/commits?author=Seo-Aram)
   - 환경 구축
   - 회원 관리
-    - 로그인
+    - 로그인, 자동로그인
     - 회원가입
 - [@himediahj](https://github.com/Seo-Aram/MagicLamp/commits?author=himediahj)
   - 리뷰 기능
@@ -68,6 +68,7 @@
       - 회원 탈퇴
     - 배송 주소록
       - 수령인으로 검색, 배송 주소 리스트 출력, 수정, 삭제
+      - 주문 페이지 내 배송지 선택 기능
     - 마일리지
       - 적립, 사용 내역 리스트
       - 30일 이내 소멸 마일리지 표시
