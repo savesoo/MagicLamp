@@ -1,8 +1,6 @@
 package com.app.magiclamp.controller.order;
 
-import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.model.AuthUserDTO;
-import com.app.magiclamp.model.mypage.AddrBookRequest;
 import com.app.magiclamp.model.order.OrderBookPageDTO;
 import com.app.magiclamp.model.order.RequestOrderBook;
 import com.app.magiclamp.service.order.OrderPageViewService;
@@ -18,9 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -38,20 +34,23 @@ public class OrderPageViewController {
                                    @AuthenticationPrincipal AuthUserDTO user,
                                    Model model){
 
+        log.info(" >>>>>> get order controller >>>>>> ");
+        log.info(" orders >>>> " + orders);
+
         if(user == null){
             return "redirect:/main";
         }
 
-        log.info(" orders >>>> " + orders);
-
         HttpSession session = req.getSession();
-        OrderBookPageDTO orderBookPageDTO = null;
+        OrderBookPageDTO orderBookPageDTO;
 
+        // 장바구니 -> 주문으로 넘어온 경우 session에서 꺼내어 set
+        // 즉시 구매인 경우 get으로 넘어온 정보를 바로 set해줌
         if(session.getAttribute(String.valueOf(user.getUserindex())) != null && orders.getIsbn() == null){
             orderBookPageDTO = (OrderBookPageDTO)session.getAttribute(String.valueOf(user.getUserindex()));
         }
         else {
-            // session 사라진 뒤 url 직접 접속하는 경우
+            // session 사라진 뒤 url 직접 접속하는 경우(id->null)
             if(orders.getIsbn()==null){
                 return "redirect:/main";
             }

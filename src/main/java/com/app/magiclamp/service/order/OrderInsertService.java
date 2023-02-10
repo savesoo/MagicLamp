@@ -14,9 +14,8 @@ import java.util.List;
 @Log4j2
 @Service
 public class OrderInsertService{
-//    @Autowired
-//    private PaymentRepository paymentRepository;
-
+    @Autowired
+    private PaymentRepository paymentRepository;
     @Autowired
     private CartRepository cartRepository;
     @Autowired
@@ -97,7 +96,6 @@ public class OrderInsertService{
         }
 
         log.info(" result >>> " + result);
-
 
         // 사용한 마일리지 insert
         if(paymentBook.getUsemileage() > 0) {

@@ -22,10 +22,8 @@ import java.util.Map;
 public class OrderPageViewService {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private BookRepository bookRepository;
-
     @Autowired
     private AddrBookRepository addrBookRepository;
     @Autowired
@@ -42,7 +40,6 @@ public class OrderPageViewService {
         log.info(" isbn >>> " + orders.getIsbn());
 
         Book book = bookRepository.findById(orders.getIsbn()).get();
-        log.info("Test !!!!!!!!!!!!!!!!!!!!!!!!!! " + book);
         BookInfoDTO bookInfo = book.toBookInfo(); // DB에서 책 정보 불러오기
 
         if( book==null || bookInfo==null){
@@ -85,6 +82,7 @@ public class OrderPageViewService {
         return orderBookPageDTO;
     }
 
+    // 장바구니에서 책 정보 넘길 때
     @Transactional
     public OrderBookPageDTO getOrderBookPost(List<RequestOrderBook> orders, int userindex) {
 

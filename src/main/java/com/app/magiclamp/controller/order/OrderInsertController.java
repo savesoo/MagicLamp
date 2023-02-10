@@ -21,7 +21,6 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/order")
 public class OrderInsertController{
-
     @Autowired
     private OrderInsertService orderInsertService;
 
@@ -33,17 +32,12 @@ public class OrderInsertController{
         log.info(" user >>> " + userDTO.getUserindex());
         log.info(" >>>>> insert 전 order >>>>>> " + paymentBook);
 
-        HttpSession session = req.getSession();
-        session.removeAttribute(String.valueOf(userDTO.getUserindex()));
-
         if(userDTO==null || paymentBook==null){
-
             return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.EXPECTATION_FAILED);
         }
 
-
-        
-        log.info(" >>>>> insert 후 order >>>>>> " + paymentBook);
+        HttpSession session = req.getSession();
+        session.removeAttribute(String.valueOf(userDTO.getUserindex()));
 
         int result = 0;
 
@@ -55,7 +49,7 @@ public class OrderInsertController{
             return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
         }
 
-        log.info("result  >>> " + result);
+        log.info(" result  >>> " + result);
 
         return new ResponseEntity<>(result, new HttpHeaders(), HttpStatus.OK);
 
