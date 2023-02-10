@@ -83,6 +83,11 @@
                               <a href="/mypage/myreview">리뷰 관리</a>
                             </td>
                         </tr>
+                        <tr sec:authorize="hasRole('ADMIN')">
+                          <td>
+                            <a href="/administrator/list">관리자 페이지</a>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </td>
