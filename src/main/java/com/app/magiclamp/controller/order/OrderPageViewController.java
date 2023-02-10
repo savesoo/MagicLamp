@@ -71,7 +71,7 @@ public class OrderPageViewController {
         model.addAttribute("loginInfo", user == null? -1 : user.getUserindex()); // user 정보
         model.addAttribute("ordersInfo", orderBookPageDTO);
 
-        session.removeAttribute(String.valueOf(user.getUserindex()));
+//        session.removeAttribute(String.valueOf(user.getUserindex()));
 
         return "view/order/order";
 

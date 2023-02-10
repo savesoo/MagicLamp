@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Log4j2
 @RestController
 @RequestMapping("/order")
@@ -23,12 +26,15 @@ public class OrderInsertController{
     private OrderInsertService orderInsertService;
 
     @PostMapping("/payment")
-    public ResponseEntity<Integer> insert(@AuthenticationPrincipal AuthUserDTO userDTO,
+    public ResponseEntity<Integer> insert(HttpServletRequest req, @AuthenticationPrincipal AuthUserDTO userDTO,
                                           @RequestBody RequestPaymentBook paymentBook){
 
         log.info(" post order ... ");
         log.info(" user >>> " + userDTO.getUserindex());
         log.info(" >>>>> insert 전 order >>>>>> " + paymentBook);
+
+        HttpSession session = req.getSession();
+        session.removeAttribute(String.valueOf(userDTO.getUserindex()));
 
         if(userDTO==null || paymentBook==null){
 
