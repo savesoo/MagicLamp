@@ -1,3 +1,14 @@
+const myreview_text = document.querySelectorAll('#myreview_text')
+for (i = 0; i < myreview_text.length; i++){
+    const splitByBr = myreview_text[i].textContent.split('<br/>')
+    myreview_text[i].innerHTML = ''
+    for (j = 0; j < splitByBr.length; j++) {
+        myreview_text[i].innerHTML.replaceAll('&lt;', '<')
+        myreview_text[i].innerHTML.replaceAll('&gt;', '>')
+        myreview_text[i].innerHTML += splitByBr[j] + '<br/>'
+    }
+}
+
 document.getElementById('searchBtn').onclick = function(){
     let sdata = document.getElementById('sDate').value;
     let edata = document.getElementById('eDate').value;
@@ -29,7 +40,7 @@ document.getElementById('modalclosebtn').onclick = function() {
 }
 
 function updateBtnClick(data){
-    document.getElementById('mreviewcontent').innerText = data.reviewcontent;
+    document.getElementById('mreviewcontent').value = data.reviewcontent.replaceAll('<br/>', '\r\n');
     document.getElementById('mreviewindex').value = data.reviewindex;
     document.getElementById('misbn').value = data.isbn;
     document.getElementById('mreviewer').value = data.reviewer;
@@ -63,7 +74,7 @@ document.getElementById('reviewUpt').onclick = function (){
         isbn : document.getElementById('misbn').value,
         reviewer : document.getElementById('mreviewer').value,
         star : starPoint,
-        reviewcontent : document.getElementById('mreviewcontent').value,
+        reviewcontent : document.getElementById('mreviewcontent').value.replace(/(?:\r\n|\r|\n)/g, '<br/>'),
         regdate : document.getElementById('mregdate').value
     }
 

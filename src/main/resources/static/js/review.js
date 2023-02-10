@@ -50,7 +50,7 @@ if (myReview != null) {
     for (i = 0; i < myReviewSplitByBr.length; i++) {
         myReviewContent.innerHTML += myReviewSplitByBr[i] + '<br/>'
     }
-    const myReviewContent_text = myReviewContent.textContent
+    const myReviewContent_text = myReviewContent.innerHTML
     const myReviewContent_text_short = myReviewContent_text.substring(0, 145) + "..."
 
     const myReview_more = document.createElement('button')
@@ -59,11 +59,11 @@ if (myReview != null) {
 
     const visible_mycontent = document.createElement('span')
     visible_mycontent.setAttribute('class', 'visible')
-    visible_mycontent.textContent = myReviewContent_text_short
+    visible_mycontent.innerHTML = myReviewContent_text_short
 
     const hidden_mycontent = document.createElement('span')
     hidden_mycontent.setAttribute('class', 'hidden')
-    hidden_mycontent.textContent = myReviewContent_text
+    hidden_mycontent.innerHTML = myReviewContent_text
 
     if (myReview.reviewcontent.split('<br/>').length - 1 > 5) {
         var indexOfBr = []
