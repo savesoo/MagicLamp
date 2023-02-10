@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let address1 = td.eq(3).children().eq(2).text();
         let address2 = td.eq(3).children().eq(3).text();
         let phone = td.eq(3).children().eq(5).text();
-        let priority = td.eq(0).children().eq(0).val();
+        let priority = td.eq(4).children().eq(0).val();
         let userindex = td.eq(0).children().eq(1).val();
 
         document.querySelector('#maddrindex').value= addrindex;
@@ -38,7 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#maddress2').value = address2
         document.querySelector('#mphone').value = phone;
         document.querySelector('#mpriority').value = priority;
+        document.getElementById('defaultChk').checked = false;
 
+        if(priority == 1){
+            document.getElementById('defaultChk').checked = true;
+        }
+        
         document.getElementById("add").style.display='none';
         document.getElementById("modify").style.display='block';
         modal.style.display="block";
@@ -117,6 +122,15 @@ function addrModify(){
     let keyword = document.querySelector('#keyword').value;
     let pagenum = document.querySelector('#pagenum').value;
     let priority = document.querySelector('#mpriority').value;
+    let defaultChk = document.getElementById('defaultChk').checked;
+
+    console.log(defaultChk);
+    if(defaultChk){
+        document.querySelector('#mpriority').value = 1;
+    }
+    else {
+        document.querySelector('#mpriority').value = 0;
+    }
 
     const addrbook = {
         addrindex : document.querySelector('#maddrindex').value,
@@ -154,6 +168,10 @@ function addrModify(){
                 }
             })*/
             modal.style.display='none';
+            console.log(res.data);
+            if(res.data == null){
+                alert("기본 배송지는 변경 할 수 없습니다.");
+            }
 
             location.href = '/mypage/addrbook?page=' + pagenum + '&keyword=' + keyword;
         })
@@ -174,6 +192,7 @@ function newAddr(){
     document.querySelector('#maddress1').value = null;
     document.querySelector('#maddress2').value = null;
     document.querySelector('#mphone').value = null;
+    document.querySelector('#mpriority').value = null;
 
 }
 

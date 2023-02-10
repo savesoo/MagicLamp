@@ -29,6 +29,14 @@ public interface AddrBookRepository extends JpaRepository<AddrBook, Integer>, Jp
 //    @Query("select a from AddrBook a where a.userindex = ?1 order by a.priority DESC, a.addrindex")
 //    List<AddrBook> findByUserindex(int userindex);
 
+    @Query("select a from AddrBook a where a.userindex = ?1 and a.priority=1")
+    AddrBook selectAddrBookByPriority(int userindex, int addrindex);
+
+    @Transactional
+    @Modifying
+    @Query("update AddrBook a set a.priority = 0 where a.userindex = ?1 and a.priority=1")
+    int updateAddrBookUserInfoPriority(int userindex);
+
     // 배송 주소록 주소 업데이트
     @Transactional
     @Modifying

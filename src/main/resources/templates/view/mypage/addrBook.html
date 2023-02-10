@@ -50,7 +50,6 @@
         <th:block th:if="${addr.priority == 1}">
           <td style="vertical-align: middle">
             <input class="form-check-input" type="text" name="addrchk" th:value="${addr.addrindex}" style="display: none">
-            <input type="hidden" name="priority" id="priority" th:value="${addr.priority}">
             <input type="hidden" name="userindex" id="userindex" th:value="${addr.userindex}">
           </td>
         </th:block>
@@ -73,6 +72,7 @@
           <label><th:block th:text="${addr.phone}"></th:block></label>
         </td>
         <td style="vertical-align: middle">
+          <input type="hidden" name="priority" id="priority" th:value="${addr.priority}">
           <button class="btn btn-primary btn-sm" name="addrModifyBtn">수정</button>
           <th:block th:if="${addr.priority} != 1"><button class="btn btn-outline-primary btn-sm" name="addrDeleteBtn">삭제</button></th:block>
         </td>
@@ -148,6 +148,7 @@
           </div>
         </div>
         <div class="modal-footer">
+          <input class="form-check-input" type="checkbox" id="defaultChk" name="defaultChk"><label for="defaultChk">기본 배송지</label>
           <input class="btn btn-primary" type="button" id="add" value="추가" onclick="addrAdd()">
           <input class="btn btn-primary" type="button" id="modify" value="수정" onclick="addrModify()">
           <button type="button" class="btn btn-outline-primary" id="modalClose">Close</button>

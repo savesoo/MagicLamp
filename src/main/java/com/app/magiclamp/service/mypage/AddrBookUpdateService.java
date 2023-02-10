@@ -22,8 +22,16 @@ public class AddrBookUpdateService {
     @Transactional
     public AddrBook updateAddrBook(AddrBookRequest addrBookRequest){
         AddrBook addrBook = addrBookRequest.toAddrBookEntity();
-
+        log.info("###################" + addrBook);
         if(addrBookRequest.getPriority() == 1){
+
+            AddrBook chk = addrBookRepository.selectAddrBookByPriority(addrBookRequest.getUserindex(), addrBookRequest.getAddrindex());
+            log.info(chk);
+
+            if(chk != null && (chk.getAddrindex() != addrBookRequest.getAddrindex())){
+                addrBookRepository.updateAddrBookUserInfoPriority(addrBookRequest.getUserindex());
+            }
+
             userRepository.updateAddressByAddrBook(addrBookRequest.getPostnum(),
                     addrBookRequest.getAddress1(),
                     addrBookRequest.getAddress2(),
@@ -32,7 +40,16 @@ public class AddrBookUpdateService {
 
             log.info("유저 정보 업데이트");
         }
+        else{
+            AddrBook chk = addrBookRepository.selectAddrBookByPriority(addrBookRequest.getUserindex(), addrBookRequest.getAddrindex());
+            log.info("###################" + chk.getAddrindex());
+            if((Integer)chk.getAddrindex() == (Integer)addrBookRequest.getAddrindex()){
+                return null;
+            }
+        }
 
+
+        log.info("################## addrbook" + addrBook);
         return addrBookRepository.save(addrBook);
     }
 }

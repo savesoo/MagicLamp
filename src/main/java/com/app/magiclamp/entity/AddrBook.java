@@ -40,6 +40,6 @@ public class AddrBook {
     @Column(columnDefinition = "varchar(100) not null")
     private String address2;
 
-    @Column(columnDefinition = "int default 0", updatable = false)
+    @Column(columnDefinition = "int default 0")
     private int priority;
 }
