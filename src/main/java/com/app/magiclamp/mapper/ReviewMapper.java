@@ -24,12 +24,7 @@ public interface ReviewMapper {
 
     @Select("select c.cnt, u.username, r.*from tbl_review as r left outer join (select * from tbl_user) as u on r.reviewer=u.userindex left outer join (select reviewindex, count(reviewindex) as cnt from tbl_like group by reviewindex) as c on r.reviewindex=c.reviewindex where r.isbn=#{isbn} order by r.star desc limit #{start}, #{end}")
     List<ReviewDTO> findAllByHighRating(@Param("isbn") String isbn, @Param("start") int start, @Param("end") int end);
-
-
-    /*@Query("select count(o) from Order o where o.userindex = ?1 and o.isbn = ?2")
-   long countByUserindexAndIsbn(Integer userindex, String isbn);*/
+    
     @Select("select count(*) from tbl_orderitem i inner join tbl_order o on i.orderindex=o.orderindex where i.isbn=#{isbn} and o.userindex=#{userindex}")
     Long countByUserindexAndIsbn(@Param("isbn") String isbn, @Param("userindex") int userindex);
-
-
 }

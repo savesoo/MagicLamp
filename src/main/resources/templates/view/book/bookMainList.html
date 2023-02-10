@@ -99,7 +99,7 @@
                 </td>
                 <td width="10%">
                     <div style="display: inline">
-                        <button style="display: inline" onclick="insertAllCart()" class="btn btn-primary">장바구니 담기
+                        <button style="display: inline" onclick="insertAllCart()" class="btn btn-info">장바구니 담기
                         </button>
                     </div>
                 </td>
@@ -143,14 +143,15 @@
                                 <th:block th:if="${book.star == 2}">★★☆☆☆</th:block>
                                 <th:block th:if="${book.star == 1}">★☆☆☆☆</th:block>
                                 <a th:text="${'(' + book.cnt + ')'}"
-                                   th:href="@{/main/product(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
+                                   th:href="${reviewUrl + '#review'}"
+                                   th:with="reviewUrl = @{/main/product(isbn=${book.isbn},p=${BookMainListPage.pagenum})}"></a>
                             </th:block>
                         </div>
                     </td>
                     <td width="20%" style="text-align: center">
                         <div>
                             <!--                    <button onclick="insertOneCart()">장바구니 담기</button>-->
-                            <button onclick="insertOneCart(this)" th:value="${book.isbn}" class="btn btn-primary mt-5">
+                            <button onclick="insertOneCart(this)" th:value="${book.isbn}" class="btn btn-info mt-5">
                                 장바구니
                                 담기
                             </button>
@@ -175,7 +176,7 @@
                 </td>
                 <td width="10%">
                     <div style="display: inline">
-                        <button style="display: inline" onclick="insertAllCart()" class="btn btn-primary mt-1">장바구니 담기
+                        <button style="display: inline" onclick="insertAllCart()" class="btn btn-info mt-1">장바구니 담기
                         </button>
                     </div>
                 </td>
