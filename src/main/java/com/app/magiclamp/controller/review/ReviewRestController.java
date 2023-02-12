@@ -1,6 +1,6 @@
-package com.app.magiclamp.controller;
+package com.app.magiclamp.controller.review;
 
-import com.app.magiclamp.model.ReviewDTO;
+import com.app.magiclamp.model.review.ReviewDTO;
 import com.app.magiclamp.entity.Review;
 import com.app.magiclamp.service.review.*;
 import lombok.extern.log4j.Log4j2;

@@ -4,7 +4,7 @@ import com.app.magiclamp.entity.AddrBook;
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.entity.User;
 import com.app.magiclamp.mapper.MileageMapper;
-import com.app.magiclamp.model.BookInfoDTO;
+import com.app.magiclamp.model.book.BookInfoDTO;
 import com.app.magiclamp.model.order.RequestOrderBook;
 import com.app.magiclamp.model.order.OrderBookPageDTO;
 import com.app.magiclamp.repository.*;

@@ -1,6 +1,6 @@
 package com.app.magiclamp.controller.mypage;
 
-import com.app.magiclamp.model.AuthUserDTO;
+import com.app.magiclamp.model.user.AuthUserDTO;
 import com.app.magiclamp.model.mypage.CartRequestDTO;
 import com.app.magiclamp.service.mypage.CartDeleteService;
 import com.app.magiclamp.service.mypage.CartUpdateService;

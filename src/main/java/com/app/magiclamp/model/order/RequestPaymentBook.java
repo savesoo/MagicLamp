@@ -2,11 +2,9 @@ package com.app.magiclamp.model.order;
 
 import com.app.magiclamp.entity.Order;
 import com.app.magiclamp.entity.OrderItem;
-import com.app.magiclamp.model.AuthUserDTO;
-import com.app.magiclamp.model.BookInfoDTO;
+import com.app.magiclamp.model.book.BookInfoDTO;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor

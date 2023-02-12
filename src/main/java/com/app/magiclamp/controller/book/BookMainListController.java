@@ -1,7 +1,7 @@
 package com.app.magiclamp.controller.book;
 
-import com.app.magiclamp.model.AuthUserDTO;
-import com.app.magiclamp.model.bookMain.BookSearchOption;
+import com.app.magiclamp.model.user.AuthUserDTO;
+import com.app.magiclamp.model.book.BookSearchOption;
 import com.app.magiclamp.service.book.BookMainListService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +9,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/main")

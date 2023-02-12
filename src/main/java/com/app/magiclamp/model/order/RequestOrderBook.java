@@ -1,6 +1,5 @@
 package com.app.magiclamp.model.order;
 
-import com.app.magiclamp.model.BookInfoDTO;
 import lombok.*;
 
 @AllArgsConstructor

@@ -1,4 +1,4 @@
-package com.app.magiclamp.model;
+package com.app.magiclamp.model.user;
 
 import com.app.magiclamp.entity.User;
 import com.app.magiclamp.entity.UserRole;

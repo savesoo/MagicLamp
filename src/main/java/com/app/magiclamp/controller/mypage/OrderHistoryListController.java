@@ -1,6 +1,6 @@
 package com.app.magiclamp.controller.mypage;
 
-import com.app.magiclamp.model.AuthUserDTO;
+import com.app.magiclamp.model.user.AuthUserDTO;
 import com.app.magiclamp.model.mypage.OrderHistorySearchOption;
 import com.app.magiclamp.service.mypage.OrderHistoryListService;
 import lombok.extern.log4j.Log4j2;

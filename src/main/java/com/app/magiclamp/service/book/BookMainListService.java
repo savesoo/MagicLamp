@@ -1,16 +1,12 @@
 package com.app.magiclamp.service.book;
 
-import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.mapper.BookMainListMapper;
-import com.app.magiclamp.model.bookMain.BookMainListPage;
-import com.app.magiclamp.model.bookMain.BookRequest;
-import com.app.magiclamp.model.bookMain.BookSearchOption;
+import com.app.magiclamp.model.book.BookMainListPage;
+import com.app.magiclamp.model.book.BookRequest;
+import com.app.magiclamp.model.book.BookSearchOption;
 import com.app.magiclamp.repository.BookRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

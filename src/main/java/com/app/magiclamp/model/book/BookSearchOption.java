@@ -1,4 +1,4 @@
-package com.app.magiclamp.model.bookMain;
+package com.app.magiclamp.model.book;
 
 import lombok.*;
 

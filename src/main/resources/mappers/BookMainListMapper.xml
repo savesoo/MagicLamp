@@ -4,7 +4,7 @@
 
 <mapper namespace="com.app.magiclamp.mapper.BookMainListMapper">
 
-    <select id="selectByOption" resultType="com.app.magiclamp.model.bookMain.BookRequest">
+    <select id="selectByOption" resultType="com.app.magiclamp.model.book.BookRequest">
 
         select c.cnt, r.star, b.* from tbl_book b left outer join (SELECT isbn, round(avg(star), 1) as star FROM project_lamp.tbl_review group by isbn order by isbn) r on b.isbn=r.isbn left outer join (select isbn, count(isbn) as cnt from tbl_review group by isbn) c on b.isbn=c.isbn
 

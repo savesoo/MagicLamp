@@ -1,7 +1,5 @@
 package com.app.magiclamp.service.mypage;
 
-import com.app.magiclamp.entity.User;
-import com.app.magiclamp.model.AuthUserDTO;
 import com.app.magiclamp.repository.AddrBookRepository;
 import com.app.magiclamp.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
@@ -9,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @Log4j2

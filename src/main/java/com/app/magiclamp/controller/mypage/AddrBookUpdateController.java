@@ -1,7 +1,7 @@
 package com.app.magiclamp.controller.mypage;
 
 import com.app.magiclamp.entity.AddrBook;
-import com.app.magiclamp.model.AuthUserDTO;
+import com.app.magiclamp.model.user.AuthUserDTO;
 import com.app.magiclamp.model.mypage.AddrBookRequest;
 import com.app.magiclamp.service.mypage.AddrBookUpdateService;
 import lombok.extern.log4j.Log4j2;

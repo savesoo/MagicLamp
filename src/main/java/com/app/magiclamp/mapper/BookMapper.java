@@ -1,7 +1,7 @@
 package com.app.magiclamp.mapper;
 
-import com.app.magiclamp.model.BestsellerDTO;
-import com.app.magiclamp.model.bookMain.BookRequest;
+import com.app.magiclamp.model.book.BestsellerDTO;
+import com.app.magiclamp.model.book.BookRequest;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

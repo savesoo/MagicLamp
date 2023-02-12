@@ -1,4 +1,4 @@
-package com.app.magiclamp.model;
+package com.app.magiclamp.model.book;
 
 import com.app.magiclamp.entity.OrderItem;
 import lombok.*;

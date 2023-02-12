@@ -1,6 +1,6 @@
 package com.app.magiclamp.entity;
 
-import com.app.magiclamp.model.BookInfoDTO;
+import com.app.magiclamp.model.book.BookInfoDTO;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;

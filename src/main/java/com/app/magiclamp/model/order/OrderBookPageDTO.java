@@ -1,8 +1,7 @@
 package com.app.magiclamp.model.order;
 
 import com.app.magiclamp.entity.AddrBook;
-import com.app.magiclamp.entity.Book;
-import com.app.magiclamp.model.BookInfoDTO;
+import com.app.magiclamp.model.book.BookInfoDTO;
 import com.app.magiclamp.model.mypage.OrderDetailAddress;
 import lombok.*;
 

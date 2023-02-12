@@ -1,6 +1,6 @@
 package com.app.magiclamp.controller.order;
 
-import com.app.magiclamp.model.AuthUserDTO;
+import com.app.magiclamp.model.user.AuthUserDTO;
 import com.app.magiclamp.model.order.OrderBookPageDTO;
 import com.app.magiclamp.model.order.RequestOrderBook;
 import com.app.magiclamp.service.order.OrderPageViewService;

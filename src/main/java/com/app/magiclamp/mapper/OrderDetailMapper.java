@@ -1,6 +1,6 @@
 package com.app.magiclamp.mapper;
 
-import com.app.magiclamp.model.BookInfoDTO;
+import com.app.magiclamp.model.book.BookInfoDTO;
 import com.app.magiclamp.model.mypage.OrderDetailAddress;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

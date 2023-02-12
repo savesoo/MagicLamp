@@ -1,7 +1,7 @@
 package com.app.magiclamp.service.order;
 
 import com.app.magiclamp.entity.*;
-import com.app.magiclamp.model.BookInfoDTO;
+import com.app.magiclamp.model.book.BookInfoDTO;
 import com.app.magiclamp.model.order.RequestPaymentBook;
 import com.app.magiclamp.repository.*;
 import lombok.extern.log4j.Log4j2;

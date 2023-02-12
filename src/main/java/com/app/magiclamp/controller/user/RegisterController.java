@@ -1,6 +1,6 @@
 package com.app.magiclamp.controller.user;
 
-import com.app.magiclamp.model.UserRequest;
+import com.app.magiclamp.model.user.UserRequest;
 import com.app.magiclamp.service.user.RegisterService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

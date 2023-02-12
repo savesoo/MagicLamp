@@ -1,4 +1,4 @@
-package com.app.magiclamp.model;
+package com.app.magiclamp.model.cart;
 
 import com.app.magiclamp.entity.Book;
 import com.app.magiclamp.entity.Cart;

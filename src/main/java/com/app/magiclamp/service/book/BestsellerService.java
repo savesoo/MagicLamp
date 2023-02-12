@@ -1,11 +1,10 @@
 package com.app.magiclamp.service.book;
 
 import com.app.magiclamp.mapper.BookMapper;
-import com.app.magiclamp.model.BestsellerDTO;
+import com.app.magiclamp.model.book.BestsellerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

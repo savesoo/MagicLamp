@@ -1,6 +1,6 @@
 package com.app.magiclamp.controller.book;
 
-import com.app.magiclamp.model.AuthUserDTO;
+import com.app.magiclamp.model.user.AuthUserDTO;
 import com.app.magiclamp.service.review.ReviewReadService;
 import com.app.magiclamp.service.book.BookViewService;
 import lombok.extern.log4j.Log4j2;

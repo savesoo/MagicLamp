@@ -1,6 +1,6 @@
 package com.app.magiclamp.mapper;
 
-import com.app.magiclamp.model.ReviewDTO;
+import com.app.magiclamp.model.review.ReviewDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

@@ -1,7 +1,7 @@
-package com.app.magiclamp.controller;
+package com.app.magiclamp.controller.review;
 
 import com.app.magiclamp.entity.Like;
-import com.app.magiclamp.model.LikeDTO;
+import com.app.magiclamp.model.review.LikeDTO;
 import com.app.magiclamp.service.review.LikeDeleteService;
 import com.app.magiclamp.service.review.LikeService;
 import com.app.magiclamp.service.review.LikeInsertService;

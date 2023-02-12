@@ -1,4 +1,4 @@
-package com.app.magiclamp.model;
+package com.app.magiclamp.model.review;
 
 import com.app.magiclamp.entity.Like;
 import com.app.magiclamp.entity.Review;

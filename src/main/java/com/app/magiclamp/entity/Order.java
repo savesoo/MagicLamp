@@ -1,12 +1,10 @@
 package com.app.magiclamp.entity;
 
-import com.app.magiclamp.model.order.OrderDTO;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor

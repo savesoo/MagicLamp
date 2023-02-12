@@ -1,6 +1,5 @@
-package com.app.magiclamp.model.bookMain;
+package com.app.magiclamp.model.book;
 
-import com.app.magiclamp.entity.Book;
 import lombok.*;
 
 import java.util.List;

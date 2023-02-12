@@ -1,6 +1,6 @@
 package com.app.magiclamp.service.review;
 
-import com.app.magiclamp.model.ReviewDTO;
+import com.app.magiclamp.model.review.ReviewDTO;
 import com.app.magiclamp.entity.Review;
 import com.app.magiclamp.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;

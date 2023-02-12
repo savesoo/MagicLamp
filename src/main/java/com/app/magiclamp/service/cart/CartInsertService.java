@@ -2,7 +2,7 @@ package com.app.magiclamp.service.cart;
 
 import com.app.magiclamp.entity.Cart;
 import com.app.magiclamp.mapper.CartMapper;
-import com.app.magiclamp.model.InsertSelCartRequest;
+import com.app.magiclamp.model.cart.InsertSelCartRequest;
 import com.app.magiclamp.repository.CartRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
