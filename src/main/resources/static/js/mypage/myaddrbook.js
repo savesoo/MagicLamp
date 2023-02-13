@@ -123,7 +123,6 @@ function addrModify(){
     let modal = document.getElementById("addrModal");
     let keyword = document.querySelector('#keyword').value;
     let pagenum = document.querySelector('#pagenum').value;
-    let priority = document.querySelector('#mpriority').value;
     let defaultChk = document.getElementById('defaultChk').checked;
 
     console.log(defaultChk);
@@ -199,6 +198,13 @@ function newAddr(){
 }
 
 function addrAdd(){
+    let defaultChk = document.getElementById('defaultChk').checked;
+    if(defaultChk){
+        document.querySelector('#mpriority').value = 1;
+    }
+    else {
+        document.querySelector('#mpriority').value = 0;
+    }
 
     const addrbook = {
         addrindex : document.querySelector('#maddrindex').value,
@@ -207,7 +213,8 @@ function addrAdd(){
         postnum : document.querySelector('#mpostnum').value,
         address1 : document.querySelector('#maddress1').value,
         address2 : document.querySelector('#maddress2').value,
-        phone : document.querySelector('#mphone').value
+        phone : document.querySelector('#mphone').value,
+        priority : document.querySelector('#mpriority').value
     }
 
     axios.post('addrbook/', addrbook)
