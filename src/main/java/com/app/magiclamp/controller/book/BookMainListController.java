@@ -42,7 +42,7 @@ public class BookMainListController {
 
         model.addAttribute("category", bookMainListService.getCategory());
 
-        return "/view/book/bookMainList";
+        return "view/book/bookMainList";
 
     }
 }

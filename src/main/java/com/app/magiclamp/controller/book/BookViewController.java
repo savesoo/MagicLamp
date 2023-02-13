@@ -51,6 +51,6 @@ public class BookViewController {
 
         log.info("bookViewService.selectBook(isbn) >>>>>>>>>>>>>>>>> " + bookViewService.selectBook(isbn));
 
-        return "/view/book/bookView";
+        return "view/book/bookView";
     }
 }

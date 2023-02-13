@@ -18,7 +18,7 @@ public class AdministratorReadController {
 
         model.addAttribute("administratorRead", administratorReadService.readBook(isbn));
 
-        return "/view/administrator/read";
+        return "view/administrator/read";
     }
 
 }

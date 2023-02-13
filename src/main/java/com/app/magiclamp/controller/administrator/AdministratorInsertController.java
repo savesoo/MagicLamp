@@ -20,7 +20,7 @@ public class AdministratorInsertController {
     @GetMapping
     public String getBookInsert() {
 
-        return "/view/administrator/insert";
+        return "view/administrator/insert";
     }
 
     @PostMapping

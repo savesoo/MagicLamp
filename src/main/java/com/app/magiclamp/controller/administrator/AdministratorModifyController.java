@@ -26,7 +26,7 @@ public class AdministratorModifyController {
 
         model.addAttribute("administratorModify", administratorReadService.readBook(isbn));
 
-        return "/view/administrator/modify";
+        return "view/administrator/modify";
     }
 
     @PostMapping
