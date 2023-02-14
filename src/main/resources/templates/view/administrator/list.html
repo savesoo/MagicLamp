@@ -6,6 +6,7 @@
     <title>도서 목록</title>
     <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.css">
+    
 </head>
 
 <body style="height: 100%">
@@ -83,7 +84,8 @@
                              style="display: inline"></div>
                         <div th:text="${', 마일리지: ' + #numbers.formatInteger((book.price*book.mileagerate/100), 0, 'COMMA') + '원 (' + book.mileagerate + '% 적립)'}"
                              style="display: inline"></div>
-                        <h5><div th:text="${'재고수량: ' + book.stock + '권'}" style="font-weight: bold"/></h5>
+                        <h5><div id="stock" th:text="${'재고수량: ' + book.stock + '권'}" style="font-weight: bold"/></h5>
+
                     </td>
                     <td width="20%" style="text-align: center">
                         <div style="">
@@ -100,10 +102,10 @@
         <!-- 페이징 시작 -->
         <div style="text-align: center">
             <nav aria-label="" style="display: inline-block">
-                <ul class="pagination pagination-sm">
+                <ul class="pagination justify-content-center">
                     <th:block th:if="${administratorPage.prev}">
                         <li class="page-item">
-                            <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.startnum-1}, keyword=${keyword})}">&laquo;</a>
+                            <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.startnum-1}, keyword=${keyword})}">Previous</a>
                         </li>
                     </th:block>
                     <th:block th:each="num : ${#numbers.sequence(administratorPage.startnum, administratorPage.endnum)}" th:with="active=${administratorPage.pagenum==num?'active':''}">
@@ -113,7 +115,7 @@
                     </th:block>
                     <th:block th:if="${administratorPage.next}">
                         <li class="page-item">
-                            <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.endnum+1}, keyword=${keyword})}">&raquo;</a>
+                            <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.endnum+1}, keyword=${keyword})}">NEXT</a>
                         </li>
                     </th:block>
                 </ul>
