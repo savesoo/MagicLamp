@@ -29,6 +29,6 @@ public class AddrBookListController {
             model.addAttribute("keyword", recipient);
         }
 
-        return "view/mypage/addrbook";
+        return "view/mypage/addrBook";
     }
 }
