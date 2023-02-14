@@ -151,10 +151,53 @@
     <!-- 도서 등록 끝-->
 
 
+    <!-- 문자만 입력가능 스크립트 시작 -->
+    <script>
+
+        // 한글, 영문, 띄워쓰기 정규식
+        var replaceNotString = /[^ㄱ-ㅣ가-힣a-zA-Z\s]/gi;
+
+        // 저자
+        $(document).ready(function(){
+
+            $("#author").on("focusout", function() {
+                var x = $(this).val();
+                if (x.length > 0) {
+                    if (x.match(replaceNotString)) {
+                        x = x.replace(replaceNotString, "");
+                    }
+                    $(this).val(x);
+                }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceNotString, ""));
+            });
+
+        });
+
+        // 출판사
+        $(document).ready(function(){
+
+            $("#publisher").on("focusout", function() {
+                var x = $(this).val();
+                if (x.length > 0) {
+                    if (x.match(replaceNotString)) {
+                        x = x.replace(replaceNotString, "");
+                    }
+                    $(this).val(x);
+                }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceNotString, ""));
+            });
+
+        });
+
+    </script>
+    <!-- 문자만 입력가능 스크립트 끝 -->
+
     <!-- 숫자만 입력가능 스크립트 시작 -->
     <script>
 
-        // 숫자가 아닌 정규식
+        // 숫자만 가능 정규식
         var replaceNotInt = /[^0-9]/gi;
 
         // 정가
