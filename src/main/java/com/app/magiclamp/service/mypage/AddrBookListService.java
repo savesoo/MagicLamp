@@ -44,4 +44,8 @@ public class AddrBookListService {
 
     }
 
+    public int addrnameChk(String addrname, int userindex){
+        return addrBookRepository.addrnameChk(addrname, userindex);
+    }
+
 }

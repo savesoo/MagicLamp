@@ -25,6 +25,9 @@ public interface AddrBookRepository extends JpaRepository<AddrBook, Integer>, Jp
     @Query("select count(a) from AddrBook a where a.userindex = ?1 and a.addrname = ?2")
     int findAddrBookByAddrInfo(int userindex, String addrname);
 
+    @Query("select count(a) from AddrBook a where a.addrname = ?1 and a.userindex = ?2")
+    int addrnameChk(String addrname, int userindex);
+
     // 배송 주소록 전체 리스트
 //    @Query("select a from AddrBook a where a.userindex = ?1 order by a.priority DESC, a.addrindex")
 //    List<AddrBook> findByUserindex(int userindex);

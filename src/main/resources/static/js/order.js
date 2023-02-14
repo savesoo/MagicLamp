@@ -200,3 +200,18 @@ $("input[name='addrSelect']").change(function (){
         addrname.value="";
     }
 });
+
+document.getElementById('addrname').onblur = function(){
+    const addrname = document.getElementById('addrname');
+
+    axios.get('/mypage/addrchk/'+addrname.value)
+        .then(res => {
+            if(res.data > 0){
+                alert("중복되는 배송지 이름이 존재합니다.");
+                return;
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
