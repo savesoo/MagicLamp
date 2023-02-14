@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Genie Main</title>
@@ -99,8 +99,8 @@
             <tr class="table-secondary">
                 <td width="6%">
                     <div style="text-align: center">
-                        <b>전체선택</b><br>
-                        <input type="checkbox" name="checkBook" onclick="selectAll(this)"/>
+                        <label for="chkBook1"><b>전체선택</b><br></label>
+                        <input type="checkbox" name="checkBook" id="chkBook1" onclick="selectAll(this)"/>
                     </div>
                 </td>
                 <td width="10%">
@@ -185,8 +185,8 @@
             <tr>
                 <td width="5%">
                     <div style="text-align: center">
-                        <input type="checkbox" name="checkBook" onclick="selectAll(this)"/><br>
-                        <b>전체선택</b>
+                        <input type="checkbox" name="checkBook" id="chkBook2" onclick="selectAll(this)"/><br>
+                        <label for="chkBook2"><b>전체선택</b></label>
                     </div>
                 </td>
                 <td width="10%">
