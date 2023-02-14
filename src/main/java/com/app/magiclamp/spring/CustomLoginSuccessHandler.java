@@ -60,6 +60,10 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         log.info("preUrl ===> " + prePath);
 
+        if(prePath.equals("/login") || prePath.equals("/login?error")){
+            prePath = "/";
+        }
+
         response.sendRedirect(prePath);
     }
 }

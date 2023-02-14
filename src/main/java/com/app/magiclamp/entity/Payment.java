@@ -23,10 +23,10 @@ public class Payment {
     // 결제 정보 table
 
     @Id
-    @Column(columnDefinition = "not null")
+    @Column(columnDefinition = "int not null")
     private Integer approvalnum; // 결제 승인번호
 
-    @Column(columnDefinition = "not null")
+    @Column(columnDefinition = "int not null")
     private Integer orderindex; // 주문번호(결제 금액 등 join)
 
     @Column(columnDefinition = "char(13) not null")
