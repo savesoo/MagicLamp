@@ -50,14 +50,21 @@ public class AladinOpenApi {
                 URL url = new URL(imgUrl);
                 BufferedImage image = ImageIO.read(url);
 
-                /*File file = new File(new File("").getAbsolutePath(), "\\photo\\" );*/
-                File file = new File("photo/" + imgName + "." + extension);
-                /*if(!file.exists()) file.mkdirs();*/
-                ImageIO.write(image, extension, file);
+                String path = "photo";
+                File saveDir = new File(new File("").getAbsolutePath(), path);
+
+                if(!saveDir.exists()){
+                    saveDir.mkdirs();
+                    log.info("make photo dir >>> " + saveDir);
+                }
+
+                String newFileName = imgName + "." + extension;
+                File newfile = new File(saveDir, newFileName);
+                
+                ImageIO.write(image, extension, newfile); // 저장
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
             Book bookDB = new Book(
                     data.get("isbn13").toString(),

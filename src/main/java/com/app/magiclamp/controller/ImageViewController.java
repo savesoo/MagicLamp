@@ -29,7 +29,7 @@ public class ImageViewController {
         HttpStatus status = HttpStatus.NOT_FOUND;
 
         // 파일 찾기
-        File saveFile = new File(new File("").getAbsolutePath(), "\\photo\\" + fileName);
+        File saveFile = new File(new File("").getAbsolutePath(), "photo"+ File.separator + fileName);
         log.info("absolutPath.................... => " + saveFile);
 
         if (saveFile.exists()){
