@@ -84,7 +84,9 @@
                              style="display: inline"></div>
                         <div th:text="${', 마일리지: ' + #numbers.formatInteger((book.price*book.mileagerate/100), 0, 'COMMA') + '원 (' + book.mileagerate + '% 적립)'}"
                              style="display: inline"></div>
-                        <h5><div id="stock" th:text="${'재고수량: ' + book.stock + '권'}" style="font-weight: bold"/></h5>
+                        <h5 class="stock_div">
+                            <div id="stock" th:text="${'재고수량: ' + book.stock + '권'}" th:style="${book.stock==0 ? 'color:red; font-weight: bold;' : 'font-weight: bold;' }"/>
+                        </h5>
 
                     </td>
                     <td width="20%" style="text-align: center">
