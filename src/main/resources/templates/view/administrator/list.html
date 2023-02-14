@@ -108,11 +108,14 @@
                             <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.startnum-1}, keyword=${keyword})}">Previous</a>
                         </li>
                     </th:block>
-                    <th:block th:each="num : ${#numbers.sequence(administratorPage.startnum, administratorPage.endnum)}" th:with="active=${administratorPage.pagenum==num?'active':''}">
-                        <li class="page-item" th:classappend="${active}">
-                            <a class="page-link" th:href="@{/administrator/list(searchoption=${administratorSearchType.searchoption}, keyword=${administratorSearchType.keyword},p=${num})}" th:text="${num}"></a>
-                        </li>
+                    <th:block th:if="${administratorPage.endnum>0}">
+                        <th:block th:each="num : ${#numbers.sequence(administratorPage.startnum, administratorPage.endnum)}" th:with="active=${administratorPage.pagenum==num?'active':''}">
+                            <li class="page-item" th:classappend="${active}">
+                                <a class="page-link" th:href="@{/administrator/list(searchoption=${administratorSearchType.searchoption}, keyword=${administratorSearchType.keyword},p=${num})}" th:text="${num}"></a>
+                            </li>
+                        </th:block>
                     </th:block>
+
                     <th:block th:if="${administratorPage.next}">
                         <li class="page-item">
                             <a class="page-link" th:href="@{/administrator/list(p=${administratorPage.endnum+1}, keyword=${keyword})}">NEXT</a>

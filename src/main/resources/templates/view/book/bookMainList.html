@@ -114,6 +114,11 @@
                 <td width="65%"></td>
                 <td width="20%"></td>
             </tr>
+            <th:block th:if="${BookMainListPage.list.size() ==0 || BookMainListPage.list.isEmpty()}">
+                <tr class="table-secondary">
+                    <td style="text-align: center" colspan="5">검색하신 결과가 없습니다.</td>
+                </tr>
+            </th:block>
             <th:block th:each="book, bookStat : ${BookMainListPage.list}">
                 <tr class="table-secondary">
                     <td width="5%" style="text-align: center">
@@ -208,6 +213,7 @@
                            th:href="@{/main(p=${BookMainListPage.startnum-1})}">Previous</a>
                     </li>
                 </th:block>
+                <th:block th:if="${BookMainListPage.endnum>0}">
                 <th:block th:each="num : ${#numbers.sequence(BookMainListPage.startnum, BookMainListPage.endnum)}"
                           th:with="active=${BookMainListPage.pagenum == num ? 'active' : ''}">
                     <li th:classappend="${active}" class="page-item">
@@ -215,6 +221,7 @@
                            th:href="@{/main(p=${num},searchType=${BookMainListPage.searchType},keyword=${BookMainListPage.keyword},category=${BookMainListPage.category})}"
                            th:text="${num}"></a>
                     </li>
+                </th:block>
                 </th:block>
                 <th:block th:if="${BookMainListPage.next}">
                     <li class="page-item">
