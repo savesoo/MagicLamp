@@ -154,8 +154,8 @@
     <!-- 문자만 입력가능 스크립트 시작 -->
     <script>
 
-        // 한글, 영문, 띄워쓰기 정규식
-        var replaceNotString = /[^ㄱ-ㅣ가-힣a-zA-Z\s]/gi;
+        // 한글, 영문, 특수문자(), 띄워쓰기 정규식
+        var replaceNotString = /[^ㄱ-ㅣ가-힣a-zA-Z()\s]/gi;
 
         // 저자
         $(document).ready(function(){
