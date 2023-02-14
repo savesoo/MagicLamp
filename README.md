@@ -25,8 +25,8 @@
 |OS|Windows10|
 |Library&API|Spring Security, Validation, Lombok, axios, j-son simple, 다음 우편번호, 알라딘|
 |IDE|IntelliJ IDEA|
-|Server|AWS, Tomcat|
-|Document||
+|Server|AWS|
+|Document|EER Diagram|
 |CI|Github|
 |DataBase|MySQL 8.0|
 * * *
@@ -79,6 +79,68 @@
       - 선택 일괄 결제 가능
 * * *
 ## 주요기능
+**1. 메인 화면**
+
+- 알라딘 오픈 API 를 이용한 신간 정보 불러오기
+- 판매량 순위 보여주기
+
+![MAIN](https://user-images.githubusercontent.com/113006963/218699219-98be08d7-f3cb-4c9d-a337-16be64fca8f5.jpg)
+
+**2. 회원가입**
+
+- ID, PW, 휴대폰 정규식 사용하여 형식에 맞는지 확인 후 형식에 맞을 경우만 가입 가능
+
+![회원가입](https://user-images.githubusercontent.com/113006963/218700670-1cb49d6c-971c-45fa-ab9c-527b3eedee55.jpg)
+
+**3. 도서 리스트**
+
+- 카테고리 별 도서 보기
+- 여러 상품을 선택하여 일괄 카트 담기
+- 리뷰 개수 클릭 시 도서 상세페이지 내 리뷰란으로 이동
+
+![LIST](https://user-images.githubusercontent.com/113006963/218702449-8bb56906-1b48-488a-9744-62a2a15903fd.jpg)
+
+**4. 도서 상세페이지**
+
+- 수량 선택하여 카트 담기, 바로 구매 가능
+- 도서 구매한 사람만 리뷰 등록 가능 (본인이 작성한 리뷰 수정/삭제 가능)
+
+![detail](https://user-images.githubusercontent.com/113006963/218705021-761ae0b3-d229-4d1c-8d97-cee2ab33c9b7.jpg)
+![reviewdetail](https://user-images.githubusercontent.com/113006963/218706556-b0a3bf43-ba0e-4140-9036-373bdf999c89.jpg)
+
+**5. 주문 페이지**
+
+- 배송지 선택 기능
+- 마일리지 사용 가능
+
+![주문](https://user-images.githubusercontent.com/113006963/218707981-a22ac407-10ac-41fb-8849-b82961f8b26b.jpg)
+
+**6. 마이페이지**
+
+(1) 주문 배송 조회
+
+![주문조회](https://user-images.githubusercontent.com/113006963/218708884-40f98706-3cee-461e-b7b1-25d7fd32528e.jpg)
+
+(2) 장바구니
+- 선택/일괄 결제 가능
+- 최근 담은 순/ 상품명순 / 가격순 / 출간일 순 필터 기능
+
+![장바구니](https://user-images.githubusercontent.com/113006963/218709327-0983badd-0e61-475b-9d84-a90b71a16dde.jpg)
+
+(3) 배송주소록
+- 배송지 등록, 수정, 삭제 가능
+
+(4) 마일리지
+- 전체 / 적립 / 사용 별 필터 기능
+
+![마일리지](https://user-images.githubusercontent.com/113006963/218710860-ddbdaae5-2e66-4f7e-b607-d49ffa1fd09d.jpg)
+
+**7. 관리자 페이지**
+
+- 관리자 계정으로 로그인 시 도서 등록 / 도서 정보 수정 / 삭제 기능
+
+![관리자](https://user-images.githubusercontent.com/113006963/218711475-a32690a7-4224-44b8-808c-b27a421d6be7.jpg)
 * * *
 ## Document
-erd랑 flow차트 삽입하면 될 듯
+
+![eer](https://user-images.githubusercontent.com/113006963/218711780-996b3d34-230e-42ce-88f7-e9492a8e7e8e.png)
