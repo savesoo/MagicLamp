@@ -10,13 +10,13 @@
 <div th:replace="fragment/nav"></div>
 <div th:replace="fragment/sidebar"></div>
 <div style="width: 65%; display: inline-block; margin: 2% 15% 1% 5%">
-  <form action="/mypage/addrbook" method="get">
+  <form action="/mypage/addrbook" method="get" id="addrBookSearchForm" onsubmit="return false">
     <div>
       <div style="width: 25%; display: inline; float: left; margin: 0 1% 0 0">
         <input class="form-control" type="text" placeholder="'수령인'을 입력해주세요." name="keyword" id="keyword" th:value="${keyword}">
       </div>
       <div style="width: 25%; display: inline; float: left">
-        <input class="btn btn-primary" type="submit" value="검색">
+        <input class="btn btn-primary" type="button" onclick="searchSubmit()" value="검색">
       </div>
       <div style="display: inline; float: right; text-align: right; margin: 0 0 0 1%">
         <a class="btn btn-primary" onclick="newAddr()">새 주소 추가</a>
@@ -126,11 +126,11 @@
             <label for="mrecipient">수령인</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="mpostnum">
+            <input type="text" class="form-control" id="mpostnum" readonly>
             <label for="mpostnum">우편번호</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="maddress1">
+            <input type="text" class="form-control" id="maddress1" readonly>
             <label for="maddress1">주소</label>
           </div>
           <div class="form-floating mb-3">
@@ -157,6 +157,7 @@
 </div>
 
   <script src="/js/mypage/myaddrbook.js"></script>
+  <script src="/js/formCheck.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

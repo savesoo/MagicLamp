@@ -133,16 +133,45 @@ function addrModify(){
         document.querySelector('#mpriority').value = 0;
     }
 
+    let maddrindex = document.querySelector('#maddrindex');
+    let maddrname = document.querySelector('#maddrname');
+    let mrecipient = document.querySelector('#mrecipient');
+    let mpostnum = document.querySelector('#mpostnum');
+    let maddress1 = document.querySelector('#maddress1');
+    let maddress2 = document.querySelector('#maddress2');
+    let mphone = document.querySelector('#mphone');
+    let mpriority = document.querySelector('#mpriority');
+    let muserindex = document.querySelector('#muserindex');
+
+    if(!formNumCheck(mphone)
+    || !formTextCheck(mrecipient)
+    || !formCheckTextNum(maddrname)
+    || !formCheckTextNumChar(maddress2)){
+        return;
+    }
+
+    // const addrbook = {
+        // addrindex : document.querySelector('#maddrindex').value,
+        // addrname : document.querySelector('#maddrname').value,
+        // recipient : document.querySelector('#mrecipient').value,
+        // postnum : document.querySelector('#mpostnum').value,
+        // address1 : document.querySelector('#maddress1').value,
+        // address2 : document.querySelector('#maddress2').value,
+        // phone : document.querySelector('#mphone').value,
+        // priority : document.querySelector('#mpriority').value,
+        // userindex : document.querySelector('#muserindex').value
+    // }
+
     const addrbook = {
-        addrindex : document.querySelector('#maddrindex').value,
-        addrname : document.querySelector('#maddrname').value,
-        recipient : document.querySelector('#mrecipient').value,
-        postnum : document.querySelector('#mpostnum').value,
-        address1 : document.querySelector('#maddress1').value,
-        address2 : document.querySelector('#maddress2').value,
-        phone : document.querySelector('#mphone').value,
-        priority : document.querySelector('#mpriority').value,
-        userindex : document.querySelector('#muserindex').value
+        addrindex : maddrindex.value,
+        addrname : maddrname.value,
+        recipient : mrecipient.value,
+        postnum : mpostnum.value,
+        address1 : maddress1.value,
+        address2 : maddress2.value,
+        phone : mphone.value,
+        priority : mpriority.value,
+        userindex : muserindex.value
     }
 
     axios.put('addrbook/', addrbook)
@@ -206,15 +235,42 @@ function addrAdd(){
         document.querySelector('#mpriority').value = 0;
     }
 
+    let maddrindex = document.querySelector('#maddrindex');
+    let maddrname = document.querySelector('#maddrname');
+    let mrecipient = document.querySelector('#mrecipient');
+    let mpostnum = document.querySelector('#mpostnum');
+    let maddress1 = document.querySelector('#maddress1');
+    let maddress2 = document.querySelector('#maddress2');
+    let mphone = document.querySelector('#mphone');
+    let mpriority = document.querySelector('#mpriority');
+
+    if(!formNumCheck(mphone)
+        || !formTextCheck(mrecipient)
+        || !formCheckTextNum(maddrname)
+        || !formCheckTextNumChar(maddress2)){
+        return;
+    }
+
+    // const addrbook = {
+    //     addrindex : document.querySelector('#maddrindex').value,
+    //     addrname : document.querySelector('#maddrname').value,
+    //     recipient : document.querySelector('#mrecipient').value,
+    //     postnum : document.querySelector('#mpostnum').value,
+    //     address1 : document.querySelector('#maddress1').value,
+    //     address2 : document.querySelector('#maddress2').value,
+    //     phone : document.querySelector('#mphone').value,
+    //     priority : document.querySelector('#mpriority').value
+    // }
+
     const addrbook = {
-        addrindex : document.querySelector('#maddrindex').value,
-        addrname : document.querySelector('#maddrname').value,
-        recipient : document.querySelector('#mrecipient').value,
-        postnum : document.querySelector('#mpostnum').value,
-        address1 : document.querySelector('#maddress1').value,
-        address2 : document.querySelector('#maddress2').value,
-        phone : document.querySelector('#mphone').value,
-        priority : document.querySelector('#mpriority').value
+        addrindex : maddrindex.value,
+        addrname : maddrname.value,
+        recipient : mrecipient.value,
+        postnum : mpostnum.value,
+        address1 : maddress1.value,
+        address2 : maddress2.value,
+        phone : mphone.value,
+        priority : mpriority.value,
     }
 
     axios.post('addrbook/', addrbook)
@@ -254,3 +310,26 @@ function postSearch() {
         }
     }).open();
 }
+
+function searchSubmit(){
+    const searchForm = document.getElementById('addrBookSearchForm');
+    let keyword = document.getElementById('keyword');
+
+    if(!formTextCheck(keyword)){
+        return;
+    }
+
+    searchForm.submit();
+}
+
+document.getElementById('addrBookSearchForm').addEventListener("keydown", evt=> {
+    const searchForm = document.getElementById('addrBookSearchForm');
+    if (evt.code === "Enter"){
+        let keyword = document.getElementById('keyword');
+
+        if(!formTextCheck(keyword)){
+            return;
+        }
+        searchForm.submit();
+    }
+})
