@@ -290,34 +290,39 @@ function likeButton() {
 
 function insertReview() {
 
-    if (loginInfo > 0) {
-        if (starFieldset.getAttribute('check') != 'checked') {
-            alert('별점을 먼저 남겨주세요.')
-        }
+    var str = document.querySelector('.review_input_textarea').value
+    str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>')
+    document.querySelector('.review_input_textarea').value = str
 
-        var str = document.querySelector('.review_input_textarea').value
-        str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>')
-        document.querySelector('.review_input_textarea').value = str
-
-        const payload = {
-            isbn: isbn,
-            reviewer: document.querySelector('#reviewer').value,
-            star: document.querySelector('input[name="star"]:checked').value,
-            reviewcontent: document.querySelector('.review_input_textarea').value
-        }
-        console.log("payload", payload)
-
-        if (payload.reviewcontent == '') {
-            alert('내용을 작성해주세요.')
-        } else {
-            axios.post('/review', payload)
-                .then(res => {
-                    console.log('post -> response', res.data)
-                    location.reload()
-                })
-                .catch(err => console.log(err))
-        }
+    const payload = {
+        isbn: isbn,
+        reviewer: document.querySelector('#reviewer').value,
+        star: document.querySelector('input[name="star"]:checked').value,
+        reviewcontent: document.querySelector('.review_input_textarea').value
     }
+
+
+    promise.then(result => {
+
+        if(result != 0) {
+            if (loginInfo > 0) {
+                if (starFieldset.getAttribute('check') != 'checked') {
+                    alert('별점을 먼저 남겨주세요.')
+                    return
+                }
+                if (payload.reviewcontent == '') {
+                    alert('내용을 작성해주세요.')
+                } else {
+                    axios.post('/review', payload)
+                        .then(res => {
+                            console.log('post -> response', res.data)
+                            location.reload()
+                        })
+                        .catch(err => console.log(err))
+                }
+            }
+        }
+    })
 }
 
 function deleteReview(reviewindex) {
