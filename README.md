@@ -143,4 +143,4 @@
 * * *
 ## Document
 
-![eer](https://user-images.githubusercontent.com/113006963/218711780-996b3d34-230e-42ce-88f7-e9492a8e7e8e.png)
+![genie_erd](https://user-images.githubusercontent.com/113006963/218909441-fd9fc433-d91a-48d0-92f9-fb36b91e6c89.png)
