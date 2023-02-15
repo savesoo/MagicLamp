@@ -79,7 +79,7 @@ function cartListOrder(){
 
                 bookinfo = {
                     isbn : checkbox.parentNode.childNodes[3].value,
-                    bookcount : checkbox.parentNode.parentNode.childNodes[7].childNodes[1].value
+                    bookcount : checkbox.parentNode.parentNode.childNodes[9].childNodes[1].value
                 }
                 infoList.push(bookinfo);
             }

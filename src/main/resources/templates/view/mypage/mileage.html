@@ -54,7 +54,7 @@
             <tbody>
             <th:block th:if="${mileList.list.size() ==0 || mileList.list.isEmpty()}">
                 <tr class="table-secondary" style="text-align: center">
-                    <td colspan="3">검색하신 결과가 없습니다.</td>
+                    <td colspan="3">표시할 결과가 없습니다.</td>
                 </tr>
             </th:block>
             <th:block th:unless="${mileList.list.size() ==0 || mileList.list.isEmpty()}">
@@ -62,10 +62,10 @@
                     <td>
                         <span th:text="${mile.getUpdatedate()}"></span>
                     </td>
-                    <td>
+                    <td th:style="${mile.getMileage()==0 ? '' :'color: blue'}">
                         <span th:text="${#numbers.formatInteger(mile.getMileage(), 0, 'COMMA')}"></span>
                     </td>
-                    <td>
+                    <td th:style="${mile.getUsemileage()==0 ? '' :'color: red'}">
                         <span th:text="${#numbers.formatInteger(mile.getUsemileage(), 0, 'COMMA')}"></span>
                     </td>
                 </tr>
