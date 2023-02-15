@@ -36,10 +36,12 @@ public class BookInfoDTO {
     private int totalPrice; // 총 결제금액(최종 가격-realprice*수량)
     private int saveMileage; // 권당 적립 마일리지
     private int totalMileage; // 총 적립 마일리지(권당 적립 마일리지*수량)
+    private int totalSalePrice;
 
     public void calPriceInfo(){
 
-        this.totalPrice = this.saleprice*this.bookcount; // 총 가격 = 판매가 * 수량
+        this.totalPrice = this.price*this.bookcount; // 총 가격 = 판매가 * 수량
+        this.totalSalePrice = this.saleprice*this.bookcount;
         this.saveMileage = (int)(this.price*this.mileagerate/100); // 권당 적립되는 마일리지(정가*적립률)
         this.totalMileage = this.saveMileage*this.bookcount; // 총 적립 마일리지
 

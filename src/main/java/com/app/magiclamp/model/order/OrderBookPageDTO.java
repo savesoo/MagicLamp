@@ -64,6 +64,7 @@ public class OrderBookPageDTO {
             totalBookCnt += order.getBookcount();
             orderTotalPrice += order.getTotalPrice();
             totalSaveMileage += order.getTotalMileage();
+            orderTotalSalePrice += order.getTotalSalePrice();
         }
     }
 

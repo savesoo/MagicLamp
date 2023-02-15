@@ -25,29 +25,62 @@ function  useMileage() {
     const m = checkNumberAndPrice(document.getElementsByName("usemil")[0].value); // 사용할 마일리지
 
     // 입력된 사용금액(m)만큼 차감
-    document.querySelector("#used_mileage").innerText = m.toLocaleString();
+    if(document.getElementsByName("usemil")[0].value == '0') {
+        console.log("000000");
+        document.querySelector("#used_mileage").innerText = m.toLocaleString('ko-KR');
+    }else{
+        document.querySelector("#used_mileage").innerText = "-"+m.toLocaleString('ko-KR');
+    }
     document.querySelector("#my_mileage").innerText = (myMileage - m).toLocaleString();
-    document.querySelector("#calPrice").innerText = (viewPriceSum - m).toLocaleString();
-    document.querySelector("#resultPrice").innerText = (viewPriceSum - m).toLocaleString();
+    document.querySelector("#calPrice").innerText = (viewSalePriceSum - m).toLocaleString();
+    document.querySelector("#resultPrice").innerText = (viewSalePriceSum - m).toLocaleString();
     document.getElementsByName("usemil")[0].value = m;
+
+    // 입력된 사용금액(m)만큼 차감
+    // document.querySelector("#used_mileage").innerText = m.toLocaleString();
+    // document.querySelector("#my_mileage").innerText = (myMileage - m).toLocaleString();
+    // document.querySelector("#calPrice").innerText = (viewPriceSum - m).toLocaleString();
+    // document.querySelector("#resultPrice").innerText = (viewPriceSum - m).toLocaleString();
+    // document.getElementsByName("usemil")[0].value = m;
+
+    // if (myMileage === 0) {
+    //     // 마일리지 없음 -> 계산 X
+    //     alert("적립된 마일리지가 없습니다.");
+    //     document.querySelector("#used_mileage").innerText = myMileage.toLocaleString(); // 사용한 마일리지
+    //     document.querySelector("#my_mileage").innerText = myMileage.toLocaleString(); // 남은 마일리지 계산
+    //     document.querySelector("#calPrice").innerText = viewPriceSum.toLocaleString(); // 총 금액에 반영
+    //     document.querySelector("#resultPrice").innerText = myMileage;
+    //     return;
+    //
+    // } else if(viewPriceSum < m){
+    //     // 사용하려는 마일리지보다 결제금액이 더 적은 경우 -> 결제 금액만큼만 차감
+    //     alert("결제 금액을 초과하였습니다. \n마일리지가 자동으로 차감 적용됩니다.");
+    //     document.querySelector("#used_mileage").innerText = viewPriceSum.toLocaleString();
+    //     document.querySelector("#my_mileage").innerText = (myMileage - viewPriceSum).toLocaleString();
+    //     document.querySelector("#calPrice").innerText = (viewPriceSum - viewPriceSum).toLocaleString();
+    //     document.querySelector("#resultPrice").innerText = (viewPriceSum - viewPriceSum).toLocaleString();
+    //     document.getElementsByName("usemil")[0].value = viewPriceSum;
+    //     return;
+    //
+    // }
 
     if (myMileage === 0) {
         // 마일리지 없음 -> 계산 X
         alert("적립된 마일리지가 없습니다.");
-        document.querySelector("#used_mileage").innerText = myMileage.toLocaleString(); // 사용한 마일리지
+        document.querySelector("#used_mileage").innerText = myMileage.toLocaleString('ko-KR'); // 사용한 마일리지
         document.querySelector("#my_mileage").innerText = myMileage.toLocaleString(); // 남은 마일리지 계산
-        document.querySelector("#calPrice").innerText = viewPriceSum.toLocaleString(); // 총 금액에 반영
+        document.querySelector("#calPrice").innerText = viewSalePriceSum.toLocaleString(); // 총 금액에 반영
         document.querySelector("#resultPrice").innerText = myMileage;
         return;
 
     } else if(viewPriceSum < m){
         // 사용하려는 마일리지보다 결제금액이 더 적은 경우 -> 결제 금액만큼만 차감
         alert("결제 금액을 초과하였습니다. \n마일리지가 자동으로 차감 적용됩니다.");
-        document.querySelector("#used_mileage").innerText = viewPriceSum.toLocaleString();
-        document.querySelector("#my_mileage").innerText = (myMileage - viewPriceSum).toLocaleString();
-        document.querySelector("#calPrice").innerText = (viewPriceSum - viewPriceSum).toLocaleString();
-        document.querySelector("#resultPrice").innerText = (viewPriceSum - viewPriceSum).toLocaleString();
-        document.getElementsByName("usemil")[0].value = viewPriceSum;
+        document.querySelector("#used_mileage").innerText = "-"+viewSalePriceSum.toLocaleString('ko-KR');
+        document.querySelector("#my_mileage").innerText = (myMileage - viewSalePriceSum).toLocaleString();
+        document.querySelector("#calPrice").innerText = (viewPriceSum - viewSalePriceSum).toLocaleString();
+        document.querySelector("#resultPrice").innerText = (viewSalePriceSum - viewSalePriceSum).toLocaleString();
+        document.getElementsByName("usemil")[0].value = viewSalePriceSum;
         return;
 
     }
