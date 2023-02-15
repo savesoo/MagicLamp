@@ -10,23 +10,40 @@ for (i = 0; i < myreview_text.length; i++){
 }
 
 document.getElementById('searchBtn').onclick = function(){
+    const searchForm = document.getElementById('searchForm');
     let sdata = document.getElementById('sDate').value;
     let edata = document.getElementById('eDate').value;
+    let title = document.getElementById('searchTitle');
+    let titleVal = title.value;
 
     let sdate = new Date(sdata);
     let edate = new Date(edata);
 
-    if(sdata.length ==0 && edata.length==0){
-        document.getElementById('searchForm').submit();
+    if(sdata.length==0){
+        if(edata.length != 0){
+            alert("시작일자를 확인해주세요");
+            return;
+        }
+    }
+    else if(edata.length == 0){
+        if(sdata.length != 0){
+            alert("종료일자를 확인해주세요");
+            return;
+        }
     }
 
-    else if(sdate <= edate){
-        document.getElementById('searchForm').submit();
-    }
-    else {
+    if(sdate > edate){
         alert("시작일자 또는 종료일자를 확인해주세요");
         return;
     }
+
+    if(titleVal.length>0) {
+        if (!formCheck(title)) {
+            return;
+        }
+    }
+
+    searchForm.submit();
 }
 
 document.getElementById('initBtn').onclick = function (){
@@ -36,6 +53,10 @@ document.getElementById('initBtn').onclick = function (){
 }
 
 document.getElementById('modalclosebtn').onclick = function() {
+    document.getElementById("reviewModal").style.display="none";
+}
+
+document.getElementById('reviewCancel').onclick = function (){
     document.getElementById("reviewModal").style.display="none";
 }
 
@@ -105,3 +126,45 @@ function reviewDelBtnClick(data){
             .catch(err => console.log(err))
     }
 }
+
+document.getElementById('searchForm').addEventListener("keydown", evt => {
+    const searchForm = document.getElementById('searchForm');
+
+    if (evt.code === "Enter") {
+        let sdata = document.getElementById('sDate').value;
+        let edata = document.getElementById('eDate').value;
+        let title = document.getElementById('searchTitle');
+        let titleVal = title.value;
+
+        let sdate = new Date(sdata);
+        let edate = new Date(edata);
+
+        if (sdata.length == 0) {
+            if (edata.length != 0) {
+                alert("시작일자를 확인해주세요");
+                return;
+            }
+        } else if (edata.length == 0) {
+            if (sdata.length != 0) {
+                alert("종료일자를 확인해주세요");
+                return;
+            }
+        }
+
+        if (sdate > edate) {
+            alert("시작일자 또는 종료일자를 확인해주세요");
+            return;
+        }
+
+        let chk = 0;
+        if(titleVal.length > 0) {
+            chk = formCheck(title);
+
+            if (!chk) {
+                return;
+            }
+        }
+
+        searchForm.submit();
+    }
+})

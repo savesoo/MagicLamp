@@ -48,13 +48,13 @@
         <div id="uaddr" class="form-floating" style="margin-bottom: 1%">
             <input class="form-control" type="text" id="spanPost" name="spanPost" th:value="|(${userInfo.postnum})|" readonly>
             <label for="spanPost">우편번호 </label>
-            <input class="form-control" type="text" id="postnum" name="postnum" style="display: none">
+            <input class="form-control" type="text" id="postnum" name="postnum" style="display: none" readonly>
         </div>
 
         <div id="uaddr2" class="form-floating" style="margin-bottom: 1%">
             <input class="form-control" type="text" id="spanAddr1" name="spanAddr1" th:value="${userInfo.address1}" readonly>
             <label for="spanAddr1">주소 </label>
-            <input class="form-control" type="text" id="address1" name="address1" style="display: none">
+            <input class="form-control" type="text" id="address1" name="address1" style="display: none" readonly>
         </div>
 
         <div id="uaddr3" class="form-floating" style="margin-bottom: 1%">
@@ -73,6 +73,7 @@
     </div>
 </div>
     <script src="/js/mypage/myuserinfo.js"></script>
+    <script src="/js/formCheck.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

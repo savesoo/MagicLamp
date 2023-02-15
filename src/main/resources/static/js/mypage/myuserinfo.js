@@ -71,13 +71,14 @@ document.getElementById('phoneUptCancel').onclick = function() {
 };
 
 document.getElementById('phoneUptSave').onclick = function() {
-    const payload = {
-        phone : document.getElementById('phone').value
+    let phoneNum = document.getElementById('phone');
+
+    if(!formCheckPhoneNum(phoneNum)){
+        return;
     }
 
-    if(payload.phone.trim().length<=0){
-        alert("전화번호를 입력하세요.");
-        return;
+    const payload = {
+        phone : phoneNum.value
     }
 
     axios.post('phoneUpdate', payload)
@@ -130,23 +131,27 @@ document.getElementById('addressUptCancel').onclick = function() {
 };
 
 document.getElementById('addressUptSave').onclick = function() {
-    const payload = {
-        postnum : document.getElementById('postnum').value,
-        address1 : document.getElementById('address1').value,
-        address2 : document.getElementById('address2').value
-    }
+    let postnum = document.getElementById('postnum');
+    let address1 = document.getElementById('address1');
+    let address2 = document.getElementById('address2');
 
-    if(payload.postnum.trim().length<=0){
+    if(postnum.value.length<=0){
         alert("우편번호를 입력하세요.");
         return;
     }
-    if(payload.address1.trim().length<=0){
+    if(address1.value.length<=0){
         alert("주소를 입력하세요.");
         return;
     }
-    if(payload.address2.trim().length<=0){
-        alert("상세주소를 입력하세요.");
+
+    if(!formCheckAddress2(address2)){
         return;
+    }
+
+    const payload = {
+        postnum : postnum.value,
+        address1 : address1.value,
+        address2 : address2.value
     }
 
     axios.post('addressUpdate', payload)

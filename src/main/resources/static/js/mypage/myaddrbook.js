@@ -143,10 +143,10 @@ function addrModify(){
     let mpriority = document.querySelector('#mpriority');
     let muserindex = document.querySelector('#muserindex');
 
-    if(!formNumCheck(mphone)
+    if(!formCheckTextNum(maddrname)
     || !formTextCheck(mrecipient)
-    || !formCheckTextNum(maddrname)
-    || !formCheckTextNumChar(maddress2)){
+    || !formCheckAddress2(maddress2)
+    || !formCheckPhoneNum(mphone)){
         return;
     }
 
@@ -244,10 +244,15 @@ function addrAdd(){
     let mphone = document.querySelector('#mphone');
     let mpriority = document.querySelector('#mpriority');
 
-    if(!formNumCheck(mphone)
-        || !formTextCheck(mrecipient)
-        || !formCheckTextNum(maddrname)
-        || !formCheckTextNumChar(maddress2)){
+    if(mpostnum.value.length <= 0 || maddress1.value.length <= 0){
+        alert("주소가 입력되지 않았습니다.");
+        return;
+    }
+
+    if(!formCheckTextNum(maddrname)
+    || !formTextCheck(mrecipient)
+    || !formCheckAddress2(maddress2)
+    || !formCheckPhoneNum(mphone)){
         return;
     }
 
@@ -270,7 +275,7 @@ function addrAdd(){
         address1 : maddress1.value,
         address2 : maddress2.value,
         phone : mphone.value,
-        priority : mpriority.value,
+        priority : mpriority.value
     }
 
     axios.post('addrbook/', addrbook)

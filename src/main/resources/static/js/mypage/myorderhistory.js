@@ -39,13 +39,12 @@ document.getElementById('searchBtn').onclick = function(){
             chk = formTextCheck(text);
         }
 
-        console.log("222" + chk);
         if(!chk) {
             return chk;
         }
     }
 
-    // searchForm.submit();
+    searchForm.submit();
 
 }
 
@@ -64,10 +63,34 @@ document.getElementById('initBtn').onclick = function (){
 
 document.getElementById('searchForm').addEventListener("keydown", evt => {
     const searchForm = document.getElementById('searchForm');
+
     if (evt.code === "Enter"){
+        let sdata = document.getElementById('sDate').value;
+        let edata = document.getElementById('eDate').value;
         let searchText = document.getElementById('searchText');
         let searchOption = document.getElementById('searchOption');
         let searchVal = searchText.value;
+
+        let sdate = new Date(sdata);
+        let edate = new Date(edata);
+
+        if(sdata.length==0){
+            if(edata.length != 0){
+                alert("시작일자를 확인해주세요");
+                return;
+            }
+        }
+        else if(edata.length == 0){
+            if(sdata.length != 0){
+                alert("종료일자를 확인해주세요");
+                return;
+            }
+        }
+
+        if(sdate > edate){
+            alert("시작일자 또는 종료일자를 확인해주세요");
+            return;
+        }
 
         let chk = 0;
         if(searchVal.length > 0){
@@ -87,6 +110,6 @@ document.getElementById('searchForm').addEventListener("keydown", evt => {
             }
         }
 
-        // searchForm.submit();
+        searchForm.submit();
     }
 })

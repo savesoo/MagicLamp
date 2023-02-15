@@ -14,7 +14,7 @@
             <input type="hidden" id="postisbn" name="postisbn">
             <input type="hidden" id="postbookcount" name="postbookcount">
         </form>
-    <div style="width: 25%; display: inline; float: left; margin: 0 1% 0 0">
+    <div style="width: 50%; display: inline; float: left; margin: 0 1% 0 0">
             <label>
                 <input type="checkbox" name="cartAllBtn" id="cartAllBtn" class="form-check-input">
                 <span>전체 선택</span>
@@ -50,7 +50,7 @@
             <tbody>
             <th:block th:if="${cartList.size() == 0 || cartList.isEmpty()}">
                 <tr class="table-secondary" style="text-align: center">
-                    <td colspan="5">검색하신 결과가 없습니다.</td>
+                    <td colspan="6">검색하신 결과가 없습니다.</td>
                 </tr>
             </th:block>
             <th:block th:unless="${cartList.size() ==0 || cartList.isEmpty()}">

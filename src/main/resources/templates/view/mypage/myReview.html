@@ -11,7 +11,7 @@
 <div th:replace="fragment/sidebar"></div>
 
 <div style="width: 65%; display: inline-block; margin: 2% 15% 1% 5%">
-    <form action="/mypage/myreview" method="get" id="searchForm">
+    <form action="/mypage/myreview" method="get" id="searchForm" onsubmit="return false">
         <div style="width: 100%">
             <div style="float: right; display: inline;">
                 <input class="btn btn-primary" type="button" id="initBtn" name="initBtn" value="초기화">
@@ -47,7 +47,7 @@
         <tbody>
         <th:block th:if="${reviewList.list.size() == 0 || reviewList.list.isEmpty()}">
             <tr class="table-secondary">
-                <td style="text-align: center; vertical-align: middle" colspan="5">검색하신 결과가 없습니다.</td>
+                <td style="text-align: center; vertical-align: middle" colspan="6">검색하신 결과가 없습니다.</td>
             </tr>
         </th:block>
         <th:block th:unless="${reviewList.list.size() ==0 || reviewList.list.isEmpty()}">
@@ -180,7 +180,8 @@
 
                 <div class="modal-footer">
                     <input type="hidden" id="mregdate">
-                    <input type="button" id="reviewUpt" value="수정">
+                    <input class="btn btn-primary btn-sm" type="button" id="reviewUpt" value="수정">
+                    <input class="btn btn-outline-primary btn-sm" type="button" id="reviewCancel" value="취소">
                     <!--                <input type="button" id="reviewDel" value="삭제">-->
                 </div>
 
@@ -190,6 +191,7 @@
 </div>
 
 <script src="/js/mypage/myreview.js"></script>
+<script src="/js/formCheck.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
         crossOrigin="anonymous"></script>
