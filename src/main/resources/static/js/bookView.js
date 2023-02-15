@@ -3,11 +3,33 @@ desc.textContent = desc.textContent.replaceAll('&lt;', '<')
 desc.textContent = desc.textContent.replaceAll('&gt;', '>')
 desc.textContent = desc.textContent.replaceAll('&#8212;', 'ㅡ')
 
+// 숫자
+function formNumCheck(number) {
+
+    let pattern = /^[0-9]+$/;
+
+    if( number.value == '' || number.value.trim()== '' || number.value==0){
+        alert('1 이상의 값을 입력해주세요.');
+        return false;
+    }
+
+    if (!pattern.test(number.value)){
+        alert('숫자만 입력해주세요.');
+        return false;
+    }
+
+    return true;
+}
+
 function count(type) {
     // 결과를 표시할 element
     const resultEl = document.getElementById('result');
     const resultTotal = document.getElementById('totalPrice');
     const dirQty = document.getElementById('dirQty');
+
+    if(!formNumCheck(resultEl)){
+        resultEl.value = 1;
+    }
 
     // 현재 화면에 표시된 값
     let number = resultEl.value;
@@ -41,6 +63,11 @@ function countQty() {
     const resultEl = document.getElementById('result');
     const resultTotal = document.getElementById('totalPrice');
     const dirQty = document.getElementById('dirQty');
+
+    if(!formNumCheck(resultEl)){
+        resultEl.value = 1;
+    }
+
     let number = resultEl.value;
     resultEl.value = number;
     dirQty.value = number;
