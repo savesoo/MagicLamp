@@ -25,4 +25,5 @@ public interface BookRepository extends JpaRepository<Book, String> {
     @Query("select b.stock from Book b where b.isbn = :isbn")
     int selectStockByIsbn(String isbn);
 
+
 }

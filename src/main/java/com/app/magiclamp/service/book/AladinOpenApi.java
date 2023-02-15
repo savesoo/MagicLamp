@@ -46,26 +46,6 @@ public class AladinOpenApi {
             String imgName = data.get("isbn13").toString();
             String extension = imgUrl.substring(imgUrl.lastIndexOf('.') + 1);
 
-            try {
-                URL url = new URL(imgUrl);
-                BufferedImage image = ImageIO.read(url);
-
-                String path = "photo";
-                File saveDir = new File(new File("").getAbsolutePath(), path);
-
-                if(!saveDir.exists()){
-                    saveDir.mkdirs();
-                    log.info("make photo dir >>> " + saveDir);
-                }
-
-                String newFileName = imgName + "." + extension;
-                File newfile = new File(saveDir, newFileName);
-                
-                ImageIO.write(image, extension, newfile); // 저장
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             Book bookDB = new Book(
                     data.get("isbn13").toString(),
                     data.get("title").toString(),
@@ -83,6 +63,29 @@ public class AladinOpenApi {
                     data.get("description").toString(),
                     "", imgName + "." + extension, null, null
             );
+
+            try {
+                URL url = new URL(imgUrl);
+                BufferedImage image = ImageIO.read(url);
+
+                String path = "photo";
+                File saveDir = new File(new File("").getAbsolutePath(), path);
+
+                if(!saveDir.exists()){
+                    saveDir.mkdirs();
+                    log.info("make photo dir >>> " + saveDir);
+                }
+
+                String newFileName = imgName + "." + extension;
+                File newfile = new File(saveDir, newFileName);
+
+                if(bookRepository.findById(bookDB.getIsbn()).orElse(null) == null){
+                    ImageIO.write(image, extension, newfile); // 저장
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             if(bookRepository.findById(bookDB.getIsbn()).orElse(null) == null){
                 bookRepository.save(bookDB);
