@@ -314,21 +314,27 @@ function postSearch() {
 function searchSubmit(){
     const searchForm = document.getElementById('addrBookSearchForm');
     let keyword = document.getElementById('keyword');
+    let val = keyword.value;
 
-    if(!formTextCheck(keyword)){
-        return;
+    if(val.length > 0){
+        if (!formTextCheck(keyword)) {
+            return;
+        }
     }
-
     searchForm.submit();
 }
 
 document.getElementById('addrBookSearchForm').addEventListener("keydown", evt=> {
     const searchForm = document.getElementById('addrBookSearchForm');
+
     if (evt.code === "Enter"){
         let keyword = document.getElementById('keyword');
+        let val = keyword.value;
 
-        if(!formTextCheck(keyword)){
-            return;
+        if(val.length > 0){
+            if(!formTextCheck(keyword)){
+                return;
+            }
         }
         searchForm.submit();
     }

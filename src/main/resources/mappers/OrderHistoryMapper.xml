@@ -12,13 +12,16 @@
         ON o.isbn = b.isbn
         WHERE userindex = #{userindex}
 
-        <if test="option.searchOption == 1 and option.searchText != null">
+        <if test="option.searchOption == 0 and (option.searchText != null and option.searchText != '')">
+            <include refid="likeAll"></include>
+        </if>
+        <if test="option.searchOption == 1 and (option.searchText != null and option.searchText != '')">
             <include refid="likeTitle"></include>
         </if>
-        <if test="option.searchOption == 2 and option.searchText != null">
+        <if test="option.searchOption == 2 and (option.searchText != null and option.searchText != '')">
             <include refid="equalOrderindex"></include>
         </if>
-        <if test="option.searchOption == 3 and option.searchText != null">
+        <if test="option.searchOption == 3 and (option.searchText != null and option.searchText != '')">
             <include refid="likeName"></include>
         </if>
         <if test="option.sDate != null and option.eDate != null">
@@ -29,8 +32,15 @@
         limit #{page} , 10
     </select>
 
+    <sql id="likeAll">
+        AND(
+        b.title like concat('%', #{option.searchText}, '%')
+        OR o.orderindex = #{option.searchText}
+        OR o.name like concat('%', #{option.searchText}, '%')
+        )
+    </sql>
     <sql id="likeTitle">
-        and b.title like concat('%', #{option.searchText}, '%')
+        AND b.title like concat('%', #{option.searchText}, '%')
     </sql>
     <sql id="equalOrderindex">
         AND o.orderindex = #{option.searchText}

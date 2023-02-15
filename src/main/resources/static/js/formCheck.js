@@ -92,17 +92,3 @@ function formCheckTextNumChar(form) {
     }
     return true;
 }
-
-// 한글 + 영대소문자 + 필수입력 제외
-function formCheckTextEmpty(text) {
-
-    let pattern = /^[a-zA-Z가-힣]+$/;
-
-    if (!pattern.test(text.value)){
-        alert('한글 및 영대소문자만 입력 가능합니다.');
-        text.focus();
-        return false;
-    }
-
-    return true;
-}

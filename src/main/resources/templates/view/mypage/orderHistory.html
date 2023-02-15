@@ -10,7 +10,7 @@
 <div th:replace="fragment/sidebar"></div>
 
 <div style="width: 65%; display: inline-block; margin: 2% 15% 1% 5%">
-    <form action="/mypage/orderhistory" method="get" id="searchForm">
+    <form action="/mypage/orderhistory" method="get" id="searchForm" onsubmit="return false">
         <div style="width: 100%">
             <div style="float: right; display: inline">
                 <input type="button" id="initBtn" name="initBtn" class="btn btn-outline-primary" value="초기화">
@@ -118,5 +118,6 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
 <script src="/js/mypage/myorderhistory.js"></script>
+<script src="/js/formCheck.js"></script>
 </body>
 </html>
