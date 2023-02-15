@@ -195,30 +195,8 @@
       <!--<button class="btn btn-secondary" th:onclick="|location.href='@{/main}'|">주문 취소</button>-->
     </div>
 
-      <form method="post">
-          <button class="kakao_btn">카카오페이로 결제하기</button>
-      </form>
-
   </div>
 
-<script>
-    $(function(){
-       $('#kakao_btn').click(function (){
-           $.ajax({
-               url:'/pay/kakaopay',
-               dataType:'json',
-               success:function (data) {
-                   alert("성공!"+data.next_redirect_pc_url);
-                   var box = data.next_redirect_pc_url;
-                   window.open(box);
-               },
-               error:function (error) {
-                   alert("실패!"+error);
-               }
-           });
-       });
-    });
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
   <script th:inline="javascript">
