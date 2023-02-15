@@ -84,8 +84,10 @@ public class AladinOpenApi {
                     "", imgName + "." + extension, null, null
             );
 
+            if(bookRepository.findById(bookDB.getIsbn()).orElse(null) == null){
+                bookRepository.save(bookDB);
+            }
             arrayList.add(book);
-            bookRepository.save(bookDB);
         }
         return arrayList;
     }
