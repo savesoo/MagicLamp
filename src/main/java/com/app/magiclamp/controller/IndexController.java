@@ -1,6 +1,7 @@
 package com.app.magiclamp.controller;
 
 import com.app.magiclamp.model.user.AuthUserDTO;
+import com.app.magiclamp.service.book.AladinOpenApi;
 import com.app.magiclamp.service.book.BestsellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +20,12 @@ public class IndexController {
 
     @Autowired
     private BestsellerService bestsellerService;
+
+    private final AladinOpenApi api;
+
+    public IndexController(AladinOpenApi api) {
+        this.api = api;
+    }
 
     @GetMapping
     public String index(
@@ -41,6 +48,7 @@ public class IndexController {
 
         model.addAttribute("loginInfo", authUserDTO == null ? -1 : authUserDTO.getUserindex());
         model.addAttribute("bestsellers", bestsellerService.getBestTen());
+        model.addAttribute("newBook", api.mainNewBook());
 
         return "view/index";
     }

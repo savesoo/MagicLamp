@@ -90,7 +90,7 @@ public class AladinOpenApi {
             if(bookRepository.findById(bookDB.getIsbn()).orElse(null) == null){
                 bookRepository.save(bookDB);
             }
-            arrayList.add(book);
+            arrayList.add(bookDB);
         }
         return arrayList;
     }

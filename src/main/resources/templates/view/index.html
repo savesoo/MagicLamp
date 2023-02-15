@@ -6,209 +6,30 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hello, Genie~</title>
-    <style>
-        .welcome_top_box {
-            width: 1030px;
-            margin: 0 auto;
-            background-color: #e5eff7;
-            padding: 5px 5px 0 5px;
-            border-radius: 6px;
-            box-sizing: border-box;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-
-        .welcome_top_bn {
-            background-color: #fff;
-            width: 100%;
-            height: 385px;
-            border-radius: 6px;
-        }
-
-        .welcome_top_bn > div {
-            float: left;
-            width: 250px;
-            position: relative;
-            padding-top: 30px;
-        }
-
-        .welcome_top_bn > div > a:link {
-            text-decoration: none;
-            color: #333;
-        }
-
-        .welcome_top_bn > div > a > .cover {
-            width: 170px;
-            height: 260px;
-            position: relative;
-            overflow: hidden;
-            margin: 0 auto 5px auto;
-        }
-
-        .welcome_top_bn > div > a > .cover .cover_img {
-            position: absolute;
-            left: 0;
-            bottom: 10px;
-            width: 170px;
-            max-height: 250px;
-            overflow: hidden;
-        }
-
-        .welcome_top_bn > div > .tit {
-            font-size: 15px;
-            font-weight: bold;
-            text-align: center;
-            letter-spacing: -1.5px;
-            margin-bottom: 4px;
-        }
-
-        .welcome_top_bn > div > .author {
-            font-size: 13px;
-            color: #999999;
-            text-align: center;
-        }
-
-        .welcome_top_tab {
-            padding: 12px 10px;
-        }
-
-        .newBook {
-            height: 34px;
-            line-height: 33px;
-            font-size: 13px;
-            font-weight: bold;
-            background-color: #2A68B9;
-            border-radius: 17px;
-            padding-left: 10px;
-            width: 110px;
-            color: #fff;
-        }
-
-        .welcome_section {
-            width: 1030px;
-            margin: 0 auto 50px auto;
-            display: flex;
-        }
-
-        .best_top10 {
-            flex-grow: 1;
-        }
-
-        .best_top10 > h3 {
-            font-size: 22px;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-
-        .best_top10 > ol {
-            height: 208px;
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            margin: 0;
-            padding: 0;
-        }
-
-        .best_top10 > ol > li {
-            display: flex;
-            width: 250px;
-            height: 52px;
-            margin-right: 30px;
-            align-items: center;
-            border-bottom: 1px solid #EAEAEA;
-            box-sizing: border-box;
-            position: relative;
-            padding-right: 25px;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .best_top10 > ol > li:nth-child(1), .best_top10 > ol > li:nth-child(2) {
-            height: 104px;
-            padding-right: 0;
-        }
-
-        .best_top10 > ol > li > .cover {
-            width: 58px;
-            max-height: 72px;
-            overflow: hidden;
-            border: 1px solid #E8E8E8;
-            border-radius: 4px;
-            margin-right: 11px;
-            flex-shrink: 0;
-        }
-
-        .best_top10 > ol > li:nth-child(1) .rank {
-            color: #195fa5;
-            width: 20px;
-        }
-
-        .best_top10 > ol > li > .rank {
-            width: 20px;
-        }
-
-        .best_top10 > ol > li > .rank {
-            font-size: 15px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .best_top10 > ol > li:nth-child(1) p, .best_top10 > ol > li:nth-child(2) p {
-            height: auto;
-            max-height: 40px;
-            line-height: 1.4;
-        }
-
-        .best_top10 > ol > li > p {
-            width: 100%;
-            height: 100%;
-            font-size: 14px;
-            line-height: 50px;
-            overflow: hidden;
-            font-weight: bold;
-        }
-
-        .best_title {
-            text-decoration : none;
-            color: #333;
-        }
-
-        .best_top10 > ol > li:nth-child(n+3):nth-child(-n+10) > .cover {
-            display: none;
-        }
-    </style>
+    <link href="/css/index.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="fragment/nav"></div>
-<!--<ul>
-    <th:block th:if="${loginInfo < 0}">
-        <li><a href="/login">로그인</a></li>
-    </th:block>
-    <th:block th:if="${loginInfo > 0}">
-        <li><a href="/logout">로그아웃</a></li>
-    </th:block>
-    <li><a href="/register">회원가입</a></li>
-    <li><a href="/main">도서리스트(메인)</a></li>
-    <li><a href="/administrator/list">관리자 도서리스트</a></li>
-</ul>-->
 <div class="welcome_top_box">
     <div class="welcome_top_bn">
-
+        <th:block th:each="newBook : ${newBook}">
+            <div>
+                <a th:href="@{/main/product(isbn=${newBook.isbn},p=${1})}">
+                    <div class="cover">
+                        <div class="cover_img">
+                            <img th:src="@{/photo/{name}(name=${newBook.bookimg})}" width="170px" height="250px">
+                        </div>
+                    </div>
+                </a>
+                <div class="tit" th:text="${newBook.title}"></div>
+                <div class="author" th:text="${newBook.author}"></div>
+            </div>
+        </th:block>
     </div>
     <div class="welcome_top_tab">
         <div class="newBook">주목할 만한 신간</div>
     </div>
 </div>
-<!--<div class="welcome_section">
-    <div class="best_top10">
-        <h3>
-            종합 주간 베스트 셀러 TOP 10
-        </h3>
-        <ol>
-        </ol>
-    </div>
-</div>-->
 <div class="welcome_section">
     <div class="best_top10">
         <h3> Genie 베스트 셀러 TOP 10 </h3>
@@ -217,13 +38,18 @@
                 <li>
                     <div class="cover">
                         <a th:href="@{/main/product(isbn=${best.isbn},p=${1})}">
-                            <img th:if="${best.bookimg.length()>0}" th:src="@{/photo/{name}(name=${best.bookimg})}" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII='" height="100%" width="100%">
-                            <img th:unless="${best.bookimg.length()>0}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII="  height="100%" width="100%">
+                            <img th:if="${best.bookimg.length()>0}" th:src="@{/photo/{name}(name=${best.bookimg})}"
+                                 onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII='"
+                                 height="100%" width="100%">
+                            <img th:unless="${best.bookimg.length()>0}"
+                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAADICAMAAAA9W+hXAAAAQlBMVEX9/f3///++vr7f39/j4+Pb29ugoKDBwcHv7+9+fn7Hx8fOzs7KysrS0tL39/fz8/OHh4eYmJiPj4+xsbGpqanp6elktXx4AAAEtUlEQVR4nO2bC2/rKBBGMW/ztJ3L//+rOwMkdpLuStWujVeao6vWl6TyEXwehqhljCAIgiAIgiAIgiAIgiAIgiAIgiAIgiB+j82jDb6RkXN+Ny/pOHeB29Eeb6BUtJO4lZZFqTRN47SSrRwjlCBTPk1JpCFaSUaYlSfOq+ZmDXdlQjcJWtxFma6Uqko+ikr0BtUkY4pzxRj6SFzEUJXPE5s+sHDffBxIBSYoBG7sVBw3cmrZmjLE337+9HSOVhKKi697JQ9ijEWcsOmphV+VSFdoZVwy0JLR11UK3ouCd+acZccdyCRlCgj5upScm3yBluMxolaNF2Bq6iMOTB6nCsNlbBVCLXi3u0ALclUXMb/WJlnhq+eUYF4wXIKhUMl1ESFfF2p9gZMz7eF6ZetaLWZLKxDFppdWMTxYfI2BkGQDtMxeTrmJpWqp+jAwYeAbJmyAlhSibT5SQMX3Tcu1cOE6otDobKXUs1Xrl0rjsvVF1ZIQrlamBmmp8ExWgHrKWoHwbecpPuOeqIZE3ndqYe3lNKQWrjIq8sf7FNGexCL3cN0qWzhJ3g7MVpZC4RJC19XqKWrl0MLVCumIzYcfcW1PLLVlnqxv3SkfoFWKrZUgwSbkTesgounhqk+iKvfJFrY1wY7LFs5TO/kcteA8Bi3gNE4rHJLlRdt88JAR4e25Hsh4GKAVnycfhQ1qK6exTtXzQBbi4Gyl0sqpxJ4ZZsyVu5XT8gzXIC2p6nYIX5SwrGu9HciG9Fu9eeipV1WrH8i61pByml/H5Qz1VO0HspeWvMvJJx0OqveK/GsK4/20ksDPdG6mlRSe/kvvum6iheW0nvanO2nB0WeXGqGFB1fEWvbSgu6U+/YhgLTXZ8srd2xO4bDPUEvwd5zyl2rVbiZGhcTo8PMIGMSSb9xr2Ff1q7SMFM4r+YZqn76Z73EnIG0XaEUO8/ENehn/0ysOPyo8XYt5/ks8u0ALN+lf8fGB7mla/xbSIi3SIi3SIi3SIq1xWgRB3B8tX5fG/jR6MWZZDHybFQsGCPslXMPlGMIS4F910doYrbvWYx6qpTljvLlomDXTLhlTM746TAtvjAqfWnHOd9R6zGGk1gZ3D9uXVl74lgdqPcBDPz618qrz+sjjtOyybYttWjNQtewKQ3JZx2mxbMxHuOGyVtQsB2rtLv98OYabaqm7/V488b9DqsbeSAX+PmqV7aOHN3TMWb89z7Xe5lVD4yA1/jfUwr6PMr7o5dHKfZeAS1v7L3vqk6ln7Pta6wIbDgpA7VyXP/g9LhLqe9z37Kql5rO17J8lLljYj1o2bKtatmCbZB89arUfPksr63mF6VhnndWstV6qQF42g9vQNue/m62uZU7yCi3rMsCtIONr1ZKxRz5K9tiz9YPWqk+xgmx3+GERcXSd6+jzSVThykWslQCWAmrBR+TN85b4Vw+tKmDjpYJ6aql4XuT3WThkCyOH8/XAjREPQP0INM+L/tO0AGgNT9Pa61GuaWrPnsEOmWUM/kHr8COd87RW1XWOdw3w7DF4CnH99ANff1yrFXriw/tdw4oNcx3sTwV/f8PJWgRBEARBEARBEARBEARBEARBEARBEATxX/AXA2NChMzAFEkAAAAASUVORK5CYII="
+                                 height="100%" width="100%">
                         </a>
                     </div>
                     <span class="rank" th:text="${stat.count}"/>
                     <p>
-                        <a class="best_title" th:href="@{/main/product(isbn=${best.isbn},p=${1})}" th:text="${best.title}"/>
+                        <a class="best_title" th:href="@{/main/product(isbn=${best.isbn},p=${1})}"
+                           th:text="${best.title}"/>
                     </p>
                 </li>
             </th:block>
@@ -236,12 +62,11 @@
 
     let bestSellerList;
     let newBookList;
-    var loginInfo = [[${loginInfo}]]
 
     document.addEventListener('DOMContentLoaded', () => {
         newBookList = document.querySelector('.welcome_top_bn')
         bestSellerList = document.querySelector('ol')
-        mainPage()
+        /* mainPage()*/
     })
 
     function mainPage() {
