@@ -129,7 +129,7 @@ function moveToPayment(){
 
         totalBookCnt: document.querySelector("#totalBookCnt").value,
         totalSaveMileage: document.querySelector('#saveMileage').value,
-        orderTotalPrice: viewPriceSum
+        orderTotalPrice: viewSalePriceSum
     }
 
 
