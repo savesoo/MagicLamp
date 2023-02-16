@@ -96,28 +96,22 @@
                           </td>
                       </tr>
                       <tr>
-                          <th class="popup">할인 금액</th>
+                          <th class="popup">적립 예정 마일리지</th>
                           <td class="data_td">
-                              <strong th:text="${#numbers.formatInteger(orderDetail.orderTotalPrice - orderDetail.orderTotalSalePrice, '0', 'COMMA')}"/> 원
+                              <strong th:text="${#numbers.formatInteger(orderDetail.totalSaveMileage, '0', 'COMMA')}"/> 점
+                              <input type="hidden" id="saveMileage" th:value="${orderDetail.totalSaveMileage}">
                           </td>
                       </tr>
                       <tr>
-                          <th class="popup">사용 마일리지</th>
+                          <th class="popup">할인 금액</th>
                           <td class="data_td">
-                              <strong id="used_mileage" th:if="orderDetail.orderTotalPrice" th:text="${#numbers.formatInteger(0, '0', 'COMMA')}"/> 원
+                              <strong id="used_mileage" th:text="${#numbers.formatInteger(orderDetail.orderTotalPrice - orderDetail.orderTotalSalePrice, '0', 'COMMA')}"/> 원
                           </td>
                       </tr>
                       <tr>
                           <th class="popup"> 결제 금액 </th>
                           <td class="data_td">
                               <strong id="calPrice" th:text="${#numbers.formatInteger(orderDetail.orderTotalSalePrice, '0', 'COMMA')}"/> 원
-                          </td>
-                      </tr>
-                      <tr>
-                          <th class="popup">적립 예정 마일리지</th>
-                          <td class="data_td">
-                              <strong th:text="${#numbers.formatInteger(orderDetail.totalSaveMileage, '0', 'COMMA')}"/> 점
-                              <input type="hidden" id="saveMileage" th:value="${orderDetail.totalSaveMileage}">
                           </td>
                       </tr>
 
