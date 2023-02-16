@@ -40,6 +40,7 @@ public class OrderBookPageDTO {
     private int totalSaveMileage; // 주문시 총 적립 마일리지
 
     private int orderTotalSalePrice;
+    private int usemileage;
 
 
     // 주문페이지에 출력될 책 list에 추가
