@@ -101,10 +101,10 @@ public class OrderInsertService{
 
         // 사용한 마일리지 insert
         if(paymentBook.getUsemileage() > 0) {
-            Mileage userMil = Mileage.builder().userindex(userindex).usemileage(paymentBook.getUsemileage()).build();
-            mileageRepository.save(userMil);
+            Mileage useMil = Mileage.builder().userindex(userindex).usemileage(paymentBook.getUsemileage()).build();
+            mileageRepository.save(useMil);
 
-            log.info(" used mileage >>> " + userMil);
+            log.info(" used mileage >>> " + useMil);
         }
 
         // 적립 마일리지 insert

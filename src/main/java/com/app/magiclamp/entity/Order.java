@@ -37,6 +37,8 @@ public class Order {
     private Integer realprice; // 실구매가(판매가-사용 마일리지)
     @Column(nullable = false)
     private Integer mileage; // 적립되는 마일리지
+    @Column(columnDefinition = "int default 0")
+    private Integer usemileage; // 사용 마일리지
 
     @Column(columnDefinition = "varchar(20) not null")
     private String name;

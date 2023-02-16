@@ -55,6 +55,7 @@ public class RequestPaymentBook {
                 .bookcount(bookcount)
                 .realprice(realprice)
                 .mileage(totalSaveMileage)
+                .usemileage(usemileage)
                 .name(recipient)
                 .phone(phone)
                 .postnum(postnum)
