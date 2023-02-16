@@ -97,6 +97,7 @@
 - 카테고리 별 도서 보기
 - 여러 상품을 선택하여 일괄 카트 담기
 - 리뷰 개수 클릭 시 도서 상세페이지 내 리뷰란으로 이동
+- 재고 없을시 품절 버튼 보이도록 처리
 
 ![LIST](https://user-images.githubusercontent.com/113006963/218702449-8bb56906-1b48-488a-9744-62a2a15903fd.jpg)
 
@@ -104,6 +105,7 @@
 
 - 수량 선택하여 카트 담기, 바로 구매 가능
 - 도서 구매한 사람만 리뷰 등록 가능 (본인이 작성한 리뷰 수정/삭제 가능)
+- 리스트와 동일하게 재고 없을시 품절 버튼 보이도록 처리
 
 ![detail](https://user-images.githubusercontent.com/113006963/218705021-761ae0b3-d229-4d1c-8d97-cee2ab33c9b7.jpg)
 ![reviewdetail](https://user-images.githubusercontent.com/113006963/218706556-b0a3bf43-ba0e-4140-9036-373bdf999c89.jpg)
