@@ -82,38 +82,45 @@
                   <span class="title"> 결제 정보 </span>
               </div>
               <table class="table4">
-                      <tr>
-                          <th class="popup">수량</th>
-                          <td class="data_td">
-                              <p> 총 [[${orderDetail.totalBookCnt}]] 권 </p>
-                              <input type="hidden" id="totalBookCnt" th:value="${orderDetail.totalBookCnt}">
-                          </td>
-                      </tr>
-                      <tr>
-                          <th class="popup"> 결제 예상 금액 </th>
-                          <td class="data_td">
-                              <strong th:text="${#numbers.formatInteger(orderDetail.orderTotalPrice, '0', 'COMMA')}"/> 원
-                          </td>
-                      </tr>
-                      <tr>
-                          <th class="popup">적립 예정 마일리지</th>
-                          <td class="data_td">
-                              <strong th:text="${#numbers.formatInteger(orderDetail.totalSaveMileage, '0', 'COMMA')}"/> 점
-                              <input type="hidden" id="saveMileage" th:value="${orderDetail.totalSaveMileage}">
-                          </td>
-                      </tr>
-                      <tr>
-                          <th class="popup">할인 금액</th>
-                          <td class="data_td">
-                              <strong id="used_mileage" th:text="${#numbers.formatInteger(orderDetail.orderTotalPrice - orderDetail.orderTotalSalePrice, '0', 'COMMA')}"/> 원
-                          </td>
-                      </tr>
-                      <tr>
-                          <th class="popup"> 결제 금액 </th>
-                          <td class="data_td">
-                              <strong id="calPrice" th:text="${#numbers.formatInteger(orderDetail.orderTotalSalePrice, '0', 'COMMA')}"/> 원
-                          </td>
-                      </tr>
+                  
+                  <tr>
+                      <th class="popup"> 수량 </th>
+                      <td class="data_td">
+                          <p> 총 [[${orderDetail.totalBookCnt}]] 권 </p>
+                          <input type="hidden" id="totalBookCnt" th:value="${orderDetail.totalBookCnt}">
+                      </td>
+                  </tr>
+                  <tr>
+                      <th class="popup"> 결제 예상 금액 </th>
+                      <td class="data_td">
+                          <strong th:text="${#numbers.formatInteger(orderDetail.orderTotalPrice, '0', 'COMMA')}"/> 원
+                      </td>
+                  </tr>
+                  <tr>
+                      <th class="popup"> 할인 금액 </th>
+                      <td class="data_td">
+                          <strong id="sale_mileage" th:text="${#numbers.formatInteger(orderDetail.orderTotalPrice - orderDetail.orderTotalSalePrice, '0', 'COMMA')}"/> 원
+                      </td>
+                  </tr>
+                  <tr>
+                      <th class="popup"> 사용 마일리지 </th>
+                      <td class="data_td">
+                          <strong id="used_mileage" th:text="${#numbers.formatInteger(orderDetail.usemileage, '0', 'COMMA')}"/> 원
+                      </td>
+                  </tr>
+                  <tr>
+                      <th class="popup"> 적립 마일리지 </th>
+                      <td class="data_td">
+                          <strong th:text="${#numbers.formatInteger(orderDetail.totalSaveMileage, '0', 'COMMA')}"/> 점
+                          <input type="hidden" id="saveMileage" th:value="${orderDetail.totalSaveMileage}">
+                      </td>
+                  </tr>
+                  <tr>
+                      <th class="popup"> 총 결제 금액 </th>
+                      <td class="data_td">
+                          <strong id="calPrice" th:text="${#numbers.formatInteger(orderDetail.orderTotalSalePrice, '0', 'COMMA')}" style="color: red"/> 원
+                      </td>
+                  </tr>
 
               </table>
           </div>
