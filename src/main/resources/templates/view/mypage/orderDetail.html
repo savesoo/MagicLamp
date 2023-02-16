@@ -9,9 +9,8 @@
 
 <div th:replace="fragment/nav"></div>
 
-  <h1>주문 상세 정보</h1>
-
-  <div id="order_div">
+<div class="order_div">
+    <h1>주문 상세 정보</h1>
     <div>
 
         <div class="container">
@@ -82,7 +81,7 @@
                   <span class="title"> 결제 정보 </span>
               </div>
               <table class="table4">
-                  
+
                   <tr>
                       <th class="popup"> 수량 </th>
                       <td class="data_td">
@@ -105,7 +104,16 @@
                   <tr>
                       <th class="popup"> 사용 마일리지 </th>
                       <td class="data_td">
-                          <strong id="used_mileage" th:text="${#numbers.formatInteger(orderDetail.usemileage, '0', 'COMMA')}"/> 원
+                          <strong th:if="${orderDetail.usemileage == 0}"
+                                  th:text="|${#numbers.formatInteger(0, '0', 'COMMA')} 원|"/>
+                          <strong th:unless="${orderDetail.usemileage == 0}"
+                                  th:text="|${#numbers.formatInteger(orderDetail.usemileage, '0', 'COMMA')} 원|"/>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th class="popup"> 총 결제 금액 </th>
+                      <td class="data_td">
+                          <strong id="calPrice" th:text="${#numbers.formatInteger(orderDetail.orderTotalSalePrice-orderDetail.usemileage, '0', 'COMMA')}" style="color: red"/> 원
                       </td>
                   </tr>
                   <tr>
@@ -113,12 +121,6 @@
                       <td class="data_td">
                           <strong th:text="${#numbers.formatInteger(orderDetail.totalSaveMileage, '0', 'COMMA')}"/> 점
                           <input type="hidden" id="saveMileage" th:value="${orderDetail.totalSaveMileage}">
-                      </td>
-                  </tr>
-                  <tr>
-                      <th class="popup"> 총 결제 금액 </th>
-                      <td class="data_td">
-                          <strong id="calPrice" th:text="${#numbers.formatInteger(orderDetail.orderTotalSalePrice, '0', 'COMMA')}" style="color: red"/> 원
                       </td>
                   </tr>
 
