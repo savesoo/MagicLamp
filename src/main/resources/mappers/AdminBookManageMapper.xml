@@ -1,0 +1,30 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.magiclamp.mapper.AdminBookManageMapper">
+
+    <select id="selectBookManageList" resultType="com.app.magiclamp.model.book.BookRequest">
+
+        SELECT *
+        FROM tbl_book
+        WHERE 1=1
+        <if test="stock != '' and stock != null ">
+            <include refid="stock"></include>
+        </if>
+        <if test="isbn != null and isbn != ''">
+            <include refid="isbn"></include>
+        </if>
+        order by stock
+
+    </select>
+
+    <sql id="stock">
+        AND stock <![CDATA[<=]]> #{stock}
+    </sql>
+
+    <sql id="isbn">
+        AND isbn like CONCAT('%',#{isbn},'%')
+    </sql>
+
+</mapper>

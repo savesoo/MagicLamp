@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>책 재고 관리  : Genie</title>
+    <link href="/css/bootstrap.min_ml.css" rel="stylesheet">
+</head>
+<body style="height: 100%">
+<div th:replace="fragment/nav"></div>
+<div th:replace="fragment/sidebar"></div>
+
+<div style="width: 65%; display: inline-block; margin: 2% 15% 1% 5%">
+    <div style="display: inline; float: left; text-align: right; margin: 0 0 0 1%">
+        <label class="form-label" style="display: inline">검색 재고 수량 (0=제한없음)</label>
+    </div>
+    <div style="display: inline; float: left; text-align: right; margin: 0 0 0 1%">
+        <input class="form-control" type="text" name="stockInput" id="stockInput" th:value="${stock}">
+    </div>
+    <div style="display: inline; float: left; text-align: right; margin: 0 0 0 1%">
+        <input class="btn btn-primary" type="button" name="stockSearchBtn" id="stockSearchBtn" value="변경" onclick="searchBtnClick()">
+    </div>
+
+    <div style="display: inline; float: right; text-align: right; margin: 0 0 0 1%">
+        <input class="btn btn-primary" type="button" name="isbnSearchBtn" id="isbnSearchBtn" value="변경" onclick="searchBtnClick()">
+    </div>
+    <div style="display: inline; float: right; text-align: right; margin: 0 0 0 1%">
+        <input class="form-control" type="text" name="isbnInput" id="isbnInput" th:value="${isbn}">
+    </div>
+    <div style="display: inline; float: right; text-align: right; margin: 0 0 0 1%">
+        <label style="display: inline" class="form-label">ISBN</label>
+    </div>
+</div>
+
+<div style="width: 65%; display: inline-block; margin: 0 15% 2.5% 5%">
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-secondary" style="text-align: center; vertical-align: middle">
+                <th style="width: 10%">ISBN</th>
+                <th style="width: 35%">상품명</th>
+                <th style="width: 25%">가격</th>
+                <th style="width: 15%">재고 수량</th>
+                <th style="width: 15%">마일리지 적립율</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:if="${list.size() == 0 || list.isEmpty()}">
+                <tr class="table-secondary" style="text-align: center">
+                    <td colspan="5">입력하신 기준보다 재고가 적은 책이 없습니다.</td>
+                </tr>
+            </th:block>
+            <th:block th:unless="${list.size() ==0 || list.isEmpty()}">
+                <tr th:each="stock : ${list}" class="table-secondary" style="text-align: center; vertical-align: middle">
+                    <td style="vertical-align: middle;">
+                            <div style="float: right; height: 100%; width: 100%; text-align: left">
+                                <span id="isbn" th:text="${stock.isbn}"></span>
+                            </div>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <div style="float: right; height: 100%; width: 100%; text-align: left">
+                            <span id="title" th:text="${stock.title}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: left">
+                        <label style="display: block">정가 :
+                            <span th:text="${#numbers.formatInteger(stock.price, 0 , 'COMMA')}"></span>
+                        </label>
+                        <label style="display: block">판매가 :
+                            <span th:text="${#numbers.formatInteger(stock.saleprice, 0 , 'COMMA')}"></span>
+                        </label>
+                        <label style="display: block">마일리지 :
+                            <span th:text="${#numbers.formatInteger(stock.price*stock.mileagerate/100, 0 , 'COMMA')}"></span>
+                        </label>
+                    </td>
+                    <td style="text-align: left">
+                        <input class="form-control" style="width: 50%; display: inline" type="text" id="stock" th:value="${stock.stock}">
+                        <button class="btn btn-primary btn-sm" type="button" name="stockUpdate">변경</button>
+                    </td>
+                    <td style="text-align: left">
+                        <input class="form-control" style="width: 50%; display: inline" type="text" id="mileagerate" th:value="${stock.mileagerate}">
+                        <button class="btn btn-primary btn-sm" type="button" name="milerateUpdate">변경</button>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script text="javascript">
+    function searchBtnClick(){
+        let stock = document.getElementById('stockInput');
+        let isbn = document.getElementById('isbnInput');
+        location.href = '/administrator/bookmanage?stockInput='+stock.value+'&isbnInput='+ isbn.value;
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+
+        $("[name=stockUpdate]").click(function () {
+            let stockBtn = $(this);
+            let stock = stockBtn.parent().children().eq(0).val();
+            let isbn = stockBtn.parent().parent().children().eq(0).children().eq(0).children().eq(0).text();
+
+            const info ={
+                stock: stock,
+                isbn: isbn
+            }
+
+            axios.put('/administrator/bookstock', info)
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => console.log(err))
+
+        });
+
+        $("button[name=milerateUpdate]").click(function () {
+            let mileBtn = $(this);
+            let milerate = mileBtn.parent().children().eq(0).val();
+            let isbn = mileBtn.parent().parent().children().eq(0).children().eq(0).children().eq(0).text();
+
+            const info ={
+                mileagerate: milerate,
+                isbn: isbn
+            }
+
+            axios.put('/administrator/milerate', info)
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => console.log(err))
+        });
+    })
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossOrigin="anonymous"></script>
+</body>
+</html>

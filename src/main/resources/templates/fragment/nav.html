@@ -88,6 +88,11 @@
                                                 <a href="/administrator/list">관리자 페이지</a>
                                             </td>
                                         </tr>
+                                        <tr sec:authorize="hasRole('ADMIN')">
+                                            <td>
+                                                <a href="/administrator/bookmanage">재고 관리</a>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </td>
