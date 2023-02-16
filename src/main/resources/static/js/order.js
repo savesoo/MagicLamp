@@ -73,12 +73,12 @@ function  useMileage() {
         document.querySelector("#resultPrice").innerText = myMileage;
         return;
 
-    } else if(viewPriceSum < m){
+    } else if(viewSalePriceSum < m){
         // 사용하려는 마일리지보다 결제금액이 더 적은 경우 -> 결제 금액만큼만 차감
         alert("결제 금액을 초과하였습니다. \n마일리지가 자동으로 차감 적용됩니다.");
         document.querySelector("#used_mileage").innerText = "-"+viewSalePriceSum.toLocaleString('ko-KR');
         document.querySelector("#my_mileage").innerText = (myMileage - viewSalePriceSum).toLocaleString();
-        document.querySelector("#calPrice").innerText = (viewPriceSum - viewSalePriceSum).toLocaleString();
+        document.querySelector("#calPrice").innerText = (viewSalePriceSum - viewSalePriceSum).toLocaleString();
         document.querySelector("#resultPrice").innerText = (viewSalePriceSum - viewSalePriceSum).toLocaleString();
         document.getElementsByName("usemil")[0].value = viewSalePriceSum;
         return;
