@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        if(password.value.length < 8){
+            alert('비밀번호는 영문, 숫자, 특수문자 중 2가지 조합하여 8자 이상으로 설정해주세요.')
+            password.focus()
+            return
+        }
+
         if (password.value != repw.value) {
             alert('위에서 입력한 비밀번호와 동일하게 입력해주세요.')
             repw.focus()
