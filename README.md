@@ -9,7 +9,7 @@
 6. [Document](#document)
 * * *
 ## 개요
-- 도서 구매사이트
+- 도서 판매 사이트를 주제로 한 페이지 제작
 * * *
 ## 설계의 주안점
 1. **Spring Security**를 이용한 로그인으로 유저 인증과 권한 검사
@@ -34,7 +34,7 @@
 - [@Seo-Aram](https://github.com/Seo-Aram/MagicLamp/commits?author=Seo-Aram)
   - 환경 구축
   - 회원 관리
-    - 로그인, 자동로그인
+    - 로그인, 자동 로그인
     - 회원가입
 - [@himediahj](https://github.com/Seo-Aram/MagicLamp/commits?author=himediahj)
   - 리뷰 기능
@@ -56,11 +56,11 @@
   - 도서 상세페이지
   - 선택한 도서 장바구니에 담기
 - [@savesoo](https://github.com/Seo-Aram/MagicLamp/commits?author=savesoo)
-  - 결제하기
-    - 해당 회원 정보, 주문 도서 정보 불러옴
+  - 주문/결제하기
+    - 해당 회원 정보, 주문할 도서 정보 불러옴
     - 우편번호 api 사용
     - 마일리지 사용 기능
-  - 메인 화면 베스트 셀러 TOP 10 
+  - 메인 화면 베스트 셀러 TOP 10 출력
 - [@HS0430](https://github.com/Seo-Aram/MagicLamp/commits?author=HS0430)
   - 마이페이지
     - 회원정보
@@ -110,8 +110,10 @@
 
 **5. 주문 페이지**
 
+- 주문할 책 정보와 개수 확인
+- 책 제목 클릭 시 도서 상세 페이지로 이동
 - 배송지 선택 기능
-- 마일리지 사용 가능
+- 마일리지 조회 및 사용 기능
 
 ![주문](https://user-images.githubusercontent.com/113006963/218707981-a22ac407-10ac-41fb-8849-b82961f8b26b.jpg)
 
