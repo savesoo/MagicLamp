@@ -9,12 +9,12 @@ function formNumCheck(number) {
     let pattern = /^[0-9]+$/;
 
     if( number.value == '' || number.value.trim()== '' || number.value==0){
-        alert('1 이상의 값을 입력해주세요.');
+        alert('최소 1권부터 구매 가능합니다.');
         return false;
     }
 
     if (!pattern.test(number.value)){
-        alert('숫자만 입력해주세요.');
+        alert('숫자만 입력 가능합니다.');
         return false;
     }
 
