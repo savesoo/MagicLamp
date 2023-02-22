@@ -100,6 +100,7 @@
 - 재고 없을시 품절 버튼 보이도록 처리
 
 ![LIST](https://user-images.githubusercontent.com/113006963/218702449-8bb56906-1b48-488a-9744-62a2a15903fd.jpg)
+![soldout](https://user-images.githubusercontent.com/113006851/220519700-3260c5a9-e5f9-495f-aedb-3fa8f7c0f350.jpg)
 
 **4. 도서 상세페이지**
 
